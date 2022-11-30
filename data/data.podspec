@@ -1,24 +1,24 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'core'
+    spec.name                     = 'data'
     spec.version                  = '1.0'
-    spec.homepage                 = 'luteoos.dev'
+    spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Core module with State control, exports as api() project(:data)'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/core.framework'
+    spec.summary                  = 'Data module'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/data.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '14.1'
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':core',
-        'PRODUCT_MODULE_NAME' => 'core',
+        'KOTLIN_PROJECT_PATH' => ':data',
+        'PRODUCT_MODULE_NAME' => 'data',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build core',
+            :name => 'Build data',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

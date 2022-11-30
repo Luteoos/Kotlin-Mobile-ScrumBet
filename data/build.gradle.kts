@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.serialization") version Versions.kotlin
     kotlin("native.cocoapods")
     id("com.android.library")
+//    id("dev.icerock.moko.kswift") version Versions.mokoKSwift
 }
 
 apply(from = "../ktlint.gradle")
@@ -15,28 +16,27 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+//    kswift {
+//        install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature){
+//            filter = excludeFilter("ClassContext/:dev.luteoos.scrumbet.data.dto.DataNowResponseItem")
+//        }
+//    }
+
     cocoapods {
-        summary = "Core module with State control, exports as api() project(:data)"
-        homepage = "luteoos.dev"
+        summary = "Data module"
+        homepage = ""
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "core"
-            export(project(":data"))
-            transitiveExport = false
+            baseName = "data"
         }
     }
-
+    
     sourceSets {
-        val commonMain by getting {
+        val commonMain by getting{
             dependencies {
-                api(project(":data"))
-                Dependencies.common.forEach {
-                    implementation(it.value)
-                }
-                Dependencies.commonApi.forEach{
-                    api(it.value)
-                }
+                implementation(Dependencies.common["kotlin.serialization.json"]!!)
+                implementation(Dependencies.common["kotlin.stdlib"]!!)
             }
         }
         val commonTest by getting {
@@ -44,13 +44,8 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
+        val androidMain by getting{
             dependsOn(commonMain)
-            dependencies {
-                Dependencies.android.forEach {
-                    implementation(it.value)
-                }
-            }
         }
         val androidTest by getting
         val iosX64Main by getting
@@ -75,23 +70,10 @@ kotlin {
 }
 
 android {
-    namespace = "dev.luteoos.scrumbet"
     compileSdk = 32
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 28
+        minSdk = 26
         targetSdk = 32
     }
-}
-
-
-kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
-    binaries.all {
-        binaryOptions["memoryModel"] = "experimental"
-        binaryOptions["freezing"] = "disabled"
-    }
-}
-
-tasks.register("isKotlinNewMemory") {
-//    println("is Kotlin New Memory Model(non-freeze) enabled: ${kotlin.native.isExperimentalMM()}") kotlin.native unresolved
 }
