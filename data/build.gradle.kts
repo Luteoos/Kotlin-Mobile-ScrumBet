@@ -35,8 +35,8 @@ kotlin {
     sourceSets {
         val commonMain by getting{
             dependencies {
-                implementation(Dependencies.common["kotlin.serialization.json"]!!)
-                implementation(Dependencies.common["kotlin.stdlib"]!!)
+                implementation(Dependencies.kotlinStdlib)
+                implementation(Dependencies.kotlinSerializationJson)
             }
         }
         val commonTest by getting {

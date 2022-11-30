@@ -31,12 +31,16 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":data"))
-                Dependencies.common.forEach {
-                    implementation(it.value)
-                }
-                Dependencies.commonApi.forEach{
-                    api(it.value)
-                }
+                implementation(Dependencies.kotlinStdlib)
+                implementation(Dependencies.kotlinCoroutinesCore)
+                implementation(Dependencies.kotlinSerializationJson)
+                implementation(Dependencies.kotlinDatetime)
+                implementation(Dependencies.reaktive)
+                implementation(Dependencies.reaktiveCoroutinesInterop)
+                implementation(Dependencies.multiplatformSettings)
+                implementation(Dependencies.multiplatformSettingsSerialization)
+
+                api(Dependencies.koinCore)
             }
         }
         val commonTest by getting {
@@ -47,9 +51,7 @@ kotlin {
         val androidMain by getting {
             dependsOn(commonMain)
             dependencies {
-                Dependencies.android.forEach {
-                    implementation(it.value)
-                }
+                implementation(Dependencies.kotlinCoroutinesAndroid)
             }
         }
         val androidTest by getting
