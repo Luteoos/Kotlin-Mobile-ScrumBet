@@ -15,4 +15,6 @@ class UserController : KController<UserData, AppException>(), UserControllerInte
 fun a(){
     val a : UserControllerInterface = UserController()
     a.watchState()
+    a.getStateFlow()
+    a.onStart()
 }
