@@ -23,7 +23,7 @@ abstract class KController<stateData, stateError> : KoinComponent {
 
     fun getStateFlow(): StateFlow<KState<stateData, stateError>> = state
 
-    fun wrapState() = state.wrap()
+    fun watchState() = state.wrap()
 
     open fun onStart() {
     }
