@@ -1,7 +1,7 @@
 package dev.luteoos.scrumbet.data.state
 
-typealias Username = String
-typealias Id = String
+import dev.luteoos.scrumbet.data.Id
+import dev.luteoos.scrumbet.data.Username
 
 data class UserData(
     val username: Username,
