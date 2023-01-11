@@ -1,19 +1,17 @@
-package dev.luteoos.scrumbet.core.preferences
+package dev.luteoos.scrumbet.preferences
 
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.serialization.decodeValue
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.set
-import dev.luteoos.scrumbet.data.entity.ServerInfoEntity
-import dev.luteoos.scrumbet.data.entity.TurbineEntity
+import dev.luteoos.scrumbet.data.state.UserData
 import kotlinx.serialization.KSerializer
 
 class SharedPreferencesImpl : SharedPreferences {
     private val settings: Settings = Settings()
 
-    private val serverInfo = "WT_SERVER_INFO"
-    private val turbineInfo = "WT_TURBINE_NAME"
+    private val keyUserData = "SBUsername"
 
     private fun <T>setSerializable(key: String, value: T, serializer: KSerializer<T>) = settings.encodeValue(serializer, key, value)
     private fun <T>getSerializable(key: String, defaultValue: T, serializer: KSerializer<T>) = settings.decodeValue(serializer, key, defaultValue)
@@ -23,28 +21,21 @@ class SharedPreferencesImpl : SharedPreferences {
     private fun setBoolean(key: String, value: Boolean) = settings.set(key, value)
     private fun clear(key: String) = settings.remove(key)
 
-    override fun getServerInfo(): ServerInfoEntity {
-        return getSerializable(serverInfo, ServerInfoEntity.getDefault(), ServerInfoEntity.serializer())
+    override fun setUsername(userData: UserData) {
+        setSerializable(keyUserData, userData, UserData.serializer())
     }
 
-    override fun clearServerInfo() {
-        clear(serverInfo)
+    override fun getUserData(): UserData? {
+        return getSerializable(keyUserData, UserData.getEmpty(), UserData.serializer()).let { data ->
+            if (data.isEmpty())
+                null
+            else
+                data
+        }
     }
 
-    override fun setServerInfo(value: ServerInfoEntity) {
-        setSerializable(serverInfo, value, ServerInfoEntity.serializer())
-    }
-
-    override fun getTurbineInfo(): TurbineEntity {
-        return getSerializable(turbineInfo, TurbineEntity.getDefault(), TurbineEntity.serializer())
-    }
-
-    override fun clearTurbineInfo() {
-        clear(turbineInfo)
-    }
-
-    override fun setTurbineInfo(value: TurbineEntity) {
-        setSerializable(turbineInfo, value, TurbineEntity.serializer())
+    override fun clearUsername() {
+        clear(keyUserData)
     }
 
     override fun clearAll() {
