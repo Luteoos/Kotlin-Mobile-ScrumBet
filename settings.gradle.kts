@@ -17,3 +17,4 @@ rootProject.name = "ScrumBet"
 include(":androidApp")
 include(":core")
 include(":data")
+include(":delegateRecyclerView")

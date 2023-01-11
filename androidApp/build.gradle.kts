@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
+    id( "kotlin-parcelize")
+    id("androidx.navigation.safeargs")
 }
 
 apply(from = "../ktlint.gradle")
@@ -17,9 +20,10 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     packagingOptions {
         resources {
@@ -30,6 +34,12 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    kotlinOptions{
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+        )
     }
 }
 
@@ -42,10 +52,18 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(Dependencies.kotlinCoroutinesAndroid)
     implementation(Dependencies.kotlinAndroidCoroutinesRuntime)
+    implementation(Dependencies.kotlinReflect)
+    implementation(Dependencies.koinCore)
+    implementation(Dependencies.koinAndroid)
+    implementation(Dependencies.timber)
 
     implementation("androidx.compose.ui:ui:1.2.1")
     implementation("androidx.compose.ui:ui-tooling:1.2.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
     implementation("androidx.compose.foundation:foundation:1.2.1")
     implementation("androidx.activity:activity-compose:1.5.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
 }
