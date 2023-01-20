@@ -21,13 +21,9 @@ object Dependencies {
 
     // androidUi
     const val kotlinAndroidCoroutinesRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    const val materialThemeAdapter = "com.google.accompanist:accompanist-themeadapter-material:0.29.0-alpha"
 
-    //iOS
-
-    /**
-     * mapOf(<PodName, PodVersion>)
-     */
-    val iosPods = mapOf<String, String>()
+    //iOS pods
 }
 
 object Versions {

@@ -9,22 +9,6 @@
         <item name="shapeAppearance">@style/AppShape.CardShape</item>
     </style>
 
-    <style name="OutlinedButton.Top">
-        <item name="shapeAppearance">@style/AppShape.CardShape.Top</item>
-    </style>
-
-    <style name="OutlinedButton.Bottom">
-        <item name="shapeAppearance">@style/AppShape.CardShape.Bottom</item>
-    </style>
-
-    <style name="OutlinedButton.Left">
-        <item name="shapeAppearance">@style/AppShape.CardShape.Left</item>
-    </style>
-
-    <style name="OutlinedButton.Right">
-        <item name="shapeAppearance">@style/AppShape.CardShape.Right</item>
-    </style>
-
 <!--  Shapes  -->
     <style name="AppShape.CardShape" parent="">
         <item name="cornerFamily">rounded</item>

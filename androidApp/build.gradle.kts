@@ -66,4 +66,5 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation(Dependencies.materialThemeAdapter)
 }
