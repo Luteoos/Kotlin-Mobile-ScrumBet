@@ -7,21 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.viewbinding.ViewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 
-abstract class BaseFragment<T : BaseViewModel, Binding : ViewDataBinding>(private val clazz: KClass<T>) : Fragment() {
+abstract class BaseFragment<T : BaseViewModel, Binding : ViewBinding>(private val clazz: KClass<T>) : Fragment() {
 
     protected lateinit var model: T
 
     protected lateinit var binding: Binding
 
     protected abstract val layoutId: Int
+
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> Binding
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +47,7 @@ abstract class BaseFragment<T : BaseViewModel, Binding : ViewDataBinding>(privat
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        binding = bindingInflater(inflater, container, false)
         return binding.root
     }
 

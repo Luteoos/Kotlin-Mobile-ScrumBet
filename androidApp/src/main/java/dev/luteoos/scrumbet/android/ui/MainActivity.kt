@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         supportFragmentManager.fragments[0].childFragmentManager.fragments[0].let { fragment ->
             if (fragment !is BackPressFragment || (fragment as BackPressFragment).onBackPressed())

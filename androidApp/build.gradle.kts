@@ -10,17 +10,17 @@ apply(from = "../ktlint.gradle")
 
 android {
     namespace = "dev.luteoos.scrumbet.android"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "dev.luteoos.scrumbet.android"
         minSdk = 28
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
     buildFeatures {
         compose = true
-        dataBinding = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.2"
