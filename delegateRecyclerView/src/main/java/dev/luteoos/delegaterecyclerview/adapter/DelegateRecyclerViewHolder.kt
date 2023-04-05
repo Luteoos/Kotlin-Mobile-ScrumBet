@@ -1,8 +1,8 @@
 package dev.luteoos.delegaterecyclerview.adapter
 
 import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /**
  * [RecyclerView.ViewHolder] implementation for delegate support
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
  *
  * @author [Luteoos](https://github.com/Luteoos)
  */
-abstract class DelegateRecyclerViewHolder<Data, Binding : ViewDataBinding>(view: View) :
+abstract class DelegateRecyclerViewHolder<Data, Binding : ViewBinding>(view: View) :
     RecyclerView.ViewHolder(view) {
 
     protected lateinit var binding: Binding

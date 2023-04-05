@@ -3,9 +3,8 @@ package dev.luteoos.delegaterecyclerview.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /**
  * Delegate providing specific item view for [DelegateRecyclerViewAdapter]
@@ -18,14 +17,25 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class RecyclerViewDelegate<
     Data,
     HolderType : DelegateRecyclerViewHolder<in Data, in Binding>,
-    Binding : ViewDataBinding>
+    Binding : ViewBinding>
 (val clazz: Class<Data>) {
 
     var viewType: Int = 0
     protected abstract val layoutId: Int
 
-    protected abstract fun createViewHolder(view: View): HolderType
+    /**
+     * Method inflating specific [ViewBinding]
+     *
+     * ```kotlin
+     * override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> SampleBinding =
+     * { layoutInflater: LayoutInflater, viewGroup: ViewGroup?, attachToParent: Boolean ->
+     * SampleBinding.inflate(layoutInflater, viewGroup, attachToParent)
+     * }
+     * ```
+     */
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> Binding
 
+    protected abstract fun createViewHolder(view: View): HolderType
     protected open fun bindViewHolder(
         item: Data,
         holder: HolderType,
@@ -40,7 +50,7 @@ abstract class RecyclerViewDelegate<
     open fun getItemId(item: Data): Long = -1
 
     fun onCreateViewHolder(parent: ViewGroup): HolderType {
-        val binding = DataBindingUtil.inflate<Binding>(LayoutInflater.from(parent.context), layoutId, parent, false)
+        val binding = bindingInflater(LayoutInflater.from(parent.context), parent, false)
         return createViewHolder(binding.root).also {
             it.initBinding(binding)
         }
