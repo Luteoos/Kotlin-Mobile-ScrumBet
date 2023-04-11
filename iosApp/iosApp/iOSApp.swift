@@ -10,7 +10,7 @@ struct iOSApp: App {
 
     init(){
         KoinKt.doInitKoin()
-        // must be after .doInitKoin due to underlaying inject()
+        // must be after .doInitKoin due to underlying inject()
         //authObject = ObservableObject(controller: KController())
     }
 

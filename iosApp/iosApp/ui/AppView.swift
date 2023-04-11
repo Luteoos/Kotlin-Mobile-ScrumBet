@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AppView: View {
-    @EnvironmentObject var authObject: ObservableObject
+//    @EnvironmentObject var authObject: any ObservableObject
 
     var body: some View {
         Group{
