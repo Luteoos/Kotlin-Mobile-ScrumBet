@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AppView: View {
-//    @EnvironmentObject var authObject: any ObservableObject
+    @EnvironmentObject var authObject: MockObservableObject
 
     var body: some View {
         Group{
@@ -20,6 +20,6 @@ struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
    static var previews: some View {
-       AppView().environmentObject(ObservableObject())
+       AppView().environmentObject(MockObservableObject())
    }
 }

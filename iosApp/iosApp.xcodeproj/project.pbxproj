@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		8BA62458154225C030442E11 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B6A6D955A4ED5A15177615C /* Pods_iosApp.framework */; };
+		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEECF17829E6179B00989C31 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */; };
 		EEECF17929E6179B00989C31 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17129E6179B00989C31 /* AppView.swift */; };
@@ -25,6 +26,7 @@
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B6A6D955A4ED5A15177615C /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEECF17129E6179B00989C31 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				EEECF17129E6179B00989C31 /* AppView.swift */,
 				EEECF17229E6179B00989C31 /* ContentView.swift */,
+				EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
+				EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */,
 				EEECF17C29E6179B00989C31 /* Color.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
 				EEECF17A29E6179B00989C31 /* ContentView.swift in Sources */,

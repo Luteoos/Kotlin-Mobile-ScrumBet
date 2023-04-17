@@ -6,12 +6,13 @@ struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     //    way to do DI via @EnvironmentObject
-    let authObject : ObservableObject
+    let authObject : MockObservableObject
 
     init(){
         KoinKt.doInitKoin()
         // must be after .doInitKoin due to underlying inject()
         //authObject = ObservableObject(controller: KController())
+        authObject = MockObservableObject()
     }
 
 	var body: some Scene {
