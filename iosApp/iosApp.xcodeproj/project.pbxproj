@@ -110,7 +110,6 @@
 			children = (
 				EEECF17129E6179B00989C31 /* AppView.swift */,
 				EEECF17229E6179B00989C31 /* ContentView.swift */,
-				EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -127,6 +126,7 @@
 		EEECF17629E6179B00989C31 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */,
 				EEECF17729E6179B00989C31 /* ViewExt.swift */,
 			);
 			path = util;

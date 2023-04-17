@@ -16,7 +16,7 @@ struct iOSApp: App {
     }
 
 	var body: some Scene {
-		WindowGroup {
+		cdWindowGroup {
             AppView()
                 .environmentObject(authObject)
         }
