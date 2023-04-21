@@ -10,11 +10,11 @@ import dev.luteoos.scrumbet.data.entity.AppException
 import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.koin.core.component.inject
+import org.koin.core.component.get
 
-class UserController : KController<UserData, AppException>(), UserControllerInterface {
-    private val preferences by inject<SharedPreferences>()
-    private var id: Id = UUID.getNewUUID()
+class UserController() : KController<UserData, AppException>(), UserControllerInterface {
+    private val preferences: SharedPreferences = get<SharedPreferences>()
+    private var id: Id? = null
 
     override val state: MutableStateFlow<KState<UserData, AppException>> = MutableStateFlow(KState.Loading())
 
@@ -23,14 +23,19 @@ class UserController : KController<UserData, AppException>(), UserControllerInte
     }
 
     override fun updateUsername(username: Username) {
-        preferences.setUsername(UserData(username, id))
+        publish(KState.Loading())
+        id?.let { id ->
+            preferences.setUsername(UserData(username, id))
+        }
         getUserData()
     }
 
     private fun getUserData() {
         preferences.getUserData().let { user ->
-            if (user == null)
-                publish(KState.Empty())
+            if (user == null){
+                id = UUID.getNewUUID()
+                publish(KState.Empty()) // State.Empty -> UI prompt for new username
+            }
             else {
                 id = user.userId
                 publish(KState.Success(user))

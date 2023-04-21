@@ -2,6 +2,7 @@ package dev.luteoos.scrumbet.android.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.google.accompanist.themeadapter.material.MdcTheme
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.MainFragmentBinding
@@ -17,6 +18,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     }
 
     override fun initBindingValues() {
+//        binding.composeView.setContent {
+//            MdcTheme() {
+//            }
+//        }
     }
 
     override fun initFlowCollectors() {
