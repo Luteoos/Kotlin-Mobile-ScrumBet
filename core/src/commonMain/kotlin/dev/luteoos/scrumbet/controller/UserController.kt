@@ -32,11 +32,10 @@ class UserController() : KController<UserData, AppException>(), UserControllerIn
 
     private fun getUserData() {
         preferences.getUserData().let { user ->
-            if (user == null){
+            if (user == null) {
                 id = UUID.getNewUUID()
                 publish(KState.Empty()) // State.Empty -> UI prompt for new username
-            }
-            else {
+            } else {
                 id = user.userId
                 publish(KState.Success(user))
             }
