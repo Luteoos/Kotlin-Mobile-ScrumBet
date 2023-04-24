@@ -9,9 +9,4 @@ import dev.luteoos.scrumbet.data.state.UserData
 
 interface UserControllerInterface : KControllerInterface<UserData, AppException> {
     fun updateUsername(username: Username)
-
-    /**
-     * Returns `KState<UserData, AppException>`
-     */
-    override fun watchState(): CFlow<KState<UserData, AppException>>
 }

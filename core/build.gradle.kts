@@ -87,7 +87,6 @@ android {
 }
 
 kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
-    compilations.get("main").compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
     binaries.all {
         binaryOptions["memoryModel"] = "experimental"
         binaryOptions["freezing"] = "disabled"

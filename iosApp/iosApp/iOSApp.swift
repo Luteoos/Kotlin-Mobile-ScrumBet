@@ -9,6 +9,7 @@ struct iOSApp: App {
     let authObject : MockObservableObject
 
     init(){
+        // IOSApp is invoked also for PreviewProviders
         KoinKt.doInitKoin()
         // must be after .doInitKoin due to underlying inject()
         //authObject = ObservableObject(controller: KController())
