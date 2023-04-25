@@ -23,8 +23,8 @@ open class CFlow<T : Any> internal constructor(private val origin: Flow<T>) : Fl
         return Closeable { job.cancel() }
     }
 
-    companion object{
-        fun <T: Any>getMock(mockValue: T) : CFlow<T>{
+    companion object {
+        fun <T : Any>getMock(mockValue: T): CFlow<T> {
             return CFlow(flow { emit(mockValue) })
         }
     }

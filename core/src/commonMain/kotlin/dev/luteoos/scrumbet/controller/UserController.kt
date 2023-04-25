@@ -9,11 +9,13 @@ import dev.luteoos.scrumbet.data.Username
 import dev.luteoos.scrumbet.data.entity.AppException
 import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.preferences.SharedPreferences
+import dev.luteoos.scrumbet.shared.DeviceData
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.component.get
 
 class UserController() : KController<UserData, AppException>(), UserControllerInterface {
-    private val preferences: SharedPreferences = get<SharedPreferences>()
+    private val preferences: SharedPreferences = get()
+    private val deviceData: DeviceData = get()
     private var id: Id? = null
 
     override val state: MutableStateFlow<KState<UserData, AppException>> = MutableStateFlow(KState.Loading())
@@ -25,7 +27,7 @@ class UserController() : KController<UserData, AppException>(), UserControllerIn
     override fun updateUsername(username: Username) {
         publish(KState.Loading())
         id?.let { id ->
-            preferences.setUsername(UserData(username, id))
+            preferences.setUserData(UserData(username, id))
         }
         getUserData()
     }
@@ -33,19 +35,22 @@ class UserController() : KController<UserData, AppException>(), UserControllerIn
     private fun getUserData() {
         preferences.getUserData().let { user ->
             if (user == null) {
-                id = UUID.getNewUUID()
-                publish(KState.Empty()) // State.Empty -> UI prompt for new username
+                generateDefaultUserData()
+                getUserData()
             } else {
                 id = user.userId
                 publish(KState.Success(user))
             }
         }
     }
-}
 
-fun a() {
-    val a: UserControllerInterface = UserController()
-    a.watchState()
-    a.getStateFlow()
-    a.onStart()
+    private fun generateDefaultUserData() {
+        publish(KState.Loading())
+        preferences.setUserData(
+            UserData(
+                username = deviceData.getDeviceName(),
+                userId = UUID.getNewUUID()
+            )
+        )
+    }
 }

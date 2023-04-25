@@ -6,10 +6,16 @@ import com.russhwolf.settings.serialization.decodeValue
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.set
 import dev.luteoos.scrumbet.data.state.UserData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import kotlinx.serialization.KSerializer
 
 class SharedPreferencesImpl : SharedPreferences {
     private val settings: Settings = Settings()
+    private val userDataFlow = MutableStateFlow<UserData?>(getUserData())
 
     private val keyUserData = "SBUsername"
 
@@ -21,8 +27,11 @@ class SharedPreferencesImpl : SharedPreferences {
     private fun setBoolean(key: String, value: Boolean) = settings.set(key, value)
     private fun clear(key: String) = settings.remove(key)
 
-    override fun setUsername(userData: UserData) {
+    override fun setUserData(userData: UserData) {
         setSerializable(keyUserData, userData, UserData.serializer())
+        CoroutineScope(Dispatchers.Main).launch {
+            userDataFlow.emit(userData)
+        }
     }
 
     override fun getUserData(): UserData? {
@@ -34,7 +43,11 @@ class SharedPreferencesImpl : SharedPreferences {
         }
     }
 
-    override fun clearUsername() {
+    override fun getUserDataFlow(): StateFlow<UserData?> {
+        return userDataFlow
+    }
+
+    override fun clearUserData() {
         clear(keyUserData)
     }
 
