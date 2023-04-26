@@ -177,9 +177,11 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/coreSwift/coreSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/coreSwift/coreSwift.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -1,16 +1,22 @@
 PODS:
   - core (1.0)
+  - coreSwift (1.0):
+    - core
 
 DEPENDENCIES:
   - core (from `../core`)
+  - coreSwift (from `../core`)
 
 EXTERNAL SOURCES:
   core:
     :path: "../core"
+  coreSwift:
+    :path: "../core"
 
 SPEC CHECKSUMS:
   core: ec7f755bb9263e57015ac28663f2cf4e01ca1744
+  coreSwift: cd9326243d1de0099c053482faff7a7b7088bf02
 
-PODFILE CHECKSUM: c969fb8739c1db546f3bba35fd72d0efec79470d
+PODFILE CHECKSUM: eb03502d9f9bb5a9359f49303fe77a3022f8f864
 
 COCOAPODS: 1.11.3

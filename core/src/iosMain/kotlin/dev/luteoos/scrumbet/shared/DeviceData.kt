@@ -4,6 +4,6 @@ import platform.UIKit.UIDevice
 
 actual class DeviceData {
     actual fun getDeviceName(): String {
-        return UIDevice.current.name
+        return UIDevice.currentDevice.name
     }
 }

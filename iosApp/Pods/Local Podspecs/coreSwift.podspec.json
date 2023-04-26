@@ -1,0 +1,23 @@
+{
+  "name": "coreSwift",
+  "version": "1.0",
+  "homepage": "Link to a Kotlin/Native module homepage",
+  "source": {
+    "git": "Not Published",
+    "tag": "Cocoapods/coreSwift/1.0"
+  },
+  "authors": "",
+  "license": "",
+  "summary": "Some description for a Kotlin/Native module",
+  "module_name": "coreSwift",
+  "platforms": {
+    "ios": "14.0"
+  },
+  "static_framework": false,
+  "dependencies": {
+    "core": [
+
+    ]
+  },
+  "source_files": "build/cocoapods/framework/coreSwift/**/*.{h,m,swift}"
+}

@@ -31,7 +31,7 @@ kotlin {
     kswift {
         iosDeploymentTarget.set("14.0")
         install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature) {
-            filter = includeFilter("ClassContext/core/dev/luteoos/scrumbet/core/KState")
+            filter = includeFilter("ClassContext/ScrumBet:core/dev/luteoos/scrumbet/core/KState")
         }
     }
 
