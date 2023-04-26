@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.serialization") version Versions.kotlin
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("dev.icerock.moko.kswift") version "0.6.1"
 }
 
 apply(from = "../ktlint.gradle")
@@ -24,6 +25,13 @@ kotlin {
             baseName = "core"
             export(project(":data"))
             transitiveExport = false
+        }
+    }
+
+    kswift {
+        iosDeploymentTarget.set("14.0")
+        install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature) {
+            filter = includeFilter("ClassContext/core/dev/luteoos/scrumbet/core/KState")
         }
     }
 
