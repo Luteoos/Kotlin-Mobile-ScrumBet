@@ -24,8 +24,8 @@ class MockController : KControllerInterface {
         print("stop")
     }
 
-    func watchState() -> CFlow<KState<AnyObject, AnyObject>> {
-        let mockValue = KStateEmpty<AnyObject, AnyObject>()
-        return CFlowCompanion().getMock(mockValue: mockValue as KState<AnyObject, AnyObject>) as! CFlow<KState<AnyObject, AnyObject>>
+    func watchState() -> CFlow<KState> {
+        let mockValue = KStateEmpty()
+        return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
     }
 }
