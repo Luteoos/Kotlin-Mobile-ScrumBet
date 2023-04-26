@@ -21,7 +21,7 @@ class AuthController : KController<Boolean, AppException>(), AuthControllerInter
     private val preferences: SharedPreferences = get()
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
-    override val state: MutableStateFlow<KState<Boolean, AppException>> = MutableStateFlow(KState.Empty())
+    override val state: MutableStateFlow<KState<Boolean, AppException>> = MutableStateFlow(KState.Empty)
 
     init {
         kcontrollerScope.launch {
@@ -32,7 +32,7 @@ class AuthController : KController<Boolean, AppException>(), AuthControllerInter
                     else
                         publish(KState.Success(false))
                 } else
-                    publish(KState.Empty())
+                    publish(KState.Empty)
             }
         }
     }

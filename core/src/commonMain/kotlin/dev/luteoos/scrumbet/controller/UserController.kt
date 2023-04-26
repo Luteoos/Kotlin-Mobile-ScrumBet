@@ -18,14 +18,14 @@ class UserController() : KController<UserData, AppException>(), UserControllerIn
     private val deviceData: DeviceData = get()
     private var id: Id? = null
 
-    override val state: MutableStateFlow<KState<UserData, AppException>> = MutableStateFlow(KState.Loading())
+    override val state: MutableStateFlow<KState<UserData, AppException>> = MutableStateFlow(KState.Loading)
 
     init {
         getUserData()
     }
 
     override fun updateUsername(username: Username) {
-        publish(KState.Loading())
+        publish(KState.Loading)
         id?.let { id ->
             preferences.setUserData(UserData(username, id))
         }
@@ -45,7 +45,7 @@ class UserController() : KController<UserData, AppException>(), UserControllerIn
     }
 
     private fun generateDefaultUserData() {
-        publish(KState.Loading())
+        publish(KState.Loading)
         preferences.setUserData(
             UserData(
                 username = deviceData.getDeviceName(),

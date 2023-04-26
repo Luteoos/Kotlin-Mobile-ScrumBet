@@ -11,15 +11,15 @@ import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class RoomController : KController<RoomData, AppException>(), RoomControllerInterface {
-    override val state: MutableStateFlow<KState<RoomData, AppException>> = MutableStateFlow(KState.Empty())
+    override val state: MutableStateFlow<KState<RoomData, AppException>> = MutableStateFlow(KState.Empty)
 
     override fun connect(roomId: String) {
-        publish(KState.Loading())
+        publish(KState.Loading)
         KHandler().postDelayed({
             if (roomId == "true")
                 publish(KState.Success(getMockRoomData()))
             else
-                publish(KState.Error(AppException.GeneralException()))
+                publish(KState.Error(AppException.GeneralException("404")))
         }, 5000)
     }
 
