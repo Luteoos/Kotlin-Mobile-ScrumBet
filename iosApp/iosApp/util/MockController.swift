@@ -8,7 +8,6 @@
 
 import Foundation
 import core
-import coreSwift
 
 class MockController : KControllerInterface {
     
