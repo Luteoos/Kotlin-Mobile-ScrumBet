@@ -32,7 +32,12 @@ class UserController() : KController<UserData, AppException>(), UserControllerIn
         getUserData()
     }
 
-    private fun getUserData() {
+    fun test(): String {
+//        return preferences.toString()
+        return id ?: "none"
+    }
+
+    fun getUserData() {
         preferences.getUserData().let { user ->
             if (user == null) {
                 generateDefaultUserData()
