@@ -13,14 +13,16 @@ import dev.luteoos.scrumbet.shared.DeviceData
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.component.get
 
-class UserController() : KController<UserData, AppException>(), UserControllerInterface {
-    private val preferences: SharedPreferences = get()
-    private val deviceData: DeviceData = get()
+class UserController(preferences: SharedPreferences? = null, deviceData: DeviceData? = null) : KController<UserData, AppException>(), UserControllerInterface {
+    private val preferences: SharedPreferences
+    private val deviceData: DeviceData
     private var id: Id? = null
 
     override val state: MutableStateFlow<KState<UserData, AppException>> = MutableStateFlow(KState.Loading)
 
     init {
+        this.preferences = preferences ?: get()
+        this.deviceData = deviceData ?: get()
         getUserData()
     }
 

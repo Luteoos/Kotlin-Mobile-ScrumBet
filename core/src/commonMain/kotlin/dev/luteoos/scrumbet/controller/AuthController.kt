@@ -17,15 +17,16 @@ import org.koin.core.component.get
  *
  * Success(false) - User authenticated, connId not set
  */
-class AuthController : KController<Boolean, AppException>(), AuthControllerInterface {
-    private val preferences: SharedPreferences = get()
+class AuthController(preferences: SharedPreferences? = null) : KController<Boolean, AppException>(), AuthControllerInterface {
+    private val preferences: SharedPreferences
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
     override val state: MutableStateFlow<KState<Boolean, AppException>> = MutableStateFlow(KState.Empty)
 
     init {
+        this.preferences = preferences ?: get()
         kcontrollerScope.launch {
-            combine(preferences.getUserDataFlow(), roomIdFlow) { user, id ->
+            combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow) { user, id ->
                 if (user != null) {
                     if (id != null)
                         publish(KState.Success(true))
