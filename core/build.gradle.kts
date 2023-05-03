@@ -47,6 +47,10 @@ kotlin {
                 implementation(Dependencies.reaktiveCoroutinesInterop)
                 implementation(Dependencies.multiplatformSettings)
                 implementation(Dependencies.multiplatformSettingsSerialization)
+                implementation(Dependencies.ktor)
+                implementation(Dependencies.ktorSerialization)
+                implementation(Dependencies.ktorAuth)
+                implementation(Dependencies.ktorLogging)
 
                 api(Dependencies.koinCore)
             }
@@ -60,6 +64,7 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation(Dependencies.kotlinCoroutinesAndroid)
+                implementation(Dependencies.ktorOkHttp)
             }
         }
 //        val androidTest by getting
@@ -71,6 +76,10 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                implementation(Dependencies.ktorDarwin)
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
