@@ -1,18 +1,12 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version Versions.kotlin
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("dev.icerock.moko.kswift") version "0.6.1"
 }
-
-apply(from = "../ktlint.gradle")
-
-version = "1.0"
 
 kotlin {
     android {
-        compilations.all{
+        compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
             }
@@ -23,43 +17,27 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Core module with State control, exports as api() project(:data)"
-        homepage = "luteoos.dev"
+        summary = "Domain layer module for SceumBete"
+        homepage = ""
+        version = "1.0"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "core"
-            export(project(":data"))
-            transitiveExport = false
+            baseName = "domain"
         }
     }
-
-    kswift {
-        iosDeploymentTarget.set("14.0")
-        install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature) {
-            filter = includeFilter()//("ClassContext/ScrumBet:core/dev/luteoos/scrumbet/core/KState")
-        }
-    }
-
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":data"))
-                implementation(project(":domain"))
+                implementation(project(":data"))
                 implementation(Dependencies.kotlinStdlib)
                 implementation(Dependencies.kotlinCoroutinesCore)
                 implementation(Dependencies.kotlinSerializationJson)
-                implementation(Dependencies.kotlinDatetime)
-                implementation(Dependencies.reaktive)
-                implementation(Dependencies.reaktiveCoroutinesInterop)
-                implementation(Dependencies.multiplatformSettings)
-                implementation(Dependencies.multiplatformSettingsSerialization)
                 implementation(Dependencies.ktor)
                 implementation(Dependencies.ktorSerialization)
                 implementation(Dependencies.ktorAuth)
                 implementation(Dependencies.ktorLogging)
-
-                api(Dependencies.koinCore)
             }
         }
         val commonTest by getting {
@@ -67,14 +45,14 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
+        val androidMain by getting{
             dependsOn(commonMain)
             dependencies {
                 implementation(Dependencies.kotlinCoroutinesAndroid)
                 implementation(Dependencies.ktorOkHttp)
             }
         }
-//        val androidTest by getting
+        val androidUnitTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -101,22 +79,9 @@ kotlin {
 }
 
 android {
-    namespace = "dev.luteoos.scrumbet"
-    compileSdk = 32
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    namespace = "dev.luteoos.scrumbet.domain"
+    compileSdk = 33
     defaultConfig {
-        minSdk = 28
-        targetSdk = 32
+        minSdk = 24
     }
-}
-
-kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
-    binaries.all {
-        binaryOptions["memoryModel"] = "experimental"
-        binaryOptions["freezing"] = "disabled"
-    }
-}
-
-tasks.register("isKotlinNewMemory") {
-//    println("is Kotlin New Memory Model(non-freeze) enabled: ${kotlin.native.isExperimentalMM()}") kotlin.native unresolved
 }
