@@ -11,30 +11,34 @@ import io.ktor.websocket.CloseReason
 import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSocketSession
 import io.ktor.websocket.close
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
 
-//TODO move to synchronous handling operation
 class RoomRepositoryImpl(private val client: HttpClient) : RoomRepositoryInterface {
 
     private var session: WebSocketSession? = null
-    private val incomingFlow = MutableSharedFlow<String>()
 
     override suspend fun initSession(roomName: String, username: Username, userId: Id): Result<Unit> {
         return try {
             session = client.webSocketSession {
-                url("${""}?username=$username")
+                url("${RoomRepositoryInterface.Endpoints.RoomSocket(roomName)}?username=$username")
                 headers {
                     append("userId", userId)
                 }
             }
             if(session?.isActive == true) {
-                observeIncomingFlow()
                 Result.success(Unit)
             } else Result.failure(Exception("Couldn't establish a connection."))
         } catch(e: Exception) {
@@ -43,24 +47,25 @@ class RoomRepositoryImpl(private val client: HttpClient) : RoomRepositoryInterfa
         }
     }
 
-    override fun getIncomingFlow(): Flow<String> = incomingFlow
-
     override suspend fun closeSession() {
         session?.close(reason = CloseReason(CloseReason.Codes.NORMAL, "client disconnecting"))
     }
 
-    private fun observeIncomingFlow(){
-        session?.let {wsSession ->
-            wsSession.incoming
-                .receiveAsFlow()
-                .filter { it is Frame.Text }
-                .map {
-                    it
-                }
-                .onEach {
-                    incomingFlow.emit(it.toString())
-                }
-        }
+    override suspend fun observeIncomingFlow() : Flow<Frame>{
+        return session?.let { wsSession ->
+            try {
+                wsSession.incoming
+                    .receiveAsFlow()
+                    .filter { it is Frame.Text }
+                    .map {
+                        it
+                    }
+            }catch (e: Exception){
+                // here info about socket dc'd as flow
+                e.printStackTrace()
+                flow { }
+            }
+        } ?: flow { }
     }
 
 }
