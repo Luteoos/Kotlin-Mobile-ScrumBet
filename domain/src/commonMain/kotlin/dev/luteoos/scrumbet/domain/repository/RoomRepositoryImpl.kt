@@ -2,7 +2,8 @@ package dev.luteoos.scrumbet.domain.repository
 
 import dev.luteoos.scrumbet.data.Id
 import dev.luteoos.scrumbet.data.Username
-import dev.luteoos.scrumbet.domain.repository.interfaces.RoomRepositoryInterface
+import dev.luteoos.scrumbet.data.dto.RoomStateFrame
+import dev.luteoos.scrumbet.domain.repository.interfaces.RoomRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocketSession
 import io.ktor.client.request.headers
@@ -11,31 +12,30 @@ import io.ktor.websocket.CloseReason
 import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSocketSession
 import io.ktor.websocket.close
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import io.ktor.websocket.readText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
+import kotlinx.serialization.json.Json
 
-class RoomRepositoryImpl(private val client: HttpClient) : RoomRepositoryInterface {
+class RoomRepositoryImpl(private val client: HttpClient) : RoomRepository {
 
     private var session: WebSocketSession? = null
+    private val connectionError: MutableSharedFlow<Exception> = MutableSharedFlow()
+
+    override fun getConnectionErrorFlow(): SharedFlow<Exception> = connectionError
 
     override suspend fun initSession(roomName: String, username: Username, userId: Id): Result<Unit> {
         return try {
             session = client.webSocketSession {
-                url("${RoomRepositoryInterface.Endpoints.RoomSocket(roomName)}?username=$username")
+                url("${RoomRepository.Endpoints.RoomSocket(roomName)}?username=$username")
                 headers {
-                    append("userId", userId)
+                    append("userID", userId)
                 }
             }
             if(session?.isActive == true) {
@@ -51,18 +51,21 @@ class RoomRepositoryImpl(private val client: HttpClient) : RoomRepositoryInterfa
         session?.close(reason = CloseReason(CloseReason.Codes.NORMAL, "client disconnecting"))
     }
 
-    override suspend fun observeIncomingFlow() : Flow<Frame>{
+    override suspend fun observeIncomingFlow() : Flow<RoomStateFrame>{
         return session?.let { wsSession ->
             try {
                 wsSession.incoming
                     .receiveAsFlow()
                     .filter { it is Frame.Text }
                     .map {
-                        it
+                        (it as Frame.Text).let {
+                            Json.decodeFromString(RoomStateFrame.serializer(), it.readText())
+                        }
+//                        it
                     }
             }catch (e: Exception){
-                // here info about socket dc'd as flow
                 e.printStackTrace()
+                connectionError.emit(e)
                 flow { }
             }
         } ?: flow { }
