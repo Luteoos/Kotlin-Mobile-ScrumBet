@@ -17,8 +17,6 @@ class SharedPreferencesImpl : SharedPreferences {
     private val settings: Settings = Settings()
     private val userDataFlow = MutableStateFlow<UserData?>(getUserData())
 
-    private val keyUserData = "SBUsername"
-
     private fun <T>setSerializable(key: String, value: T, serializer: KSerializer<T>) = settings.encodeValue(serializer, key, value)
     private fun <T>getSerializable(key: String, defaultValue: T, serializer: KSerializer<T>) = settings.decodeValue(serializer, key, defaultValue)
     private fun getString(key: String): String? = settings[key]
@@ -53,5 +51,9 @@ class SharedPreferencesImpl : SharedPreferences {
 
     override fun clearAll() {
         settings.clear()
+    }
+
+    companion object {
+        private const val keyUserData = "SBUsername"
     }
 }
