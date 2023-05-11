@@ -9,16 +9,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
+/**
+ * TODO maybe use authController inside viewModels instead one viewModel
+ */
 class AuthViewModel(private val authController: AuthControllerInterface) : BaseViewModel() {
 
     val isAuthorized: StateFlow<Boolean> = authController.getStateFlow()
-        .map {
-            when (it) {
-                KState.Empty -> false
-                is KState.Error -> false
-                KState.Loading -> false
+        .map { state ->
+            when (state) {
+                KState.Empty, KState.Loading, is KState.Error -> false
                 is KState.Success -> {
-                    it.value
+                    state.value
                 }
             }
         }.stateIn(viewModelScope, SharingStarted.Eagerly, false)

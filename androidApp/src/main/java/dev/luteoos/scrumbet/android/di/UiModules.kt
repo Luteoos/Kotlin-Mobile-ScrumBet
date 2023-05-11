@@ -18,11 +18,11 @@ import org.koin.dsl.module
  */
 
 val viewModelModule = module {
-    viewModel { MainViewModel() }
+    viewModel { MainViewModel(get()) }
     viewModel { SplashViewModel() }
     viewModel { AuthViewModel(get()) }
 
-    factory<AuthControllerInterface> { AuthController(get()) }
+    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get()) }
     factory<UserControllerInterface> { UserController(get(), get()) }
     factory<RoomControllerInterface> { RoomController() }
 }

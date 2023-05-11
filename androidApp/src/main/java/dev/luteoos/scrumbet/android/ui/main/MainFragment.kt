@@ -14,6 +14,13 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     }
 
     override fun initObservers() {
+        model.uiState.observe(this) {
+            when (it) {
+                is UserUiState.Error -> {}
+                UserUiState.Loading -> {}
+                is UserUiState.Success -> {}
+            }
+        }
     }
 
     override fun initBindingValues() {

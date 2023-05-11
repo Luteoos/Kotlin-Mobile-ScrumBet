@@ -4,6 +4,7 @@ import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.core.KController
 import dev.luteoos.scrumbet.core.KState
 import dev.luteoos.scrumbet.data.entity.AppException
+import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -46,6 +47,10 @@ class AuthController(preferences: SharedPreferences? = null) : KController<Boole
 
     override fun getRoomConnectionId(): String? {
         return roomIdFlow.value
+    }
+
+    override fun getUserData(): UserData? {
+        return preferences.getUserData()
     }
 
     override fun disconnect() {
