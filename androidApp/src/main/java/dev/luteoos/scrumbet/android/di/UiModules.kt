@@ -2,6 +2,7 @@ package dev.luteoos.scrumbet.android.di
 
 import dev.luteoos.scrumbet.android.ui.auth.AuthViewModel
 import dev.luteoos.scrumbet.android.ui.main.MainViewModel
+import dev.luteoos.scrumbet.android.ui.room.RoomViewModel
 import dev.luteoos.scrumbet.android.ui.splash.SplashViewModel
 import dev.luteoos.scrumbet.controller.AuthController
 import dev.luteoos.scrumbet.controller.RoomController
@@ -18,8 +19,9 @@ import org.koin.dsl.module
  */
 
 val viewModelModule = module {
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
     viewModel { SplashViewModel() }
+    viewModel { RoomViewModel(get(), get()) }
     viewModel { AuthViewModel(get()) }
 
     single<AuthControllerInterface>(createdAtStart = true) { AuthController(get()) }

@@ -7,6 +7,7 @@ import dev.luteoos.scrumbet.data.entity.AppException
 import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.get
@@ -35,11 +36,12 @@ class AuthController(preferences: SharedPreferences? = null) : KController<Boole
                         publish(KState.Success(false))
                 } else
                     publish(KState.Empty)
-            }
+            }.collect()
         }
     }
 
     override fun setRoomConnectionId(id: String) {
+        // TODO room id validation
         kcontrollerScope.launch {
             roomIdFlow.emit(id.trim())
         }

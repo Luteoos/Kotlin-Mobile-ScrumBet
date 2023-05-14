@@ -25,7 +25,8 @@ class AuthViewModel(private val authController: AuthControllerInterface) : BaseV
         }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     override fun onCleared() {
-        authController.onDeInit()
+        // onDeInit authController bc AuthViewModel is scoped to activity
+//        authController.onDeInit()
         super.onCleared()
     }
 }

@@ -24,14 +24,16 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheetDefaultLayout(model: BaseViewModel, toggleSheetVisibility: Boolean, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (ModalBottomSheetState) -> Unit) {
+    var isVisible by remember { mutableStateOf(false) }
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = false,
         confirmValueChange = {
             if (it == ModalBottomSheetValue.Hidden)
                 model.hideKeyboard.notify()
+            isVisible = it != ModalBottomSheetValue.Hidden
             confirmSheetState()
-        }
+        },
+        skipHalfExpanded = false
     )
     val scope = rememberCoroutineScope()
     var isFirstShow by remember { mutableStateOf(true) }
@@ -41,10 +43,16 @@ fun BottomSheetDefaultLayout(model: BaseViewModel, toggleSheetVisibility: Boolea
             isFirstShow = false
             return@LaunchedEffect
         }
-        if (!modalSheetState.isVisible)
-            scope.launch { modalSheetState.show() }
+        if (!isVisible)
+            scope.launch {
+                modalSheetState.show()
+                isVisible = true
+            }
         else
-            scope.launch { modalSheetState.hide() }
+            scope.launch {
+                modalSheetState.hide()
+                isVisible = false
+            }
     })
 
     ModalBottomSheetLayout(

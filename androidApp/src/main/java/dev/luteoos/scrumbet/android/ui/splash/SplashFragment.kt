@@ -10,6 +10,7 @@ import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.SplashFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
+import dev.luteoos.scrumbet.android.ext.toRoomScreen
 import dev.luteoos.scrumbet.android.ui.auth.AuthViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -48,7 +49,7 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashFragmentBinding>(Spla
                     authModel.isAuthorized.collect {
                         Timber.w("isAuthorized : $it")
                         if (it)
-                            TODO("toChatScreen")
+                            activity?.toRoomScreen()
                         else
                             activity?.toMainScreen()
                     }

@@ -29,7 +29,7 @@ class UserController(preferences: SharedPreferences? = null, deviceData: DeviceD
     override fun updateUsername(username: Username) {
         publish(KState.Loading)
         id?.let { id ->
-            preferences.setUserData(UserData(username, id))
+            preferences.setUserData(UserData(username.trim().replace("\n", ""), id))
         }
         getUserData()
     }
@@ -39,7 +39,7 @@ class UserController(preferences: SharedPreferences? = null, deviceData: DeviceD
         return id ?: "none"
     }
 
-    fun getUserData() {
+    private fun getUserData() {
         preferences.getUserData().let { user ->
             if (user == null) {
                 generateDefaultUserData()

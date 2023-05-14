@@ -40,7 +40,7 @@ class RoomController : KController<RoomData, AppException>(), RoomControllerInte
     }
 
     override fun disconnect() {
-        TODO("Not yet implemented")
+        println("Room controller disconnect")
     }
 
     private fun getMockRoomData() =

@@ -16,6 +16,13 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashFragment"
             />
+
+        <action
+            android:id="@+id/action_to_roomFragment"
+            app:destination="@id/roomFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/mainFragment"
+            />
     </fragment>
 
     <fragment
@@ -23,5 +30,26 @@
         android:name="dev.luteoos.scrumbet.android.ui.main.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
+
+        <action
+            android:id="@+id/action_to_roomFragment"
+            app:destination="@id/roomFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/mainFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="dev.luteoos.scrumbet.android.ui.room.RoomFragment"
+        android:label="room_fragment"
+        tools:layout="@layout/compose_fragment">
+
+        <action
+            android:id="@+id/action_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/roomFragment"
+            />
     </fragment>
 </navigation>

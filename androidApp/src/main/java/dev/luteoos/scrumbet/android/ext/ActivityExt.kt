@@ -25,6 +25,14 @@ fun FragmentActivity.toMainScreen() {
     }
 }
 
+fun FragmentActivity.toRoomScreen() {
+    navigateWithTryCatch {
+        with(Navigation.findNavController(this, R.id.navHost)) {
+            navigate(R.id.action_to_roomFragment)
+        }
+    }
+}
+
 private fun navigateWithTryCatch(method: () -> Unit) {
     try {
         method.invoke()

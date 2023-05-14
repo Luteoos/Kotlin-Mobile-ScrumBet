@@ -41,9 +41,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -52,12 +49,10 @@ import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.MainFragmentBinding
 import dev.luteoos.scrumbet.android.ext.notify
+import dev.luteoos.scrumbet.android.ext.toRoomScreen
 import dev.luteoos.scrumbet.android.ext.toggle
-import dev.luteoos.scrumbet.android.ui.auth.AuthViewModel
 import dev.luteoos.scrumbet.android.ui.composeUtil.Size
 import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @OptIn(
     ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class,
@@ -70,11 +65,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
         MainFragmentBinding.inflate(inflater, viewGroup, attachToParrent)
     }
 
-    private lateinit var authModel: AuthViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        authModel = requireActivity().getViewModel()
     }
 
     override fun initObservers() {
@@ -85,17 +77,22 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 is UserUiState.Success -> {}
             }
         }
+        model.isAuthorized.observe(this) {
+            println("isAuthorized: $it")
+            if (it)
+                activity?.toRoomScreen()
+        }
     }
 
     override fun initFlowCollectors() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                authModel.isAuthorized.collect {
-                    if (it)
-                        TODO("Navigate to roomScreen")
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                authModel.isAuthorized.collect {
+//                    if (it)
+//                        TODO("Navigate to roomScreen")
+//                }
+//            }
+//        }
     }
 
     override fun initBindingValues() {
@@ -131,7 +128,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                                         modifier = Modifier.fillMaxWidth(), value = name,
                                                         singleLine = true,
                                                         onValueChange = {
-                                                            name = it.replace("\n", "")
+                                                            name = it
                                                             isSaveEnabled = name.isNotBlank()
                                                         },
                                                         leadingIcon = {
@@ -146,6 +143,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                                         onClick = {
                                                             model.updateUsername(name)
                                                             model.hideKeyboard.notify()
+                                                            bottomSheetState.isVisible
                                                             showSheet = showSheet.toggle()
                                                         }
                                                     ) {
@@ -165,6 +163,11 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                             customSheetContent = {
                                                 Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
                                                     Text(text = "Sheet 2")
+                                                    Button(onClick = {
+                                                        model.setRoomId("true")
+                                                    }) {
+                                                        Text(text = "Connect")
+                                                    }
                                                 }
                                             }
                                             showSheet = showSheet.toggle()
@@ -216,7 +219,6 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                 }
                             }
                         }
-                        Text(text = "")
                     }
                 }
             }
