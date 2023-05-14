@@ -56,6 +56,8 @@ dependencies {
     implementation(Dependencies.koinCore)
     implementation(Dependencies.koinAndroid)
     implementation(Dependencies.timber)
+    implementation("com.github.Luteoos:qrx:1.0.1")
+    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
 
     implementation("androidx.compose.ui:ui:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")

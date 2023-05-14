@@ -57,7 +57,11 @@ abstract class BaseFragment<T : BaseViewModel, Binding : ViewBinding>(private va
 
     /**
      *  ```
-     *  viewLifecycleOwner.lifecycleScope.launchWhenStarted { collect }
+     *  viewLifecycleOwner.lifecycleScope.launch {
+     *      repeatOnLifecycle(Lifecycle.State.STARTED){
+     *          collect
+     *      }
+     *  }
      *  ```
      */
     abstract fun initFlowCollectors()
