@@ -3,4 +3,13 @@
     <string name="backTag">1</string>
     <string name="share">Share</string>
     <string name="connect">Connect</string>
+    <string name="label_name">Name</string>
+    <string name="label_hello">Hello, %s</string>
+    <string name="label_save">Save</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_connect">Connect</string>
+    <string name="label_join">Join</string>
+    <string name="label_disconnect">Disconnect</string>
+    <string name="label_create">Create</string>
+    <string name="divider_label_or">or</string>
 </resources>
