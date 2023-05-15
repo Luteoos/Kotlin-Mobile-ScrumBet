@@ -12,4 +12,6 @@
     <string name="label_disconnect">Disconnect</string>
     <string name="label_create">Create</string>
     <string name="divider_label_or">or</string>
+    <string name="label_join_by">Join by</string>
+    <string name="label_room_name">Room name</string>
 </resources>

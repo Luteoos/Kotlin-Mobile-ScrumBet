@@ -47,7 +47,7 @@ fun BottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Bool
             isVisible = it != ModalBottomSheetValue.Hidden
             confirmSheetState()
         },
-        skipHalfExpanded = false
+        skipHalfExpanded = true
     )
     val scope = rememberCoroutineScope()
     var isFirstShow by remember { mutableStateOf(true) }
@@ -114,6 +114,10 @@ fun CustomTextField(
     onValueChange: (String) -> Unit
 ) {
     var state by rememberSaveable { mutableStateOf(initialValue ?: "") }
+
+    LaunchedEffect(key1 = initialValue, block = {
+        state = initialValue ?: ""
+    })
 
     Row(
         modifier = modifier

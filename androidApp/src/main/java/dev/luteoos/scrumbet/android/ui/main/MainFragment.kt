@@ -25,6 +25,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -58,9 +59,10 @@ import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
 class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewModel::class) {
 
     override val layoutId: Int = R.layout.main_fragment
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> MainFragmentBinding = { inflater, viewGroup, attachToParrent ->
-        MainFragmentBinding.inflate(inflater, viewGroup, attachToParrent)
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> MainFragmentBinding =
+        { inflater, viewGroup, attachToParrent ->
+            MainFragmentBinding.inflate(inflater, viewGroup, attachToParrent)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +99,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
             MdcTheme {
                 var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
                 val state = model.uiState.observeAsState()
-                BottomSheetDefaultLayout(model, sheetContent = customSheetContent) { toggleSheetState ->
+                BottomSheetDefaultLayout(
+                    model,
+                    sheetContent = customSheetContent
+                ) { toggleSheetState ->
                     Scaffold(
                         Modifier
                             .fillMaxSize()
@@ -112,9 +117,11 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                     toggleSheetVisibility = toggleSheetState
                                 )
                             }
+
                             is UserUiState.Error -> {
                                 Text(text = "Error")
                             }
+
                             UserUiState.Loading -> {
                                 LoadingView()
                             }
@@ -141,65 +148,56 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = getString(R.string.label_hello, username), fontSize = TextSize.large(), textAlign = TextAlign.Center)
-                TextButton(onClick = {
-                    updateSheetContent {
-                        var name by remember { mutableStateOf(username) }
-                        var isSaveEnabled by remember { mutableStateOf(true) }
-                        Column(
-                            Modifier.fillMaxWidth(),
-                            horizontalAlignment = CenterHorizontally,
-                            verticalArrangement = Bottom
-                        ) {
-                            CustomTextField(
-                                modifier = Modifier.fillMaxWidth(),
-                                initialValue = name,
-                                singleLine = true,
-                                onValueChange = {
-                                    name = it
-                                    isSaveEnabled = name.isNotBlank()
-                                },
-                                leadingIcon = {
-                                    Text(getString(R.string.label_name))
-                                }
-                            )
-                            Button(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = Size.xLarge()),
-                                enabled = isSaveEnabled,
-                                onClick = {
-                                    model.updateUsername(name)
-                                    model.hideKeyboard.notify()
-                                    toggleSheetVisibility()
-                                }
-                            ) {
-                                Text("Save")
-                            }
+                Text(
+                    text = getString(R.string.label_hello, username),
+                    fontSize = TextSize.large(),
+                    textAlign = TextAlign.Center
+                )
+                TextButton(
+                    onClick = {
+                        updateSheetContent {
+                            MainScreenUserEditSheet(username = username, onSave = { newUsername ->
+                                model.updateUsername(newUsername)
+                                model.hideKeyboard.notify()
+                                toggleSheetVisibility()
+                            })
                         }
-                    }
-                    toggleSheetVisibility()
-                }, contentPadding = PaddingValues(Size.xSmall())) {
+                        toggleSheetVisibility()
+                    },
+                    contentPadding = PaddingValues(Size.xSmall())
+                ) {
                     Row(verticalAlignment = CenterVertically) {
-                        Icon(modifier = Modifier.size(Size.xRegular()), painter = painterResource(id = com.google.android.material.R.drawable.material_ic_edit_black_24dp), contentDescription = null, tint = MaterialTheme.colors.onBackground)
-                        Text(text = getString(R.string.label_edit), fontSize = TextSize.xSmall(), fontWeight = FontWeight.Light, color = MaterialTheme.colors.onBackground)
+                        Icon(
+                            modifier = Modifier.size(Size.xRegular()),
+                            painter = painterResource(id = com.google.android.material.R.drawable.material_ic_edit_black_24dp),
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.onBackground
+                        )
+                        Text(
+                            text = getString(R.string.label_edit),
+                            fontSize = TextSize.xSmall(),
+                            fontWeight = FontWeight.Light,
+                            color = MaterialTheme.colors.onBackground
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                Button(modifier = Modifier.fillMaxWidth(), onClick = {
-                    updateSheetContent {
-                        Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
-                            Text(text = "Sheet 2")
-                            Button(onClick = {
-                                model.setRoomId("true")
-                            }) {
-                                Text(text = getString(R.string.label_connect))
-                            }
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        updateSheetContent {
+                            MainScreenJoinSheet(onJoin = { roomId ->
+                                toggleSheetVisibility()
+                                model.setRoomId(roomId)
+                            })
                         }
+                        toggleSheetVisibility()
                     }
-                    toggleSheetVisibility()
-                }) {
-                    Text(text = getString(R.string.label_join), fontSize = TextSize.small())
+                ) {
+                    Text(
+                        text = getString(R.string.label_join),
+                        fontSize = TextSize.small()
+                    )
                 }
                 Text(text = getString(R.string.divider_label_or), fontSize = TextSize.small())
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {
@@ -237,10 +235,81 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     }
 
     @Composable
-    private fun MainScreenUserEditSheet() {
+    private fun MainScreenUserEditSheet(username: String, onSave: (username: String) -> Unit) {
+        var name by remember { mutableStateOf(username) }
+        var isSaveEnabled by remember { mutableStateOf(true) }
+        Column(
+            Modifier.fillMaxWidth(),
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Bottom
+        ) {
+            CustomTextField(
+                modifier = Modifier.fillMaxWidth(),
+                initialValue = name,
+                singleLine = true,
+                onValueChange = {
+                    name = it
+                    isSaveEnabled = name.isNotBlank()
+                },
+                leadingIcon = {
+                    Text(text = getString(R.string.label_name))
+                }
+            )
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = Size.xLarge()),
+                enabled = isSaveEnabled,
+                onClick = {
+                    onSave(name)
+                }
+            ) {
+                Text(text = getString(R.string.label_save))
+            }
+        }
     }
 
     @Composable
-    private fun MainScreenJoinSheet() {
+    private fun MainScreenJoinSheet(onJoin: (id: String) -> Unit) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            var roomId by remember { mutableStateOf("") }
+            var isConnectEnabled by remember { mutableStateOf(false) }
+
+            LaunchedEffect(key1 = roomId, block = {
+                isConnectEnabled = roomId.isNotBlank()
+            })
+
+            Text(text = getString(R.string.label_join_by))
+            CustomTextField(
+                modifier = Modifier.fillMaxWidth(),
+                initialValue = roomId,
+                singleLine = true,
+                onValueChange = {
+                    roomId = it
+                },
+                leadingIcon = {
+                    Text(text = getString(R.string.label_room_name))
+                }
+            )
+            Button(onClick = {
+                roomId = "testtest"
+            }) {
+                Text(text = "Test change roomid internal")
+            }
+            Spacer(modifier = Modifier.fillMaxHeight(.30f))
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                enabled = isConnectEnabled,
+                onClick = {
+                    onJoin(roomId)
+                }
+            ) {
+                Text(text = getString(R.string.label_connect))
+            }
+        }
     }
 }
