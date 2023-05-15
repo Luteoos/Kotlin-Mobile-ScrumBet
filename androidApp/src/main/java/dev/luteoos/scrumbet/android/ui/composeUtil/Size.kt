@@ -24,6 +24,11 @@ object Size {
     fun regular() = 16.dp
 
     /**
+     * 32.dp
+     */
+    fun large() = 32.dp
+
+    /**
      * 48.dp
      */
     fun xLarge() = 48.dp

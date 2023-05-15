@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -150,7 +151,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
             ) {
                 Text(
                     text = getString(R.string.label_hello, username),
-                    fontSize = TextSize.large(),
+                    fontSize = TextSize.xLarge(),
                     textAlign = TextAlign.Center
                 )
                 TextButton(
@@ -201,32 +202,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 }
                 Text(text = getString(R.string.divider_label_or), fontSize = TextSize.small())
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {
-                    updateSheetContent {
-                        val cameraPermissionState = rememberPermissionState(
-                            android.Manifest.permission.CAMERA
-                        )
-                        if (cameraPermissionState.status.isGranted) {
-                            val lifecycleOwner = LocalLifecycleOwner.current
-                            AndroidView(factory = { context ->
-                                io.github.luteoos.qrx.QrXScanner(context).also {
-                                    it.initialize(
-                                        lifecycleOwner, {
-                                        it
-                                    }, {
-                                    }
-                                    )
-                                    it.onPermission(true)
-                                }
-                            })
-                        } else {
-                            Button(onClick = {
-                                cameraPermissionState.launchPermissionRequest()
-                            }) {
-                                Text(text = "Permission required")
-                            }
-                        }
-                    }
-                    toggleSheetVisibility()
+                    model.createNewRoom()
                 }) {
                     Text(text = getString(R.string.label_create), fontSize = TextSize.small())
                 }
@@ -278,12 +254,53 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
         ) {
             var roomId by remember { mutableStateOf("") }
             var isConnectEnabled by remember { mutableStateOf(false) }
+            val cameraPermissionState = rememberPermissionState(
+                android.Manifest.permission.CAMERA
+            )
 
             LaunchedEffect(key1 = roomId, block = {
                 isConnectEnabled = roomId.isNotBlank()
             })
 
-            Text(text = getString(R.string.label_join_by))
+            Text(
+                modifier = Modifier.padding(bottom = Size.large()),
+                text = getString(R.string.label_join_by),
+                fontSize = TextSize.regular()
+            )
+
+            Text(
+                modifier = Modifier.padding(bottom = Size.xSmall()),
+                text = getString(R.string.label_scan_qr_code), fontSize = TextSize.small()
+            )
+            if (cameraPermissionState.status.isGranted) {
+                val lifecycleOwner = LocalLifecycleOwner.current
+                AndroidView(modifier = Modifier.fillMaxHeight(.45f), factory = { context ->
+                    io.github.luteoos.qrx.QrXScanner(context).also {
+                        it.initialize(
+                            lifecycleOwner, { barcode ->
+                            barcode.rawValue?.let { value ->
+                                roomId = value
+                            }
+                        }, {
+                        }
+                        )
+                        it.onPermission(cameraPermissionState.status.isGranted)
+                    }
+                })
+            } else {
+                Button(
+                    colors = buttonColors(backgroundColor = MaterialTheme.colors.background),
+                    onClick = {
+                        cameraPermissionState.launchPermissionRequest()
+                    }
+                ) {
+                    Text(text = getString(R.string.label_grant_permission_camera))
+                }
+            }
+            Text(
+                modifier = Modifier.padding(vertical = Size.regular()),
+                text = getString(R.string.divider_label_or)
+            )
             CustomTextField(
                 modifier = Modifier.fillMaxWidth(),
                 initialValue = roomId,
@@ -295,12 +312,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                     Text(text = getString(R.string.label_room_name))
                 }
             )
-            Button(onClick = {
-                roomId = "testtest"
-            }) {
-                Text(text = "Test change roomid internal")
-            }
-            Spacer(modifier = Modifier.fillMaxHeight(.30f))
+            Spacer(modifier = Modifier.fillMaxHeight(.25f))
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = isConnectEnabled,

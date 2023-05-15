@@ -14,4 +14,7 @@
     <string name="divider_label_or">or</string>
     <string name="label_join_by">Join by</string>
     <string name="label_room_name">Room name</string>
+    <string name="label_qr_code">QR Code</string>
+    <string name="label_grant_permission_camera">Grant camera permission</string>
+    <string name="label_scan_qr_code">Scan QR code</string>
 </resources>
