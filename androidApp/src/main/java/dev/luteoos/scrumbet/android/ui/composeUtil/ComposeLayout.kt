@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -18,12 +17,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import dev.luteoos.scrumbet.android.core.BaseViewModel
 import dev.luteoos.scrumbet.android.ext.notify
+import dev.luteoos.scrumbet.android.ext.toggle
 import dev.luteoos.scrumbet.android.ui.composeUtil.Size
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BottomSheetDefaultLayout(model: BaseViewModel, toggleSheetVisibility: Boolean, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (ModalBottomSheetState) -> Unit) {
+fun BottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (() -> Unit) -> Unit) {
     var isVisible by remember { mutableStateOf(false) }
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
@@ -37,8 +37,9 @@ fun BottomSheetDefaultLayout(model: BaseViewModel, toggleSheetVisibility: Boolea
     )
     val scope = rememberCoroutineScope()
     var isFirstShow by remember { mutableStateOf(true) }
+    var sheetVisibility by remember { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = toggleSheetVisibility, block = {
+    LaunchedEffect(key1 = sheetVisibility, block = {
         if (isFirstShow) {
             isFirstShow = false
             return@LaunchedEffect
@@ -69,6 +70,8 @@ fun BottomSheetDefaultLayout(model: BaseViewModel, toggleSheetVisibility: Boolea
         },
         sheetShape = RoundedCornerShape(topEnd = Size.regular(), topStart = Size.regular())
     ) {
-        content(modalSheetState)
+        content {
+            sheetVisibility = sheetVisibility.toggle()
+        }
     }
 }

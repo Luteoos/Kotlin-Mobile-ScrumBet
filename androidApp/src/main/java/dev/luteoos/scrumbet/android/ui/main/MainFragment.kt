@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -34,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -50,12 +48,10 @@ import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.MainFragmentBinding
 import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toRoomScreen
-import dev.luteoos.scrumbet.android.ext.toggle
 import dev.luteoos.scrumbet.android.ui.composeUtil.Size
 import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
 
 @OptIn(
-    ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class,
     ExperimentalPermissionsApi::class
 )
 class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewModel::class) {
@@ -100,8 +96,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
             MdcTheme {
                 var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
                 val state = model.uiState.observeAsState()
-                var showSheet by remember { mutableStateOf(false) }
-                BottomSheetDefaultLayout(model, showSheet, sheetContent = customSheetContent) { bottomSheetState ->
+                BottomSheetDefaultLayout(model, sheetContent = customSheetContent) { toggleSheetState ->
                     Scaffold(
                         Modifier
                             .fillMaxSize()
@@ -143,15 +138,14 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                                         onClick = {
                                                             model.updateUsername(name)
                                                             model.hideKeyboard.notify()
-                                                            bottomSheetState.isVisible
-                                                            showSheet = showSheet.toggle()
+                                                            toggleSheetState.invoke()
                                                         }
                                                     ) {
                                                         Text("Save")
                                                     }
                                                 }
                                             }
-                                            showSheet = showSheet.toggle()
+                                            toggleSheetState.invoke()
                                         }, contentPadding = PaddingValues(Size.xSmall())) {
                                             Row(verticalAlignment = CenterVertically) {
                                                 Icon(modifier = Modifier.size(Size.xRegular()), painter = painterResource(id = com.google.android.material.R.drawable.material_ic_edit_black_24dp), contentDescription = "", tint = Color.White)
@@ -170,7 +164,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                                     }
                                                 }
                                             }
-                                            showSheet = showSheet.toggle()
+                                            toggleSheetState.invoke()
                                         }) {
                                             Text(text = "Join", fontSize = TextSize.small())
                                         }
@@ -199,7 +193,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                                                     }
                                                 }
                                             }
-                                            showSheet = showSheet.toggle()
+                                            toggleSheetState.invoke()
                                         }) {
                                             Text(text = "Create", fontSize = TextSize.small())
                                         }
