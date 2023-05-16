@@ -1,9 +1,15 @@
 package dev.luteoos.scrumbet.android.ui.room
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dev.luteoos.scrumbet.android.core.BaseViewModel
+import dev.luteoos.scrumbet.android.ext.post
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.controller.interfaces.RoomControllerInterface
+import dev.luteoos.scrumbet.core.KState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class RoomViewModel(
@@ -11,11 +17,26 @@ class RoomViewModel(
     private val authController: AuthControllerInterface
 ) : BaseViewModel() {
 
+    private val _uiState = MutableLiveData<RoomUiState>(RoomUiState.Loading)
+    val uiState: LiveData<RoomUiState> = _uiState
+
     init {
-        viewModelScope.launch {
-            roomController.getStateFlow()
-                .collect {
-                    it
+        viewModelScope.launch(Dispatchers.Main) {
+            combine(roomController.getStateFlow(), authController.getStateFlow()) { state, authState ->
+                if (authState is KState.Success && authState.value) {
+                    when (state) {
+                        KState.Empty, KState.Loading -> RoomUiState.Loading
+                        is KState.Error -> RoomUiState.Error(state.error.message ?: "")
+                        is KState.Success -> {
+                            RoomUiState.Success(state.value.configuration, state.value.voteList)
+                        }
+                    }
+                } else {
+                    RoomUiState.Disconnect
+                }
+            }
+                .collect { uiState ->
+                    _uiState.post(uiState)
                 }
         }
     }
@@ -23,7 +44,7 @@ class RoomViewModel(
     fun connect() {
         authController.getRoomConnectionId()?.let {
             roomController.connect(it)
-        }
+        } ?: _uiState.post(RoomUiState.Disconnect)
     }
 
     fun disconnect() {
