@@ -17,4 +17,8 @@
     <string name="label_qr_code">QR Code</string>
     <string name="label_grant_permission_camera">Grant camera permission</string>
     <string name="label_scan_qr_code">Scan QR code</string>
+    <string name="label_error">Error</string>
+    <string name="label_connecting">Connecting…</string>
+    <string name="label_share">Share</string>
+    <string name="label_owner">Owner: %s</string>
 </resources>
