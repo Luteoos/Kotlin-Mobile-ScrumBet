@@ -204,7 +204,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {
                     model.createNewRoom()
                 }) {
-                    Text(text = getString(R.string.label_create), fontSize = TextSize.small())
+                    Text(text = getString(R.string.label_create), fontSize = TextSize.small(), fontWeight = FontWeight.Bold)
                 }
             }
         }

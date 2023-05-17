@@ -28,7 +28,8 @@ class RoomViewModel(
                         KState.Empty, KState.Loading -> RoomUiState.Loading
                         is KState.Error -> RoomUiState.Error(state.error.message ?: "")
                         is KState.Success -> {
-                            RoomUiState.Success(state.value.configuration, state.value.voteList)
+                            // TODO add connection properties to authController.State
+                            RoomUiState.Success(state.value.configuration, state.value.voteList, authController.getRoomConnectionId() ?: "")
                         }
                     }
                 } else {
