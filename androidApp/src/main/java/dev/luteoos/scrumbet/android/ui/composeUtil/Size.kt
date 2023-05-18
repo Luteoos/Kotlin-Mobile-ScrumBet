@@ -33,5 +33,10 @@ object Size {
      */
     fun xLarge() = 48.dp
 
+    /**
+     * 48.dp
+     */
+    fun xxLarge() = 72.dp
+
     fun minHeight() = 50.dp
 }

@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -26,8 +29,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -37,6 +42,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -47,12 +54,13 @@ import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
 import dev.luteoos.scrumbet.android.ui.composeUtil.Size
 import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
+import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
 
 class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomViewModel::class) {
     override val layoutId: Int = R.layout.compose_fragment
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> ComposeFragmentBinding = { inflater, viewGroup, attachToParrent ->
-        ComposeFragmentBinding.inflate(inflater, viewGroup, attachToParrent)
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> ComposeFragmentBinding = { inflater, viewGroup, attachToParent ->
+        ComposeFragmentBinding.inflate(inflater, viewGroup, attachToParent)
     }
 
     override fun initObservers() {
@@ -120,7 +128,13 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                 RoomUiState.Disconnect -> {}
                                 is RoomUiState.Error -> RoomScreenUiError(state = state as RoomUiState.Error)
                                 RoomUiState.Loading -> RoomScreenUiLoading()
-                                is RoomUiState.Success -> RoomScreenUiConnected(state = state as RoomUiState.Success)
+                                is RoomUiState.Success -> RoomScreenUiConnected(
+                                    state = state as RoomUiState.Success,
+                                    showSheetContent = {
+                                        customSheetContent = it
+                                        toggleSheetState()
+                                    }
+                                )
                             }
                         }
                     }
@@ -138,8 +152,11 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     @Composable
-    private fun RoomScreenUiConnected(state: RoomUiState.Success) {
-        var currentPick by remember { mutableStateOf<String?>(null) }
+    private fun RoomScreenUiConnected(
+        state: RoomUiState.Success,
+        showSheetContent: (@Composable () -> Unit) -> Unit
+    ) {
+        var currentPick by remember { mutableStateOf<String?>(null) } // todo = state.userVote
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -148,12 +165,16 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(text = "${state.userList.count { it.vote != null }}/${state.userList.size}", fontSize = TextSize.regular())
-                Spacer(modifier = Modifier.width(Size.small()))
-                Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)) {
+                Spacer(modifier = Modifier.width(Size.regular()))
+                Button(
+                    onClick = { showSheetContent { RoomScreenMemberListSheet(state.userList, state.config.isOwner, state.config.anonymousVote, state.config.alwaysVisibleVote) } },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                ) {
                     Text(text = getString(R.string.label_list))
                 }
             }
-            LazyVerticalGrid(modifier = Modifier.fillMaxWidth(.65f), columns = GridCells.Adaptive(Size.xLarge()), content = { // TODO - bug - GridCellsAdaptive multiline Text()
+            AvgVoteUi(list = state.userList)
+            LazyVerticalGrid(modifier = Modifier.fillMaxWidth(.75f), columns = GridCells.Adaptive(Size.xxLarge()), content = {
                 val buttonModifier = Modifier
                     .fillMaxWidth()
                     .padding(Size.xSmall())
@@ -171,6 +192,93 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     }
                 }
             })
+        }
+    }
+
+    @Composable
+    private fun AvgVoteUi(list: List<RoomUser>) {
+        val score: String = if (list.any { it.vote == null })
+            " "
+        else
+            list.mapNotNull { it.vote?.toIntOrNull() }.let { it.sum() / it.size }.toString()
+
+        Text(
+            text = score,
+            modifier = Modifier.padding(Size.regular()),
+            fontSize = TextSize.xLarge(),
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colors.primaryVariant
+        )
+    }
+
+    @Composable
+    private fun RoomScreenMemberListSheet(
+        list: List<RoomUser>,
+        isOwner: Boolean,
+        isVoteAnonymous: Boolean,
+        isVoteVisible: Boolean
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Bottom
+        ) {
+            Text(
+                text = getString(R.string.label_member_list),
+                fontSize = TextSize.xSmall(),
+                color = MaterialTheme.colors.secondary
+            )
+            Spacer(modifier = Modifier.height(Size.small()))
+            if (isOwner) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        onClick = { },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                    ) {
+                        Text(text = getString(R.string.label_reset))
+                    }
+                    // Toggle Show/Hide
+                }
+                Spacer(modifier = Modifier.height(Size.small()))
+            }
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                content = {
+                    items(list.sortedBy { !it.isOwner }) { user ->
+                        MemberListRow(user = user, isVoteVisible)
+                    }
+                }
+            )
+        }
+    }
+
+    @Composable
+    private fun MemberListRow(user: RoomUser, isVoteVisible: Boolean) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Size.xSmall()),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = user.username, fontSize = TextSize.small())
+            if (user.isOwner)
+                Icon(imageVector = Icons.Default.Star, contentDescription = null, tint = Color.Yellow) // TODO change icon to Crown
+            Spacer(modifier = Modifier.weight(1f))
+            if (user.vote != null)
+                Button(onClick = {}) {
+                    if (isVoteVisible)
+                        Text(text = user.vote!!, fontSize = TextSize.xSmall())
+                    else
+                        Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colors.onPrimary)
+                }
+            else
+                OutlinedButton(onClick = {}) {
+                    Text(text = " ", fontSize = TextSize.xSmall())
+                }
         }
     }
 

@@ -29,7 +29,12 @@ class RoomViewModel(
                         is KState.Error -> RoomUiState.Error(state.error.message ?: "")
                         is KState.Success -> {
                             // TODO add connection properties to authController.State
-                            RoomUiState.Success(state.value.configuration, state.value.voteList, authController.getRoomConnectionId() ?: "")
+                            RoomUiState.Success(
+                                state.value.configuration,
+                                state.value.voteList,
+                                authController.getRoomConnectionId() ?: "",
+                                state.value.voteList.firstOrNull { it.userId == "id2" /* todo authController.getUserData()?.userId*/ }?.vote
+                            )
                         }
                     }
                 } else {

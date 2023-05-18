@@ -22,4 +22,6 @@
     <string name="label_share">Share</string>
     <string name="label_owner">Owner: %s</string>
     <string name="label_list">List</string>
+    <string name="label_member_list">Member list</string>
+    <string name="label_reset">Reset</string>
 </resources>

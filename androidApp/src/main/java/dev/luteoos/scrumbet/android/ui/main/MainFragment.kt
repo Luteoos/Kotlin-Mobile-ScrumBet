@@ -61,8 +61,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
 
     override val layoutId: Int = R.layout.main_fragment
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> MainFragmentBinding =
-        { inflater, viewGroup, attachToParrent ->
-            MainFragmentBinding.inflate(inflater, viewGroup, attachToParrent)
+        { inflater, viewGroup, attachToParent ->
+            MainFragmentBinding.inflate(inflater, viewGroup, attachToParent)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
