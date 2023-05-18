@@ -4,6 +4,8 @@
     <color name="colorAccent">#8883D2</color>
     <color name="colorAccentLight">#bab3ff</color>
     <color name="logotypeAccent">#8883D2</color>
+    <color name="colorSecondaryNight">#4E4E4E</color>
+    <color name="colorSecondaryLightNight">#8E8E8E</color>
     <color name="colorBackgroundLight">#AA22020b</color>
     <color name="colorBackgroundDark">#AA121212</color>
     <color name="colorBackground">@color/grey_900</color>

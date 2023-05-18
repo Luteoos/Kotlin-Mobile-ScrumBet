@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 fun BottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (() -> Unit) -> Unit) {
     var isVisible by remember { mutableStateOf(false) }
     val modalSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
+        initialValue = if (isVisible) ModalBottomSheetValue.Expanded else ModalBottomSheetValue.Hidden,
         confirmValueChange = {
             if (it == ModalBottomSheetValue.Hidden)
                 model.hideKeyboard.notify()

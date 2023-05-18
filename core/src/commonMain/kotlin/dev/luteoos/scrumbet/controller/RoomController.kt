@@ -20,7 +20,12 @@ class RoomController : KController<RoomData, AppException>(), RoomControllerInte
                 publish(KState.Success(getMockRoomData()))
             else
                 publish(KState.Error(AppException.GeneralException("404")))
-        }, 5000)
+//            for(i in 2..7){
+//                KHandler().postDelayed({
+//                    publish(KState.Success(getMockRoomData(listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "?").takeLast(i))))
+//                }, (i*2000).toLong())
+//            }
+        }, 3000)
     }
 
     override fun vote(voteValue: String) {
@@ -43,11 +48,11 @@ class RoomController : KController<RoomData, AppException>(), RoomControllerInte
         println("Room controller disconnect")
     }
 
-    private fun getMockRoomData() =
+    private fun getMockRoomData(valuesList: List<String> = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "?")) =
         RoomData(
             RoomConfiguration(
                 true,
-                listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "?"),
+                valuesList,
                 voteEnded = false,
                 anonymousVote = true,
                 alwaysVisibleVote = false

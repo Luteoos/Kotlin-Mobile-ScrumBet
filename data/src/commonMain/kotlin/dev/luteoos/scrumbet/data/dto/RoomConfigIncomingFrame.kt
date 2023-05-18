@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 data class RoomConfigIncomingFrame(
     @SerialName("userId")
     val roomOwnerId: String,
-    val scaleType: String,
+    val scaleList: List<String>,
     val anonymousVote: Boolean,
     val alwaysVisibleVote: Boolean
 )
