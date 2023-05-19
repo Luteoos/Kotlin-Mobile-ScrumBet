@@ -25,7 +25,7 @@ class RoomController : KController<RoomData, AppException>(), RoomControllerInte
 //                    publish(KState.Success(getMockRoomData(listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "?").takeLast(i))))
 //                }, (i*2000).toLong())
 //            }
-        }, 3000)
+        }, 1500)
     }
 
     override fun vote(voteValue: String) {

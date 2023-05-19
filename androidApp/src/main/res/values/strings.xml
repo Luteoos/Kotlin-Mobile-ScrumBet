@@ -24,4 +24,6 @@
     <string name="label_list">List</string>
     <string name="label_member_list">Member list</string>
     <string name="label_reset">Reset</string>
+    <string name="label_show">Show</string>
+    <string name="label_hide">Hide</string>
 </resources>

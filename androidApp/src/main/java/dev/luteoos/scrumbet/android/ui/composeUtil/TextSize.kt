@@ -16,6 +16,11 @@ object TextSize {
     fun xSmall() = getTextUnit(15f)
 
     /**
+     * 12sp
+     */
+    fun xxSmall() = getTextUnit(12f)
+
+    /**
      * 28sp
      */
     fun regular() = getTextUnit(28f)

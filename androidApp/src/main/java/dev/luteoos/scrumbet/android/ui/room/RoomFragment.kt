@@ -44,6 +44,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -54,6 +55,7 @@ import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
 import dev.luteoos.scrumbet.android.ui.composeUtil.Size
 import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
+import dev.luteoos.scrumbet.android.ui.composeUtil.VisibilityToggle
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
 
@@ -236,12 +238,19 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Button(
+                        modifier = Modifier.height(40.dp),
                         onClick = { },
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                     ) {
                         Text(text = getString(R.string.label_reset))
                     }
-                    // Toggle Show/Hide
+                    Spacer(modifier = Modifier.width(Size.regular()))
+                    VisibilityToggle(
+                        modifier = Modifier.height(40.dp),
+                        initialState = isVoteVisible, onClick = {
+                            // show/hide votes
+                        }
+                    )
                 }
                 Spacer(modifier = Modifier.height(Size.small()))
             }
