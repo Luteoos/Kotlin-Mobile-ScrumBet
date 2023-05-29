@@ -1,14 +1,27 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version Versions.kotlin
     kotlin("native.cocoapods")
     id("com.android.library")
     id("dev.icerock.moko.kswift") version "0.6.1"
+    id("com.codingfeline.buildkonfig")
 }
 
 apply(from = "../ktlint.gradle")
 
 version = "1.0"
+
+buildkonfig {
+    // gradlew generatebuildkonfig
+    packageName = "dev.luteoos.scrumbet"
+
+    defaultConfigs {
+        buildConfigField(STRING, "appVersion", "0.1", const = true)
+        buildConfigField(STRING, "baseUrl", "my.url.here/controller", const = true)
+    }
+}
 
 kotlin {
     android {
