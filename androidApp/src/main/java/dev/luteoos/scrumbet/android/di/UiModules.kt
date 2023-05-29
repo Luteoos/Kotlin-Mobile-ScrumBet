@@ -12,6 +12,7 @@ import dev.luteoos.scrumbet.controller.interfaces.RoomControllerInterface
 import dev.luteoos.scrumbet.controller.interfaces.UserControllerInterface
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 /**
@@ -24,7 +25,7 @@ val viewModelModule = module {
     viewModel { RoomViewModel(get(), get()) }
     viewModel { AuthViewModel(get()) }
 
-    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get()) }
+    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get(), get(named("APP_VERSION"))) }
     factory<UserControllerInterface> { UserController(get(), get()) }
     factory<RoomControllerInterface> { RoomController() }
 }

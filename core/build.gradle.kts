@@ -19,7 +19,8 @@ buildkonfig {
 
     defaultConfigs {
         buildConfigField(STRING, "appVersion", "0.1", const = true)
-        buildConfigField(STRING, "baseUrl", "my.url.here/controller", const = true)
+        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
+        buildConfigField(STRING, "sslPrefix", "http://", const = true)
     }
 }
 

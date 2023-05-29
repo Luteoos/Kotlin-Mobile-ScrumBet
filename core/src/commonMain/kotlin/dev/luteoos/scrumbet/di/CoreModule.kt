@@ -19,9 +19,10 @@ val coreModule = module {
     single { getHttpClient() }
 
     single<RoomRepository> { RoomRepositoryImpl(get()) }
-    single<ServerRepository> { ServerRepositoryImpl(get(named("BASE_URL")), get()) }
+    single<ServerRepository> { ServerRepositoryImpl(get(named("BASE_URL")), get(named("SSL_PREFIX")), get()) }
 
     single { Greeting() }
     single(named("APP_VERSION")) { BuildKonfig.appVersion }
     single(named("BASE_URL")) { BuildKonfig.baseUrl }
+    single(named("SSL_PREFIX")) { BuildKonfig.sslPrefix }
 }

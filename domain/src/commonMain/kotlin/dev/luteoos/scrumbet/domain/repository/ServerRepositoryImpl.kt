@@ -11,14 +11,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class ServerRepositoryImpl(private val baseUrl: String,
+                           private val sslPrefix: String,
                            private val httpClient: HttpClient): ServerRepository {
 
     override fun getServerVersion(): Flow<ServerVersion?> {
         return flow {
             try {
-                httpClient.get(baseUrl){
+                httpClient.get("$sslPrefix$baseUrl"){
                     url {
-                        appendPathSegments("/version")
+                        appendPathSegments("version")
                     }
                 }.let { response ->
                     if(response.status.value == 200)

@@ -13,10 +13,16 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.get
+import org.koin.core.qualifier.named
 
-class AuthController(preferences: SharedPreferences? = null, serverRepository: ServerRepository? = null) : KController<AuthState, AppException>(), AuthControllerInterface {
+class AuthController(
+    preferences: SharedPreferences? = null,
+    serverRepository: ServerRepository? = null,
+    applicationVersion: String? = null
+) : KController<AuthState, AppException>(), AuthControllerInterface {
     private val preferences: SharedPreferences
     private val repository: ServerRepository
+    private val appVersion: String
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
     /**
@@ -36,10 +42,16 @@ class AuthController(preferences: SharedPreferences? = null, serverRepository: S
     init {
         this.preferences = preferences ?: get()
         this.repository = serverRepository ?: get()
+        this.appVersion = applicationVersion ?: get(named("APP_VERSION"))
         kcontrollerScope.launch {
             combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersion()) { user, id, version ->
-                // TODO add app version check
+                if (false) // TODO skip to ignore not running server
+                    if (version?.version != appVersion) {
+                        publish(KState.Success(AuthState.InvalidVersion))
+                        return@combine
+                    }
                 if (user != null) {
+                    println(version)
                     if (id != null)
                         publish(KState.Success(AuthState.Connected))
                     else
