@@ -13,13 +13,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.get
 
-/**
- * Empty - User not authenticated
- *
- * Success(true) - User authenticated, connId set
- *
- * Success(false) - User authenticated, connId not set
- */
 class AuthController(preferences: SharedPreferences? = null) : KController<AuthState, AppException>(), AuthControllerInterface {
     private val preferences: SharedPreferences
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
