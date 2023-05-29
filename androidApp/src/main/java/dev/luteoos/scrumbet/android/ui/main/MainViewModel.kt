@@ -8,6 +8,7 @@ import dev.luteoos.scrumbet.android.ext.post
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.controller.interfaces.UserControllerInterface
 import dev.luteoos.scrumbet.core.KState
+import dev.luteoos.scrumbet.data.state.AuthState
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -38,7 +39,11 @@ class MainViewModel(
                         when (state) {
                             KState.Empty, KState.Loading, is KState.Error -> false
                             is KState.Success -> {
-                                state.value
+                                when (state.value) {
+                                    AuthState.Connected -> true
+                                    AuthState.InvalidVersion -> false
+                                    AuthState.UserSignedIn -> false
+                                }
                             }
                         }
                     )

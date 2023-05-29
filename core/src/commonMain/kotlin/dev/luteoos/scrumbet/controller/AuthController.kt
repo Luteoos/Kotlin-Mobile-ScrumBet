@@ -4,6 +4,7 @@ import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.core.KController
 import dev.luteoos.scrumbet.core.KState
 import dev.luteoos.scrumbet.data.entity.AppException
+import dev.luteoos.scrumbet.data.state.AuthState
 import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,21 +20,34 @@ import org.koin.core.component.get
  *
  * Success(false) - User authenticated, connId not set
  */
-class AuthController(preferences: SharedPreferences? = null) : KController<Boolean, AppException>(), AuthControllerInterface {
+class AuthController(preferences: SharedPreferences? = null) : KController<AuthState, AppException>(), AuthControllerInterface {
     private val preferences: SharedPreferences
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
-    override val state: MutableStateFlow<KState<Boolean, AppException>> = MutableStateFlow(KState.Empty)
+    /**
+     *
+     * KState.Loading -> Loading, await
+     *
+     * AuthState.InvalidVersion -> App version invalid, force update client
+     *
+     * KState.Empty -> No user or room Info, App version valid
+     *
+     * AuthState.Connected -> User and Room info valid, App version valid, able to connect
+     *
+     * AuthState.UserSignedIn -> no room info, user valid, App version valid
+     */
+    override val state: MutableStateFlow<KState<AuthState, AppException>> = MutableStateFlow(KState.Loading)
 
     init {
         this.preferences = preferences ?: get()
         kcontrollerScope.launch {
             combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow) { user, id ->
+                // TODO add app version check
                 if (user != null) {
                     if (id != null)
-                        publish(KState.Success(true))
+                        publish(KState.Success(AuthState.Connected))
                     else
-                        publish(KState.Success(false))
+                        publish(KState.Success(AuthState.UserSignedIn))
                 } else
                     publish(KState.Empty)
             }.collect()

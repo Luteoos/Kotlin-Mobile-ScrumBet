@@ -8,6 +8,7 @@ import dev.luteoos.scrumbet.android.ext.post
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.controller.interfaces.RoomControllerInterface
 import dev.luteoos.scrumbet.core.KState
+import dev.luteoos.scrumbet.data.state.AuthState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ class RoomViewModel(
     init {
         viewModelScope.launch(Dispatchers.Main) {
             combine(roomController.getStateFlow(), authController.getStateFlow()) { state, authState ->
-                if (authState is KState.Success && authState.value) {
+                if (authState is KState.Success && authState.value == AuthState.Connected) {
                     when (state) {
                         KState.Empty, KState.Loading -> RoomUiState.Loading
                         is KState.Error -> RoomUiState.Error(state.error.message ?: "")
