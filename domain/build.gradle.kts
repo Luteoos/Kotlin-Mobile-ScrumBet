@@ -38,6 +38,7 @@ kotlin {
                 implementation(Dependencies.ktorSerialization)
                 implementation(Dependencies.ktorAuth)
                 implementation(Dependencies.ktorLogging)
+                implementation(Dependencies.ktorContentNegotiation)
             }
         }
         val commonTest by getting {

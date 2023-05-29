@@ -24,7 +24,7 @@ val viewModelModule = module {
     viewModel { RoomViewModel(get(), get()) }
     viewModel { AuthViewModel(get()) }
 
-    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get()) }
+    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get()) }
     factory<UserControllerInterface> { UserController(get(), get()) }
     factory<RoomControllerInterface> { RoomController() }
 }

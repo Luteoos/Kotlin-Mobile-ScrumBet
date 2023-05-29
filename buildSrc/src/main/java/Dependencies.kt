@@ -15,6 +15,7 @@ object Dependencies {
     const val ktorSerialization = "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
     const val ktorAuth = "io.ktor:ktor-client-auth:${Versions.ktor}"
     const val ktorLogging = "io.ktor:ktor-client-logging:${Versions.ktor}"
+    const val ktorContentNegotiation = "io.ktor:ktor-client-content-negotiation:${Versions.ktor}"
 
     // commonApi
     const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"

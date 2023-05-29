@@ -43,6 +43,7 @@ kotlin {
         framework {
             baseName = "core"
             export(project(":data"))
+            export(project(":domain"))
             transitiveExport = false
         }
     }
@@ -58,7 +59,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":data"))
-                implementation(project(":domain"))
+                api(project(":domain"))
                 implementation(Dependencies.kotlinStdlib)
                 implementation(Dependencies.kotlinCoroutinesCore)
                 implementation(Dependencies.kotlinSerializationJson)
@@ -71,6 +72,8 @@ kotlin {
                 implementation(Dependencies.ktorSerialization)
                 implementation(Dependencies.ktorAuth)
                 implementation(Dependencies.ktorLogging)
+                implementation(Dependencies.ktorContentNegotiation)
+
 
                 api(Dependencies.koinCore)
             }

@@ -6,6 +6,7 @@ import dev.luteoos.scrumbet.core.KState
 import dev.luteoos.scrumbet.data.entity.AppException
 import dev.luteoos.scrumbet.data.state.AuthState
 import dev.luteoos.scrumbet.data.state.UserData
+import dev.luteoos.scrumbet.domain.repository.interfaces.ServerRepository
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -13,8 +14,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.get
 
-class AuthController(preferences: SharedPreferences? = null) : KController<AuthState, AppException>(), AuthControllerInterface {
+class AuthController(preferences: SharedPreferences? = null, serverRepository: ServerRepository? = null) : KController<AuthState, AppException>(), AuthControllerInterface {
     private val preferences: SharedPreferences
+    private val repository: ServerRepository
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
     /**
@@ -33,8 +35,9 @@ class AuthController(preferences: SharedPreferences? = null) : KController<AuthS
 
     init {
         this.preferences = preferences ?: get()
+        this.repository = serverRepository ?: get()
         kcontrollerScope.launch {
-            combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow) { user, id ->
+            combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersion()) { user, id, version ->
                 // TODO add app version check
                 if (user != null) {
                     if (id != null)

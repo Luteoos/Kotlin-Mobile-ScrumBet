@@ -3,7 +3,9 @@ package dev.luteoos.scrumbet.di
 import dev.luteoos.scrumbet.BuildKonfig
 import dev.luteoos.scrumbet.Greeting
 import dev.luteoos.scrumbet.domain.repository.RoomRepositoryImpl
+import dev.luteoos.scrumbet.domain.repository.ServerRepositoryImpl
 import dev.luteoos.scrumbet.domain.repository.interfaces.RoomRepository
+import dev.luteoos.scrumbet.domain.repository.interfaces.ServerRepository
 import dev.luteoos.scrumbet.domain.util.getHttpClient
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import dev.luteoos.scrumbet.preferences.SharedPreferencesImpl
@@ -17,11 +19,9 @@ val coreModule = module {
     single { getHttpClient() }
 
     single<RoomRepository> { RoomRepositoryImpl(get()) }
-//    single<AuthRepository> { AuthRepositoryImpl() }
-//    single<TurbineLiveRepository> { TurbineLiveRepositoryImpl(get()) }
+    single<ServerRepository> { ServerRepositoryImpl(get(named("BASE_URL")), get()) }
 
     single { Greeting() }
     single(named("APP_VERSION")) { BuildKonfig.appVersion }
     single(named("BASE_URL")) { BuildKonfig.baseUrl }
-//    single { TestTurbineRepository(get()) }
 }

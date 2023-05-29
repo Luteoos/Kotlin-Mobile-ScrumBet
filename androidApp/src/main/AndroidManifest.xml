@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash"
         android:name=".MainApplication"
-        android:roundIcon="@mipmap/ic_app">
+        android:roundIcon="@mipmap/ic_app"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".ui.MainActivity"
