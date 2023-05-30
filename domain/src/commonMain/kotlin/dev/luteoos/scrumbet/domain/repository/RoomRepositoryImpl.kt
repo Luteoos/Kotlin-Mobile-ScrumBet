@@ -2,7 +2,11 @@ package dev.luteoos.scrumbet.domain.repository
 
 import dev.luteoos.scrumbet.data.Id
 import dev.luteoos.scrumbet.data.Username
+import dev.luteoos.scrumbet.data.dto.RoomConfigOutgoingFrame
+import dev.luteoos.scrumbet.data.dto.RoomResetOutgoingFrame
 import dev.luteoos.scrumbet.data.dto.RoomStateFrame
+import dev.luteoos.scrumbet.data.dto.RoomVoteFrame
+import dev.luteoos.scrumbet.data.dto.RoomVoteOutgoingFrame
 import dev.luteoos.scrumbet.domain.repository.interfaces.RoomRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocketSession
@@ -13,6 +17,8 @@ import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSocketSession
 import io.ktor.websocket.close
 import io.ktor.websocket.readText
+import io.ktor.websocket.send
+import io.ktor.websocket.serialization.sendSerializedBase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -21,9 +27,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
+import kotlinx.serialization.SerializationStrategy
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class RoomRepositoryImpl(private val client: HttpClient) : RoomRepository {
+class RoomRepositoryImpl(private val client: HttpClient,
+                         private val baseUrl: String) : RoomRepository {
 
     private var session: WebSocketSession? = null
     private val connectionError: MutableSharedFlow<Exception> = MutableSharedFlow()
@@ -33,7 +42,7 @@ class RoomRepositoryImpl(private val client: HttpClient) : RoomRepository {
     override suspend fun initSession(roomName: String, username: Username, userId: Id): Result<Unit> {
         return try {
             session = client.webSocketSession {
-                url("${RoomRepository.Endpoints.RoomSocket(roomName)}?username=$username")
+                url("${RoomRepository.Endpoints.RoomSocket(baseUrl, roomName).url}?username=$username")
                 headers {
                     append("userID", userId)
                 }
@@ -71,4 +80,15 @@ class RoomRepositoryImpl(private val client: HttpClient) : RoomRepository {
         } ?: flow { }
     }
 
+    override suspend fun sendFrame(vote: RoomVoteOutgoingFrame) {
+        session?.send(Json.encodeToString(vote))
+    }
+
+    override suspend fun sendFrame(config: RoomConfigOutgoingFrame) {
+        session?.send(Json.encodeToString(config))
+    }
+
+    override suspend fun sendFrame(reset: RoomResetOutgoingFrame) {
+        session?.send(Json.encodeToString(reset))
+    }
 }

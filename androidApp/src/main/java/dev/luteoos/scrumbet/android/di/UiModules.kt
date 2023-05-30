@@ -27,7 +27,7 @@ val viewModelModule = module {
 
     single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get(), get(named("APP_VERSION"))) }
     factory<UserControllerInterface> { UserController(get(), get()) }
-    factory<RoomControllerInterface> { RoomController() }
+    factory<RoomControllerInterface> { RoomController(get()) }
 }
 
 val uiModule = module {

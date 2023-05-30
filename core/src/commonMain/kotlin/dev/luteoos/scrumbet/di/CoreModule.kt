@@ -18,7 +18,7 @@ val coreModule = module {
     single { DeviceData() }
     single { getHttpClient() }
 
-    single<RoomRepository> { RoomRepositoryImpl(get()) }
+    single<RoomRepository> { RoomRepositoryImpl(get(), get(named("BASE_URL"))) }
     single<ServerRepository> { ServerRepositoryImpl(get(named("BASE_URL")), get(named("SSL_PREFIX")), get()) }
 
     single { Greeting() }
