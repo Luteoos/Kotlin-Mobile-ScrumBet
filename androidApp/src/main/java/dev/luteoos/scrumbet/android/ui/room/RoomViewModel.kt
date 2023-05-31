@@ -24,17 +24,17 @@ class RoomViewModel(
     init {
         viewModelScope.launch(Dispatchers.Main) {
             combine(roomController.getStateFlow(), authController.getStateFlow()) { state, authState ->
-                if (authState is KState.Success && authState.value == AuthState.Connected) {
+                if (authState is KState.Success && authState.value is AuthState.Connected) {
+                    val userId = (authState.value as AuthState.Connected).userData.userId
                     when (state) {
                         KState.Empty, KState.Loading -> RoomUiState.Loading
                         is KState.Error -> RoomUiState.Error(state.error.message ?: "")
                         is KState.Success -> {
-                            // TODO add connection properties to authController.State
                             RoomUiState.Success(
                                 state.value.configuration,
                                 state.value.voteList,
                                 authController.getRoomConnectionId() ?: "",
-                                state.value.voteList.firstOrNull { it.userId == "id2" /* todo authController.getUserData()?.userId*/ }?.vote
+                                state.value.voteList.firstOrNull { it.userId == userId }?.vote
                             )
                         }
                     }

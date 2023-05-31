@@ -53,9 +53,9 @@ class AuthController(
                 if (user != null) {
                     println(version)
                     if (id != null)
-                        publish(KState.Success(AuthState.Connected))
+                        publish(KState.Success(AuthState.Connected(user, id)))
                     else
-                        publish(KState.Success(AuthState.UserSignedIn))
+                        publish(KState.Success(AuthState.UserSignedIn(user)))
                 } else
                     publish(KState.Empty)
             }.collect()

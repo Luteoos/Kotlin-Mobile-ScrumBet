@@ -1,7 +1,9 @@
 package dev.luteoos.scrumbet.data.state
 
+import dev.luteoos.scrumbet.data.Id
+
 sealed class AuthState {
     object InvalidVersion : AuthState()
-    object UserSignedIn : AuthState()
-    object Connected : AuthState()
+    data class UserSignedIn(val userData: UserData) : AuthState()
+    data class Connected(val userData: UserData, val roomId: Id) : AuthState()
 }
