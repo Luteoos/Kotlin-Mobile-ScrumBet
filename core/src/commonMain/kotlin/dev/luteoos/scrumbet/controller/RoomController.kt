@@ -94,7 +94,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
             repository.sendFrame(
                 RoomConfigOutgoingFrame(
                     senderId = userData.userId,
-                    scaleType = "DEFAULT", // TODO implement proper room scale type
+                    scaleType = "FIBONACCI", // TODO implement proper room scale type
                     anonymousVote = configuration.anonymousVote,
                     alwaysVisibleVote = showValues
                 )
@@ -109,7 +109,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
             repository.sendFrame(
                 RoomConfigOutgoingFrame(
                     senderId = userData.userId,
-                    scaleType = "DEFAULT", // TODO implement proper room scale type
+                    scaleType = "FIBONACCI", // TODO implement proper room scale type
                     anonymousVote = configuration.anonymousVote,
                     alwaysVisibleVote = configuration.alwaysVisibleVote
                 )

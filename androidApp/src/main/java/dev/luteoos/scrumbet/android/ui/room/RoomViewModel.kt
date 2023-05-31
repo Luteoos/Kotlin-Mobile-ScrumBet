@@ -48,6 +48,22 @@ class RoomViewModel(
         }
     }
 
+    fun setVote(value: String) {
+        roomController.vote(value)
+    }
+
+    fun resetVote() {
+        roomController.resetRoom()
+    }
+
+    fun showVoteValues() {
+        roomController.displayValues(true)
+    }
+
+    fun hideVoteValues() {
+        roomController.displayValues(false)
+    }
+
     fun connect() {
         authController.getRoomConnectionId()?.let {
             roomController.connect(it)

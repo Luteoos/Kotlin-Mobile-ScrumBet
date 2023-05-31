@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
-import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -36,7 +35,7 @@ class RoomRepositoryImpl(private val client: HttpClient,
 
     private var session: WebSocketSession? = null
     private val connectionError: MutableSharedFlow<Exception> = MutableSharedFlow()
-
+    private val serializer = Json { encodeDefaults = true }
     override fun getConnectionErrorFlow(): SharedFlow<Exception> = connectionError
 
     override suspend fun initSession(roomName: String, username: Username, userId: Id): Result<Unit> {
@@ -68,7 +67,7 @@ class RoomRepositoryImpl(private val client: HttpClient,
                     .filter { it is Frame.Text }
                     .map {
                         (it as Frame.Text).let {
-                            Json.decodeFromString(RoomStateFrame.serializer(), it.readText())
+                            serializer.decodeFromString(RoomStateFrame.serializer(), it.readText())
                         }
 //                        it
                     }
@@ -81,14 +80,14 @@ class RoomRepositoryImpl(private val client: HttpClient,
     }
 
     override suspend fun sendFrame(vote: RoomVoteOutgoingFrame) {
-        session?.send(Json.encodeToString(vote))
+        session?.send(serializer.encodeToString(vote))
     }
 
     override suspend fun sendFrame(config: RoomConfigOutgoingFrame) {
-        session?.send(Json.encodeToString(config))
+        session?.send(serializer.encodeToString(config))
     }
 
     override suspend fun sendFrame(reset: RoomResetOutgoingFrame) {
-        session?.send(Json.encodeToString(reset))
+        session?.send(serializer.encodeToString(reset))
     }
 }

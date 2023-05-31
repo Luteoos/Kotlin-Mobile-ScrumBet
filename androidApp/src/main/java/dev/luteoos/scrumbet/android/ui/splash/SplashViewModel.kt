@@ -23,9 +23,9 @@ class SplashViewModel(private val authController: AuthControllerInterface) : Bas
                         KState.Loading -> onReady.postValue(SplashUiState.Loading)
                         is KState.Success -> {
                             when (state.value) {
-                                AuthState.Connected -> onReady.postValue(SplashUiState.Success(true))
+                                is AuthState.Connected -> onReady.postValue(SplashUiState.Success(true))
+                                is AuthState.UserSignedIn -> onReady.postValue(SplashUiState.Success())
                                 AuthState.InvalidVersion -> onReady.postValue(SplashUiState.AppVersionObsolete)
-                                AuthState.UserSignedIn -> onReady.postValue(SplashUiState.Success())
                             }
                         }
                     }

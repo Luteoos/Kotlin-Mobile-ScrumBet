@@ -22,9 +22,9 @@ class AuthViewModel(private val authController: AuthControllerInterface) : BaseV
                 KState.Empty, KState.Loading, is KState.Error -> false
                 is KState.Success -> {
                     when (state.value) {
-                        AuthState.Connected -> true
+                        is AuthState.Connected -> true
+                        is AuthState.UserSignedIn -> false
                         AuthState.InvalidVersion -> false
-                        AuthState.UserSignedIn -> false
                     }
                 }
             }

@@ -31,6 +31,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
@@ -160,7 +161,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         state: RoomUiState.Success,
         showSheetContent: (@Composable () -> Unit) -> Unit
     ) {
-        var currentPick by remember { mutableStateOf<String?>(null) } // todo = state.userVote
+        var currentPick = state.userVote // by remember { mutableStateOf<String?>(null) } // todo = state.userVote
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -171,7 +172,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 Text(text = "${state.userList.count { it.vote != null }}/${state.userList.size}", fontSize = TextSize.regular())
                 Spacer(modifier = Modifier.width(Size.regular()))
                 Button(
-                    onClick = { showSheetContent { RoomScreenMemberListSheet(state.userList, state.config.isOwner, state.config.anonymousVote, state.config.alwaysVisibleVote) } },
+                    onClick = { showSheetContent { RoomScreenMemberListSheet() } },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                 ) {
                     Text(text = getString(R.string.label_list))
@@ -184,7 +185,10 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     .padding(Size.xSmall())
                 state.config.scale.forEach { value ->
                     item {
-                        val onClick = { currentPick = value }
+                        val onClick = {
+                            currentPick = value
+                            model.setVote(value)
+                        }
                         if (currentPick == null || currentPick == value)
                             Button(modifier = buttonModifier, onClick = onClick) {
                                 Text(text = value)
@@ -204,24 +208,32 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         val score: String = if (list.any { it.vote == null })
             " "
         else
-            list.mapNotNull { it.vote?.toIntOrNull() }.let { it.sum() / it.size }.toString()
-
-        Text(
-            text = score,
-            modifier = Modifier.padding(Size.regular()),
-            fontSize = TextSize.xLarge(),
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colors.primaryVariant
-        )
+            list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else " " }.toString()
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            IconButton(
+                enabled = score.isNotBlank(),
+                onClick = {
+                    model.resetVote()
+                }
+            ) {
+                Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
+            }
+            Text(
+                text = score,
+                modifier = Modifier.padding(Size.regular()),
+                fontSize = TextSize.xLarge(),
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colors.primaryVariant
+            )
+        }
     }
 
     @Composable
-    private fun RoomScreenMemberListSheet(
-        list: List<RoomUser>,
-        isOwner: Boolean,
-        isVoteAnonymous: Boolean,
-        isVoteVisible: Boolean
-    ) {
+    private fun RoomScreenMemberListSheet() {
+        val modelState by model.uiState.observeAsState()
+        if (modelState !is RoomUiState.Success)
+            return
+        val state = modelState as RoomUiState.Success
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = CenterHorizontally,
@@ -233,7 +245,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 color = MaterialTheme.colors.secondary
             )
             Spacer(modifier = Modifier.height(Size.small()))
-            if (isOwner) {
+            if (state.config.isOwner) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
@@ -241,7 +253,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 ) {
                     Button(
                         modifier = Modifier.height(40.dp),
-                        onClick = { },
+                        onClick = { model.resetVote() },
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                     ) {
                         Text(text = getString(R.string.label_reset))
@@ -249,8 +261,11 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     Spacer(modifier = Modifier.width(Size.regular()))
                     VisibilityToggle(
                         modifier = Modifier.height(40.dp),
-                        initialState = isVoteVisible, onClick = {
-                            // show/hide votes
+                        initialState = state.config.alwaysVisibleVote, onClick = {
+                            if (it)
+                                model.showVoteValues()
+                            else
+                                model.hideVoteValues()
                         }
                     )
                 }
@@ -259,8 +274,8 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
                 content = {
-                    items(list.sortedBy { !it.isOwner }) { user ->
-                        MemberListRow(user = user, isVoteVisible)
+                    items(state.userList.sortedBy { !it.isOwner }) { user ->
+                        MemberListRow(user = user, state.config.alwaysVisibleVote)
                     }
                 }
             )
