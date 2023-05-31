@@ -17,6 +17,7 @@ import dev.luteoos.scrumbet.preferences.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.core.component.get
 
 class RoomController(roomRepository: RoomRepository? = null, preferences: SharedPreferences? = null) : KController<RoomData, AppException>(), RoomControllerInterface {
@@ -42,7 +43,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                 when {
                     result.isFailure -> publish(KState.Error(AppException.GeneralException()))
                     result.isSuccess -> {
-                        launchDefault {
+                        launch {
                             repository.getConnectionErrorFlow()
                                 .collect {
                                     publish(KState.Error(it))

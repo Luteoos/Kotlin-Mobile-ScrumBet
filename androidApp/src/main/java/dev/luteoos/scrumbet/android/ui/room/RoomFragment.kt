@@ -211,7 +211,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else " " }.toString()
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
-                enabled = score.isNotBlank(),
+                enabled = list.any { it.vote != null },
                 onClick = {
                     model.resetVote()
                 }
@@ -220,7 +220,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             }
             Text(
                 text = score,
-                modifier = Modifier.padding(Size.regular()),
+                modifier = Modifier.padding(Size.regular()).width(Size.xxLarge()),
                 fontSize = TextSize.xLarge(),
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colors.primaryVariant
@@ -315,9 +315,9 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Failed to connect")
+            Text(text = getString(R.string.label_connection_failed))
             Button(onClick = { model.connect() }) {
-                Text(text = "Retry")
+                Text(text = getString(R.string.label_retry))
             }
         }
     }

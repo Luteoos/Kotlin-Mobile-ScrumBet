@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BackPressFragment
 import dev.luteoos.scrumbet.android.databinding.MainActivityBinding
+import dev.luteoos.scrumbet.android.ui.room.RoomFragment
+import dev.luteoos.scrumbet.android.ui.room.RoomViewModel
+import org.koin.android.ext.android.get
+import timber.log.Timber
+import java.net.SocketException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
@@ -19,6 +24,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Thread.setDefaultUncaughtExceptionHandler(object : Thread.UncaughtExceptionHandler {
+            // ktor abysmal webSocket error Handling
+            override fun uncaughtException(thread: Thread, exception: Throwable) {
+                if (exception is SocketException && thread.name.contains("DefaultDispatcher-worker")) {
+                    binding.navHost.getFragment<RoomFragment>().get<RoomViewModel>().disconnect()
+                    Timber.e(exception)
+                } else
+                    throw exception
+            }
+        })
     }
 
     @Deprecated("Deprecated in Java")

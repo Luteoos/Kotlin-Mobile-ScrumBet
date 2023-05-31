@@ -34,7 +34,7 @@ object Size {
     fun xLarge() = 48.dp
 
     /**
-     * 48.dp
+     * 72.dp
      */
     fun xxLarge() = 72.dp
 

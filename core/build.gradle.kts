@@ -17,10 +17,23 @@ buildkonfig {
     // gradlew generatebuildkonfig
     packageName = "dev.luteoos.scrumbet"
 
-    defaultConfigs {
+    defaultConfigs{
         buildConfigField(STRING, "appVersion", "0.1", const = true)
         buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
         buildConfigField(STRING, "sslPrefix", "http://", const = true)
+    }
+
+    defaultConfigs("dev") {
+        buildConfigField(STRING, "appVersion", "0.1-dev", const = true)
+        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
+        buildConfigField(STRING, "sslPrefix", "http://", const = true)
+    }
+
+    targetConfigs("dev"){
+        create("azure"){
+            buildConfigField(STRING, "appVersion", "0.1-azure", const = true)
+            buildConfigField(STRING, "baseUrl", "someazurewebsite.azure", const = true)
+        }
     }
 }
 

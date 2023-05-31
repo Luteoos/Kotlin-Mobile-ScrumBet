@@ -26,4 +26,6 @@
     <string name="label_reset">Reset</string>
     <string name="label_show">Show</string>
     <string name="label_hide">Hide</string>
+    <string name="label_retry">Retry</string>
+    <string name="label_connection_failed">Failed to connect</string>
 </resources>

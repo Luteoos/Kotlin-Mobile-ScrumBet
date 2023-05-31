@@ -8,6 +8,7 @@ import dev.luteoos.scrumbet.data.state.AuthState
 import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.domain.repository.interfaces.ServerRepository
 import dev.luteoos.scrumbet.preferences.SharedPreferences
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
@@ -43,7 +44,7 @@ class AuthController(
         this.preferences = preferences ?: get()
         this.repository = serverRepository ?: get()
         this.appVersion = applicationVersion ?: get(named("APP_VERSION"))
-        kcontrollerScope.launch {
+        kcontrollerScope.launch(Dispatchers.Default) {
             combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersion()) { user, id, version ->
                 if (true) // TODO skip to ignore not running server
                     if (version?.version != appVersion) {
