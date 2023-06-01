@@ -2,6 +2,7 @@ package dev.luteoos.scrumbet.android.ui
 
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -9,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BackPressFragment
 import dev.luteoos.scrumbet.android.databinding.MainActivityBinding
+import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import org.koin.android.ext.android.get
+import org.koin.core.qualifier.named
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
@@ -20,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val intentData: Uri? = intent?.data
+        if (intentData != null)
+            handleIntent(intentData)
+
 //        Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
 //            // smooth brain moment
 //            if (exception is SocketException && thread.name.contains("DefaultDispatcher-worker")) {
@@ -28,6 +36,14 @@ class MainActivity : AppCompatActivity() {
 //            } else
 //                throw exception
 //        }
+    }
+
+    private fun handleIntent(uri: Uri) {
+        if (uri.host?.contains(get<String>(named("BASE_URL")).split(":").first()) == true) {
+            uri.pathSegments?.first()?.let { pathRoomName ->
+                get<AuthControllerInterface>().setRoomConnectionId(pathRoomName)
+            }
+        }
     }
 
     @Deprecated("Deprecated in Java")

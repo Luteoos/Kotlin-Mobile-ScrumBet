@@ -8,6 +8,7 @@ import dev.luteoos.scrumbet.android.ext.post
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.controller.interfaces.UserControllerInterface
 import dev.luteoos.scrumbet.core.KState
+import dev.luteoos.scrumbet.core.UUID
 import dev.luteoos.scrumbet.data.state.AuthState
 import kotlinx.coroutines.launch
 
@@ -60,6 +61,6 @@ class MainViewModel(
     }
 
     fun createNewRoom() {
-        setRoomId("true") // UUID.getNewUUID())
+        setRoomId(UUID.getNewUUID())
     }
 }

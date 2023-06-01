@@ -2,8 +2,12 @@ package dev.luteoos.scrumbet.android.ui.room
 
 import BottomSheetDefaultLayout
 import LoadingView
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Bottom
@@ -47,6 +51,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
@@ -56,6 +63,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -69,6 +77,9 @@ import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
 import dev.luteoos.scrumbet.android.ui.composeUtil.VisibilityToggle
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
+import net.glxn.qrgen.android.QRCode
+import org.koin.android.ext.android.get
+import org.koin.core.qualifier.named
 
 class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomViewModel::class) {
     override val layoutId: Int = R.layout.compose_fragment
@@ -357,7 +368,12 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         ) {
             Text(text = user.username, fontSize = TextSize.small(), maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
             if (user.isOwner)
-                Icon(modifier = Modifier.padding(Size.xSmall()).size(Size.regular()), painter = painterResource(id = R.drawable.ic_crown), contentDescription = null, tint = Color(android.graphics.Color.parseColor("#FFD43E")))
+                Icon(
+                    modifier = Modifier
+                        .padding(Size.xSmall())
+                        .size(Size.regular()),
+                    painter = painterResource(id = R.drawable.ic_crown), contentDescription = null, tint = Color(android.graphics.Color.parseColor("#FFD43E"))
+                )
             Spacer(modifier = Modifier.weight(1f))
             if (user.vote != null)
                 Button(onClick = {}) {
@@ -396,12 +412,55 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     private fun RoomScreenShareSheet(roomName: String?) {
         if (roomName == null)
             return
+        val roomUrl = remember { "app://${get<String>(named("BASE_URL")).split(":").first()}/$roomName" }
+        val qrCode = remember { getQrCode(roomUrl) }
+
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
             Text(text = getString(R.string.label_share), fontSize = TextSize.xSmall())
+            Spacer(modifier = Modifier.height(Size.regular()))
+            Image(modifier = Modifier.fillMaxWidth(0.75f), bitmap = qrCode, contentDescription = null, contentScale = ContentScale.FillWidth)
+            Spacer(modifier = Modifier.height(Size.regular()))
+            Button(
+                modifier = Modifier.fillMaxWidth().padding(Size.small()),
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                onClick = { copyToClipboard(roomName) }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = getString(R.string.label_room_name))
+                    Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                }
+            }
+            Button(
+                modifier = Modifier.fillMaxWidth().padding(Size.small()),
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                onClick = { copyToClipboard(roomUrl) }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = getString(R.string.label_room_url))
+                    Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                }
+            }
         }
+    }
+
+    private fun copyToClipboard(value: String) {
+        val manager = this.context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        manager.setPrimaryClip(ClipData.newPlainText("ScrumBet", value))
+    }
+
+    private fun getQrCode(value: String): ImageBitmap {
+        return QRCode.from(value).withCharset(Charsets.UTF_8.name()).bitmap().asImageBitmap()
     }
 }

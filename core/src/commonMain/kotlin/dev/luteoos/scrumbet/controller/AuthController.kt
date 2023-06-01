@@ -71,7 +71,7 @@ class AuthController(
     override fun setRoomConnectionId(id: String) {
         // TODO room id validation
         kcontrollerScope.launch {
-            roomIdFlow.emit(id.trim())
+            roomIdFlow.emit(id.trim().split("/").lastOrNull())
         }
     }
 

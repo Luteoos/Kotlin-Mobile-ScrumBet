@@ -73,6 +73,9 @@ dependencies {
     implementation("com.github.Luteoos:qrx:1.0.1")
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
 
+    //QRCode gen
+    implementation("com.github.kenglxn.QRGen:android:3.0.1")
+
     implementation("androidx.compose.ui:ui:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")
 //    implementation("androidx.compose.material3:material3:1.1.0")
