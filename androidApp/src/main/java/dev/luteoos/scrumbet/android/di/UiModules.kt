@@ -4,6 +4,7 @@ import dev.luteoos.scrumbet.android.ui.auth.AuthViewModel
 import dev.luteoos.scrumbet.android.ui.main.MainViewModel
 import dev.luteoos.scrumbet.android.ui.room.RoomViewModel
 import dev.luteoos.scrumbet.android.ui.splash.SplashViewModel
+import dev.luteoos.scrumbet.android.ui.update.UpdateViewModel
 import dev.luteoos.scrumbet.controller.AuthController
 import dev.luteoos.scrumbet.controller.RoomController
 import dev.luteoos.scrumbet.controller.UserController
@@ -23,6 +24,7 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { RoomViewModel(get(), get()) }
+    viewModel { UpdateViewModel() }
     viewModel { AuthViewModel(get()) }
 
     single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get(), get(named("APP_VERSION"))) }

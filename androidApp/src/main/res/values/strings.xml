@@ -29,4 +29,5 @@
     <string name="label_retry">Retry</string>
     <string name="label_connection_failed">Failed to connect</string>
     <string name="label_choose_style">Choose style</string>
+    <string name="label_new_version_available">New version is required\nUpdate app</string>
 </resources>

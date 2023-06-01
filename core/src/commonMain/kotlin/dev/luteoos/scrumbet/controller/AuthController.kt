@@ -46,11 +46,16 @@ class AuthController(
         this.appVersion = applicationVersion ?: get(named("APP_VERSION"))
         kcontrollerScope.launch(Dispatchers.Default) {
             combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersion()) { user, id, version ->
-                if (true) // TODO skip to ignore not running server
+                if (true) { // TODO skip to ignore not running server
+                    if (version == null) {
+                        publish(KState.Error(AppException.GeneralException()))
+                        return@combine
+                    }
                     if (version?.version != appVersion) {
                         publish(KState.Success(AuthState.InvalidVersion))
                         return@combine
                     }
+                }
                 if (user != null) {
                     println(version)
                     if (id != null)

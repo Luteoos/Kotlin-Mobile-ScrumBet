@@ -19,7 +19,7 @@ class SplashViewModel(private val authController: AuthControllerInterface) : Bas
                 .collect { state ->
                     when (state) {
                         KState.Empty -> onReady.postValue(SplashUiState.Success())
-                        is KState.Error -> onReady.postValue(SplashUiState.AppVersionObsolete) // TODO other error support
+                        is KState.Error -> onReady.postValue(SplashUiState.ConnectionError) // TODO other error support
                         KState.Loading -> onReady.postValue(SplashUiState.Loading)
                         is KState.Success -> {
                             when (state.value) {

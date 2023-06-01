@@ -23,6 +23,20 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/mainFragment"
             />
+
+        <action
+            android:id="@+id/action_to_updateFragment"
+            app:destination="@id/updateFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="dev.luteoos.scrumbet.android.ui.update.UpdateFragment"
+        android:label="udpate_fragment"
+        tools:layout="@layout/compose_fragment" >
     </fragment>
 
     <fragment

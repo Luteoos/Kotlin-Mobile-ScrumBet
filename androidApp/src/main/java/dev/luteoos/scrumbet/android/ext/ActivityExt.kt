@@ -33,6 +33,14 @@ fun FragmentActivity.toRoomScreen() {
     }
 }
 
+fun FragmentActivity.toUpdateScreen() {
+    navigateWithTryCatch {
+        with(Navigation.findNavController(this, R.id.navHost)) {
+            navigate(R.id.action_to_updateFragment)
+        }
+    }
+}
+
 private fun navigateWithTryCatch(method: () -> Unit) {
     try {
         method.invoke()
