@@ -4,6 +4,7 @@ import BottomSheetDefaultLayout
 import LoadingView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Bottom
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -21,19 +23,20 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -45,7 +48,13 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -101,7 +110,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                             TopAppBar(
                                 backgroundColor = MaterialTheme.colors.background,
                                 title = {
-                                    Text(text = title)
+                                    Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
                                 },
                                 navigationIcon = {
                                     IconButton(onClick = {
@@ -161,7 +170,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         state: RoomUiState.Success,
         showSheetContent: (@Composable () -> Unit) -> Unit
     ) {
-        var currentPick = state.userVote // by remember { mutableStateOf<String?>(null) } // todo = state.userVote
+        var currentPick = state.userVote // by remember { mutableStateOf<String?>(null) }
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -178,7 +187,13 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     Text(text = getString(R.string.label_list))
                 }
             }
-            AvgVoteUi(list = state.userList)
+            if (state.config.isOwner)
+                TextButton(
+                    onClick = { showSheetContent { RoomScreenStyleListSheet() } }, colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                ) {
+                    Text(text = getString(R.string.label_choose_style))
+                }
+            AvgVoteUi(isOwner = state.config.isOwner, list = state.userList)
             LazyVerticalGrid(modifier = Modifier.fillMaxWidth(.75f), columns = GridCells.Adaptive(Size.xxLarge()), content = {
                 val buttonModifier = Modifier
                     .fillMaxWidth()
@@ -204,26 +219,76 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     @Composable
-    private fun AvgVoteUi(list: List<RoomUser>) {
+    private fun AvgVoteUi(isOwner: Boolean, list: List<RoomUser>) {
         val score: String = if (list.any { it.vote == null })
             " "
         else
             list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else " " }.toString()
         Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(
-                enabled = list.any { it.vote != null },
-                onClick = {
-                    model.resetVote()
+            if (isOwner)
+                IconButton(
+                    enabled = list.any { it.vote != null },
+                    onClick = {
+                        model.resetVote()
+                    }
+                ) {
+                    Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
                 }
-            ) {
-                Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
-            }
             Text(
                 text = score,
-                modifier = Modifier.padding(Size.regular()).width(Size.xxLarge()),
+                modifier = Modifier
+                    .padding(Size.regular())
+                    .width(108.dp),
                 fontSize = TextSize.xLarge(),
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colors.primaryVariant
+            )
+        }
+    }
+
+    @Composable
+    private fun RoomScreenStyleListSheet() {
+        val modelState by model.uiState.observeAsState()
+        if (modelState !is RoomUiState.Success)
+            return
+        val config = (modelState as RoomUiState.Success).config
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Bottom
+        ) {
+            Text(
+                text = getString(R.string.label_choose_style),
+                fontSize = TextSize.xSmall(),
+//                color = MaterialTheme.colors.secondary
+            )
+            Spacer(modifier = Modifier.height(Size.small()))
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                content = {
+                    items(config.scaleTypeList.sortedBy { it }) { item ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(Size.small())
+                                .clickable { model.setScale(item) },
+                            backgroundColor = if (item == config.scaleType) MaterialTheme.colors.primary else MaterialTheme.colors.secondary
+                        ) {
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(vertical = Size.small()),
+                                    text = item.toLowerCase(Locale.current).capitalize(Locale.current)
+                                )
+                            }
+                        }
+                    }
+                }
             )
         }
     }
@@ -242,7 +307,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             Text(
                 text = getString(R.string.label_member_list),
                 fontSize = TextSize.xSmall(),
-                color = MaterialTheme.colors.secondary
+//                color = MaterialTheme.colors.secondary
             )
             Spacer(modifier = Modifier.height(Size.small()))
             if (state.config.isOwner) {
@@ -290,9 +355,9 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 .padding(horizontal = Size.xSmall()),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = user.username, fontSize = TextSize.small())
+            Text(text = user.username, fontSize = TextSize.small(), maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
             if (user.isOwner)
-                Icon(imageVector = Icons.Default.Star, contentDescription = null, tint = Color.Yellow) // TODO change icon to Crown
+                Icon(modifier = Modifier.padding(Size.xSmall()).size(Size.regular()), painter = painterResource(id = R.drawable.ic_crown), contentDescription = null, tint = Color(android.graphics.Color.parseColor("#FFD43E")))
             Spacer(modifier = Modifier.weight(1f))
             if (user.vote != null)
                 Button(onClick = {}) {

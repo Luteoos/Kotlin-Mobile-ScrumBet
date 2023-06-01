@@ -19,20 +19,20 @@ buildkonfig {
 
     defaultConfigs{
         buildConfigField(STRING, "appVersion", "0.1", const = true)
-        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
+//        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
         buildConfigField(STRING, "sslPrefix", "http://", const = true)
     }
 
     defaultConfigs("dev") {
         buildConfigField(STRING, "appVersion", "0.1-dev", const = true)
-        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
+//        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
         buildConfigField(STRING, "sslPrefix", "http://", const = true)
     }
 
     targetConfigs("dev"){
         create("azure"){
             buildConfigField(STRING, "appVersion", "0.1-azure", const = true)
-            buildConfigField(STRING, "baseUrl", "someazurewebsite.azure", const = true)
+//            buildConfigField(STRING, "baseUrl", "luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080", const = true)
         }
     }
 }
@@ -137,6 +137,19 @@ android {
     defaultConfig {
         minSdk = 28
         targetSdk = 32
+    }
+
+    flavorDimensionList.add("env")
+
+    productFlavors {
+        create("localhost"){
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"192.168.18.3:8080\"")
+        }
+        create("azurepoc"){
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
+        }
     }
 }
 

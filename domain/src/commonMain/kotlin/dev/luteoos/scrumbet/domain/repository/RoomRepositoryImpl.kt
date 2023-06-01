@@ -22,6 +22,7 @@ import io.ktor.websocket.serialization.sendSerializedBase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -64,6 +65,10 @@ class RoomRepositoryImpl(private val client: HttpClient,
             try {
                 wsSession.incoming
                     .receiveAsFlow()
+                    .catch {
+                        it.printStackTrace()
+                        connectionError.emit(Exception(it))
+                    }
                     .filter { it is Frame.Text }
                     .map {
                         (it as Frame.Text).let {

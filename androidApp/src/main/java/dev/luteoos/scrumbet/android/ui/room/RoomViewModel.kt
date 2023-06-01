@@ -64,6 +64,10 @@ class RoomViewModel(
         roomController.displayValues(false)
     }
 
+    fun setScale(scale: String) {
+        roomController.setRoomScale(scale)
+    }
+
     fun connect() {
         authController.getRoomConnectionId()?.let {
             roomController.connect(it)

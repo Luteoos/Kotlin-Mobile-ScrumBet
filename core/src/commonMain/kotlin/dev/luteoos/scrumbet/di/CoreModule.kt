@@ -10,6 +10,7 @@ import dev.luteoos.scrumbet.domain.util.getHttpClient
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import dev.luteoos.scrumbet.preferences.SharedPreferencesImpl
 import dev.luteoos.scrumbet.shared.DeviceData
+import dev.luteoos.scrumbet.shared.PlatformBuildConfig
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -23,6 +24,6 @@ val coreModule = module {
 
     single { Greeting() }
     single(named("APP_VERSION")) { BuildKonfig.appVersion }
-    single(named("BASE_URL")) { BuildKonfig.baseUrl }
+    single(named("BASE_URL")) { PlatformBuildConfig.getBaseUrl() }
     single(named("SSL_PREFIX")) { BuildKonfig.sslPrefix }
 }

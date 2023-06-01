@@ -35,6 +35,20 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    flavorDimensionList.add("env")
+
+    productFlavors {
+        create("localhost"){
+            dimension = "env"
+            applicationIdSuffix = ".localhost"
+        }
+        create("azurepoc"){
+            dimension = "env"
+            applicationIdSuffix = ".azure"
+        }
+    }
+
     kotlinOptions{
         freeCompilerArgs += listOf(
             "-P",

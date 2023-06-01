@@ -95,7 +95,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
             repository.sendFrame(
                 RoomConfigOutgoingFrame(
                     senderId = userData.userId,
-                    scaleType = "FIBONACCI", // TODO implement proper room scale type
+                    scaleType = configuration.scaleType,
                     anonymousVote = configuration.anonymousVote,
                     alwaysVisibleVote = showValues
                 )
@@ -103,14 +103,16 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
         }
     }
 
-    override fun setRoomScale() {
+    override fun setRoomScale(scale: String) {
         val userData = sharedPreferences.getUserData() ?: return
         val configuration = (state.value as? KState.Success<RoomData>)?.value?.configuration ?: return
+        if (configuration.scaleTypeList.contains(scale).not())
+            return
         kcontrollerScope.launchDefault {
             repository.sendFrame(
                 RoomConfigOutgoingFrame(
                     senderId = userData.userId,
-                    scaleType = "FIBONACCI", // TODO implement proper room scale type
+                    scaleType = scale,
                     anonymousVote = configuration.anonymousVote,
                     alwaysVisibleVote = configuration.alwaysVisibleVote
                 )
@@ -130,6 +132,8 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
             RoomConfiguration(
                 true,
                 valuesList,
+                "FIBONACCI",
+                listOf("FIBONACCI", "HOURS"),
                 voteEnded = false,
                 anonymousVote = true,
                 alwaysVisibleVote = false

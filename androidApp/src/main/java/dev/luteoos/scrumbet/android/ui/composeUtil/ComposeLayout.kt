@@ -110,7 +110,7 @@ fun CustomTextField(
     leadingIcon: (@Composable() () -> Unit)? = null,
     trailingIcon: (@Composable() () -> Unit)? = null,
     initialValue: String? = null,
-    textFieldColor: Color = Color.White,
+    textFieldColor: Color = MaterialTheme.colors.onSurface,
     onValueChange: (String) -> Unit
 ) {
     var state by rememberSaveable { mutableStateOf(initialValue ?: "") }

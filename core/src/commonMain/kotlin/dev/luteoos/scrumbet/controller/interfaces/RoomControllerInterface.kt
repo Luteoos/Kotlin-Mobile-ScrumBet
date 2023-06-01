@@ -9,6 +9,6 @@ interface RoomControllerInterface : KControllerInterface<RoomData, AppException>
     fun vote(voteValue: String)
     fun displayValues(showValues: Boolean)
     fun resetRoom()
-    fun setRoomScale()
+    fun setRoomScale(scale: String)
     fun disconnect()
 }

@@ -26,7 +26,9 @@ class RoomDataMapper {
     private fun toRoomConfiguration(frame: RoomConfigIncomingFrame, userId: Id): RoomConfiguration {
         return RoomConfiguration(
             frame.roomOwnerId == userId,
-            frame.scaleList, // TODO frame.scaleType
+            frame.scaleList,
+            frame.scaleType,
+            frame.scaleTypeList,
             false,
             frame.anonymousVote,
             frame.alwaysVisibleVote
