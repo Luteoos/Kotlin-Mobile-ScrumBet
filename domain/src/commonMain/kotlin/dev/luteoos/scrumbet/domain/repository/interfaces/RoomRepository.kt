@@ -25,4 +25,6 @@ interface RoomRepository {
     sealed class Endpoints(val url: String) {
         class RoomSocket(baseUrl:String, roomId: String): Endpoints("ws://$baseUrl/room/$roomId")
     }
+
+    fun isSessionActive(): Boolean
 }

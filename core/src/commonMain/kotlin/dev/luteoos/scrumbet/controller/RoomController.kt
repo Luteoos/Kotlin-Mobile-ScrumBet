@@ -127,6 +127,10 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
         }
     }
 
+    override fun isSessionActive(): Boolean {
+        return repository.isSessionActive()
+    }
+
     private fun getMockRoomData(valuesList: List<String> = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "?")) =
         RoomData(
             RoomConfiguration(

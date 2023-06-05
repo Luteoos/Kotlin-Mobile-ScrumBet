@@ -94,6 +94,11 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        model.isAlive()
+    }
+
     override fun initBindingValues() {
         binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed) // critical for proper lifecycleManagement
         binding.composeView.setContent {

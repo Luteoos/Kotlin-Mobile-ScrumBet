@@ -79,6 +79,11 @@ class RoomViewModel(
         authController.disconnect()
     }
 
+    fun isAlive() {
+        if (!roomController.isSessionActive())
+            disconnect()
+    }
+
     override fun onCleared() {
         roomController.onDeInit()
         super.onCleared()

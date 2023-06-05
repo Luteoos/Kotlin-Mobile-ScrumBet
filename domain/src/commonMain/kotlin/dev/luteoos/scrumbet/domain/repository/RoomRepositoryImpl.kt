@@ -49,15 +49,24 @@ class RoomRepositoryImpl(private val client: HttpClient,
             }
             if(session?.isActive == true) {
                 Result.success(Unit)
-            } else Result.failure(Exception("Couldn't establish a connection."))
+            } else {
+                session = null
+                Result.failure(Exception("Couldn't establish a connection."))
+            }
         } catch(e: Exception) {
             e.printStackTrace()
+            session = null
             Result.failure(e)
         }
     }
 
     override suspend fun closeSession() {
         session?.close(reason = CloseReason(CloseReason.Codes.NORMAL, "client disconnecting"))
+        session = null
+    }
+
+    override fun isSessionActive(): Boolean{
+        return session?.isActive ?: true
     }
 
     override suspend fun observeIncomingFlow() : Flow<RoomStateFrame>{
@@ -78,6 +87,7 @@ class RoomRepositoryImpl(private val client: HttpClient,
                     }
             }catch (e: Exception){
                 e.printStackTrace()
+                session = null //todo sketchy
                 connectionError.emit(e)
                 flow { }
             }

@@ -11,4 +11,6 @@ interface RoomControllerInterface : KControllerInterface<RoomData, AppException>
     fun resetRoom()
     fun setRoomScale(scale: String)
     fun disconnect()
+
+    fun isSessionActive(): Boolean
 }
