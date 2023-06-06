@@ -9,6 +9,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.2.2")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3")
         classpath("com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:0.13.3")
+        classpath("com.google.gms:google-services:4.3.15")
     }
 }
 
