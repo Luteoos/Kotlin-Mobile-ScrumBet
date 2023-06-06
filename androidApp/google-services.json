@@ -29,6 +29,85 @@
             {
               "client_id": "662887753077-ost5seeqei7kncavchniiha6f3ne70tp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "662887753077-uocs325edn8pvs8kcj0r23o1is5s4lnd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.luteoos.scrumbet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662887753077:android:f36c85be7fc02f45f95f3c",
+        "android_client_info": {
+          "package_name": "dev.luteoos.scrumbet.azure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662887753077-ost5seeqei7kncavchniiha6f3ne70tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5s0_GptN_ysraG4EW-U-lo5cQ58L0Xt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662887753077-ost5seeqei7kncavchniiha6f3ne70tp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662887753077-uocs325edn8pvs8kcj0r23o1is5s4lnd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.luteoos.scrumbet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662887753077:android:0caadfe915292696f95f3c",
+        "android_client_info": {
+          "package_name": "dev.luteoos.scrumbet.localhost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662887753077-ost5seeqei7kncavchniiha6f3ne70tp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5s0_GptN_ysraG4EW-U-lo5cQ58L0Xt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662887753077-ost5seeqei7kncavchniiha6f3ne70tp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662887753077-uocs325edn8pvs8kcj0r23o1is5s4lnd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.luteoos.scrumbet"
+              }
             }
           ]
         }

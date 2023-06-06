@@ -3,12 +3,12 @@ package dev.luteoos.scrumbet.controller
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.core.KController
 import dev.luteoos.scrumbet.core.KState
-import dev.luteoos.scrumbet.data.dto.ServerVersion
 import dev.luteoos.scrumbet.data.entity.AppException
 import dev.luteoos.scrumbet.data.state.AuthState
 import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.domain.repository.interfaces.ServerRepository
 import dev.luteoos.scrumbet.preferences.SharedPreferences
+import dev.luteoos.scrumbet.shared.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -52,13 +52,13 @@ class AuthController(
                         publish(KState.Error(AppException.GeneralException()))
                         return@combine
                     }
-                    if (version?.version != appVersion) {
+                    if (version.version != appVersion) {
                         publish(KState.Success(AuthState.InvalidVersion))
                         return@combine
                     }
                 }
                 if (user != null) {
-                    println(version)
+                    Log.i("Version server($version) app($appVersion)")
                     if (id != null)
                         publish(KState.Success(AuthState.Connected(user, id)))
                     else
@@ -84,7 +84,7 @@ class AuthController(
         return preferences.getUserData()
     }
 
-    override fun retry(){
+    override fun retry() {
         repository.fetchServerVersion()
     }
 

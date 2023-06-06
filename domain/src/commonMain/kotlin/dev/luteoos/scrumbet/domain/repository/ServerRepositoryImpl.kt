@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class ServerRepositoryImpl(private val baseUrl: String,
@@ -40,7 +39,7 @@ class ServerRepositoryImpl(private val baseUrl: String,
                         throw ResponseException(response, "HTTP GET /version ${response.status.value}")
                 }
             }catch (e: Exception){
-                println(e)
+                println(e) // todo move Log to widely available place
                 versionFlow.emit(null)
             }
         }

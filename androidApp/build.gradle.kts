@@ -1,3 +1,5 @@
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -5,6 +7,7 @@ plugins {
     id( "kotlin-parcelize")
     id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 apply(from = "../ktlint.gradle")
@@ -17,7 +20,7 @@ android {
         minSdk = 28
         targetSdk = 33
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1"
     }
     buildFeatures {
         compose = true
@@ -34,6 +37,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+//            the<CrashlyticsExtension>().nativeSymbolUploadEnabled = true bugged
         }
     }
 
@@ -42,11 +46,11 @@ android {
     productFlavors {
         create("localhost"){
             dimension = "env"
-//            applicationIdSuffix = ".localhost"
+            applicationIdSuffix = ".localhost"
         }
-        create("azurepoc"){
+        create("azure"){
             dimension = "env"
-//            applicationIdSuffix = ".azure"
+            applicationIdSuffix = ".azure"
         }
     }
 
@@ -65,6 +69,7 @@ dependencies {
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:32.1.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ndk")
 
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

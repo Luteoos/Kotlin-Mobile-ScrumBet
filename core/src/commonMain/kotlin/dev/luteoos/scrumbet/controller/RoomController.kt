@@ -14,6 +14,7 @@ import dev.luteoos.scrumbet.data.state.room.RoomData
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import dev.luteoos.scrumbet.domain.repository.interfaces.RoomRepository
 import dev.luteoos.scrumbet.preferences.SharedPreferences
+import dev.luteoos.scrumbet.shared.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -121,7 +122,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
     }
 
     override fun disconnect() {
-        println("Room controller disconnect")
+        Log.d("Room controller disconnect")
         kcontrollerScope.launchDefault {
             repository.closeSession()
         }

@@ -1,13 +1,14 @@
 package dev.luteoos.scrumbet.core
 
 import dev.luteoos.scrumbet.di.coreModule
+import dev.luteoos.scrumbet.shared.Log
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
     modules(coreModule)
-    println("Koin initialized")
+    Log.d("Koin initialized")
 }
 
 /**
