@@ -177,19 +177,29 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreExtension/FirebaseCoreExtension.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseSessions/FirebaseSessions.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework"
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreExtension/FirebaseCoreExtension.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseSessions/FirebaseSessions.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework"
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
