@@ -39,7 +39,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -246,7 +245,8 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             modifier = Modifier.fillMaxWidth(.75f)
                 .padding(horizontal = Size.xSmall()),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally){
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(
                 text = score,
                 modifier = Modifier
@@ -480,13 +480,11 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         return QRCode.from(value).withCharset(Charsets.UTF_8.name()).bitmap().asImageBitmap()
     }
 
-
     @Preview(widthDp = 320, heightDp = 320)
     @Composable
-    fun AvgVoteUtil_Preview(){
+    fun AvgVoteUtil_Preview() {
         MdcTheme() {
             AvgVoteUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")))
         }
     }
-
 }

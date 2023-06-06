@@ -54,6 +54,7 @@ import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toRoomScreen
 import dev.luteoos.scrumbet.android.ui.composeUtil.Size
 import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
+import dev.luteoos.scrumbet.shared.Log
 
 @OptIn(
     ExperimentalPermissionsApi::class
@@ -79,7 +80,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
             }
         }
         model.isAuthorized.observe(this) {
-            println("isAuthorized: $it")
+            Log.d("isAuthorized: $it")
             if (it)
                 activity?.toRoomScreen()
         }

@@ -88,7 +88,6 @@ kotlin {
                 implementation(Dependencies.ktorLogging)
                 implementation(Dependencies.ktorContentNegotiation)
 
-
                 api(Dependencies.koinCore)
             }
         }
@@ -102,6 +101,7 @@ kotlin {
             dependencies {
                 implementation(Dependencies.kotlinCoroutinesAndroid)
                 implementation(Dependencies.ktorOkHttp)
+                implementation(Dependencies.timber)
             }
         }
 //        val androidTest by getting
@@ -146,7 +146,7 @@ android {
             dimension = "env"
             buildConfigField("String", "BASE_URL", "\"192.168.18.3:8080\"")
         }
-        create("azurepoc"){
+        create("azure"){
             dimension = "env"
             buildConfigField("String", "BASE_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
         }

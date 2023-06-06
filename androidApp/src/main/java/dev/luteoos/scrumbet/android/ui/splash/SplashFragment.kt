@@ -3,7 +3,6 @@ package dev.luteoos.scrumbet.android.ui.splash
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment

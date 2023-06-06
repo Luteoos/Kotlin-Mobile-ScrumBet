@@ -12,6 +12,7 @@ import com.badoo.reaktive.single.Single
 import com.badoo.reaktive.single.observeOn
 import com.badoo.reaktive.single.subscribe
 import com.badoo.reaktive.single.subscribeOn
+import dev.luteoos.scrumbet.shared.Log
 
 fun <T> Observable<T>.resolve(
     onNext: (T) -> Unit,
@@ -22,7 +23,7 @@ fun <T> Observable<T>.resolve(
         .observeOn(mainScheduler)
         .subscribe(
             onError = {
-                println(it)
+                Log.e(Exception(it))
                 onError.invoke(it)
             },
             onComplete = { onComplete.invoke() },
@@ -66,7 +67,7 @@ fun <T> Single<T>.resolve(
         .observeOn(newThreadScheduler)
         .subscribe(
             onError = {
-                println(it)
+                Log.e(Exception(it))
                 onError.invoke(it)
             },
             onSuccess = {
