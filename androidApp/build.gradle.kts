@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id( "kotlin-parcelize")
     id("androidx.navigation.safeargs")
+    id("com.google.gms.google-services")
 }
 
 apply(from = "../ktlint.gradle")
@@ -41,11 +42,11 @@ android {
     productFlavors {
         create("localhost"){
             dimension = "env"
-            applicationIdSuffix = ".localhost"
+//            applicationIdSuffix = ".localhost"
         }
         create("azurepoc"){
             dimension = "env"
-            applicationIdSuffix = ".azure"
+//            applicationIdSuffix = ".azure"
         }
     }
 
@@ -60,6 +61,10 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":data"))
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.1.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

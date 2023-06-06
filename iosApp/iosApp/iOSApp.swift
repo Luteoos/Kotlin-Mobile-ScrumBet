@@ -1,5 +1,6 @@
 import SwiftUI
 import core
+import FirebaseCore
 
 @main
 struct iOSApp: App {
@@ -29,9 +30,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
       print("dev.luteoos.template is starting up. ApplicationDelegate didFinishLaunchingWithOptions.")
-     launchOptions?.forEach({ (key: UIApplication.LaunchOptionsKey, value: Any) in
-         print(key.rawValue, value)
-        })
+      FirebaseApp.configure()
+      launchOptions?.forEach({ (key: UIApplication.LaunchOptionsKey, value: Any) in
+          print(key.rawValue, value)
+            })
     return true
   }
 }
