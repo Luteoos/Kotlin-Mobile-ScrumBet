@@ -56,12 +56,14 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.toLowerCase
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Lifecycle
@@ -240,26 +242,31 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             " "
         else
             list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else " " }.toString()
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            if (isOwner)
-                IconButton(
-                    enabled = list.any { it.vote != null },
-                    onClick = {
-                        model.resetVote()
-                    }
-                ) {
-                    Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
-                }
+        Column(
+            modifier = Modifier.fillMaxWidth(.75f)
+                .padding(horizontal = Size.xSmall()),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally){
             Text(
                 text = score,
                 modifier = Modifier
-                    .padding(Size.regular())
-                    .width(108.dp),
+                    .padding(Size.regular()),
                 fontSize = TextSize.xLarge(),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colors.primaryVariant
             )
+            if (isOwner)
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                    enabled = list.any { it.vote != null },
+                    onClick = {
+                        model.resetVote()
+                    }
+                ) {
+                    Text(text = stringResource(R.string.label_reset))
+                }
         }
     }
 
@@ -430,7 +437,9 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             Image(modifier = Modifier.fillMaxWidth(0.75f), bitmap = qrCode, contentDescription = null, contentScale = ContentScale.FillWidth)
             Spacer(modifier = Modifier.height(Size.regular()))
             Button(
-                modifier = Modifier.fillMaxWidth().padding(Size.small()),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Size.small()),
                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                 onClick = { copyToClipboard(roomName) }
             ) {
@@ -444,7 +453,9 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 }
             }
             Button(
-                modifier = Modifier.fillMaxWidth().padding(Size.small()),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Size.small()),
                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                 onClick = { copyToClipboard(roomUrl) }
             ) {
@@ -468,4 +479,14 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     private fun getQrCode(value: String): ImageBitmap {
         return QRCode.from(value).withCharset(Charsets.UTF_8.name()).bitmap().asImageBitmap()
     }
+
+
+    @Preview(widthDp = 320, heightDp = 320)
+    @Composable
+    fun AvgVoteUtil_Preview(){
+        MdcTheme() {
+            AvgVoteUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")))
+        }
+    }
+
 }

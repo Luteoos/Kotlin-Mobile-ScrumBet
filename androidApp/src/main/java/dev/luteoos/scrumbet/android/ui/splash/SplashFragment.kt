@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.SplashFragmentBinding
@@ -31,7 +32,14 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashFragmentBinding>(Spla
             when (state) {
                 SplashUiState.AppVersionObsolete -> activity?.toUpdateScreen()
                 SplashUiState.Loading -> { Timber.d("SplashUiState.Loading") }
-                SplashUiState.ConnectionError -> { Toast.makeText(context, "Connection to server lost!", Toast.LENGTH_LONG).show() } // TODO make proper non-connection handling
+                SplashUiState.ConnectionError -> {
+                    Snackbar
+                        .make(binding.root, getString(R.string.label_connection_splash_failed), Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.label_retry) {
+                            model.retry()
+                        }
+                        .show()
+                }
                 is SplashUiState.Success -> {
                     if (state.navigateToRoom)
                         activity?.toRoomScreen()

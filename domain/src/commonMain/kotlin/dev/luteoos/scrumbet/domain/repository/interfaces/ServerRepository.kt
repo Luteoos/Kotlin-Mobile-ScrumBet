@@ -4,5 +4,6 @@ import dev.luteoos.scrumbet.data.dto.ServerVersion
 import kotlinx.coroutines.flow.Flow
 
 interface ServerRepository {
-    fun getServerVersion(): Flow<ServerVersion?>
+    fun getServerVersionFlow(): Flow<ServerVersion?>
+    fun fetchServerVersion()
 }

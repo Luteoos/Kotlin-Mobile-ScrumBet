@@ -28,6 +28,7 @@
     <string name="label_hide">Hide</string>
     <string name="label_retry">Retry</string>
     <string name="label_connection_failed">Failed to connect</string>
+    <string name="label_connection_splash_failed">Connection to server lost</string>
     <string name="label_choose_style">Choose style</string>
     <string name="label_new_version_available">New version is required\nUpdate app</string>
     <string name="label_room_url">Url</string>

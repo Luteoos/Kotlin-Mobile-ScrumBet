@@ -32,4 +32,8 @@ class SplashViewModel(private val authController: AuthControllerInterface) : Bas
                 }
         }
     }
+
+    fun retry() {
+        authController.retry()
+    }
 }

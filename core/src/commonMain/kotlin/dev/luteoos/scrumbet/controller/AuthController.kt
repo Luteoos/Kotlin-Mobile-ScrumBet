@@ -3,6 +3,7 @@ package dev.luteoos.scrumbet.controller
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.core.KController
 import dev.luteoos.scrumbet.core.KState
+import dev.luteoos.scrumbet.data.dto.ServerVersion
 import dev.luteoos.scrumbet.data.entity.AppException
 import dev.luteoos.scrumbet.data.state.AuthState
 import dev.luteoos.scrumbet.data.state.UserData
@@ -45,7 +46,7 @@ class AuthController(
         this.repository = serverRepository ?: get()
         this.appVersion = applicationVersion ?: get(named("APP_VERSION"))
         kcontrollerScope.launch(Dispatchers.Default) {
-            combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersion()) { user, id, version ->
+            combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersionFlow()) { user, id, version ->
                 if (true) { // TODO skip to ignore not running server
                     if (version == null) {
                         publish(KState.Error(AppException.GeneralException()))
@@ -81,6 +82,10 @@ class AuthController(
 
     override fun getUserData(): UserData? {
         return preferences.getUserData()
+    }
+
+    override fun retry(){
+        repository.fetchServerVersion()
     }
 
     override fun disconnect() {

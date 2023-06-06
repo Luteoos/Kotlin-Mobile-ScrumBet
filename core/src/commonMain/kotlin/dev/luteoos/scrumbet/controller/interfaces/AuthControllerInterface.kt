@@ -10,4 +10,5 @@ interface AuthControllerInterface : KControllerInterface<AuthState, AppException
     fun getRoomConnectionId(): String?
     fun getUserData(): UserData?
     fun disconnect()
+    fun retry()
 }
