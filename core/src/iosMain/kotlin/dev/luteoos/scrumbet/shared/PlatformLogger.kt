@@ -4,10 +4,10 @@ import platform.Foundation.NSLog
 
 actual class PlatformLogger {
 
-    //TODO rethink
+    // TODO rethink
     actual fun log(tag: Level, message: String, e: Exception?) {
         NSLog("${tag.tag}/ $message")
-        if(e != null)
+        if (e != null)
             NSLog("${tag.tag}/ $e")
     }
 }
