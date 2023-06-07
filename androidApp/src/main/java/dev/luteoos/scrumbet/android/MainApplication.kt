@@ -8,21 +8,20 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 import dev.luteoos.scrumbet.android.di.uiModule
 import dev.luteoos.scrumbet.android.di.viewModelModule
-import dev.luteoos.scrumbet.core.UUID
 import dev.luteoos.scrumbet.core.initKoin
 import dev.luteoos.scrumbet.di.coreModule
+import dev.luteoos.scrumbet.preferences.SharedPreferences
 import org.koin.android.BuildConfig
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.logger.Level
 import timber.log.Timber
 
 class MainApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
-        if (dev.luteoos.scrumbet.android.BuildConfig.DEBUG)
-            Timber.plant(Timber.DebugTree())
-        Timber.plant(FirebaseTree())
         initKoin {
             if (BuildConfig.DEBUG)
                 androidLogger(Level.ERROR)
@@ -33,6 +32,12 @@ class MainApplication : Application() {
                 viewModelModule
             )
         }
+        val userAnalyticsId = get<SharedPreferences>().getUserAnalyticsId()
+        if (dev.luteoos.scrumbet.android.BuildConfig.DEBUG)
+            Timber.plant(Timber.DebugTree())
+        Timber.plant(FirebaseTree(userAnalyticsId))
+        if (BuildConfig.DEBUG)
+            initDebugStuff()
 //        if (DynamicColors.isDynamicColorAvailable())
 //            DynamicColors.applyToActivitiesIfAvailable(this) // MaterialYou
 //        initKoin {
@@ -50,8 +55,6 @@ class MainApplication : Application() {
 //                )
 //            )
 //        }
-        if (BuildConfig.DEBUG)
-            initDebugStuff()
     }
 
     private fun initDebugStuff() {
@@ -65,10 +68,10 @@ class MainApplication : Application() {
         )
     }
 
-    private class FirebaseTree : Timber.Tree() {
+    private class FirebaseTree(userID: String?) : Timber.Tree() {
 
         init {
-            Firebase.analytics.setUserId(UUID.getNewUUID())
+            Firebase.analytics.setUserId(userID)
         }
         override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
             if (priority == Log.VERBOSE || priority == Log.DEBUG) {

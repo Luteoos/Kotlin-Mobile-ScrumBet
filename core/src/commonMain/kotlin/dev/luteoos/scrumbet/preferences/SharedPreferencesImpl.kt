@@ -5,6 +5,7 @@ import com.russhwolf.settings.get
 import com.russhwolf.settings.serialization.decodeValue
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.set
+import dev.luteoos.scrumbet.core.UUID
 import dev.luteoos.scrumbet.data.state.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,15 @@ class SharedPreferencesImpl : SharedPreferences {
     private fun getBoolean(key: String): Boolean? = settings[key]
     private fun setBoolean(key: String, value: Boolean) = settings.set(key, value)
     private fun clear(key: String) = settings.remove(key)
+
+    override fun getUserAnalyticsId(): String {
+        return getString(analyticsUserId) ?: run {
+            UUID.getNewUUID().let { id ->
+                setString(analyticsUserId, id)
+                id
+            }
+        }
+    }
 
     override fun setUserData(userData: UserData) {
         setSerializable(keyUserData, userData, UserData.serializer())
@@ -55,5 +65,6 @@ class SharedPreferencesImpl : SharedPreferences {
 
     companion object {
         private const val keyUserData = "SBUsername"
+        private const val analyticsUserId = "ANALYTICS_ID"
     }
 }
