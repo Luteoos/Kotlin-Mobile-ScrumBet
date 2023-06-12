@@ -14,6 +14,11 @@
 		EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
+		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
+		EEDCC6782A371E2B007C3274 /* AuthUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6772A371E2B007C3274 /* AuthUiState.swift */; };
+		EEDCC67C2A37373A007C3274 /* azure.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC67B2A37373A007C3274 /* azure.xcconfig */; };
+		EEDCC6802A3738A6007C3274 /* localhost.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */; };
+		EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */; };
 		EEECF17829E6179B00989C31 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */; };
 		EEECF17929E6179B00989C31 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17129E6179B00989C31 /* AppView.swift */; };
 		EEECF17A29E6179B00989C31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17229E6179B00989C31 /* ContentView.swift */; };
@@ -34,6 +39,11 @@
 		EE50EBAE29FD643A00EF634A /* KStateSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KStateSwift.swift; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
+		EEDCC6772A371E2B007C3274 /* AuthUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUiState.swift; sourceTree = "<group>"; };
+		EEDCC67B2A37373A007C3274 /* azure.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = azure.xcconfig; sourceTree = "<group>"; };
+		EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = localhost.xcconfig; sourceTree = "<group>"; };
+		EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthControllerInterface.swift; sourceTree = "<group>"; };
 		EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEECF17129E6179B00989C31 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		EEECF17229E6179B00989C31 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,6 +75,8 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */,
+				EEDCC67B2A37373A007C3274 /* azure.xcconfig */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
 				9A4BAEABDD6BD96EE62ABCD9 /* Pods */,
@@ -104,6 +116,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EEDCC6742A371BC1007C3274 /* auth */ = {
+			isa = PBXGroup;
+			children = (
+				EEDCC6752A371BE8007C3274 /* AuthObject.swift */,
+				EEDCC6772A371E2B007C3274 /* AuthUiState.swift */,
+			);
+			path = auth;
+			sourceTree = "<group>";
+		};
 		EEECF16E29E6179B00989C31 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +136,7 @@
 		EEECF17029E6179B00989C31 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				EEDCC6742A371BC1007C3274 /* auth */,
 				EEECF17129E6179B00989C31 /* AppView.swift */,
 				EEECF17229E6179B00989C31 /* ContentView.swift */,
 			);
@@ -137,6 +159,7 @@
 				EEECF17729E6179B00989C31 /* ViewExt.swift */,
 				EE50EBAC29F71FCB00EF634A /* MockController.swift */,
 				EE50EBAE29FD643A00EF634A /* KStateSwift.swift */,
+				EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -202,7 +225,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEDCC67C2A37373A007C3274 /* azure.xcconfig in Resources */,
 				EEECF17829E6179B00989C31 /* Preview Assets.xcassets in Resources */,
+				EEDCC6802A3738A6007C3274 /* localhost.xcconfig in Resources */,
 				EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */,
 				EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */,
 			);
@@ -279,9 +304,12 @@
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
+				EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */,
 				EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */,
 				EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */,
 				EEECF17C29E6179B00989C31 /* Color.swift in Sources */,
+				EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */,
+				EEDCC6782A371E2B007C3274 /* AuthUiState.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
 				EEECF17A29E6179B00989C31 /* ContentView.swift in Sources */,
@@ -354,6 +382,7 @@
 		};
 		7555FFA4242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEDCC67B2A37373A007C3274 /* azure.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -416,11 +445,12 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -436,16 +466,94 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		EEDCC67D2A37378B007C3274 /* Azure */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEDCC67B2A37373A007C3274 /* azure.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Azure;
+		};
+		EEDCC67E2A37378B007C3274 /* Azure */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F2DF7F1677124AE0B934A6D /* Pods-iosApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Azure;
 		};
 /* End XCBuildConfiguration section */
 
@@ -455,18 +563,20 @@
 			buildConfigurations = (
 				7555FFA3242A565B00829871 /* Debug */,
 				7555FFA4242A565B00829871 /* Release */,
+				EEDCC67D2A37378B007C3274 /* Azure */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,
 				7555FFA7242A565B00829871 /* Release */,
+				EEDCC67E2A37378B007C3274 /* Azure */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

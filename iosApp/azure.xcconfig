@@ -1,0 +1,12 @@
+//
+//  Azure.xcconfig
+//  iosApp
+//
+//  Created by Mateusz Lutecki on 12/06/2023.
+//  Copyright © 2023 orgName. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_BASE_URL = luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080
