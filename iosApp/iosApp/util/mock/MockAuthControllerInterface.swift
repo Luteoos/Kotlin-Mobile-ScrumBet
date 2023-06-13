@@ -10,6 +10,12 @@ import Foundation
 import core
 
 class MockAuthControllerInterface : AuthControllerInterface{
+    var mockState: KState? = nil
+    
+    init(state: KState? = nil) {
+        self.mockState = state
+    }
+    
     func disconnect() {
         print("mock disconnect()")
     }
@@ -27,7 +33,7 @@ class MockAuthControllerInterface : AuthControllerInterface{
     }
     
     func setRoomConnectionId(id: String) {
-        print("mock setRoomConnectionId ")
+        print("mock setRoomConnectionId \(id)")
     }
     
     func onDeInit() {
@@ -43,7 +49,8 @@ class MockAuthControllerInterface : AuthControllerInterface{
     }
     
     func watchState() -> CFlow<KState> {
-        let mockValue = KStateError<AppException>(error: AppException.GeneralException.init(message: "mockError"))
+        let mockValue = mockState ?? KStateEmpty()
+//        KStateError<AppException>(error: AppException.GeneralException.init(message: "mockError"))
         return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
     }
     

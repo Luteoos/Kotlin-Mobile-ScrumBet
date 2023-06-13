@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum AuthUIState{
+enum AuthUIState : Hashable{
     case Loading
     case EmptyUserData
     case GeneralError
