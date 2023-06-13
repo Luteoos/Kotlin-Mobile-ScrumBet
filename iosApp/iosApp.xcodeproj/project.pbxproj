@@ -12,6 +12,11 @@
 		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
 		EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAC29F71FCB00EF634A /* MockController.swift */; };
 		EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
+		EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92952A38C2E8003C21BA /* NavigationWrapper.swift */; };
+		EEBF929B2A38C3C9003C21BA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */; };
+		EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */; };
+		EEBF929F2A38C764003C21BA /* RoomScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929E2A38C764003C21BA /* RoomScreenView.swift */; };
+		EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92A12A38D563003C21BA /* MockUserController.swift */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
@@ -37,6 +42,11 @@
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EE50EBAC29F71FCB00EF634A /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
 		EE50EBAE29FD643A00EF634A /* KStateSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KStateSwift.swift; sourceTree = "<group>"; };
+		EEBF92952A38C2E8003C21BA /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
+		EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenObject.swift; sourceTree = "<group>"; };
+		EEBF929E2A38C764003C21BA /* RoomScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenView.swift; sourceTree = "<group>"; };
+		EEBF92A12A38D563003C21BA /* MockUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserController.swift; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
@@ -95,6 +105,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				EEBF92992A38C3A0003C21BA /* data */,
 				EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */,
 				EEECF16E29E6179B00989C31 /* Preview Content */,
 				EEECF17329E6179B00989C31 /* style */,
@@ -114,6 +125,41 @@
 				40B4DBEEE76A026C18C42DCA /* Pods-iosApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EEBF92972A38C36B003C21BA /* main */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */,
+				EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		EEBF92982A38C392003C21BA /* room */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF929E2A38C764003C21BA /* RoomScreenView.swift */,
+			);
+			path = room;
+			sourceTree = "<group>";
+		};
+		EEBF92992A38C3A0003C21BA /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		EEBF92A02A38CA61003C21BA /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */,
+				EE50EBAC29F71FCB00EF634A /* MockController.swift */,
+				EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */,
+				EEBF92A12A38D563003C21BA /* MockUserController.swift */,
+			);
+			path = mock;
 			sourceTree = "<group>";
 		};
 		EEDCC6742A371BC1007C3274 /* auth */ = {
@@ -136,6 +182,8 @@
 		EEECF17029E6179B00989C31 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				EEBF92982A38C392003C21BA /* room */,
+				EEBF92972A38C36B003C21BA /* main */,
 				EEDCC6742A371BC1007C3274 /* auth */,
 				EEECF17129E6179B00989C31 /* AppView.swift */,
 				EEECF17229E6179B00989C31 /* ContentView.swift */,
@@ -155,11 +203,10 @@
 		EEECF17629E6179B00989C31 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */,
+				EEBF92A02A38CA61003C21BA /* mock */,
 				EEECF17729E6179B00989C31 /* ViewExt.swift */,
-				EE50EBAC29F71FCB00EF634A /* MockController.swift */,
 				EE50EBAE29FD643A00EF634A /* KStateSwift.swift */,
-				EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */,
+				EEBF92952A38C2E8003C21BA /* NavigationWrapper.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -301,15 +348,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */,
+				EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */,
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
 				EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */,
 				EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */,
+				EEBF929F2A38C764003C21BA /* RoomScreenView.swift in Sources */,
 				EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */,
 				EEECF17C29E6179B00989C31 /* Color.swift in Sources */,
 				EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */,
+				EEBF929B2A38C3C9003C21BA /* MainScreenView.swift in Sources */,
 				EEDCC6782A371E2B007C3274 /* AuthUiState.swift in Sources */,
+				EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
 				EEECF17A29E6179B00989C31 /* ContentView.swift in Sources */,
@@ -321,6 +373,7 @@
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEDCC67B2A37373A007C3274 /* azure.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

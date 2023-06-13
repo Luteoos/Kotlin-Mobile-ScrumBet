@@ -12,32 +12,35 @@ import core
 struct AppView: View {
     @EnvironmentObject var authObject: AuthObject
     @State var isErrorDisplayed = false
+    @State var uiState: AuthUIState? = nil
     
     var body: some View {
-        ZStack{
-            Color.background
-            
-            VStack{
-                switch authObject.state {
-                case .Connected:
-                    AnyView(ContentView())// room screen
-                case .UserSigned, .EmptyUserData:
-                    ContentView() // join screen
-                case .InvalidAppVersion:
-                    AnyView(ContentView()) // update app screen
-                case .Loading:
-                    ProgressView()
-                default:
+        
+        NavigationWrapper(){
+            ZStack{
+                Color.background
+                
+                if(authObject.state == .Loading){
                     ProgressView()
                 }
-            }.alert("error", isPresented: $isErrorDisplayed, actions: {
-                Button("retry") {
-                    authObject.retry()
+                else if(authObject.state == .InvalidAppVersion){
+                    ProgressView() // force update app
                 }
-            })
-            .onReceive(authObject.$state) { obj in
-                isErrorDisplayed = obj == .GeneralError
+                else{
+                    MainScreenView()
+                }
+                
+                NavigationLink( destination: RoomScreenView(), tag: AuthUIState.Connected, selection: $uiState){ EmptyView() }
             }
+        }
+        .alert("error", isPresented: $isErrorDisplayed, actions: {
+            Button("retry") {
+                authObject.retry()
+            }
+        })
+        .onReceive(authObject.$state) { inState in
+            isErrorDisplayed = inState == .GeneralError
+            uiState = inState
         }
     }
 }
@@ -45,7 +48,6 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
    static var previews: some View {
        AppView()
-           .environmentObject(AuthObject(controller: MockAuthControllerInterface()))
-//           .environmentObject(AuthObject(controller: AuthController(preferences: nil, serverRepository: ServerRepositoryImpl(baseUrl: "luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080", sslPrefix: "http://", httpClient: HttpClientProviderKt.getHttpClient()), applicationVersion: nil)))
+           .environmentObject(AuthObject(controller: MockAuthControllerInterface(state: KStateEmpty())))
    }
 }
