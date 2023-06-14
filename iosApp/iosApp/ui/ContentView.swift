@@ -61,28 +61,28 @@ struct ContentView_Previews: PreviewProvider {
 	}
 }
 
-class MockUserController : UserControllerInterface {
-    
-    func updateUsername(username: String) {
-        print("update username", username)
-    }
-    
-    func onDeInit() {
-        print("deinit")
-    }
-    
-    func onStart() {
-        print("start")
-    }
-    
-    func onStop() {
-        print("stop")
-    }
-    
-    func watchState() -> CFlow<KState> {
-        let mockValue = KStateSuccess(value: "mockValue" as AnyObject )
-        return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
-    }
-    
-    
-}
+//class MockUserController : UserControllerInterface {
+//    
+//    func updateUsername(username: String) {
+//        print("update username", username)
+//    }
+//    
+//    func onDeInit() {
+//        print("deinit")
+//    }
+//    
+//    func onStart() {
+//        print("start")
+//    }
+//    
+//    func onStop() {
+//        print("stop")
+//    }
+//    
+//    func watchState() -> CFlow<KState> {
+//        let mockValue = KStateSuccess(value: "mockValue" as AnyObject )
+//        return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
+//    }
+//    
+//    
+//}
