@@ -19,8 +19,8 @@ android {
         applicationId = "dev.luteoos.scrumbet"
         minSdk = 28
         targetSdk = 33
-        versionCode = 2
-        versionName = "0.1.1"
+        versionCode = 3
+        versionName = "0.1.2"
     }
     buildFeatures {
         compose = true
@@ -84,7 +84,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
 
     //QRCode gen
-    implementation("com.github.kenglxn.QRGen:android:3.0.1")
+    implementation("com.google.zxing:core:3.3.0")
 
     implementation("androidx.compose.ui:ui:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")

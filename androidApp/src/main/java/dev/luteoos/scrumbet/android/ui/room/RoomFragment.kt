@@ -69,18 +69,22 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.themeadapter.material.MdcTheme
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.qrcode.QRCodeWriter
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
-import dev.luteoos.scrumbet.android.ui.composeUtil.Size
-import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
-import dev.luteoos.scrumbet.android.ui.composeUtil.VisibilityToggle
+import dev.luteoos.scrumbet.android.util.composeUtil.Size
+import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
+import dev.luteoos.scrumbet.android.util.composeUtil.VisibilityToggle
+import dev.luteoos.scrumbet.android.util.encodeToBitmap
+import dev.luteoos.scrumbet.data.entity.MultiUrl
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
-import net.glxn.qrgen.android.QRCode
 import org.koin.android.ext.android.get
-import org.koin.core.qualifier.named
 
 class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomViewModel::class) {
     override val layoutId: Int = R.layout.compose_fragment
@@ -140,7 +144,12 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                     IconButton(
                                         enabled = state is RoomUiState.Success,
                                         onClick = {
-                                            customSheetContent = { RoomScreenShareSheet(roomName) }
+                                            customSheetContent = {
+                                                RoomScreenShareSheet(
+                                                    roomName,
+                                                    (state as? RoomUiState.Success)?.config?.url
+                                                )
+                                            }
                                             toggleSheetState()
                                         }
                                     ) {
@@ -211,27 +220,33 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     Text(text = getString(R.string.label_choose_style))
                 }
             AvgVoteUi(isOwner = state.config.isOwner, list = state.userList)
-            LazyVerticalGrid(modifier = Modifier.fillMaxWidth(.75f), columns = GridCells.Adaptive(Size.xxLarge()), content = {
-                val buttonModifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Size.xSmall())
-                state.config.scale.forEach { value ->
-                    item {
-                        val onClick = {
-                            currentPick = value
-                            model.setVote(value)
+            LazyVerticalGrid(
+                modifier = Modifier.fillMaxWidth(.75f),
+                columns = GridCells.Adaptive(
+                    Size.xxLarge()
+                ),
+                content = {
+                    val buttonModifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Size.xSmall())
+                    state.config.scale.forEach { value ->
+                        item {
+                            val onClick = {
+                                currentPick = value
+                                model.setVote(value)
+                            }
+                            if (currentPick == null || currentPick == value)
+                                Button(modifier = buttonModifier, onClick = onClick) {
+                                    Text(text = value)
+                                }
+                            else
+                                OutlinedButton(modifier = buttonModifier, onClick = onClick) {
+                                    Text(text = value)
+                                }
                         }
-                        if (currentPick == null || currentPick == value)
-                            Button(modifier = buttonModifier, onClick = onClick) {
-                                Text(text = value)
-                            }
-                        else
-                            OutlinedButton(modifier = buttonModifier, onClick = onClick) {
-                                Text(text = value)
-                            }
                     }
                 }
-            })
+            )
         }
     }
 
@@ -421,11 +436,10 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     @Composable
-    private fun RoomScreenShareSheet(roomName: String?) {
-        if (roomName == null)
+    private fun RoomScreenShareSheet(roomName: String?, url: MultiUrl?) {
+        if (roomName == null || url == null)
             return
-        val roomUrl = remember { "app://${get<String>(named("BASE_URL")).split(":").first()}/$roomName" }
-        val qrCode = remember { getQrCode(roomUrl) }
+        val qrCode = remember { getQrCode(url.appSchema) }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -457,14 +471,31 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     .fillMaxWidth()
                     .padding(Size.small()),
                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                onClick = { copyToClipboard(roomUrl) }
+                onClick = { copyToClipboard(url.appSchema) }
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = getString(R.string.label_room_url))
+                    Text(text = getString(R.string.label_room_app_url))
+                    Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                }
+            }
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Size.small()),
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                onClick = { copyToClipboard(url.httpSchema) }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = getString(R.string.label_room_web_url))
                     Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
                 }
             }
@@ -477,7 +508,17 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     private fun getQrCode(value: String): ImageBitmap {
-        return QRCode.from(value).withCharset(Charsets.UTF_8.name()).bitmap().asImageBitmap()
+        val QR_BITMAP_SIZE = 512
+        return QRCodeWriter()
+            .encode(
+                value,
+                BarcodeFormat.QR_CODE,
+                QR_BITMAP_SIZE,
+                QR_BITMAP_SIZE,
+                mutableMapOf(EncodeHintType.ERROR_CORRECTION to ErrorCorrectionLevel.H)
+            )
+            .encodeToBitmap()
+            .asImageBitmap()
     }
 
     @Preview(widthDp = 320, heightDp = 320)

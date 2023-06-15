@@ -20,8 +20,8 @@ import com.google.accompanist.themeadapter.material.MdcTheme
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
-import dev.luteoos.scrumbet.android.ui.composeUtil.Size
-import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
+import dev.luteoos.scrumbet.android.util.composeUtil.Size
+import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
 
 class UpdateFragment : BaseFragment<UpdateViewModel, ComposeFragmentBinding>(UpdateViewModel::class) {
     override val layoutId: Int = R.layout.compose_fragment

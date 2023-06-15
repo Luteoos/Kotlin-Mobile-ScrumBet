@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.Dp
 import dev.luteoos.scrumbet.android.core.BaseViewModel
 import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toggle
-import dev.luteoos.scrumbet.android.ui.composeUtil.Size
+import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)

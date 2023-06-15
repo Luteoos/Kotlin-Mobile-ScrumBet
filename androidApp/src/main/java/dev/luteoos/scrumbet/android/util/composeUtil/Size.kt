@@ -1,4 +1,4 @@
-package dev.luteoos.scrumbet.android.ui.composeUtil
+package dev.luteoos.scrumbet.android.util.composeUtil
 
 import androidx.compose.ui.unit.dp
 
