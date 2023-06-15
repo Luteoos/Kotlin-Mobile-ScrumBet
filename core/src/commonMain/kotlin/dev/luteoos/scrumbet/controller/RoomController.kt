@@ -8,6 +8,7 @@ import dev.luteoos.scrumbet.data.dto.RoomConfigOutgoingFrame
 import dev.luteoos.scrumbet.data.dto.RoomResetOutgoingFrame
 import dev.luteoos.scrumbet.data.dto.RoomVoteFrame
 import dev.luteoos.scrumbet.data.entity.AppException
+import dev.luteoos.scrumbet.data.entity.MultiUrl
 import dev.luteoos.scrumbet.data.mapper.RoomDataMapper
 import dev.luteoos.scrumbet.data.state.room.RoomConfiguration
 import dev.luteoos.scrumbet.data.state.room.RoomData
@@ -20,16 +21,19 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.get
+import org.koin.core.qualifier.named
 
-class RoomController(roomRepository: RoomRepository? = null, preferences: SharedPreferences? = null) : KController<RoomData, AppException>(), RoomControllerInterface {
+class RoomController(roomRepository: RoomRepository? = null, preferences: SharedPreferences? = null, baseUrl: String? = null) : KController<RoomData, AppException>(), RoomControllerInterface {
     private val repository: RoomRepository
     private val sharedPreferences: SharedPreferences
-    private val mapper: RoomDataMapper = RoomDataMapper()
+    private val url: String
     override val state: MutableStateFlow<KState<RoomData, AppException>> = MutableStateFlow(KState.Empty)
+    private val mapper: RoomDataMapper = RoomDataMapper()
 
     init {
         repository = roomRepository ?: get()
         sharedPreferences = preferences ?: get()
+        url = baseUrl ?: get(named("BASE_URL"))
     }
 
     override fun connect(roomId: String) {
@@ -53,7 +57,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                         launchDefault {
                             repository.observeIncomingFlow()
                                 .map {
-                                    mapper.toRoomData(it, userData.userId)
+                                    mapper.toRoomData(it, userData.userId, url, roomId)
                                 }
                                 .collect {
                                     publish(KState.Success(it))
@@ -135,6 +139,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
     private fun getMockRoomData(valuesList: List<String> = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "?")) =
         RoomData(
             RoomConfiguration(
+                MultiUrl("placeholder.com/placeholder"),
                 true,
                 valuesList,
                 "FIBONACCI",

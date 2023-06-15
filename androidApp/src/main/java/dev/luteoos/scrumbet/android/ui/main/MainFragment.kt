@@ -52,8 +52,8 @@ import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.MainFragmentBinding
 import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toRoomScreen
-import dev.luteoos.scrumbet.android.ui.composeUtil.Size
-import dev.luteoos.scrumbet.android.ui.composeUtil.TextSize
+import dev.luteoos.scrumbet.android.util.composeUtil.Size
+import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
 import dev.luteoos.scrumbet.shared.Log
 
 @OptIn(
