@@ -33,6 +33,7 @@ struct MainScreenView: View {
                     }
                 }
                     .buttonStyle(.borderless)
+                    .tint(Color.secondaryColor)
                 Spacer()
                 
                 VStack{

@@ -1,5 +1,4 @@
 PODS:
-  - CodeScanner (2.3.3)
   - core (1.0)
   - coreSwift (1.0):
     - core
@@ -103,7 +102,6 @@ PODS:
     - PromisesObjC (= 2.2.0)
 
 DEPENDENCIES:
-  - CodeScanner (from `https://github.com/Luteoos/CodeScanner.git`, tag `2.3.4`)
   - core (from `../core`)
   - coreSwift (from `../core`)
   - FirebaseAnalytics
@@ -126,21 +124,12 @@ SPEC REPOS:
     - PromisesSwift
 
 EXTERNAL SOURCES:
-  CodeScanner:
-    :git: https://github.com/Luteoos/CodeScanner.git
-    :tag: 2.3.4
   core:
     :path: "../core"
   coreSwift:
     :path: "../core"
 
-CHECKOUT OPTIONS:
-  CodeScanner:
-    :git: https://github.com/Luteoos/CodeScanner.git
-    :tag: 2.3.4
-
 SPEC CHECKSUMS:
-  CodeScanner: c1f0186b014db3ea31a8873cc1c486939d10aff4
   core: ec7f755bb9263e57015ac28663f2cf4e01ca1744
   coreSwift: cd9326243d1de0099c053482faff7a7b7088bf02
   FirebaseAnalytics: 6c6bf99e8854475bf1fa342028841be8ecd236da
@@ -157,6 +146,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
 
-PODFILE CHECKSUM: bfed754621b4ee4488e311ebfff0285b8f9413af
+PODFILE CHECKSUM: 6172715465bb309a2e417988a5e3a8073110f93b
 
 COCOAPODS: 1.11.3

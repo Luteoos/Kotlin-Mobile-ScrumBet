@@ -17,30 +17,45 @@ struct MainScreenJoinSheet: View {
     var body: some View {
         VStack(spacing: 8){
             Text("join")
-                .font(.caption2)
+                .font(.headline)
+            
+            VStack{
+                Text("scan_qr_code")
+                    .font(.subheadline)
+                CodeScannerView(codeTypes: [.qr], simulatedData: "simulatorPlaceholder") { result in
+                    switch result{
+                    case .success(let result):
+                        roomName = result.string
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+            .frame(maxHeight: 400)
             
             HStack{
                 Text("room_name")
                 TextField("room_name", text: $roomName)
                     .textFieldStyle(.roundedBorder)
             }
-//                .background(Color.black)
             .padding(.horizontal, 16)
+            
+            Spacer()
+            
+            Button{
+                joinRoom(roomName)
+                isVisible.toggle()
+            } label: {
+                Text("join")
+                    .frame(maxWidth: .infinity)
+            }
+            .disabled(roomName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .padding(.horizontal, 16)
+            .buttonStyle(.borderedProminent)
+            .tint(Color.secondaryColor)
         }
-        
-        Spacer()
-        
-        Button{
-            joinRoom(roomName)
-            isVisible.toggle()
-        } label: {
-            Text("join")
-                .frame(maxWidth: .infinity)
-        }
-        .padding(.horizontal, 16)
-//                .padding(.top, 64)
-        .buttonStyle(.borderedProminent)
-        .tint(Color.secondary)
+        .padding(.vertical, 16)
+        .background(Color.surfaceColor)
     }
 }
 
