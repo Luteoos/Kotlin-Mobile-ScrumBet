@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct MainScreenJoinSheet: View {
     let joinRoom: (String) -> ()
