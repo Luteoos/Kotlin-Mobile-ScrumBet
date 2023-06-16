@@ -8,24 +8,27 @@ struct iOSApp: App {
 
     //    way to do DI via @EnvironmentObject
     let authObject : AuthObject
+    private let authController: AuthControllerInterface
 
     init(){
         // IOSApp is invoked also for PreviewProviders
         KoinKt.doInitKoin()
         // must be after .doInitKoin due to underlying inject()
         //authObject = ObservableObject(controller: KController())
-        authObject = AuthObject(controller:
+        authController = AuthController(preferences: nil, serverRepository: nil, applicationVersion: nil)
+        authObject = AuthObject(controller: authController)
 //                                    MockAuthControllerInterface())
-                                    AuthController(
-                                       preferences: nil,
-                                       serverRepository: nil,
-                                       applicationVersion: nil) )
+//                                    AuthController(
+//                                       preferences: nil,
+//                                       serverRepository: nil,
+//                                       applicationVersion: nil) )
     }
 
 	var body: some Scene {
 		WindowGroup {
             AppView()
                 .environmentObject(authObject)
+                .environment(\.authController, authController)
         }
 	}
 

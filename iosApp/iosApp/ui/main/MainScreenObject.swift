@@ -11,6 +11,7 @@ import core
 
 class MainScreenObject : ObservableObject{
     private let controller: UserControllerInterface
+    private var authController: AuthControllerInterface? = nil
     @Published var userData: UserData? = nil
     
     init(controller: UserControllerInterface?) {
@@ -27,7 +28,19 @@ class MainScreenObject : ObservableObject{
         }
     }
     
+    func setAuthController(controller: AuthControllerInterface){
+        self.authController = controller
+    }
+    
+    func setRoomId(id: String){
+        authController!.setRoomConnectionId(id: id)
+    }
+    
     func setUsername(username: String){
         controller.updateUsername(username: username)
+    }
+    
+    func createNewRoom(){
+        authController!.setRoomConnectionId(id: NSUUID().uuidString)
     }
 }

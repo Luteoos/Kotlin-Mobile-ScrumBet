@@ -20,6 +20,8 @@
 		EEBF92A62A39E6A8003C21BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92A82A39E6A8003C21BA /* Localizable.strings */; };
 		EEBF92AE2A39F018003C21BA /* MainScreenUsernameInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92AD2A39F018003C21BA /* MainScreenUsernameInputSheet.swift */; };
 		EEBF92B02A39FB67003C21BA /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92AF2A39FB67003C21BA /* HalfSheet.swift */; };
+		EEBF92B22A3C90DB003C21BA /* MainScreenJoinSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B12A3C90DB003C21BA /* MainScreenJoinSheet.swift */; };
+		EEBF92B42A3CA124003C21BA /* AuthKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B32A3CA124003C21BA /* AuthKey.swift */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
@@ -53,6 +55,8 @@
 		EEBF92A72A39E6A8003C21BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EEBF92AD2A39F018003C21BA /* MainScreenUsernameInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenUsernameInputSheet.swift; sourceTree = "<group>"; };
 		EEBF92AF2A39FB67003C21BA /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
+		EEBF92B12A3C90DB003C21BA /* MainScreenJoinSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenJoinSheet.swift; sourceTree = "<group>"; };
+		EEBF92B32A3CA124003C21BA /* AuthKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthKey.swift; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 				EECED49929E6140D0031D376 /* Assets.xcassets */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				EEBF92B32A3CA124003C21BA /* AuthKey.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 				EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */,
 				EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */,
 				EEBF92AD2A39F018003C21BA /* MainScreenUsernameInputSheet.swift */,
+				EEBF92B12A3C90DB003C21BA /* MainScreenJoinSheet.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -365,6 +371,7 @@
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
+				EEBF92B22A3C90DB003C21BA /* MainScreenJoinSheet.swift in Sources */,
 				EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */,
 				EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */,
 				EEBF929F2A38C764003C21BA /* RoomScreenView.swift in Sources */,
@@ -374,6 +381,7 @@
 				EEBF929B2A38C3C9003C21BA /* MainScreenView.swift in Sources */,
 				EEDCC6782A371E2B007C3274 /* AuthUiState.swift in Sources */,
 				EEBF92B02A39FB67003C21BA /* HalfSheet.swift in Sources */,
+				EEBF92B42A3CA124003C21BA /* AuthKey.swift in Sources */,
 				EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
