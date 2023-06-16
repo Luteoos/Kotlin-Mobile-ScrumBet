@@ -13,6 +13,7 @@ struct RoomScreenView: View {
     
     var body: some View {
         Text("Room Screen")
+        Text("\(authObject.getRoomId() ?? "no id")")
         Button("Disconnect") {
             authObject.disconnect()
         }

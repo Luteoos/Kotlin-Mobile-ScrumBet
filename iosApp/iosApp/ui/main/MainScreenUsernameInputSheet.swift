@@ -40,7 +40,7 @@ struct MainScreenUsernameInputSheet: View {
             .padding(.horizontal, 16)
 //                .padding(.top, 64)
             .buttonStyle(.borderedProminent)
-            .tint(Color.secondary)
+            .tint(Color.secondaryColor)
         }
         .padding(.top, 32)
         .onAppear(perform: {

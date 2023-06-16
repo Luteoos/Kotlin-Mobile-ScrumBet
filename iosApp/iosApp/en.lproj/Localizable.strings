@@ -12,3 +12,6 @@
 "or" = "or";
 "username" = "Username";
 "save" = "Save";
+"room_name" = "Room name";
+"join" = "Join";
+"scan_qr_code" = "Scan QR code";
