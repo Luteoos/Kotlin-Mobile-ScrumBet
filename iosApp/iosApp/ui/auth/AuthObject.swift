@@ -45,6 +45,10 @@ class AuthObject : ObservableObject{
         }
     }
     
+    func createNewRoom(){
+        setRoomId(NSUUID().uuidString)
+    }
+    
     func setRoomId(_ id: String){
         controller.setRoomConnectionId(id: id)
     }

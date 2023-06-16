@@ -10,9 +10,10 @@ import SwiftUI
 import core
 
 struct MainScreenView: View {
-    @StateObject var userObject = MainScreenObject(controller: nil)
-    @EnvironmentObject var authObject: AuthObject
+    @StateObject var object = MainScreenObject(controller: nil)
     @State var isEditNameSheetVisible = false
+    @State var isJoinSheetVisible = false
+    @Environment(\.authController) var authController
     
     var body: some View {
         ZStack{
@@ -20,7 +21,7 @@ struct MainScreenView: View {
             
             VStack{
                 Spacer()
-                Text("hello, \(userObject.userData?.username ?? "")")
+                Text("hello, \(object.userData?.username ?? "")")
                     .font(.largeTitle)
                 Button {
 //                    userObject.setUsername(username: "test")
@@ -36,7 +37,7 @@ struct MainScreenView: View {
                 
                 VStack{
                     Button{
-                        
+                        isJoinSheetVisible.toggle()
                     } label: {
                         Text("join")
                             .frame(maxWidth: .infinity)
@@ -46,7 +47,7 @@ struct MainScreenView: View {
                     Text("or")
                         .font(.caption)
                     Button{
-                        
+                        object.createNewRoom()
                     } label: {
                         Text("create")
                             .bold()
@@ -58,16 +59,26 @@ struct MainScreenView: View {
                     .padding(.horizontal, 16)
                 Spacer()
             }
+            .onAppear(){
+                object.setAuthController(controller: authController)
+            }
             .sheet(isPresented: $isEditNameSheetVisible, content: {
                 HalfSheet {
                     MainScreenUsernameInputSheet(
                         updateUsername: { username in
-                            userObject.setUsername(username: username)
+                            object.setUsername(username: username)
                         },
-                        username: userObject.userData?.username ?? "",
+                        username: object.userData?.username ?? "",
                         isVisible: $isEditNameSheetVisible
                     )
                     
+                }
+            })
+            .sheet(isPresented: $isJoinSheetVisible, content: {
+                HalfSheet {
+                    MainScreenJoinSheet(joinRoom: { roomId in
+                        object.setRoomId(id: roomId)
+                    }, isVisible: $isJoinSheetVisible)
                 }
             })
         }
@@ -76,7 +87,7 @@ struct MainScreenView: View {
 
 struct MainScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        MainScreenView(userObject: MainScreenObject(controller: MockUserController()))
-            .environmentObject(AuthObject(controller: MockAuthControllerInterface()))
+        MainScreenView(object: MainScreenObject(controller: MockUserController()))
+            .environment(\.authController, MockAuthControllerInterface())
     }
 }

@@ -1,8 +1,9 @@
-target 'iosApp' do
+target 'ScrumBet' do
   use_frameworks!
   platform :ios, '14.1'
   pod 'core', :path => '../core'
   pod 'coreSwift', :path => '../core'
   pod 'FirebaseAnalytics'
   pod 'FirebaseCrashlytics'
+  # pod 'CodeScanner', :git => 'https://github.com/twostraws/CodeScanner.git', :tag => '2.3.2'
 end

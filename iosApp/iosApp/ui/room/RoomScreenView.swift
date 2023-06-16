@@ -9,13 +9,19 @@
 import SwiftUI
 
 struct RoomScreenView: View {
+    @EnvironmentObject var authObject: AuthObject
+    
     var body: some View {
         Text("Room Screen")
+        Button("Disconnect") {
+            authObject.disconnect()
+        }
     }
 }
 
 struct RoomScreenView_Previews: PreviewProvider {
     static var previews: some View {
         RoomScreenView()
+            .environmentObject(AuthObject(controller: MockAuthControllerInterface()))
     }
 }
