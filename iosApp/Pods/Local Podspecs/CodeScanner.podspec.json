@@ -1,0 +1,24 @@
+{
+  "name": "CodeScanner",
+  "version": "2.3.3",
+  "summary": "CodeScanner",
+  "homepage": "https://github.com/Luteoos/CodeScanner",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE.md"
+  },
+  "authors": {
+    " ": " "
+  },
+  "source": {
+    "git": "https://github.com/Luteoos/CodeScanner.git",
+    "tag": "2.3.3"
+  },
+  "platforms": {
+    "ios": "13.0"
+  },
+  "swift_versions": "5.0",
+  "source_files": "Sources/CodeScanner/*.{h,m,swift}",
+  "resources": "Sources/CodeScanner/Resources/**/*.{storyboard,xib,xcassets,json,png,pdf}",
+  "swift_version": "5.0"
+}
