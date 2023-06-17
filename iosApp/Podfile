@@ -5,5 +5,5 @@ target 'ScrumBet' do
   pod 'coreSwift', :path => '../core'
   pod 'FirebaseAnalytics'
   pod 'FirebaseCrashlytics'
-#  pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.4' rework resource bundling
+  pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.7' # rework resource bundling
 end

@@ -22,7 +22,7 @@ struct MainScreenJoinSheet: View {
             VStack{
                 Text("scan_qr_code")
                     .font(.subheadline)
-                CodeScannerView(codeTypes: [.qr], simulatedData: "simulatorPlaceholder") { result in
+                CodeScannerView( codeTypes: [.qr], scanMode: .manual, simulatedData: "simulatorPlaceholder") { result in
                     switch result{
                     case .success(let result):
                         roomName = result.string
