@@ -65,6 +65,7 @@ kotlin {
 
             dependencies {
                 implementation(Dependencies.ktorDarwin)
+                implementation(Dependencies.ktorCio)
             }
         }
         val iosX64Test by getting

@@ -32,11 +32,13 @@ struct MainScreenJoinSheet: View {
                 }
             }
             .frame(maxHeight: 400)
-            
+            Text("or")
+                .font(.subheadline)
             HStack{
                 Text("room_name")
                 TextField("room_name", text: $roomName)
                     .textFieldStyle(.roundedBorder)
+                    .textInputAutocapitalization(.never)
             }
             .padding(.horizontal, 16)
             

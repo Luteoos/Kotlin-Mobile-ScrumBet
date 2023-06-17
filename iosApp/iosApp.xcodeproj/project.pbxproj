@@ -22,6 +22,9 @@
 		EEBF92B02A39FB67003C21BA /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92AF2A39FB67003C21BA /* HalfSheet.swift */; };
 		EEBF92B22A3C90DB003C21BA /* MainScreenJoinSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B12A3C90DB003C21BA /* MainScreenJoinSheet.swift */; };
 		EEBF92B42A3CA124003C21BA /* AuthKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B32A3CA124003C21BA /* AuthKey.swift */; };
+		EEBF92BA2A3E3511003C21BA /* RoomScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */; };
+		EEBF92BC2A3E3627003C21BA /* RoomUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */; };
+		EEBF92BE2A3E39C0003C21BA /* MockRoomControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
@@ -60,6 +63,9 @@
 		EEBF92AF2A39FB67003C21BA /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		EEBF92B12A3C90DB003C21BA /* MainScreenJoinSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenJoinSheet.swift; sourceTree = "<group>"; };
 		EEBF92B32A3CA124003C21BA /* AuthKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthKey.swift; sourceTree = "<group>"; };
+		EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenObject.swift; sourceTree = "<group>"; };
+		EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUiState.swift; sourceTree = "<group>"; };
+		EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomControllerInterface.swift; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
@@ -160,6 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				EEBF929E2A38C764003C21BA /* RoomScreenView.swift */,
+				EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */,
+				EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */,
 			);
 			path = room;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 				EE50EBAC29F71FCB00EF634A /* MockController.swift */,
 				EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */,
 				EEBF92A12A38D563003C21BA /* MockUserController.swift */,
+				EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */,
 			);
 			path = mock;
 			sourceTree = "<group>";
@@ -383,10 +392,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBF92BE2A3E39C0003C21BA /* MockRoomControllerInterface.swift in Sources */,
 				EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */,
 				EEBF92AE2A39F018003C21BA /* MainScreenUsernameInputSheet.swift in Sources */,
 				EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */,
+				EEBF92BA2A3E3511003C21BA /* RoomScreenObject.swift in Sources */,
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
+				EEBF92BC2A3E3627003C21BA /* RoomUiState.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
 				EEBF92B22A3C90DB003C21BA /* MainScreenJoinSheet.swift in Sources */,

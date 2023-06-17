@@ -16,6 +16,11 @@ class MockUserController : UserControllerInterface{
         self.mockState = state
     }
     
+    func watchState() -> CFlow<KState> {
+        let mockValue = mockState ?? KStateSuccess(value: UserData(username: "MockUser", userId: "mockId"))
+        return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
+    }
+    
     func updateUsername(username: String) {
         print("mock updateUsername \(username)")
     }
@@ -27,11 +32,6 @@ class MockUserController : UserControllerInterface{
     }
     
     func onStop() {
-    }
-    
-    func watchState() -> CFlow<KState> {
-        let mockValue = mockState ?? KStateSuccess(value: UserData(username: "MockUser", userId: "mockId"))
-        return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
     }
     
     
