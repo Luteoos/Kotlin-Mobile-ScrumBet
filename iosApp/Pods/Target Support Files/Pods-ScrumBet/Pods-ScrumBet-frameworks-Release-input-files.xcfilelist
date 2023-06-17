@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-ScrumBet/Pods-ScrumBet-frameworks.sh
+${BUILT_PRODUCTS_DIR}/CodeScanner/CodeScanner.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreExtension/FirebaseCoreExtension.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework
