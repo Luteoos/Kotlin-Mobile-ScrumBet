@@ -32,6 +32,7 @@ object Dependencies {
 
     //iOS
     const val ktorDarwin = "io.ktor:ktor-client-darwin:${Versions.ktor}"
+    const val ktorCio = "io.ktor:ktor-client-cio:${Versions.ktor}"
 
     //iOS pods
 }
@@ -44,5 +45,5 @@ object Versions {
     const val reaktive = "1.2.1"
     const val multiplatformSettings = "0.9"
     const val koin = "3.2.2"
-    const val ktor = "2.3.0"
+    const val ktor = "2.3.1"
 }
