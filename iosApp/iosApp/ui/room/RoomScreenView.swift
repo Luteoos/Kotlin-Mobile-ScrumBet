@@ -14,14 +14,17 @@ struct RoomScreenView: View {
     @StateObject var object: RoomScreenObject = RoomScreenObject(controller: RoomController(roomRepository: nil, preferences: nil, baseUrl: nil))
     
     @State var isLoading = true
+    @State var isShareSheetVisible = false
     
     var body: some View {
         VStack{
             switch object.state{
             case .Error(let error):
-                EmptyView()
-            case .Success(let data):
-                EmptyView()
+                RoomScreenErrorView(onRetry: {
+                    object.connect()
+                }, errorMessage: error)
+            case .Success(_):
+                RoomScreenSuccessView(object: object)
             case .Loading:
                 ProgressView()
             }
@@ -31,11 +34,18 @@ struct RoomScreenView: View {
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    print("shareSheet")
+                    isShareSheetVisible.toggle()
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                 }
                 .disabled(isLoading)
+            }
+        })
+        .sheet(isPresented: $isShareSheetVisible, content: {
+            if let url = getUrl(){
+                RoomScreenShareSheet(url: url)
+            } else {
+                EmptyView()
             }
         })
         .onAppear(){
@@ -60,6 +70,15 @@ struct RoomScreenView: View {
             if(!object.isAlive()){
                 object.connect()
             }
+        }
+    }
+    
+    func getUrl() -> MultiUrl?{
+        switch object.state{
+        case .Success(let data):
+            return data.configuration.url
+        default:
+            return nil
         }
     }
 }
