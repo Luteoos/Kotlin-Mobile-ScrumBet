@@ -19,11 +19,6 @@ struct iOSApp: App {
         authController = AuthController(preferences: nil, serverRepository: nil, applicationVersion: nil)
         authObject = AuthObject(controller: authController)
         delegate.setAuthControler(authController)
-//                                    MockAuthControllerInterface())
-//                                    AuthController(
-//                                       preferences: nil,
-//                                       serverRepository: nil,
-//                                       applicationVersion: nil) )
     }
 
 	var body: some Scene {

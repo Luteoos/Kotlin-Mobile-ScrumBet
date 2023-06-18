@@ -25,6 +25,9 @@
 		EEBF92BA2A3E3511003C21BA /* RoomScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */; };
 		EEBF92BC2A3E3627003C21BA /* RoomUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */; };
 		EEBF92BE2A3E39C0003C21BA /* MockRoomControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */; };
+		EEBF92C02A3F5804003C21BA /* RoomScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */; };
+		EEBF92C22A3F593D003C21BA /* RoomScreenShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */; };
+		EEBF92C42A3F612B003C21BA /* RoomScreenSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
@@ -66,6 +69,9 @@
 		EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenObject.swift; sourceTree = "<group>"; };
 		EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUiState.swift; sourceTree = "<group>"; };
 		EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomControllerInterface.swift; sourceTree = "<group>"; };
+		EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenErrorView.swift; sourceTree = "<group>"; };
+		EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenShareSheet.swift; sourceTree = "<group>"; };
+		EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
@@ -168,6 +174,9 @@
 				EEBF929E2A38C764003C21BA /* RoomScreenView.swift */,
 				EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */,
 				EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */,
+				EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */,
+				EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */,
+				EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */,
 			);
 			path = room;
 			sourceTree = "<group>";
@@ -396,12 +405,14 @@
 				EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */,
 				EEBF92AE2A39F018003C21BA /* MainScreenUsernameInputSheet.swift in Sources */,
 				EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */,
+				EEBF92C42A3F612B003C21BA /* RoomScreenSuccessView.swift in Sources */,
 				EEBF92BA2A3E3511003C21BA /* RoomScreenObject.swift in Sources */,
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
 				EEBF92BC2A3E3627003C21BA /* RoomUiState.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
 				EEBF92B22A3C90DB003C21BA /* MainScreenJoinSheet.swift in Sources */,
+				EEBF92C22A3F593D003C21BA /* RoomScreenShareSheet.swift in Sources */,
 				EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */,
 				EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */,
 				EEBF929F2A38C764003C21BA /* RoomScreenView.swift in Sources */,
@@ -409,6 +420,7 @@
 				EEECF17C29E6179B00989C31 /* Color.swift in Sources */,
 				EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */,
 				EEBF929B2A38C3C9003C21BA /* MainScreenView.swift in Sources */,
+				EEBF92C02A3F5804003C21BA /* RoomScreenErrorView.swift in Sources */,
 				EEDCC6782A371E2B007C3274 /* AuthUiState.swift in Sources */,
 				EEBF92B02A39FB67003C21BA /* HalfSheet.swift in Sources */,
 				EEBF92B42A3CA124003C21BA /* AuthKey.swift in Sources */,
