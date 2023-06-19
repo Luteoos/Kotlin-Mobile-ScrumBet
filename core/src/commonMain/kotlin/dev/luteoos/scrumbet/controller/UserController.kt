@@ -29,10 +29,15 @@ class UserController(preferences: SharedPreferences? = null, deviceData: DeviceD
     override fun updateUsername(username: Username) {
         publish(KState.Loading)
         id?.let { id ->
-            preferences.setUserData(UserData(username
-                .trim()
-                .replace("\n", "")
-                .replace(" ", ""), id))
+            preferences.setUserData(
+                UserData(
+                    username
+                        .trim()
+                        .replace("\n", "")
+                        .replace(" ", ""),
+                    id
+                )
+            )
         }
         getUserData()
     }
