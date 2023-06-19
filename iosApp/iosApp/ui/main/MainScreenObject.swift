@@ -37,7 +37,7 @@ class MainScreenObject : ObservableObject{
     }
     
     func setUsername(username: String){
-        controller.updateUsername(username: username)
+        controller.updateUsername(username: username.replacingOccurrences(of: " ", with: ""))
     }
     
     func createNewRoom(){

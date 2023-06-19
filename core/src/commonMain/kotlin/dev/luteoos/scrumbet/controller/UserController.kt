@@ -33,8 +33,8 @@ class UserController(preferences: SharedPreferences? = null, deviceData: DeviceD
                 UserData(
                     username
                         .trim()
-                        .replace("\n", "")
-                        .replace(" ", ""),
+                        .replace("\n", ""),
+//                        .replace(" ", ""),
                     id
                 )
             )
