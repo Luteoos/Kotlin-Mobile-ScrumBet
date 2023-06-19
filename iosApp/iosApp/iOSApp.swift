@@ -50,7 +50,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
       startup(application)
-      print("ApplicationDelegate didFinishLaunchingWithOptions")
+//      print("ApplicationDelegate didFinishLaunchingWithOptions")
       launchOptions?.forEach({ (key: UIApplication.LaunchOptionsKey, value: Any) in
           print(key.rawValue, value)
             })
