@@ -17,11 +17,14 @@ class MockRoomControllerInterfrace: RoomControllerInterface{
     }
     
     func watchState() -> CFlow<KState> {
-        let mockValue = mockState ?? KStateSuccess(value:
-                                                    RoomData(configuration:
-                                                                RoomConfiguration(url: MultiUrl(base: "mockUrl.mock/mockRoomId"), isOwner: true, scale: ["1", "2", "3", "4", "5", "?"], scaleType: "Mock1", scaleTypeList: ["Mock1", "MOCK2"], voteEnded: false, anonymousVote: true, alwaysVisibleVote: true),
-                                                             voteList: [RoomUser(userId: "mockUserId1", username: "mockUser1", isOwner: true, vote: nil)]))
+        let mockValue = mockState ?? KStateSuccess(value: getMockRoomData())
         return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
+    }
+    
+    func getMockRoomData() -> RoomData{
+        return RoomData(configuration:
+                            RoomConfiguration(url: MultiUrl(base: "mockUrl.mock/mockRoomId"), isOwner: true, scale: ["1", "2", "3", "4", "5", "?"], scaleType: "MOCK1", scaleTypeList: ["MOCK1", "MOCK2"], voteEnded: false, anonymousVote: true, alwaysVisibleVote: true),
+                         voteList: [RoomUser(userId: "mockUserId1", username: "mockUser1", isOwner: true, vote: nil)])
     }
     
     func connect(roomId: String) {

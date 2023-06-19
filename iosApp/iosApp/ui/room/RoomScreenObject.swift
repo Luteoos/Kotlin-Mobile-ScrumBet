@@ -14,6 +14,7 @@ class RoomScreenObject: ObservableObject{
     private var authController: AuthControllerInterface? = nil
     @Published var state: RoomUiState = .Loading
     @Published var title: String = ""
+    @Published var currentVote: String? = nil
     
     init(controller: RoomControllerInterface?) {
         self.controller = controller ?? RoomController(roomRepository: nil, preferences: nil, baseUrl: nil)
@@ -24,6 +25,9 @@ class RoomScreenObject: ObservableObject{
                 print(data.value?.description() ?? "no userData")
                 self?.title = "\(data.value!.voteList.first(where: \.isOwner)?.username ?? "Error")'s room"
                 self?.state = .Success(data: data.value!)
+                self?.currentVote = data.value!.voteList.first { user in
+                    self?.authController?.getUserData()?.userId == user.userId
+                }?.vote
             case .error(let error):
                 print(error.error.description())
                 self?.title = "\(error.error.description())"
@@ -54,5 +58,17 @@ class RoomScreenObject: ObservableObject{
     
     func isAlive() -> Bool{
         return controller.isSessionActive()
+    }
+    
+    func setVote(vote: String){
+        controller.vote(voteValue: vote)
+    }
+    
+    func setRoomScale(scale: String){
+        controller.setRoomScale(scale: scale)
+    }
+    
+    func reset(){
+        controller.resetRoom()
     }
 }

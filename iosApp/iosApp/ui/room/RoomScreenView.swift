@@ -23,8 +23,15 @@ struct RoomScreenView: View {
                 RoomScreenErrorView(onRetry: {
                     object.connect()
                 }, errorMessage: error)
-            case .Success(_):
-                RoomScreenSuccessView(object: object)
+            case .Success(let data):
+                RoomScreenSuccessView(data: data, currentVote: object.currentVote) { style in
+                    object.setRoomScale(scale: style)
+                } onVote: { voteValue in
+                    object.setVote(vote: voteValue)
+                } onReset: {
+                    object.reset()
+                }
+
             case .Loading:
                 ProgressView()
             }
