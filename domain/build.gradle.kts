@@ -84,6 +84,6 @@ android {
     namespace = "dev.luteoos.scrumbet.domain"
     compileSdk = 33
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
     }
 }
