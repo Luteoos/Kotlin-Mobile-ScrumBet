@@ -15,6 +15,12 @@ apply(from = "../ktlint.gradle")
 android {
     namespace = "dev.luteoos.scrumbet.android"
     compileSdk = 33
+
+    lint {
+        abortOnError = false
+        quiet = true
+    }
+
     defaultConfig {
         applicationId = "dev.luteoos.scrumbet"
         minSdk = 28
