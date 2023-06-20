@@ -10,15 +10,13 @@ import SwiftUI
 import core
 
 struct RoomScreenSuccessView: View {
-    var data: RoomData
-    var currentVote: String?
-    var onStyleChange: (String) -> ()
-    var onVote: (String) -> ()
-    var onReset: () -> ()
-    @State var isListSheetVisible = false
-    @State var isStyleSheetVisible = false
+    @ObservedObject var object: RoomScreenObject
+    @State private var isListSheetVisible = false
+    @State private var isStyleSheetVisible = false
     
     var body: some View {
+        switch object.state{
+        case .Success(let data):
             VStack{
                 let votes = data.voteList.filter({ user in
                     user.vote != nil
@@ -29,6 +27,7 @@ struct RoomScreenSuccessView: View {
                 HStack{
                     Text("\(votes.count)/\(data.voteList.count)")
                     Button("list") {
+                        hideSheets()
                         isListSheetVisible.toggle()
                     }
                     .buttonStyle(.bordered)
@@ -36,6 +35,7 @@ struct RoomScreenSuccessView: View {
                 }
                 if(data.configuration.isOwner){
                     Button("choose_style") {
+                        hideSheets()
                         isStyleSheetVisible.toggle()
                     }
                     .buttonStyle(.bordered)
@@ -47,8 +47,11 @@ struct RoomScreenSuccessView: View {
                         view.hidden()
                     }
                 if(data.configuration.isOwner){
-                    Button("reset") {
-                        onReset()
+                    Button {
+                        object.reset()
+                    } label: {
+                        Text("reset")
+                        .frame(width: 220)
                     }
                     .buttonStyle(.bordered)
                     .tint(Color.secondaryColor)
@@ -57,10 +60,10 @@ struct RoomScreenSuccessView: View {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                         ForEach(data.configuration.scale, id: \.self) { text in
                             Button {
-                                onVote(text)
+                                object.setVote(vote: text)
                             } label: {
                                 ZStack{
-                                    if(currentVote == nil || text == currentVote){
+                                    if(object.currentVote == nil || text == object.currentVote){
                                         Color.primaryColor
                                     } else {
                                         Color.primaryColor.opacity(0.4)
@@ -74,26 +77,27 @@ struct RoomScreenSuccessView: View {
                         }
                     }
                     .frame(width: 250)
+                    .padding(.top, 16)
                 }
             }
             .sheet(isPresented: $isListSheetVisible) {
                 HalfSheet {
-                    Text("UserList here")
+                    MembersListSheetView(object: object, isShowingVotes: object.configuration!.alwaysVisibleVote)
                 }
             }
             .sheet(isPresented: $isStyleSheetVisible) {
                 HalfSheet{
-                    LazyVStack {
-                        Text("Current mode: \(data.configuration.scaleType.localizedCapitalized)")
-                        ForEach(data.configuration.scaleTypeList, id: \.self) { styleText in
-                            Button(styleText) {
-                                onStyleChange(styleText)
-                            }
-                            .buttonStyle(.bordered)
-                        }
-                    }
+                    StylePickerSheetView(object: object)
                 }
             }
+        default:
+            EmptyView()
+        }
+    }
+    
+    func hideSheets(){
+        isListSheetVisible = false
+        isStyleSheetVisible = false
     }
     
     func getVoteCounter(_ votes: [RoomUser]) -> String{
@@ -113,16 +117,104 @@ struct RoomScreenSuccessView: View {
     
 }
 
+struct StylePickerSheetView: View{
+    @ObservedObject var object: RoomScreenObject
+    
+    var body: some View{
+        switch object.state{
+        case .Success(_):
+            LazyVStack {
+                ForEach(object.configuration!.scaleTypeList, id: \.self) { styleText in
+                    Button {
+                        object.setRoomScale(scale: styleText)
+                    } label: {
+                        Text(styleText.localizedCapitalized)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(.horizontal, 32)
+                    .buttonStyle(.bordered)
+                    .if(styleText == object.configuration!.scaleType, transform: { view in
+                        view.tint(Color.primaryColor)
+                    })
+                    .tint(Color.secondaryColor)
+                }
+            }
+        default:
+            EmptyView()
+        }
+    }
+}
+
+struct MembersListSheetView: View{
+    @ObservedObject var object: RoomScreenObject
+    @State var isShowingVotes: Bool
+    
+    var body: some View{
+        switch object.state{
+        case .Success(_):
+            VStack{
+                Text("member_list")
+                    .font(.headline)
+                if(object.configuration!.isOwner){
+                    HStack(){
+                        Spacer()
+                        Picker("", selection: $isShowingVotes) {
+                            Text("show").tag(true)
+                            Text("hide").tag(false)
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(maxWidth: 150)
+                        .padding(.horizontal, 32)
+                        .onChange(of: isShowingVotes, perform: { showVote in
+                            object.showVoteVisibility(showVote)
+                        })
+                    }
+                }
+                ScrollView{
+                    LazyVStack{
+                        ForEach(object.votes.sorted(by: { $0.isOwner && !$1.isOwner}), id: \.userId){ user in
+                            HStack{
+                                Text(user.username)
+                                if(user.isOwner){
+                                    Image(systemName: "crown.fill")
+                                        .foregroundColor(Color.yellow)
+                                        .frame(width: 32, height: 32)
+                                }
+                                Spacer()
+                                ZStack{
+                                    if(user.vote != nil){
+                                        Color.primaryColor
+                                    } else {
+                                        Color.secondaryColor
+                                    }
+                                    if(isShowingVotes){
+                                        Text(user.vote ?? " ")
+                                    }else{
+                                        if(user.vote != nil){
+                                            Image(systemName: "checkmark")
+                                        }
+                                    }
+                                }
+                                .frame(width: 32, height: 32)
+                                .cornerRadius(4)
+                            }
+                            .padding(.horizontal, 32)
+                            Divider()
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 16)
+        default:
+            EmptyView()
+        }
+    }
+}
+
 struct RoomScreenSuccessView_Previews: PreviewProvider {
     static var previews: some View {
-        RoomScreenSuccessView(data:MockRoomControllerInterfrace().getMockRoomData(), currentVote: nil, onStyleChange: { text in
-            print("style cahnge to \(text)")
-        },onVote: { vote in
-            print("vote \(vote)")
-        }, onReset: {
-            print("reset")
-        })
-
-//            object: RoomScreenObject(controller: MockRoomControllerInterfrace()))
+        NavigationView{
+            RoomScreenSuccessView(object: RoomScreenObject(controller: MockRoomControllerInterfrace()))            
+        }
     }
 }

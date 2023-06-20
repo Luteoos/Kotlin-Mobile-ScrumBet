@@ -15,11 +15,11 @@ public enum KStateSwift<T : AnyObject, E : AnyObject> {
     case .empty:
       return core.KStateEmpty() as core.KState
     case .error(let obj):
-      return obj as! core.KState
+        return obj as core.KState
     case .loading:
       return core.KStateLoading() as core.KState
     case .success(let obj):
-      return obj as! core.KState
+        return obj as core.KState
     }
   }
 

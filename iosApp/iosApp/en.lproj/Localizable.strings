@@ -15,3 +15,9 @@
 "room_name" = "Room name";
 "join" = "Join";
 "scan_qr_code" = "Scan QR code";
+"list" = "List";
+"choose_style" = "Change style";
+"reset" = "Reset";
+"member_list" = "Member list";
+"show" = "Show";
+"hide" = "Hide";

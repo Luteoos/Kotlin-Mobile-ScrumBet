@@ -37,7 +37,6 @@
 		EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */; };
 		EEECF17829E6179B00989C31 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */; };
 		EEECF17929E6179B00989C31 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17129E6179B00989C31 /* AppView.swift */; };
-		EEECF17A29E6179B00989C31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17229E6179B00989C31 /* ContentView.swift */; };
 		EEECF17B29E6179B00989C31 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17429E6179B00989C31 /* Blur.swift */; };
 		EEECF17C29E6179B00989C31 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17529E6179B00989C31 /* Color.swift */; };
 		EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17729E6179B00989C31 /* ViewExt.swift */; };
@@ -81,7 +80,6 @@
 		EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthControllerInterface.swift; sourceTree = "<group>"; };
 		EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEECF17129E6179B00989C31 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
-		EEECF17229E6179B00989C31 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EEECF17429E6179B00989C31 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		EEECF17529E6179B00989C31 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EEECF17729E6179B00989C31 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 				EEBF92972A38C36B003C21BA /* main */,
 				EEDCC6742A371BC1007C3274 /* auth */,
 				EEECF17129E6179B00989C31 /* AppView.swift */,
-				EEECF17229E6179B00989C31 /* ContentView.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -427,7 +424,6 @@
 				EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
-				EEECF17A29E6179B00989C31 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

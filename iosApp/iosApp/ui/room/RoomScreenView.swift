@@ -23,15 +23,8 @@ struct RoomScreenView: View {
                 RoomScreenErrorView(onRetry: {
                     object.connect()
                 }, errorMessage: error)
-            case .Success(let data):
-                RoomScreenSuccessView(data: data, currentVote: object.currentVote) { style in
-                    object.setRoomScale(scale: style)
-                } onVote: { voteValue in
-                    object.setVote(vote: voteValue)
-                } onReset: {
-                    object.reset()
-                }
-
+            case .Success(_):
+                RoomScreenSuccessView(object: object)
             case .Loading:
                 ProgressView()
             }
@@ -44,6 +37,7 @@ struct RoomScreenView: View {
                     isShareSheetVisible.toggle()
                 } label: {
                     Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(Color.secondaryColor)
                 }
                 .disabled(isLoading)
             }
@@ -93,7 +87,6 @@ struct RoomScreenView: View {
 struct RoomScreenView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationWrapper(){
-    
             RoomScreenView(object: RoomScreenObject(controller: MockRoomControllerInterfrace(state: KStateLoading())))
                 .environment(\.authController, MockAuthControllerInterface())
         }
