@@ -1,11 +1,15 @@
 import SwiftUI
 import core
+#if os(iOS)
 import FirebaseCore
 import FirebaseAnalytics
+#endif
 
 @main
 struct iOSApp: App {
+    #if os(iOS)
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    #endif
 
     //    way to do DI via @EnvironmentObject
     let authObject : AuthObject
@@ -19,11 +23,15 @@ struct iOSApp: App {
         //authObject = ObservableObject(controller: KController())
         authController = AuthController(preferences: nil, serverRepository: nil, applicationVersion: nil)
         authObject = AuthObject(controller: authController)
+        #if os(iOS)
         delegate.setAuthControler(authController)
+        #endif
     }
 
 	var body: some Scene {
-		WindowGroup {
+        WindowGroup {
+            
+#if os(iOS)
             AppView()
                 .environmentObject(authObject)
                 .environment(\.authController, authController)
@@ -35,11 +43,17 @@ struct iOSApp: App {
                     }
                     authController.setRoomConnectionId(id: roomId)
                 }
+            #else
+            ContentView()
+                .environmentObject(authObject)
+                .environment(\.authController, authController)
+            #endif
         }
 	}
 
 }
 
+#if os(iOS)
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     private var authController: AuthControllerInterface? = nil
@@ -81,3 +95,4 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         #endif
     }
 }
+#endif

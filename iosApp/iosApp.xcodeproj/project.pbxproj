@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A153729DCA5B53D7D0B3B9 /* Pods_ScrumBetMacOs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2924B3F7F52F2FF5B7142FF /* Pods_ScrumBetMacOs.framework */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		485B4658CFC3886D4477D79F /* Pods_ScrumBet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD22956FDE6C2278B133650B /* Pods_ScrumBet.framework */; };
 		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
@@ -28,6 +29,20 @@
 		EEBF92C02A3F5804003C21BA /* RoomScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */; };
 		EEBF92C22A3F593D003C21BA /* RoomScreenShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */; };
 		EEBF92C42A3F612B003C21BA /* RoomScreenSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */; };
+		EEBF92CE2A435509003C21BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92CD2A435509003C21BA /* ContentView.swift */; };
+		EEBF92D32A43550A003C21BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92D22A43550A003C21BA /* Preview Assets.xcassets */; };
+		EEBF92D92A43554E003C21BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
+		EEBF92DA2A43554E003C21BA /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		EEBF92DB2A435ED5003C21BA /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
+		EEBF92DC2A435EDB003C21BA /* AuthUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6772A371E2B007C3274 /* AuthUiState.swift */; };
+		EEBF92DD2A435F10003C21BA /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
+		EEBF92DE2A435FDD003C21BA /* AuthKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B32A3CA124003C21BA /* AuthKey.swift */; };
+		EEBF92DF2A435FF2003C21BA /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAC29F71FCB00EF634A /* MockController.swift */; };
+		EEBF92E02A435FF2003C21BA /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
+		EEBF92E12A435FF2003C21BA /* MockUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92A12A38D563003C21BA /* MockUserController.swift */; };
+		EEBF92E22A435FF2003C21BA /* MockAuthControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */; };
+		EEBF92E32A435FF2003C21BA /* MockRoomControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */; };
+		EEBF92E72A43626C003C21BA /* InfoM.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92E62A43626C003C21BA /* InfoM.plist */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
@@ -47,10 +62,13 @@
 		1F2DF7F1677124AE0B934A6D /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		40B4DBEEE76A026C18C42DCA /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		49C33D395AF8F8020B30826A /* Pods-ScrumBetMacOs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBetMacOs.debug.xcconfig"; path = "Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs.debug.xcconfig"; sourceTree = "<group>"; };
 		5CA10D86BC41F7E0A36C7FCA /* Pods-ScrumBet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBet.debug.xcconfig"; path = "Target Support Files/Pods-ScrumBet/Pods-ScrumBet.debug.xcconfig"; sourceTree = "<group>"; };
+		6B292705441E8FA437341F89 /* Pods-ScrumBetMacOs.azure.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBetMacOs.azure.xcconfig"; path = "Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs.azure.xcconfig"; sourceTree = "<group>"; };
 		6F61F9CA93E16D8DF4B26285 /* Pods-ScrumBet.azure.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBet.azure.xcconfig"; path = "Target Support Files/Pods-ScrumBet/Pods-ScrumBet.azure.xcconfig"; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* ScrumBet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrumBet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2924B3F7F52F2FF5B7142FF /* Pods_ScrumBetMacOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScrumBetMacOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD22956FDE6C2278B133650B /* Pods_ScrumBet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScrumBet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EE50EBAC29F71FCB00EF634A /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
@@ -71,6 +89,11 @@
 		EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenErrorView.swift; sourceTree = "<group>"; };
 		EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenShareSheet.swift; sourceTree = "<group>"; };
 		EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
+		EEBF92C92A435509003C21BA /* ScrumBetMacOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrumBetMacOs.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEBF92CD2A435509003C21BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EEBF92D22A43550A003C21BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EEBF92D42A43550A003C21BA /* ScrumBetMacOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrumBetMacOs.entitlements; sourceTree = "<group>"; };
+		EEBF92E62A43626C003C21BA /* InfoM.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InfoM.plist; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
@@ -83,6 +106,7 @@
 		EEECF17429E6179B00989C31 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		EEECF17529E6179B00989C31 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EEECF17729E6179B00989C31 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
+		EFDB64CCEAC5A2B9FE2CAFCA /* Pods-ScrumBetMacOs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBetMacOs.release.xcconfig"; path = "Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +118,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEBF92C62A435509003C21BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00A153729DCA5B53D7D0B3B9 /* Pods_ScrumBetMacOs.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				CD22956FDE6C2278B133650B /* Pods_ScrumBet.framework */,
+				A2924B3F7F52F2FF5B7142FF /* Pods_ScrumBetMacOs.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,6 +144,7 @@
 				EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */,
 				EEDCC67B2A37373A007C3274 /* azure.xcconfig */,
 				7555FF7D242A565900829871 /* iosApp */,
+				EEBF92CA2A435509003C21BA /* ScrumBetMacOs */,
 				7555FF7C242A565900829871 /* Products */,
 				9A4BAEABDD6BD96EE62ABCD9 /* Pods */,
 				24923AFCAA19FCCE9E5AC1BE /* Frameworks */,
@@ -121,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				7555FF7B242A565900829871 /* ScrumBet.app */,
+				EEBF92C92A435509003C21BA /* ScrumBetMacOs.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +186,9 @@
 				5CA10D86BC41F7E0A36C7FCA /* Pods-ScrumBet.debug.xcconfig */,
 				01EDC2FE13EA9FB4ACEEFEC8 /* Pods-ScrumBet.release.xcconfig */,
 				6F61F9CA93E16D8DF4B26285 /* Pods-ScrumBet.azure.xcconfig */,
+				49C33D395AF8F8020B30826A /* Pods-ScrumBetMacOs.debug.xcconfig */,
+				EFDB64CCEAC5A2B9FE2CAFCA /* Pods-ScrumBetMacOs.release.xcconfig */,
+				6B292705441E8FA437341F89 /* Pods-ScrumBetMacOs.azure.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -204,6 +242,25 @@
 				EEBF92B32A3CA124003C21BA /* AuthKey.swift */,
 			);
 			path = environment;
+			sourceTree = "<group>";
+		};
+		EEBF92CA2A435509003C21BA /* ScrumBetMacOs */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF92CD2A435509003C21BA /* ContentView.swift */,
+				EEBF92D42A43550A003C21BA /* ScrumBetMacOs.entitlements */,
+				EEBF92D12A43550A003C21BA /* Preview Content */,
+				EEBF92E62A43626C003C21BA /* InfoM.plist */,
+			);
+			path = ScrumBetMacOs;
+			sourceTree = "<group>";
+		};
+		EEBF92D12A43550A003C21BA /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF92D22A43550A003C21BA /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		EEDCC6742A371BC1007C3274 /* auth */ = {
@@ -274,10 +331,27 @@
 			dependencies = (
 			);
 			name = ScrumBet;
-			packageProductDependencies = (
-			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* ScrumBet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EEBF92C82A435509003C21BA /* ScrumBetMacOs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEBF92D82A43550A003C21BA /* Build configuration list for PBXNativeTarget "ScrumBetMacOs" */;
+			buildPhases = (
+				551DCC4968A34862379D78B4 /* [CP] Check Pods Manifest.lock */,
+				EEBF92C52A435509003C21BA /* Sources */,
+				EEBF92C62A435509003C21BA /* Frameworks */,
+				EEBF92C72A435509003C21BA /* Resources */,
+				7CA41DD991542DD7AA8E71A8 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrumBetMacOs;
+			productName = ScrumBetMacOs;
+			productReference = EEBF92C92A435509003C21BA /* ScrumBetMacOs.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -286,12 +360,15 @@
 		7555FF73242A565900829871 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = orgName;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					EEBF92C82A435509003C21BA = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
@@ -305,13 +382,12 @@
 				pl,
 			);
 			mainGroup = 7555FF72242A565900829871;
-			packageReferences = (
-			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				7555FF7A242A565900829871 /* ScrumBet */,
+				EEBF92C82A435509003C21BA /* ScrumBetMacOs */,
 			);
 		};
 /* End PBXProject section */
@@ -330,9 +406,58 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEBF92C72A435509003C21BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEBF92D92A43554E003C21BA /* Assets.xcassets in Resources */,
+				EEBF92D32A43550A003C21BA /* Preview Assets.xcassets in Resources */,
+				EEBF92E72A43626C003C21BA /* InfoM.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		551DCC4968A34862379D78B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ScrumBetMacOs-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CA41DD991542DD7AA8E71A8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D7E44A959835D937A7FD8F5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -424,6 +549,24 @@
 				EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEBF92C52A435509003C21BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEBF92DF2A435FF2003C21BA /* MockController.swift in Sources */,
+				EEBF92E22A435FF2003C21BA /* MockAuthControllerInterface.swift in Sources */,
+				EEBF92DD2A435F10003C21BA /* KStateSwift.swift in Sources */,
+				EEBF92CE2A435509003C21BA /* ContentView.swift in Sources */,
+				EEBF92E02A435FF2003C21BA /* MockObservableObject.swift in Sources */,
+				EEBF92DC2A435EDB003C21BA /* AuthUiState.swift in Sources */,
+				EEBF92DE2A435FDD003C21BA /* AuthKey.swift in Sources */,
+				EEBF92DA2A43554E003C21BA /* iOSApp.swift in Sources */,
+				EEBF92E12A435FF2003C21BA /* MockUserController.swift in Sources */,
+				EEBF92E32A435FF2003C21BA /* MockRoomControllerInterface.swift in Sources */,
+				EEBF92DB2A435ED5003C21BA /* AuthObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +754,118 @@
 			};
 			name = Release;
 		};
+		EEBF92D52A43550A003C21BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49C33D395AF8F8020B30826A /* Pods-ScrumBetMacOs.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = ScrumBetMacOs/ScrumBetMacOs.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"ScrumBetMacOs/Preview Content\"";
+				DEVELOPMENT_TEAM = F7C683AB96;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EEBF92D62A43550A003C21BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFDB64CCEAC5A2B9FE2CAFCA /* Pods-ScrumBetMacOs.release.xcconfig */;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = ScrumBetMacOs/ScrumBetMacOs.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ScrumBetMacOs/Preview Content\"";
+				DEVELOPMENT_TEAM = F7C683AB96;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		EEBF92D72A43550A003C21BA /* Azure */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B292705441E8FA437341F89 /* Pods-ScrumBetMacOs.azure.xcconfig */;
+			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = ScrumBetMacOs/ScrumBetMacOs.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ScrumBetMacOs/Preview Content\"";
+				DEVELOPMENT_TEAM = F7C683AB96;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Azure;
+		};
 		EEDCC67D2A37378B007C3274 /* Azure */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEDCC67B2A37373A007C3274 /* azure.xcconfig */;
@@ -712,6 +967,16 @@
 				7555FFA6242A565B00829871 /* Debug */,
 				7555FFA7242A565B00829871 /* Release */,
 				EEDCC67E2A37378B007C3274 /* Azure */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EEBF92D82A43550A003C21BA /* Build configuration list for PBXNativeTarget "ScrumBetMacOs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEBF92D52A43550A003C21BA /* Debug */,
+				EEBF92D62A43550A003C21BA /* Release */,
+				EEBF92D72A43550A003C21BA /* Azure */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
