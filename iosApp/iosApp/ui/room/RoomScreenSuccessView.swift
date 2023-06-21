@@ -26,7 +26,6 @@ struct RoomScreenSuccessView: View {
                 HStack{
                     Text("\(votes.count)/\(data.voteList.count)")
                     Button("list") {
-                        hideSheets()
                         isListSheetVisible.toggle()
                     }
                     .buttonStyle(.bordered)
@@ -34,7 +33,6 @@ struct RoomScreenSuccessView: View {
                 }
                 if(data.configuration.isOwner){
                     Button("choose_style") {
-                        hideSheets()
                         isStyleSheetVisible.toggle()
                     }
                     .buttonStyle(.bordered)
@@ -94,11 +92,6 @@ struct RoomScreenSuccessView: View {
                 }
             }
         }
-    }
-    
-    func hideSheets(){
-        isListSheetVisible = false
-        isStyleSheetVisible = false
     }
     
     func getVoteCounter(_ votes: [RoomUser]) -> String{
