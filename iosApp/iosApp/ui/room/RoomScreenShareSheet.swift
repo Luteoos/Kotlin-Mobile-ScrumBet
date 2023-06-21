@@ -41,8 +41,8 @@ struct RoomScreenShareSheet: View {
             }.frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 16)
-        .buttonStyle(.borderedProminent)
         .tint(Color.secondaryColor)
+        .buttonStyle(.borderedProminent)
         
         Button {
             UIPasteboard.general.string = url.appSchema
