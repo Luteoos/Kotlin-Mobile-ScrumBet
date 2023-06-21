@@ -18,6 +18,7 @@ struct NavigationWrapper<Content>: View where Content: View {
 //        } else {
             NavigationView(content: content)
                 .navigationViewStyle(.stack)
+                .tint(Color.secondaryColor)
 //        }
     }
 }

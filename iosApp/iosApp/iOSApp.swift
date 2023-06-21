@@ -1,6 +1,7 @@
 import SwiftUI
 import core
 import FirebaseCore
+import FirebaseAnalytics
 
 @main
 struct iOSApp: App {
@@ -73,6 +74,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     private func startup(_ app: UIApplication){
         print("dev.luteoos.scrumbet is starting up. Application \(app.description)")
+        let prefs: SharedPreferences = SharedPreferencesImpl()
         FirebaseApp.configure()
+        #if DEBUG
+        Analytics.setUserID(prefs.getUserAnalyticsId())
+        #endif
     }
 }

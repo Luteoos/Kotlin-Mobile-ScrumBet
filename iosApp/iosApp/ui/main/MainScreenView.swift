@@ -23,8 +23,9 @@ struct MainScreenView: View {
                 Spacer()
                 Text("hello, \(object.userData?.username ?? "")")
                     .font(.largeTitle)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
                 Button {
-//                    userObject.setUsername(username: "test")
                     isEditNameSheetVisible.toggle()
                 } label: {
                     HStack{
