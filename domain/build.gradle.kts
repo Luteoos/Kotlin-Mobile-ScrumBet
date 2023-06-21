@@ -15,12 +15,14 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    macosArm64()
 
     cocoapods {
         summary = "Domain layer module for SceumBete"
         homepage = ""
         version = "1.0"
         ios.deploymentTarget = "14.1"
+        osx.deploymentTarget = "13.0"
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "domain"
@@ -67,6 +69,9 @@ kotlin {
                 implementation(Dependencies.ktorDarwin)
                 implementation(Dependencies.ktorCio)
             }
+        }
+        val macosArm64Main by getting{
+            dependsOn(iosMain)
         }
         val iosX64Test by getting
         val iosArm64Test by getting
