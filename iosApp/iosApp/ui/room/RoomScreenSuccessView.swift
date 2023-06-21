@@ -15,8 +15,7 @@ struct RoomScreenSuccessView: View {
     @State private var isStyleSheetVisible = false
     
     var body: some View {
-        switch object.state{
-        case .Success(let data):
+        if case .Success(let data) = object.state {
             VStack{
                 let votes = data.voteList.filter({ user in
                     user.vote != nil
@@ -82,7 +81,11 @@ struct RoomScreenSuccessView: View {
             }
             .sheet(isPresented: $isListSheetVisible) {
                 HalfSheet {
-                    MembersListSheetView(object: object, isShowingVotes: object.configuration!.alwaysVisibleVote)
+                    if case .Success(let data) = object.state{
+                        MembersListSheetView(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
+                    }else{
+                        EmptyView()
+                    }
                 }
             }
             .sheet(isPresented: $isStyleSheetVisible) {
@@ -90,8 +93,6 @@ struct RoomScreenSuccessView: View {
                     StylePickerSheetView(object: object)
                 }
             }
-        default:
-            EmptyView()
         }
     }
     
@@ -121,26 +122,26 @@ struct StylePickerSheetView: View{
     @ObservedObject var object: RoomScreenObject
     
     var body: some View{
-        switch object.state{
-        case .Success(_):
-            LazyVStack {
-                ForEach(object.configuration!.scaleTypeList, id: \.self) { styleText in
-                    Button {
-                        object.setRoomScale(scale: styleText)
-                    } label: {
-                        Text(styleText.localizedCapitalized)
-                            .frame(maxWidth: .infinity)
+        if case .Success(let data) = object.state{
+            ScrollView{
+                LazyVStack {
+                    ForEach(data.configuration.scaleTypeList, id: \.self) { styleText in
+                        Button {
+                            object.setRoomScale(scale: styleText)
+                        } label: {
+                            Text(styleText.localizedCapitalized)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .padding(.horizontal, 32)
+                        .buttonStyle(.bordered)
+                        .if(styleText == data.configuration.scaleType, transform: { view in
+                            view.tint(Color.primaryColor)
+                        })
+                            .tint(Color.secondaryColor)
                     }
-                    .padding(.horizontal, 32)
-                    .buttonStyle(.bordered)
-                    .if(styleText == object.configuration!.scaleType, transform: { view in
-                        view.tint(Color.primaryColor)
-                    })
-                    .tint(Color.secondaryColor)
                 }
             }
-        default:
-            EmptyView()
+            .padding(.top, 32)
         }
     }
 }
@@ -150,12 +151,11 @@ struct MembersListSheetView: View{
     @State var isShowingVotes: Bool
     
     var body: some View{
-        switch object.state{
-        case .Success(_):
+        if case .Success(let data) = object.state{
             VStack{
                 Text("member_list")
                     .font(.headline)
-                if(object.configuration!.isOwner){
+                if(data.configuration.isOwner){
                     HStack(){
                         Spacer()
                         Picker("", selection: $isShowingVotes) {
@@ -172,7 +172,7 @@ struct MembersListSheetView: View{
                 }
                 ScrollView{
                     LazyVStack{
-                        ForEach(object.votes.sorted(by: { $0.isOwner && !$1.isOwner}), id: \.userId){ user in
+                        ForEach(data.voteList.sorted(by: { $0.isOwner && !$1.isOwner}), id: \.userId){ user in
                             HStack{
                                 Text(user.username)
                                 if(user.isOwner){
@@ -205,8 +205,6 @@ struct MembersListSheetView: View{
                 }
             }
             .padding(.vertical, 16)
-        default:
-            EmptyView()
         }
     }
 }
