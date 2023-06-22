@@ -1,16 +1,50 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version Versions.kotlin
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("dev.icerock.moko.kswift") version "0.6.1"
+    id("com.codingfeline.buildkonfig")
 }
 
 apply(from = "../ktlint.gradle")
 
 version = "1.0"
 
+buildkonfig {
+    // gradlew generatebuildkonfig
+    packageName = "dev.luteoos.scrumbet"
+
+    defaultConfigs{
+        buildConfigField(STRING, "appVersion", "0.1", const = true)
+//        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
+        buildConfigField(STRING, "sslPrefix", "http://", const = true)
+    }
+
+    defaultConfigs("dev") {
+        buildConfigField(STRING, "appVersion", "0.1-dev", const = true)
+//        buildConfigField(STRING, "baseUrl", "192.168.18.3:8080", const = true)
+        buildConfigField(STRING, "sslPrefix", "http://", const = true)
+    }
+
+    targetConfigs("dev"){
+        create("azure"){
+            buildConfigField(STRING, "appVersion", "0.1-azure", const = true)
+//            buildConfigField(STRING, "baseUrl", "luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080", const = true)
+        }
+    }
+}
+
 kotlin {
-    android()
+    android {
+        compilations.all{
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -23,7 +57,15 @@ kotlin {
         framework {
             baseName = "core"
             export(project(":data"))
+            export(project(":domain"))
             transitiveExport = false
+        }
+    }
+
+    kswift {
+        iosDeploymentTarget.set("14.0")
+        install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature) {
+            filter = includeFilter()//("ClassContext/ScrumBet:core/dev/luteoos/scrumbet/core/KState")
         }
     }
 
@@ -31,6 +73,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":data"))
+                api(project(":domain"))
                 implementation(Dependencies.kotlinStdlib)
                 implementation(Dependencies.kotlinCoroutinesCore)
                 implementation(Dependencies.kotlinSerializationJson)
@@ -39,6 +82,11 @@ kotlin {
                 implementation(Dependencies.reaktiveCoroutinesInterop)
                 implementation(Dependencies.multiplatformSettings)
                 implementation(Dependencies.multiplatformSettingsSerialization)
+                implementation(Dependencies.ktor)
+                implementation(Dependencies.ktorSerialization)
+                implementation(Dependencies.ktorAuth)
+                implementation(Dependencies.ktorLogging)
+                implementation(Dependencies.ktorContentNegotiation)
 
                 api(Dependencies.koinCore)
             }
@@ -52,9 +100,11 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation(Dependencies.kotlinCoroutinesAndroid)
+                implementation(Dependencies.ktorOkHttp)
+                implementation(Dependencies.timber)
             }
         }
-        val androidTest by getting
+//        val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -63,6 +113,10 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                implementation(Dependencies.ktorDarwin)
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -84,8 +138,20 @@ android {
         minSdk = 28
         targetSdk = 32
     }
-}
 
+    flavorDimensionList.add("env")
+
+    productFlavors {
+        create("localhost"){
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"192.168.18.3:8080\"")
+        }
+        create("azure"){
+            dimension = "env"
+            buildConfigField("String", "BASE_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
+        }
+    }
+}
 
 kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
     binaries.all {

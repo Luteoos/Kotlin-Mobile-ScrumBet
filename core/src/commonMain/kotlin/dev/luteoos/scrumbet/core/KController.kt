@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
+import kotlin.experimental.ExperimentalObjCRefinement
+import kotlin.native.HiddenFromObjC
 
 /**
  * Base Controller class simplifies [KState] publishing and handling Rx flows
@@ -21,9 +23,11 @@ abstract class KController<stateData, stateError> : KoinComponent {
     protected val kcontrollerScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
     protected abstract val state: MutableStateFlow<KState<stateData, stateError>>
 
+    @OptIn(ExperimentalObjCRefinement::class)
+    @HiddenFromObjC
     fun getStateFlow(): StateFlow<KState<stateData, stateError>> = state
 
-    fun wrapState() = state.wrap()
+    fun watchState() = state.wrap()
 
     open fun onStart() {
     }

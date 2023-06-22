@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacer">8dp</dimen>
+    <dimen name="quater_spacer">2dp</dimen>
+    <dimen name="half_spacer">4dp</dimen>
+    <dimen name="double_spacer">16dp</dimen>
+    <dimen name="triple_spacer">24dp</dimen>
+    <dimen name="sixfold_spacer">48dp</dimen>
+    <integer name="vis_angle">100</integer>
+</resources>

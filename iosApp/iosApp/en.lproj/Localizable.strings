@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  iosApp
+
+  Created by Mateusz Lutecki on 14/06/2023.
+  Copyright © 2023 orgName. All rights reserved.
+*/
+"hello, %@" = "Hello, %@";
+"edit" = "Edit";
+"join" = "Join";
+"create" = "Create";
+"or" = "or";
+"username" = "Username";
+"save" = "Save";
+"room_name" = "Room name";
+"join" = "Join";
+"scan_qr_code" = "Scan QR code";
+"list" = "List";
+"choose_style" = "Change style";
+"reset" = "Reset";
+"member_list" = "Member list";
+"show" = "Show";
+"hide" = "Hide";
+"app_url" = "App";
+"website_url" = "Website";
+"share" = "Share";

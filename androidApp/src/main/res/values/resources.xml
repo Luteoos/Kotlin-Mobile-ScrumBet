@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FlipCardView">
+        <attr name="flipDuration" format="integer"/>
+    </declare-styleable>
+    <integer name="frontTag">0</integer>
+    <integer name="backTag">1</integer>
+</resources>

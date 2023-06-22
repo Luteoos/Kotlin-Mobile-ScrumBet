@@ -1,3 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.NoActionBar"/>
+
+    <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="elevation">1dp</item>
+        <item name="iconTint">?attr/colorPrimaryVariant</item>
+        <item name="shapeAppearance">@style/AppShape.CardShape</item>
+    </style>
+
+<!--  Shapes  -->
+    <style name="AppShape.CardShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/double_spacer</item>
+    </style>
+
+    <style name="AppShape.CardShape.Top">
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="AppShape.CardShape.Bottom">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+    <style name="AppShape.CardShape.Right">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="AppShape.CardShape.Left">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="BaseAppStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
 </resources>

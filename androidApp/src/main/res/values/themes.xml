@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AppTheme" parent="BaseAppStyle">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorAccentLight</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/grey_300</item>
+        <item name="colorSecondaryVariant">@color/blue_400</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/white_smoke</item>
+        <item name="android:outlineAmbientShadowColor" tools:targetApi ="P">@color/colorAccentLight</item>
+        <item name="android:outlineSpotShadowColor" tools:targetApi ="P">@color/colorAccent</item>
+        <!--        in day mode defaults to black-->
+        <item name="android:textColor">@color/grey_500</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.AppTheme">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:windowSplashscreenContent">@drawable/splash_bg</item>
+    </style>
+</resources>
