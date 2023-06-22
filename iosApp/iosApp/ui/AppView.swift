@@ -12,7 +12,7 @@ import core
 struct AppView: View {
     @EnvironmentObject var authObject: AuthObject
     @State var isErrorDisplayed = false
-    @State var uiState: AuthUIState? = nil
+    @State var isConnected = false
     
     var body: some View {
         
@@ -29,9 +29,10 @@ struct AppView: View {
                 else{
                     MainScreenView()
                 }
-                
-                NavigationLink( destination: RoomScreenView(), tag: AuthUIState.Connected, selection: $uiState){ EmptyView() }
             }
+            .navigationDestination(isPresented: $isConnected, destination: {
+                RoomScreenView()
+            })
         }
         .alert("error", isPresented: $isErrorDisplayed, actions: {
             Button("retry") {
@@ -40,7 +41,7 @@ struct AppView: View {
         })
         .onReceive(authObject.$state) { inState in
             isErrorDisplayed = inState == .GeneralError
-            uiState = inState
+            isConnected = inState == .Connected
         }
     }
 }

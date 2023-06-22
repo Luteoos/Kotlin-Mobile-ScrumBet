@@ -10,22 +10,40 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authObject: AuthObject
+    @State var navigate = false
     
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundColor(.accentColor)
+                .foregroundColor(Color.secondaryColor)
             Text("Hello, world! - macOS")
             Text(authObject.getUserData()?.description() ?? "empty")
             Text(authObject.getUserData()?.username ?? "empty")
+            Button("navigate") {
+                navigate.toggle()
+            }
+            
+            NavigationLink("click") {
+                VStack{
+                    Text("o2 other")
+                }
+            }
         }
+        .navigationDestination(isPresented: $navigate, destination: {
+            VStack{
+                Text("other")
+            }
+        })
         .padding()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        NavigationWrapper {
+            ContentView()
+        }
+            .environmentObject(AuthObject(controller: MockAuthControllerInterface()))
     }
 }

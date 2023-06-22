@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct Blur: UIViewRepresentable {
     var style: UIBlurEffect.Style = .systemMaterial
 
@@ -19,3 +20,32 @@ struct Blur: UIViewRepresentable {
         uiView.effect = UIBlurEffect(style: style)
     }
 }
+#else
+import AppKit
+
+struct Blur: NSViewRepresentable {
+    fileprivate var blending: NSVisualEffectView.BlendingMode
+    fileprivate var style: NSVisualEffectView.Material
+    
+    init(
+        blending: NSVisualEffectView.BlendingMode = .behindWindow,
+        style: NSVisualEffectView.Material = .fullScreenUI
+    ) {
+        self.blending = blending
+        self.style = style
+    }
+    
+    func makeNSView(context: Context) -> NSVisualEffectView {
+        let view = NSVisualEffectView()
+        view.blendingMode = blending
+        view.material = style
+        view.state = .followsWindowActiveState
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
+        nsView.blendingMode = blending
+        nsView.material = style
+    }
+}
+#endif
