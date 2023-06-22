@@ -19,9 +19,17 @@
 		EE4363A12A4480EE00242F03 /* RoomScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A02A4480EE00242F03 /* RoomScreenErrorView.swift */; };
 		EE4363A32A44812300242F03 /* RoomScreenSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */; };
 		EE4363A42A4483E800242F03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92A82A39E6A8003C21BA /* Localizable.strings */; };
+		EE4363A52A44D60800242F03 /* MainScreenUsernameInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92AD2A39F018003C21BA /* MainScreenUsernameInputSheet.swift */; };
+		EE4363A72A44DBEC00242F03 /* MainScreenJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */; };
 		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
 		EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAC29F71FCB00EF634A /* MockController.swift */; };
 		EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
+		EEB2E0A32A44EC130022EBE8 /* RoomScreenShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */; };
+		EEB2E0A62A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */; };
+		EEB2E0A72A44F1B00022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */; };
+		EEB2E0A92A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */; };
+		EEB2E0AA2A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */; };
+		EEB2E0AB2A44F4CC0022EBE8 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17729E6179B00989C31 /* ViewExt.swift */; };
 		EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92952A38C2E8003C21BA /* NavigationWrapper.swift */; };
 		EEBF929B2A38C3C9003C21BA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */; };
 		EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */; };
@@ -86,9 +94,13 @@
 		EE4363932A447EDA00242F03 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		EE4363A02A4480EE00242F03 /* RoomScreenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenErrorView.swift; sourceTree = "<group>"; };
 		EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
+		EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenJoinView.swift; sourceTree = "<group>"; };
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EE50EBAC29F71FCB00EF634A /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
 		EE50EBAE29FD643A00EF634A /* KStateSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KStateSwift.swift; sourceTree = "<group>"; };
+		EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenShareSheet.swift; sourceTree = "<group>"; };
+		EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenKeyboardComponent.swift; sourceTree = "<group>"; };
+		EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenMemberListComponent.swift; sourceTree = "<group>"; };
 		EEBF92952A38C2E8003C21BA /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
 		EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenObject.swift; sourceTree = "<group>"; };
@@ -224,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				EE4363932A447EDA00242F03 /* MainScreenView.swift */,
+				EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -269,8 +282,18 @@
 			children = (
 				EE4363A02A4480EE00242F03 /* RoomScreenErrorView.swift */,
 				EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */,
+				EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */,
 			);
 			path = room;
+			sourceTree = "<group>";
+		};
+		EEB2E0A42A44F1950022EBE8 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */,
+				EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 		EEBF92972A38C36B003C21BA /* main */ = {
@@ -286,6 +309,7 @@
 		EEBF92982A38C392003C21BA /* room */ = {
 			isa = PBXGroup;
 			children = (
+				EEB2E0A42A44F1950022EBE8 /* components */,
 				EEBF929E2A38C764003C21BA /* RoomScreenView.swift */,
 				EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */,
 				EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */,
@@ -611,6 +635,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBF92BE2A3E39C0003C21BA /* MockRoomControllerInterface.swift in Sources */,
+				EEB2E0A72A44F1B00022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */,
 				EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */,
 				EEBF92AE2A39F018003C21BA /* MainScreenUsernameInputSheet.swift in Sources */,
 				EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */,
@@ -635,6 +660,7 @@
 				EEBF92B42A3CA124003C21BA /* AuthKey.swift in Sources */,
 				EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
+				EEB2E0A92A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,6 +672,8 @@
 				EEBF92DF2A435FF2003C21BA /* MockController.swift in Sources */,
 				EEBF92E22A435FF2003C21BA /* MockAuthControllerInterface.swift in Sources */,
 				EEBF92DD2A435F10003C21BA /* KStateSwift.swift in Sources */,
+				EEB2E0AA2A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */,
+				EEB2E0AB2A44F4CC0022EBE8 /* ViewExt.swift in Sources */,
 				EE4363952A447F0A00242F03 /* MainScreenObject.swift in Sources */,
 				EEECDE9E2A43AEEF00742357 /* NavigationWrapper.swift in Sources */,
 				EEECDEA02A43AF2A00742357 /* Blur.swift in Sources */,
@@ -654,6 +682,7 @@
 				EEBF92CE2A435509003C21BA /* ContentView.swift in Sources */,
 				EEBF92E02A435FF2003C21BA /* MockObservableObject.swift in Sources */,
 				EE4363962A447F1100242F03 /* RoomScreenObject.swift in Sources */,
+				EE4363A72A44DBEC00242F03 /* MainScreenJoinView.swift in Sources */,
 				EE43639F2A44809400242F03 /* RoomScreenView.swift in Sources */,
 				EE4363902A447E8200242F03 /* AppView.swift in Sources */,
 				EE4363A12A4480EE00242F03 /* RoomScreenErrorView.swift in Sources */,
@@ -662,7 +691,10 @@
 				EEBF92DE2A435FDD003C21BA /* AuthKey.swift in Sources */,
 				EEBF92DA2A43554E003C21BA /* iOSApp.swift in Sources */,
 				EEBF92E12A435FF2003C21BA /* MockUserController.swift in Sources */,
+				EEB2E0A32A44EC130022EBE8 /* RoomScreenShareSheet.swift in Sources */,
 				EEBF92E32A435FF2003C21BA /* MockRoomControllerInterface.swift in Sources */,
+				EE4363A52A44D60800242F03 /* MainScreenUsernameInputSheet.swift in Sources */,
+				EEB2E0A62A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */,
 				EEBF92DB2A435ED5003C21BA /* AuthObject.swift in Sources */,
 				EE4363942A447EDA00242F03 /* MainScreenView.swift in Sources */,
 			);

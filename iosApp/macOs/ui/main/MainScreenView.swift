@@ -11,7 +11,7 @@ import core
 
 struct MainScreenView: View {
     @StateObject var object = MainScreenObject(controller: nil)
-    @State var isEditNameSheetVisible = false
+    @State var isEditNameVisible = false
     @State var isJoinSheetVisible = false
     @Environment(\.authController) var authController
     
@@ -25,16 +25,33 @@ struct MainScreenView: View {
                     .font(.largeTitle)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
-                Button {
-                    isEditNameSheetVisible.toggle()
-                } label: {
-                    HStack{
-                        Image(systemName: "pencil")
-                        Text("edit")
+                VStack(){
+                    Button {
+                        isEditNameVisible.toggle()
+                    } label: {
+                        HStack{
+                            if(isEditNameVisible){
+                                Image(systemName: "pencil.slash")
+                                Text("close")
+                            } else {
+                                Image(systemName: "pencil")
+                                Text("edit")
+                            }
+                        }
                     }
-                }
                     .buttonStyle(.borderless)
                     .tint(Color.secondaryColor)
+                    Spacer()
+                    if(isEditNameVisible) {
+                        VStack{
+                            MainScreenUsernameInputSheet(updateUsername: { username in
+                                object.setUsername(username: username)
+                            }, username: object.userData?.username ?? "", isVisible: $isEditNameVisible)
+                        }
+                        .frame(maxWidth: 400, maxHeight: 50)
+                    }
+                }
+                .frame(height: 70)
                 Spacer()
                 
                 VStack{
@@ -46,8 +63,13 @@ struct MainScreenView: View {
                     }
                     .tint(Color.primaryColor)
                     .buttonStyle(.borderedProminent)
-                    Text("or")
-                        .font(.caption)
+                    ZStack{
+                        Divider()
+                        Text("or")
+                            .font(.caption)
+                            .padding(.horizontal, 8)
+                            .background(Color.backgroundColor)
+                    }
                     Button{
                         object.createNewRoom()
                     } label: {
@@ -58,31 +80,18 @@ struct MainScreenView: View {
                     .tint(Color.primaryColor)
                     .buttonStyle(.borderedProminent)
                 }
-                    .padding(.horizontal, 16)
+                .frame(maxWidth: 200)
+                .padding(.horizontal, 16)
                 Spacer()
             }
             .onAppear(){
                 object.setAuthController(controller: authController)
             }
-//            .sheet(isPresented: $isEditNameSheetVisible, content: {
-//                HalfSheet {
-//                    MainScreenUsernameInputSheet(
-//                        updateUsername: { username in
-//                            object.setUsername(username: username)
-//                        },
-//                        username: object.userData?.username ?? "",
-//                        isVisible: $isEditNameSheetVisible
-//                    )
-//
-//                }
-//            })
-//            .sheet(isPresented: $isJoinSheetVisible, content: {
-//                HalfSheet {
-//                    MainScreenJoinSheet(joinRoom: { roomId in
-//                        object.setRoomId(id: roomId)
-//                    }, isVisible: $isJoinSheetVisible)
-//                }
-//            })
+            .sheet(isPresented: $isJoinSheetVisible) {
+                MainScreenJoinView(onJoin: { roomId in
+                    object.setRoomId(id: roomId)
+                }, isVisible: $isJoinSheetVisible)
+            }
         }
     }
 }

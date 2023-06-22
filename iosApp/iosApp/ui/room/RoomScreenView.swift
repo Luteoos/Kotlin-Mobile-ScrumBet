@@ -42,9 +42,6 @@ struct RoomScreenView: View {
                 .disabled(isLoading)
             }
         })
-        .sheet(isPresented: $isShareSheetVisible, content: {
-            Text(getUrl()?.httpSchema ?? " ")
-        })
         #else
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
@@ -58,6 +55,7 @@ struct RoomScreenView: View {
                 .disabled(isLoading)
             }
         })
+        #endif
         .sheet(isPresented: $isShareSheetVisible, content: {
             if let url = getUrl(){
                 RoomScreenShareSheet(url: url)
@@ -65,7 +63,6 @@ struct RoomScreenView: View {
                 EmptyView()
             }
         })
-        #endif
         .onAppear(){
             object.setAuthController(controller: authController)
             object.connect()
