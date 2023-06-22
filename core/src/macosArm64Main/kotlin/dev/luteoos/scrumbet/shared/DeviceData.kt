@@ -1,9 +1,9 @@
 package dev.luteoos.scrumbet.shared
 
-import platform.SystemConfiguration.SCDynamicStoreCopyComputerName
+import platform.Foundation.NSProcessInfo
 
 actual class DeviceData actual constructor() {
     actual fun getDeviceName(): String {
-        return SCDynamicStoreCopyComputerName(null, null).toString()
+        return NSProcessInfo.processInfo.hostName.replace(".", "-")
     }
 }
