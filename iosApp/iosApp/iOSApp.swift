@@ -44,7 +44,9 @@ struct iOSApp: App {
                     authController.setRoomConnectionId(id: roomId)
                 }
             #else
-            ContentView()
+            NavigationWrapper {
+                ContentView()
+            }
                 .environmentObject(authObject)
                 .environment(\.authController, authController)
             #endif

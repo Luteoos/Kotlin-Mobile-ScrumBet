@@ -42,7 +42,6 @@
 		EEBF92E12A435FF2003C21BA /* MockUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92A12A38D563003C21BA /* MockUserController.swift */; };
 		EEBF92E22A435FF2003C21BA /* MockAuthControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */; };
 		EEBF92E32A435FF2003C21BA /* MockRoomControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */; };
-		EEBF92E72A43626C003C21BA /* InfoM.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92E62A43626C003C21BA /* InfoM.plist */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6722A2F77DC007C3274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
@@ -50,6 +49,11 @@
 		EEDCC67C2A37373A007C3274 /* azure.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC67B2A37373A007C3274 /* azure.xcconfig */; };
 		EEDCC6802A3738A6007C3274 /* localhost.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */; };
 		EEDCC6822A373E55007C3274 /* MockAuthControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */; };
+		EEECDE972A439D6200742357 /* azure.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC67B2A37373A007C3274 /* azure.xcconfig */; };
+		EEECDE982A439D6500742357 /* localhost.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */; };
+		EEECDE9E2A43AEEF00742357 /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECDE9D2A43AEEF00742357 /* NavigationWrapper.swift */; };
+		EEECDE9F2A43AF1000742357 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17529E6179B00989C31 /* Color.swift */; };
+		EEECDEA02A43AF2A00742357 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17429E6179B00989C31 /* Blur.swift */; };
 		EEECF17829E6179B00989C31 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */; };
 		EEECF17929E6179B00989C31 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17129E6179B00989C31 /* AppView.swift */; };
 		EEECF17B29E6179B00989C31 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17429E6179B00989C31 /* Blur.swift */; };
@@ -66,7 +70,7 @@
 		5CA10D86BC41F7E0A36C7FCA /* Pods-ScrumBet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBet.debug.xcconfig"; path = "Target Support Files/Pods-ScrumBet/Pods-ScrumBet.debug.xcconfig"; sourceTree = "<group>"; };
 		6B292705441E8FA437341F89 /* Pods-ScrumBetMacOs.azure.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBetMacOs.azure.xcconfig"; path = "Target Support Files/Pods-ScrumBetMacOs/Pods-ScrumBetMacOs.azure.xcconfig"; sourceTree = "<group>"; };
 		6F61F9CA93E16D8DF4B26285 /* Pods-ScrumBet.azure.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrumBet.azure.xcconfig"; path = "Target Support Files/Pods-ScrumBet/Pods-ScrumBet.azure.xcconfig"; sourceTree = "<group>"; };
-		7555FF7B242A565900829871 /* ScrumBet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrumBet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7555FF7B242A565900829871 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2924B3F7F52F2FF5B7142FF /* Pods_ScrumBetMacOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScrumBetMacOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD22956FDE6C2278B133650B /* Pods_ScrumBet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScrumBet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,11 +93,10 @@
 		EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenErrorView.swift; sourceTree = "<group>"; };
 		EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenShareSheet.swift; sourceTree = "<group>"; };
 		EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
-		EEBF92C92A435509003C21BA /* ScrumBetMacOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrumBetMacOs.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEBF92C92A435509003C21BA /* macOs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macOs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEBF92CD2A435509003C21BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EEBF92D22A43550A003C21BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEBF92D42A43550A003C21BA /* ScrumBetMacOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrumBetMacOs.entitlements; sourceTree = "<group>"; };
-		EEBF92E62A43626C003C21BA /* InfoM.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InfoM.plist; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6712A2F77DC007C3274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
@@ -101,6 +104,8 @@
 		EEDCC67B2A37373A007C3274 /* azure.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = azure.xcconfig; sourceTree = "<group>"; };
 		EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = localhost.xcconfig; sourceTree = "<group>"; };
 		EEDCC6812A373E55007C3274 /* MockAuthControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthControllerInterface.swift; sourceTree = "<group>"; };
+		EEECDE9B2A43AD6200742357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EEECDE9D2A43AEEF00742357 /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
 		EEECF16F29E6179B00989C31 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEECF17129E6179B00989C31 /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		EEECF17429E6179B00989C31 /* Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
@@ -144,7 +149,7 @@
 				EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */,
 				EEDCC67B2A37373A007C3274 /* azure.xcconfig */,
 				7555FF7D242A565900829871 /* iosApp */,
-				EEBF92CA2A435509003C21BA /* ScrumBetMacOs */,
+				EEBF92CA2A435509003C21BA /* macOs */,
 				7555FF7C242A565900829871 /* Products */,
 				9A4BAEABDD6BD96EE62ABCD9 /* Pods */,
 				24923AFCAA19FCCE9E5AC1BE /* Frameworks */,
@@ -154,8 +159,8 @@
 		7555FF7C242A565900829871 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF7B242A565900829871 /* ScrumBet.app */,
-				EEBF92C92A435509003C21BA /* ScrumBetMacOs.app */,
+				7555FF7B242A565900829871 /* iOS.app */,
+				EEBF92C92A435509003C21BA /* macOs.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,15 +249,16 @@
 			path = environment;
 			sourceTree = "<group>";
 		};
-		EEBF92CA2A435509003C21BA /* ScrumBetMacOs */ = {
+		EEBF92CA2A435509003C21BA /* macOs */ = {
 			isa = PBXGroup;
 			children = (
+				EEECDE9C2A43AEDC00742357 /* util */,
+				EEECDE9B2A43AD6200742357 /* Info.plist */,
 				EEBF92CD2A435509003C21BA /* ContentView.swift */,
 				EEBF92D42A43550A003C21BA /* ScrumBetMacOs.entitlements */,
 				EEBF92D12A43550A003C21BA /* Preview Content */,
-				EEBF92E62A43626C003C21BA /* InfoM.plist */,
 			);
-			path = ScrumBetMacOs;
+			path = macOs;
 			sourceTree = "<group>";
 		};
 		EEBF92D12A43550A003C21BA /* Preview Content */ = {
@@ -270,6 +276,14 @@
 				EEDCC6772A371E2B007C3274 /* AuthUiState.swift */,
 			);
 			path = auth;
+			sourceTree = "<group>";
+		};
+		EEECDE9C2A43AEDC00742357 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				EEECDE9D2A43AEEF00742357 /* NavigationWrapper.swift */,
+			);
+			path = util;
 			sourceTree = "<group>";
 		};
 		EEECF16E29E6179B00989C31 /* Preview Content */ = {
@@ -315,9 +329,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7555FF7A242A565900829871 /* ScrumBet */ = {
+		7555FF7A242A565900829871 /* iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "ScrumBet" */;
+			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iOS" */;
 			buildPhases = (
 				841420322840C116A5987833 /* [CP] Check Pods Manifest.lock */,
 				7555FF77242A565900829871 /* Sources */,
@@ -330,14 +344,14 @@
 			);
 			dependencies = (
 			);
-			name = ScrumBet;
+			name = iOS;
 			productName = iosApp;
-			productReference = 7555FF7B242A565900829871 /* ScrumBet.app */;
+			productReference = 7555FF7B242A565900829871 /* iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EEBF92C82A435509003C21BA /* ScrumBetMacOs */ = {
+		EEBF92C82A435509003C21BA /* macOs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EEBF92D82A43550A003C21BA /* Build configuration list for PBXNativeTarget "ScrumBetMacOs" */;
+			buildConfigurationList = EEBF92D82A43550A003C21BA /* Build configuration list for PBXNativeTarget "macOs" */;
 			buildPhases = (
 				551DCC4968A34862379D78B4 /* [CP] Check Pods Manifest.lock */,
 				EEBF92C52A435509003C21BA /* Sources */,
@@ -349,9 +363,9 @@
 			);
 			dependencies = (
 			);
-			name = ScrumBetMacOs;
+			name = macOs;
 			productName = ScrumBetMacOs;
-			productReference = EEBF92C92A435509003C21BA /* ScrumBetMacOs.app */;
+			productReference = EEBF92C92A435509003C21BA /* macOs.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -362,7 +376,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
-				ORGANIZATIONNAME = orgName;
+				ORGANIZATIONNAME = luteoos.dev;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -386,8 +400,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7555FF7A242A565900829871 /* ScrumBet */,
-				EEBF92C82A435509003C21BA /* ScrumBetMacOs */,
+				7555FF7A242A565900829871 /* iOS */,
+				EEBF92C82A435509003C21BA /* macOs */,
 			);
 		};
 /* End PBXProject section */
@@ -410,9 +424,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEECDE972A439D6200742357 /* azure.xcconfig in Resources */,
 				EEBF92D92A43554E003C21BA /* Assets.xcassets in Resources */,
+				EEECDE982A439D6500742357 /* localhost.xcconfig in Resources */,
 				EEBF92D32A43550A003C21BA /* Preview Assets.xcassets in Resources */,
-				EEBF92E72A43626C003C21BA /* InfoM.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +574,9 @@
 				EEBF92DF2A435FF2003C21BA /* MockController.swift in Sources */,
 				EEBF92E22A435FF2003C21BA /* MockAuthControllerInterface.swift in Sources */,
 				EEBF92DD2A435F10003C21BA /* KStateSwift.swift in Sources */,
+				EEECDE9E2A43AEEF00742357 /* NavigationWrapper.swift in Sources */,
+				EEECDEA02A43AF2A00742357 /* Blur.swift in Sources */,
+				EEECDE9F2A43AF1000742357 /* Color.swift in Sources */,
 				EEBF92CE2A435509003C21BA /* ContentView.swift in Sources */,
 				EEBF92E02A435FF2003C21BA /* MockObservableObject.swift in Sources */,
 				EEBF92DC2A435EDB003C21BA /* AuthUiState.swift in Sources */,
@@ -638,6 +656,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -696,6 +715,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "";
@@ -717,7 +737,9 @@
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -741,7 +763,9 @@
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -761,16 +785,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = ScrumBetMacOs/ScrumBetMacOs.entitlements;
+				CODE_SIGN_ENTITLEMENTS = macOs/ScrumBetMacOs.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"ScrumBetMacOs/Preview Content\"";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"macOs/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
@@ -795,15 +822,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = ScrumBetMacOs/ScrumBetMacOs.entitlements;
+				CODE_SIGN_ENTITLEMENTS = macOs/ScrumBetMacOs.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ScrumBetMacOs/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"macOs/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
@@ -828,15 +858,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = ScrumBetMacOs/ScrumBetMacOs.entitlements;
+				CODE_SIGN_ENTITLEMENTS = macOs/ScrumBetMacOs.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ScrumBetMacOs/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"macOs/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
@@ -902,6 +935,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "";
@@ -923,7 +957,9 @@
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumBet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -949,7 +985,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "ScrumBet" */ = {
+		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,
@@ -959,7 +995,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		EEBF92D82A43550A003C21BA /* Build configuration list for PBXNativeTarget "ScrumBetMacOs" */ = {
+		EEBF92D82A43550A003C21BA /* Build configuration list for PBXNativeTarget "macOs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EEBF92D52A43550A003C21BA /* Debug */,
