@@ -31,7 +31,7 @@ struct iOSApp: App {
 	var body: some Scene {
         WindowGroup {
             
-#if os(iOS)
+//#if os(iOS)
             AppView()
                 .environmentObject(authObject)
                 .environment(\.authController, authController)
@@ -43,13 +43,13 @@ struct iOSApp: App {
                     }
                     authController.setRoomConnectionId(id: roomId)
                 }
-            #else
-            NavigationWrapper {
-                ContentView()
-            }
-                .environmentObject(authObject)
-                .environment(\.authController, authController)
-            #endif
+//            #else
+//            NavigationWrapper {
+//                ContentView()
+//            }
+//                .environmentObject(authObject)
+//                .environment(\.authController, authController)
+//            #endif
         }
 	}
 

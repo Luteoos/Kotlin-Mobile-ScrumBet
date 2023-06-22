@@ -30,6 +30,22 @@ struct RoomScreenView: View {
             }
         }
         .navigationTitle(object.title)
+        #if os(macOS)
+        .toolbar(content: {
+            ToolbarItem(placement: .secondaryAction){
+                Button {
+                    isShareSheetVisible.toggle()
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(Color.secondaryColor)
+                }
+                .disabled(isLoading)
+            }
+        })
+        .sheet(isPresented: $isShareSheetVisible, content: {
+            Text(getUrl()?.httpSchema ?? " ")
+        })
+        #else
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -49,6 +65,7 @@ struct RoomScreenView: View {
                 EmptyView()
             }
         })
+        #endif
         .onAppear(){
             object.setAuthController(controller: authController)
             object.connect()
@@ -66,12 +83,14 @@ struct RoomScreenView: View {
             }
             print("isLoading: \(isLoading)")
         }
+        #if os(iOS)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
             print("didBecomeActiveNotification")
             if(!object.isAlive()){
                 object.connect()
             }
         }
+        #endif
     }
     
     func getUrl() -> MultiUrl?{
