@@ -16,16 +16,12 @@ struct MainScreenUsernameInputSheet: View {
     @State var newUsername = ""
     
     var body: some View {
-//        ZStack{
-//            Color.black
-            
         VStack{
             HStack{
                 Text("username")
                 TextField("username", text: $newUsername)
                     .textFieldStyle(.roundedBorder)
             }
-//                .background(Color.black)
             .padding(.horizontal, 16)
             
             Spacer()
@@ -37,8 +33,8 @@ struct MainScreenUsernameInputSheet: View {
                 Text("save")
                     .frame(maxWidth: .infinity)
             }
+            .disabled($newUsername.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .padding(.horizontal, 16)
-//                .padding(.top, 64)
             .buttonStyle(.borderedProminent)
             .tint(Color.secondaryColor)
         }
@@ -47,7 +43,6 @@ struct MainScreenUsernameInputSheet: View {
             newUsername = username
         })
     }
-//    }
 }
 
 struct MainScreenUsernameInputSheet_Previews: PreviewProvider {

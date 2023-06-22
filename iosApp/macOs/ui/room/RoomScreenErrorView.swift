@@ -13,14 +13,23 @@ struct RoomScreenErrorView: View {
     var errorMessage: String
     
     var body: some View {
-        Text("Error")
+        VStack{
+            Text("error")
+                .font(.largeTitle)
+            Text(errorMessage)
+            Button("retry") {
+                onRetry()
+            }
+        }
     }
 }
 
 struct RoomScreenErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        RoomScreenErrorView(onRetry: {
-            print("retry")
-        }, errorMessage: "placeholder error message")
+        VStack{
+            RoomScreenErrorView(onRetry: {
+                print("retry")
+            }, errorMessage: "placeholder error message")            
+        }
     }
 }

@@ -23,6 +23,7 @@ extension View {
         }
     }
 
+    #if os(iOS)
     @ViewBuilder
     func card() -> some View{
         self.frame(maxWidth: .infinity)
@@ -31,4 +32,5 @@ extension View {
             .roundedMask()
             .padding(10)
     }
+    #endif
 }
