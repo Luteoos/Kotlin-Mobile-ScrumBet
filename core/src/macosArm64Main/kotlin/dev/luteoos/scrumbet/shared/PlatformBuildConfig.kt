@@ -4,7 +4,7 @@ import platform.Foundation.NSBundle
 
 actual object PlatformBuildConfig {
     actual fun getBaseUrl(): String {
-        //add "API_BASE_URL" to Target -> Info -> Custom MacOS Properties
+        // add "API_BASE_URL" to Target -> Info -> Custom MacOS Properties
         return (NSBundle.mainBundle.infoDictionary?.get("API_BASE_URL") ?: "NO-API-BASE-URL").toString()
     }
 }
