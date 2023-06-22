@@ -9,22 +9,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Bottom
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -197,7 +202,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         showSheetContent: (@Composable () -> Unit) -> Unit
     ) {
         var currentPick = state.userVote // by remember { mutableStateOf<String?>(null) }
-
+        val scrollState = rememberScrollState()
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = CenterHorizontally,
@@ -221,13 +226,16 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 }
             AvgVoteUi(isOwner = state.config.isOwner, list = state.userList)
             LazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth(.75f),
+                modifier = Modifier
+                    .scrollable(scrollState, orientation = Orientation.Vertical)
+                    .fillMaxWidth(.75f),
                 columns = GridCells.Adaptive(
                     Size.xxLarge()
                 ),
                 content = {
                     val buttonModifier = Modifier
                         .fillMaxWidth()
+                        .requiredHeight(Size.xxLarge())
                         .padding(Size.xSmall())
                     state.config.scale.forEach { value ->
                         item {
@@ -402,15 +410,16 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     painter = painterResource(id = R.drawable.ic_crown), contentDescription = null, tint = Color(android.graphics.Color.parseColor("#FFD43E"))
                 )
             Spacer(modifier = Modifier.weight(1f))
+            val sizeModifier = Modifier.size(Size.xLarge())
             if (user.vote != null)
-                Button(onClick = {}) {
+                Button(modifier = sizeModifier, contentPadding = PaddingValues(0.dp), onClick = {}) {
                     if (isVoteVisible)
                         Text(text = user.vote!!, fontSize = TextSize.xSmall())
                     else
                         Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colors.onPrimary)
                 }
             else
-                OutlinedButton(onClick = {}) {
+                OutlinedButton(modifier = sizeModifier, onClick = {}) {
                     Text(text = " ", fontSize = TextSize.xSmall())
                 }
         }
