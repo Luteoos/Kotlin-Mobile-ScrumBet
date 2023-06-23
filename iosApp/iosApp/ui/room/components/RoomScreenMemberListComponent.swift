@@ -47,7 +47,8 @@ struct RoomScreenMemberListComponent: View{
                                     if(user.vote != nil){
                                         Color.primaryColor
                                     } else {
-                                        Color.secondaryColor
+                                        Color.primaryColor
+                                            .opacity(0.4)
                                     }
                                     if(isShowingVotes){
                                         Text(user.vote ?? " ")
