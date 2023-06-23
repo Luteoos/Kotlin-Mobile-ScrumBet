@@ -16,7 +16,6 @@
 		EE4363962A447F1100242F03 /* RoomScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92B92A3E3511003C21BA /* RoomScreenObject.swift */; };
 		EE43639B2A447F8500242F03 /* RoomUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BB2A3E3627003C21BA /* RoomUiState.swift */; };
 		EE43639F2A44809400242F03 /* RoomScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929E2A38C764003C21BA /* RoomScreenView.swift */; };
-		EE4363A12A4480EE00242F03 /* RoomScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A02A4480EE00242F03 /* RoomScreenErrorView.swift */; };
 		EE4363A32A44812300242F03 /* RoomScreenSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */; };
 		EE4363A42A4483E800242F03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92A82A39E6A8003C21BA /* Localizable.strings */; };
 		EE4363A52A44D60800242F03 /* MainScreenUsernameInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92AD2A39F018003C21BA /* MainScreenUsernameInputSheet.swift */; };
@@ -30,6 +29,7 @@
 		EEB2E0A92A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */; };
 		EEB2E0AA2A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */; };
 		EEB2E0AB2A44F4CC0022EBE8 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEECF17729E6179B00989C31 /* ViewExt.swift */; };
+		EEB2E0AC2A45BDCD0022EBE8 /* RoomScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */; };
 		EEBF92962A38C2E8003C21BA /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92952A38C2E8003C21BA /* NavigationWrapper.swift */; };
 		EEBF929B2A38C3C9003C21BA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929A2A38C3C9003C21BA /* MainScreenView.swift */; };
 		EEBF929D2A38C3D9003C21BA /* MainScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF929C2A38C3D9003C21BA /* MainScreenObject.swift */; };
@@ -92,7 +92,6 @@
 		A2924B3F7F52F2FF5B7142FF /* Pods_ScrumBetMacOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScrumBetMacOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD22956FDE6C2278B133650B /* Pods_ScrumBet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScrumBet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE4363932A447EDA00242F03 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
-		EE4363A02A4480EE00242F03 /* RoomScreenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenErrorView.swift; sourceTree = "<group>"; };
 		EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
 		EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenJoinView.swift; sourceTree = "<group>"; };
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
@@ -280,7 +279,6 @@
 		EE43639C2A447FFF00242F03 /* room */ = {
 			isa = PBXGroup;
 			children = (
-				EE4363A02A4480EE00242F03 /* RoomScreenErrorView.swift */,
 				EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */,
 				EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */,
 			);
@@ -685,7 +683,6 @@
 				EE4363A72A44DBEC00242F03 /* MainScreenJoinView.swift in Sources */,
 				EE43639F2A44809400242F03 /* RoomScreenView.swift in Sources */,
 				EE4363902A447E8200242F03 /* AppView.swift in Sources */,
-				EE4363A12A4480EE00242F03 /* RoomScreenErrorView.swift in Sources */,
 				EEBF92DC2A435EDB003C21BA /* AuthUiState.swift in Sources */,
 				EE4363A32A44812300242F03 /* RoomScreenSuccessView.swift in Sources */,
 				EEBF92DE2A435FDD003C21BA /* AuthKey.swift in Sources */,
@@ -694,6 +691,7 @@
 				EEB2E0A32A44EC130022EBE8 /* RoomScreenShareSheet.swift in Sources */,
 				EEBF92E32A435FF2003C21BA /* MockRoomControllerInterface.swift in Sources */,
 				EE4363A52A44D60800242F03 /* MainScreenUsernameInputSheet.swift in Sources */,
+				EEB2E0AC2A45BDCD0022EBE8 /* RoomScreenErrorView.swift in Sources */,
 				EEB2E0A62A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */,
 				EEBF92DB2A435ED5003C21BA /* AuthObject.swift in Sources */,
 				EE4363942A447EDA00242F03 /* MainScreenView.swift in Sources */,

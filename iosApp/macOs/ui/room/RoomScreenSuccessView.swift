@@ -17,57 +17,60 @@ struct RoomScreenSuccessView: View {
     var body: some View {
         VStack{
             if case .Success(let data) = object.state {
-                VStack{
-                    let votes = data.voteList.filter({ user in
-                        user.vote != nil
-                    })
-                    let isAnyVoteNull = data.voteList.first { user in
-                        user.vote == nil
-                    } != nil
-                    HStack{
-                        Text("\(votes.count)/\(data.voteList.count)")
-                    }
-                    if(data.configuration.isOwner){
-                        Picker("choose_style", selection: $currentStyle) {
-                            ForEach(data.configuration.scaleTypeList, id: \.self) {
-                                Text($0.localizedCapitalized).tag($0)
+                HStack{
+                    VStack{
+                        let votes = data.voteList.filter({ user in
+                            user.vote != nil
+                        })
+                        let isAnyVoteNull = data.voteList.first { user in
+                            user.vote == nil
+                        } != nil
+                        HStack{
+                            Text("\(votes.count)/\(data.voteList.count)")
+                                .font(.caption2)
+                        }
+                        Text(getVoteCounter(votes))
+                            .font(.title)
+                            .if(isAnyVoteNull) { view in
+                                view.hidden()
                             }
+                        if(data.configuration.isOwner){
+                            Picker("choose_style", selection: $currentStyle) {
+                                ForEach(data.configuration.scaleTypeList, id: \.self) {
+                                    Text($0.localizedCapitalized).tag($0)
+                                }
+                            }
+                            .frame(width: 220)
                         }
+                        if(data.configuration.isOwner){
+                            Button {
+                                object.reset()
+                            } label: {
+                                Text("reset")
+                                    .frame(width: 220)
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(Color.secondaryColor)
+                        }
+                        Divider()
+                        RoomScreenKeyboardComponent(object: object)
                     }
-                    Text(getVoteCounter(votes))
-                        .font(.title)
-                        .if(isAnyVoteNull) { view in
-                            view.hidden()
-                        }
-                    if(data.configuration.isOwner){
-                        Button {
-                            object.reset()
-                        } label: {
-                            Text("reset")
-                                .frame(width: 220)
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(Color.secondaryColor)
+                    .padding(.all, 32)
+                    .onChange(of: currentStyle) { scaleStyle in
+                        object.setRoomScale(scale: scaleStyle)
                     }
-                    RoomScreenKeyboardComponent(object: object)
+                    .onReceive(object.$state, perform: { state in
+                        if case .Success(let data) = state{
+                            currentStyle = data.configuration.scaleType
+                        }
+                    })
+                    Divider()
+                    VStack{
+                        RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
+                    }
+                    .frame(minWidth: 400)
                 }
-                .onChange(of: currentStyle) { scaleStyle in
-                    object.setRoomScale(scale: scaleStyle)
-                }
-                .onReceive(object.$state, perform: { state in
-                    if case .Success(let data) = state{
-                        currentStyle = data.configuration.scaleType
-                    }
-                })
-                //                .sheet(isPresented: $isListSheetVisible) {
-                //                    HalfSheet {
-                //                        if case .Success(let data) = object.state{
-                //                            RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
-                //                        }else{
-                //                            EmptyView()
-                //                        }
-                //                    }
-                //                }
+                .padding(.all, 16)
             }
         }
     }

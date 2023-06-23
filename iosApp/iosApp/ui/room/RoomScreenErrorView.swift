@@ -11,6 +11,7 @@ import SwiftUI
 struct RoomScreenErrorView: View {
     var onRetry: () -> ()
     var errorMessage: String
+    
     var body: some View {
         VStack(spacing: 16){
             Text("error")

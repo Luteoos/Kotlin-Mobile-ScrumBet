@@ -32,7 +32,7 @@ struct RoomScreenView: View {
         .navigationTitle(object.title)
         #if os(macOS)
         .toolbar(content: {
-            ToolbarItem(placement: .secondaryAction){
+            ToolbarItem(placement: .primaryAction){
                 Button {
                     isShareSheetVisible.toggle()
                 } label: {

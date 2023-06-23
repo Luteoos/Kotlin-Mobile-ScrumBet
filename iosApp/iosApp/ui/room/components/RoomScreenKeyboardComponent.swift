@@ -31,6 +31,9 @@ struct RoomScreenKeyboardComponent: View {
                             .frame(width: 64, height: 64)
                             .cornerRadius(16)
                         }
+                        #if os(macOS)
+                        .buttonStyle(.plain)
+                        #endif
                     }
                 }
                 .frame(width: 250)
