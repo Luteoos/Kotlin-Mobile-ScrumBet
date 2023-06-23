@@ -398,7 +398,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = Size.xSmall()),
+                .padding(horizontal = Size.xSmall(), vertical = Size.xxSmall()),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(text = user.username, fontSize = TextSize.small(), maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
