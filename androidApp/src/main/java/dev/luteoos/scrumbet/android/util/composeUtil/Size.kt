@@ -4,6 +4,11 @@ import androidx.compose.ui.unit.dp
 
 object Size {
     /**
+     * 2.dp
+     */
+    fun xxSmall() = 2.dp
+
+    /**
      * 4.dp
      */
     fun xSmall() = 4.dp
