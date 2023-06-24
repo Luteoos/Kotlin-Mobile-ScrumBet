@@ -18,24 +18,24 @@ import Foundation
 @_implementationOnly import GoogleDataTransport
 
 enum GoogleDataTransportProtocolErrors: Error {
-  case writeFailure
+    case writeFailure
 }
 
 protocol GoogleDataTransportProtocol {
-  func logGDTEvent(event: GDTCOREvent, completion: @escaping (Result<Void, Error>) -> Void)
-  func eventForTransport() -> GDTCOREvent
+    func logGDTEvent(event: GDTCOREvent, completion: @escaping (Result<Void, Error>) -> Void)
+    func eventForTransport() -> GDTCOREvent
 }
 
 extension GDTCORTransport: GoogleDataTransportProtocol {
-  func logGDTEvent(event: GDTCOREvent, completion: @escaping (Result<Void, Error>) -> Void) {
-    sendDataEvent(event) { wasWritten, error in
-      if let error = error {
-        completion(.failure(error))
-      } else if !wasWritten {
-        completion(.failure(GoogleDataTransportProtocolErrors.writeFailure))
-      } else {
-        completion(.success(()))
-      }
+    func logGDTEvent(event: GDTCOREvent, completion: @escaping (Result<Void, Error>) -> Void) {
+        sendDataEvent(event) { wasWritten, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if !wasWritten {
+                completion(.failure(GoogleDataTransportProtocolErrors.writeFailure))
+            } else {
+                completion(.success(()))
+            }
+        }
     }
-  }
 }

@@ -6,11 +6,10 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import Foundation
 import core
+import Foundation
 
-class MockController : KControllerInterface {
-    
+class MockController: KControllerInterface {
     func onDeInit() {
         print("deinit")
     }

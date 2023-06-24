@@ -17,19 +17,19 @@ import Foundation
 
 /// APIs that needs to be implemented by any settings provider
 protocol SettingsProvider {
-  // API to update the settings
-  func updateSettings()
+    // API to update the settings
+    func updateSettings()
 
-  // API to check if the settings are stale
-  func isSettingsStale() -> Bool
+    // API to check if the settings are stale
+    func isSettingsStale() -> Bool
 
-  // Config to show if sessions is enabled
-  var sessionsEnabled: Bool? { get }
+    // Config to show if sessions is enabled
+    var sessionsEnabled: Bool? { get }
 
-  // Config showing the sampling rate for sessions
+    // Config showing the sampling rate for sessions
 
-  var samplingRate: Double? { get }
+    var samplingRate: Double? { get }
 
-  // Background timeout config value before which a new session is generated
-  var sessionTimeout: TimeInterval? { get }
+    // Background timeout config value before which a new session is generated
+    var sessionTimeout: TimeInterval? { get }
 }

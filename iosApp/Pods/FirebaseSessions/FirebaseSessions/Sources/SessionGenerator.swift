@@ -18,17 +18,17 @@ import Foundation
 @_implementationOnly import FirebaseInstallations
 
 struct SessionInfo {
-  let sessionId: String
-  let firstSessionId: String
-  let shouldDispatchEvents: Bool
-  let sessionIndex: Int32
+    let sessionId: String
+    let firstSessionId: String
+    let shouldDispatchEvents: Bool
+    let sessionIndex: Int32
 
-  init(sessionId: String, firstSessionId: String, dispatchEvents: Bool, sessionIndex: Int32) {
-    self.sessionId = sessionId
-    self.firstSessionId = firstSessionId
-    shouldDispatchEvents = dispatchEvents
-    self.sessionIndex = sessionIndex
-  }
+    init(sessionId: String, firstSessionId: String, dispatchEvents: Bool, sessionIndex: Int32) {
+        self.sessionId = sessionId
+        self.firstSessionId = firstSessionId
+        shouldDispatchEvents = dispatchEvents
+        self.sessionIndex = sessionIndex
+    }
 }
 
 ///
@@ -38,39 +38,39 @@ struct SessionInfo {
 ///   (Maybe) 3) Persisting, reading, and incrementing an increasing index
 ///
 class SessionGenerator {
-  private var thisSession: SessionInfo?
+    private var thisSession: SessionInfo?
 
-  private var firstSessionId = ""
-  private var sessionIndex: Int32
-  private var collectEvents: Bool
+    private var firstSessionId = ""
+    private var sessionIndex: Int32
+    private var collectEvents: Bool
 
-  init(collectEvents: Bool) {
-    // This will be incremented to 0 on the first generation
-    sessionIndex = -1
+    init(collectEvents: Bool) {
+        // This will be incremented to 0 on the first generation
+        sessionIndex = -1
 
-    self.collectEvents = collectEvents
-  }
+        self.collectEvents = collectEvents
+    }
 
-  // Generates a new Session ID. If there was already a generated Session ID
-  // from the last session during the app's lifecycle, it will also set the last Session ID
-  func generateNewSession() -> SessionInfo {
-    let newSessionId = UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
+    // Generates a new Session ID. If there was already a generated Session ID
+    // from the last session during the app's lifecycle, it will also set the last Session ID
+    func generateNewSession() -> SessionInfo {
+        let newSessionId = UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
 
-    // If firstSessionId is set, use it. Otherwise set it to the
-    // first generated Session ID
-    firstSessionId = firstSessionId.isEmpty ? newSessionId : firstSessionId
+        // If firstSessionId is set, use it. Otherwise set it to the
+        // first generated Session ID
+        firstSessionId = firstSessionId.isEmpty ? newSessionId : firstSessionId
 
-    sessionIndex += 1
+        sessionIndex += 1
 
-    let newSession = SessionInfo(sessionId: newSessionId,
-                                 firstSessionId: firstSessionId,
-                                 dispatchEvents: collectEvents,
-                                 sessionIndex: sessionIndex)
-    thisSession = newSession
-    return newSession
-  }
+        let newSession = SessionInfo(sessionId: newSessionId,
+                                     firstSessionId: firstSessionId,
+                                     dispatchEvents: collectEvents,
+                                     sessionIndex: sessionIndex)
+        thisSession = newSession
+        return newSession
+    }
 
-  var currentSession: SessionInfo? {
-    return thisSession
-  }
+    var currentSession: SessionInfo? {
+        return thisSession
+    }
 }

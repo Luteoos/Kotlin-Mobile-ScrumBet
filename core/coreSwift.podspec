@@ -9,6 +9,7 @@ Pod::Spec.new do |spec|
     spec.module_name              = "coreSwift"
     
     spec.ios.deployment_target  = '14.0'
+    spec.macos.deployment_target = '13.0'
     spec.static_framework         = false
     spec.dependency 'core'
     spec.source_files = "build/cocoapods/framework/coreSwift/**/*.{h,m,swift}"

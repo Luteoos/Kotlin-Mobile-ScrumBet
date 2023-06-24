@@ -19,38 +19,38 @@ import Foundation
 /// must implement.
 @objc(FIRSessionsSubscriber)
 public protocol SessionsSubscriber {
-  func onSessionChanged(_ session: SessionDetails)
-  var isDataCollectionEnabled: Bool { get }
-  var sessionsSubscriberName: SessionsSubscriberName { get }
+    func onSessionChanged(_ session: SessionDetails)
+    var isDataCollectionEnabled: Bool { get }
+    var sessionsSubscriberName: SessionsSubscriberName { get }
 }
 
 /// Session Payload is a container for Session Data passed to Subscribers
 /// whenever the Session changes
 @objc(FIRSessionDetails)
 public class SessionDetails: NSObject {
-  @objc public var sessionId: String?
+    @objc public var sessionId: String?
 
-  public init(sessionId: String?) {
-    self.sessionId = sessionId
-    super.init()
-  }
+    public init(sessionId: String?) {
+        self.sessionId = sessionId
+        super.init()
+    }
 }
 
 /// Session Subscriber Names are used for identifying subscribers
 @objc(FIRSessionsSubscriberName)
 public enum SessionsSubscriberName: Int, CustomStringConvertible {
-  case Unknown
-  case Crashlytics
-  case Performance
+    case Unknown
+    case Crashlytics
+    case Performance
 
-  public var description: String {
-    switch self {
-    case .Crashlytics:
-      return "Crashlytics"
-    case .Performance:
-      return "Performance"
-    default:
-      return "Unknown"
+    public var description: String {
+        switch self {
+        case .Crashlytics:
+            return "Crashlytics"
+        case .Performance:
+            return "Performance"
+        default:
+            return "Unknown"
+        }
     }
-  }
 }

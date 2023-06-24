@@ -9,36 +9,32 @@
 import SwiftUI
 
 struct MainScreenUsernameInputSheet: View {
-    let updateUsername: (String) -> ()
+    let updateUsername: (String) -> Void
     var username: String
     @Binding var isVisible: Bool
-    
+
     @State var newUsername = ""
-    
+
     var body: some View {
-//        ZStack{
-//            Color.black
-            
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Text("username")
                 TextField("username", text: $newUsername)
                     .textFieldStyle(.roundedBorder)
             }
-//                .background(Color.black)
             .padding(.horizontal, 16)
-            
+
             Spacer()
-            
-            Button{
+
+            Button {
                 updateUsername(newUsername)
                 isVisible.toggle()
             } label: {
                 Text("save")
                     .frame(maxWidth: .infinity)
             }
+            .disabled($newUsername.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .padding(.horizontal, 16)
-//                .padding(.top, 64)
             .buttonStyle(.borderedProminent)
             .tint(Color.secondaryColor)
         }
@@ -47,7 +43,6 @@ struct MainScreenUsernameInputSheet: View {
             newUsername = username
         })
     }
-//    }
 }
 
 struct MainScreenUsernameInputSheet_Previews: PreviewProvider {
@@ -58,6 +53,7 @@ struct MainScreenUsernameInputSheet_Previews: PreviewProvider {
             updateUsername: { name in
                 print(name)
                 username = name
-            }, username: username, isVisible: $isVisible)
+            }, username: username, isVisible: $isVisible
+        )
     }
 }
