@@ -6,16 +6,16 @@
 //  Copyright © 2023 luteoos.dev. All rights reserved.
 //
 
-import SwiftUI
 import core
 import CoreImage.CIFilterBuiltins
+import SwiftUI
 
 struct RoomScreenShareSheet: View {
     var url: MultiUrl
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
-        VStack(spacing: 4){
+        VStack(spacing: 4) {
             Text("share")
                 .font(.headline)
                 .padding(.top, 16)
@@ -30,7 +30,7 @@ struct RoomScreenShareSheet: View {
                 pasteboard.declareTypes([.string], owner: nil)
                 pasteboard.setString(url.httpSchema, forType: .string)
             } label: {
-                HStack{
+                HStack {
                     Spacer()
                     Text("website_url")
                     Spacer()
@@ -45,7 +45,7 @@ struct RoomScreenShareSheet: View {
             Button {
                 dismiss()
             } label: {
-                HStack{
+                HStack {
                     Spacer()
                     Text("close")
                     Spacer()
@@ -57,11 +57,11 @@ struct RoomScreenShareSheet: View {
         }
         .frame(width: 250, height: 350)
     }
-    
+
     func generateQRCode(from string: String) -> NSImage {
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
-        
+
         filter.message = Data(string.utf8)
 
         if let outputImage = filter.outputImage {

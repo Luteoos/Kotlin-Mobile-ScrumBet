@@ -9,22 +9,22 @@
 import SwiftUI
 
 struct MainScreenJoinView: View {
-    var onJoin: (String) -> ()
+    var onJoin: (String) -> Void
     @Binding var isVisible: Bool
-    
+
     @State var roomId: String = ""
-    
+
     var body: some View {
-        VStack{
+        VStack {
             Text("join")
                 .font(.headline)
             Spacer()
-            HStack{
+            HStack {
                 Text("room_name")
                 TextField("room_name", text: $roomId)
             }
             Spacer()
-            HStack{
+            HStack {
                 Button {
                     isVisible.toggle()
                 } label: {
@@ -40,8 +40,8 @@ struct MainScreenJoinView: View {
                 }
                 .disabled($roomId.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 .buttonStyle(.borderedProminent)
-                .tint(Color.primaryColor)            }
-
+                .tint(Color.primaryColor)
+            }
         }
         .padding(.all, 16)
         .frame(minWidth: 400, minHeight: 200)

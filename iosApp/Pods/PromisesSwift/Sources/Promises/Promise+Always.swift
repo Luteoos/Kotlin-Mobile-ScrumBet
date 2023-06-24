@@ -15,17 +15,16 @@
 import Dispatch
 
 public extension Promise {
-
-  /// Provides a way to always execute a given chained block.
-  /// - parameters:
-  ///   - queue: A queue to dispatch on.
-  ///   - work: A block that always executes, no matter if `self` is rejected or fulfilled.
-  /// - returns: A new pending promise to be resolved with same resolution as `self`.
-  @discardableResult
-  func always(on queue: DispatchQueue = .promises, _ work: @escaping () -> Void) -> Promise {
-    let promise = Promise(objCPromise.__onQueue(queue, always: work))
-    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-    objCPromise.__addPendingObject(promise)
-    return promise
-  }
+    /// Provides a way to always execute a given chained block.
+    /// - parameters:
+    ///   - queue: A queue to dispatch on.
+    ///   - work: A block that always executes, no matter if `self` is rejected or fulfilled.
+    /// - returns: A new pending promise to be resolved with same resolution as `self`.
+    @discardableResult
+    func always(on queue: DispatchQueue = .promises, _ work: @escaping () -> Void) -> Promise {
+        let promise = Promise(objCPromise.__onQueue(queue, always: work))
+        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+        objCPromise.__addPendingObject(promise)
+        return promise
+    }
 }

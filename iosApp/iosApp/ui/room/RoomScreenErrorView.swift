@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct RoomScreenErrorView: View {
-    var onRetry: () -> ()
+    var onRetry: () -> Void
     var errorMessage: String
-    
+
     var body: some View {
-        VStack(spacing: 16){
+        VStack(spacing: 16) {
             Text("error")
                 .font(.headline)
             Text(errorMessage)

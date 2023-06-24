@@ -6,26 +6,26 @@
 //  Copyright © 2023 luteoos.dev. All rights reserved.
 //
 
-import SwiftUI
 import core
+import SwiftUI
 
 struct RoomScreenSuccessView: View {
     @ObservedObject var object: RoomScreenObject
-    
+
     @State var currentStyle = ""
-    
+
     var body: some View {
-        VStack{
-            if case .Success(let data) = object.state {
-                HStack{
-                    VStack{
-                        let votes = data.voteList.filter({ user in
+        VStack {
+            if case let .Success(data) = object.state {
+                HStack {
+                    VStack {
+                        let votes = data.voteList.filter { user in
                             user.vote != nil
-                        })
+                        }
                         let isAnyVoteNull = data.voteList.first { user in
                             user.vote == nil
                         } != nil
-                        HStack{
+                        HStack {
                             Text("\(votes.count)/\(data.voteList.count)")
                                 .font(.caption2)
                         }
@@ -34,7 +34,7 @@ struct RoomScreenSuccessView: View {
                             .if(isAnyVoteNull) { view in
                                 view.hidden()
                             }
-                        if(data.configuration.isOwner){
+                        if data.configuration.isOwner {
                             Picker("choose_style", selection: $currentStyle) {
                                 ForEach(data.configuration.scaleTypeList, id: \.self) {
                                     Text($0.localizedCapitalized).tag($0)
@@ -42,7 +42,7 @@ struct RoomScreenSuccessView: View {
                             }
                             .frame(width: 220)
                         }
-                        if(data.configuration.isOwner){
+                        if data.configuration.isOwner {
                             Button {
                                 object.reset()
                             } label: {
@@ -60,12 +60,12 @@ struct RoomScreenSuccessView: View {
                         object.setRoomScale(scale: scaleStyle)
                     }
                     .onReceive(object.$state, perform: { state in
-                        if case .Success(let data) = state{
+                        if case let .Success(data) = state {
                             currentStyle = data.configuration.scaleType
                         }
                     })
                     Divider()
-                    VStack{
+                    VStack {
                         RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
                     }
                     .frame(minWidth: 400)
@@ -74,8 +74,8 @@ struct RoomScreenSuccessView: View {
             }
         }
     }
-    
-    func getVoteCounter(_ votes: [RoomUser]) -> String{
+
+    func getVoteCounter(_ votes: [RoomUser]) -> String {
         let list = votes
             .map { user in
                 Int(user.vote ?? "?") ?? nil
@@ -83,9 +83,9 @@ struct RoomScreenSuccessView: View {
             .filter { int in
                 int != nil
             }
-        if list.count != 0{
-            return "\(list.compactMap{$0}.reduce(0, +)/list.count)"
-        }else{
+        if list.count != 0 {
+            return "\(list.compactMap { $0 }.reduce(0, +) / list.count)"
+        } else {
             return " "
         }
     }

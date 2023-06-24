@@ -6,18 +6,18 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
+import core
 import Foundation
 import SwiftUI
-import core
 
-private struct AuthKey: EnvironmentKey{
+private struct AuthKey: EnvironmentKey {
     typealias Value = AuthControllerInterface
-    
+
     static var defaultValue: Value = MockAuthControllerInterface()
 }
 
-extension EnvironmentValues{
-    var authController: AuthControllerInterface{
+extension EnvironmentValues {
+    var authController: AuthControllerInterface {
         get { self[AuthKey.self] }
         set { self[AuthKey.self] = newValue }
     }

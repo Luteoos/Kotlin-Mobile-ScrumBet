@@ -6,24 +6,26 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import SwiftUI
 import core
+import SwiftUI
 
 struct RoomScreenSuccessView: View {
     @ObservedObject var object: RoomScreenObject
+
+    @State private var isVoteVisible = false
     @State private var isListSheetVisible = false
     @State private var isStyleSheetVisible = false
-    
+
     var body: some View {
-        if case .Success(let data) = object.state {
-            VStack{
-                let votes = data.voteList.filter({ user in
+        if case let .Success(data) = object.state {
+            VStack {
+                let votes = data.voteList.filter { user in
                     user.vote != nil
-                })
+                }
                 let isAnyVoteNull = data.voteList.first { user in
                     user.vote == nil
                 } != nil
-                HStack{
+                HStack {
                     Text("\(votes.count)/\(data.voteList.count)")
                     Button("list") {
                         isListSheetVisible.toggle()
@@ -31,7 +33,7 @@ struct RoomScreenSuccessView: View {
                     .buttonStyle(.bordered)
                     .tint(Color.secondaryColor)
                 }
-                if(data.configuration.isOwner){
+                if data.configuration.isOwner {
                     Button("choose_style") {
                         isStyleSheetVisible.toggle()
                     }
@@ -43,12 +45,12 @@ struct RoomScreenSuccessView: View {
                     .if(isAnyVoteNull) { view in
                         view.hidden()
                     }
-                if(data.configuration.isOwner){
+                if data.configuration.isOwner {
                     Button {
                         object.reset()
                     } label: {
                         Text("reset")
-                        .frame(width: 220)
+                            .frame(width: 220)
                     }
                     .buttonStyle(.bordered)
                     .tint(Color.secondaryColor)
@@ -57,22 +59,23 @@ struct RoomScreenSuccessView: View {
             }
             .sheet(isPresented: $isListSheetVisible) {
                 HalfSheet {
-                    if case .Success(let data) = object.state{
-                        RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
-                    }else{
-                        EmptyView()
-                    }
+                    RoomScreenMemberListComponent(object: object, isShowingVotes: isVoteVisible)
                 }
             }
             .sheet(isPresented: $isStyleSheetVisible) {
-                HalfSheet{
+                HalfSheet {
                     StylePickerSheetView(object: object)
+                }
+            }
+            .onReceive(object.$state) { state in
+                if case let .Success(data) = state {
+                    isVoteVisible = data.configuration.alwaysVisibleVote
                 }
             }
         }
     }
-    
-    func getVoteCounter(_ votes: [RoomUser]) -> String{
+
+    func getVoteCounter(_ votes: [RoomUser]) -> String {
         let list = votes
             .map { user in
                 Int(user.vote ?? "?") ?? nil
@@ -80,21 +83,20 @@ struct RoomScreenSuccessView: View {
             .filter { int in
                 int != nil
             }
-        if list.count != 0{
-            return "\(list.compactMap{$0}.reduce(0, +)/list.count)"
-        }else{
+        if list.count != 0 {
+            return "\(list.compactMap { $0 }.reduce(0, +) / list.count)"
+        } else {
             return " "
         }
     }
-    
 }
 
-struct StylePickerSheetView: View{
+struct StylePickerSheetView: View {
     @ObservedObject var object: RoomScreenObject
-    
-    var body: some View{
-        if case .Success(let data) = object.state{
-            ScrollView{
+
+    var body: some View {
+        if case let .Success(data) = object.state {
+            ScrollView {
                 LazyVStack {
                     ForEach(data.configuration.scaleTypeList, id: \.self) { styleText in
                         Button {
@@ -108,7 +110,7 @@ struct StylePickerSheetView: View{
                         .if(styleText == data.configuration.scaleType, transform: { view in
                             view.tint(Color.primaryColor)
                         })
-                            .tint(Color.secondaryColor)
+                        .tint(Color.secondaryColor)
                     }
                 }
             }
@@ -119,8 +121,8 @@ struct StylePickerSheetView: View{
 
 struct RoomScreenSuccessView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
-            RoomScreenSuccessView(object: RoomScreenObject(controller: MockRoomControllerInterfrace()))            
+        NavigationView {
+            RoomScreenSuccessView(object: RoomScreenObject(controller: MockRoomControllerInterfrace()))
         }
     }
 }

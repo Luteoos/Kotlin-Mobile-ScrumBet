@@ -8,12 +8,11 @@
 
 import Foundation
 
-enum AuthUIState : Hashable{
+enum AuthUIState: Hashable {
     case Loading
     case EmptyUserData
     case GeneralError
     case Connected
     case UserSigned
     case InvalidAppVersion
-    
 }

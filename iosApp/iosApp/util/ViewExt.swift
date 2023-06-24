@@ -18,19 +18,19 @@ extension View {
 
     @ViewBuilder
     func roundedMask(cornerRadius: CGFloat = 20) -> some View {
-        self.mask {
+        mask {
             RoundedRectangle(cornerRadius: cornerRadius)
         }
     }
 
     #if os(iOS)
-    @ViewBuilder
-    func card() -> some View{
-        self.frame(maxWidth: .infinity)
-            .padding(5)
-            .background(Blur(style: .systemUltraThinMaterial))
-            .roundedMask()
-            .padding(10)
-    }
+        @ViewBuilder
+        func card() -> some View {
+            frame(maxWidth: .infinity)
+                .padding(5)
+                .background(Blur(style: .systemUltraThinMaterial))
+                .roundedMask()
+                .padding(10)
+        }
     #endif
 }
