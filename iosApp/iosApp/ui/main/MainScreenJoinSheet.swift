@@ -6,27 +6,27 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import SwiftUI
 import CodeScanner
+import SwiftUI
 
 struct MainScreenJoinSheet: View {
-    let joinRoom: (String) -> ()
+    let joinRoom: (String) -> Void
     @Binding var isVisible: Bool
     @State var roomName = ""
-    
+
     var body: some View {
-        VStack(spacing: 8){
+        VStack(spacing: 8) {
             Text("join")
                 .font(.headline)
-            
-            VStack{
+
+            VStack {
                 Text("scan_qr_code")
                     .font(.subheadline)
-                CodeScannerView( codeTypes: [.qr], scanMode: .manual, simulatedData: "simulatorPlaceholder") { result in
-                    switch result{
-                    case .success(let result):
+                CodeScannerView(codeTypes: [.qr], scanMode: .manual, simulatedData: "simulatorPlaceholder") { result in
+                    switch result {
+                    case let .success(result):
                         roomName = result.string
-                    case .failure(let error):
+                    case let .failure(error):
                         print(error)
                     }
                 }
@@ -34,17 +34,17 @@ struct MainScreenJoinSheet: View {
             .frame(maxHeight: 400)
             Text("or")
                 .font(.subheadline)
-            HStack{
+            HStack {
                 Text("room_name")
                 TextField("room_name", text: $roomName)
                     .textFieldStyle(.roundedBorder)
                     .textInputAutocapitalization(.never)
             }
             .padding(.horizontal, 16)
-            
+
             Spacer()
-            
-            Button{
+
+            Button {
                 joinRoom(roomName)
                 isVisible.toggle()
             } label: {
@@ -64,7 +64,7 @@ struct MainScreenJoinSheet: View {
 struct MainScreenJoinSheet_Previews: PreviewProvider {
     static var previews: some View {
         @State var isVisible = true
-        
+
         MainScreenJoinSheet(joinRoom: { roomName in
             print(roomName)
         }, isVisible: $isVisible)

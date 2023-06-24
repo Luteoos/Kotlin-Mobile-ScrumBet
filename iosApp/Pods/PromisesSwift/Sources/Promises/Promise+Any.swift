@@ -26,10 +26,10 @@ import Foundation
 /// - returns: Promise of an array of `Maybe` enums containing the values or `Error`s of input
 ///            promises in their original order.
 public func any<Value>(
-  on queue: DispatchQueue = .promises,
-  _ promises: Promise<Value>...
+    on queue: DispatchQueue = .promises,
+    _ promises: Promise<Value>...
 ) -> Promise<[Maybe<Value>]> {
-  return any(on: queue, promises)
+    return any(on: queue, promises)
 }
 
 /// Waits for all of the given promises to be fulfilled or rejected.
@@ -44,24 +44,24 @@ public func any<Value>(
 /// - returns: Promise of an array of `Maybe` enums containing the values or `Error`s of input
 ///            promises in their original order.
 public func any<Value, Container: Sequence>(
-  on queue: DispatchQueue = .promises,
-  _ promises: Container
+    on queue: DispatchQueue = .promises,
+    _ promises: Container
 ) -> Promise<[Maybe<Value>]> where Container.Element == Promise<Value> {
-  let promises = promises.map { $0.objCPromise }
-  let promise = Promise<[Maybe<Value>]>(
-    Promise<[Maybe<Value>]>.ObjCPromise<AnyObject>.__onQueue(
-      queue,
-      any: promises
-    ).__onQueue(queue, then: { values in
-      guard let values = values as [AnyObject]? else { preconditionFailure() }
-      return Promise<[Maybe<Value>]>.asAnyObject(values.map { asMaybe($0) as Maybe<Value> })
-    })
-  )
-  // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
-  promises.forEach {
-    $0.__addPendingObject(promise)
-  }
-  return promise
+    let promises = promises.map { $0.objCPromise }
+    let promise = Promise<[Maybe<Value>]>(
+        Promise<[Maybe<Value>]>.ObjCPromise<AnyObject>.__onQueue(
+            queue,
+            any: promises
+        ).__onQueue(queue, then: { values in
+            guard let values = values as [AnyObject]? else { preconditionFailure() }
+            return Promise<[Maybe<Value>]>.asAnyObject(values.map { asMaybe($0) as Maybe<Value> })
+        })
+    )
+    // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
+    promises.forEach {
+        $0.__addPendingObject(promise)
+    }
+    return promise
 }
 
 /// Waits for all of the given promises to be fulfilled or rejected.
@@ -77,30 +77,30 @@ public func any<Value, Container: Sequence>(
 /// - returns: Promise of a tuple of `Maybe` enums containing the values or `Error`s of input
 ///            promises in their original order.
 public func any<A, B>(
-  on queue: DispatchQueue = .promises,
-  _ promiseA: Promise<A>,
-  _ promiseB: Promise<B>
+    on queue: DispatchQueue = .promises,
+    _ promiseA: Promise<A>,
+    _ promiseB: Promise<B>
 ) -> Promise<(Maybe<A>, Maybe<B>)> {
-  let promises = [
-    promiseA.objCPromise,
-    promiseB.objCPromise
-  ]
-  let promise = Promise<(Maybe<A>, Maybe<B>)>(
-    Promise<(Maybe<A>, Maybe<B>)>.ObjCPromise<AnyObject>.__onQueue(
-      queue,
-      any: promises
-    ).__onQueue(queue, then: { objCValues in
-      guard let values = objCValues as [AnyObject]? else { preconditionFailure() }
-      let valueA = asMaybe(values[0]) as Maybe<A>
-      let valueB = asMaybe(values[1]) as Maybe<B>
-      return (valueA, valueB)
-    })
-  )
-  // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
-  promises.forEach {
-    $0.__addPendingObject(promise)
-  }
-  return promise
+    let promises = [
+        promiseA.objCPromise,
+        promiseB.objCPromise,
+    ]
+    let promise = Promise<(Maybe<A>, Maybe<B>)>(
+        Promise<(Maybe<A>, Maybe<B>)>.ObjCPromise<AnyObject>.__onQueue(
+            queue,
+            any: promises
+        ).__onQueue(queue, then: { objCValues in
+            guard let values = objCValues as [AnyObject]? else { preconditionFailure() }
+            let valueA = asMaybe(values[0]) as Maybe<A>
+            let valueB = asMaybe(values[1]) as Maybe<B>
+            return (valueA, valueB)
+        })
+    )
+    // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
+    promises.forEach {
+        $0.__addPendingObject(promise)
+    }
+    return promise
 }
 
 /// Waits for all of the given promises to be fulfilled or rejected.
@@ -117,53 +117,53 @@ public func any<A, B>(
 /// - returns: Promise of a tuple of `Maybe` enums containing the values or `Error`s of input
 ///            promises in their original order.
 public func any<A, B, C>(
-  on queue: DispatchQueue = .promises,
-  _ promiseA: Promise<A>,
-  _ promiseB: Promise<B>,
-  _ promiseC: Promise<C>
+    on queue: DispatchQueue = .promises,
+    _ promiseA: Promise<A>,
+    _ promiseB: Promise<B>,
+    _ promiseC: Promise<C>
 ) -> Promise<(Maybe<A>, Maybe<B>, Maybe<C>)> {
-  let promises = [
-    promiseA.objCPromise,
-    promiseB.objCPromise,
-    promiseC.objCPromise
-  ]
-  let promise = Promise<(Maybe<A>, Maybe<B>, Maybe<C>)>(
-    Promise<(Maybe<A>, Maybe<B>, Maybe<C>)>.ObjCPromise<AnyObject>.__onQueue(
-      queue,
-      any: promises
-    ).__onQueue(queue, then: { objCValues in
-      guard let values = objCValues as [AnyObject]? else { preconditionFailure() }
-      let valueA = asMaybe(values[0]) as Maybe<A>
-      let valueB = asMaybe(values[1]) as Maybe<B>
-      let valueC = asMaybe(values[2]) as Maybe<C>
-      return (valueA, valueB, valueC)
-    })
-  )
-  // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
-  promises.forEach {
-    $0.__addPendingObject(promise)
-  }
-  return promise
+    let promises = [
+        promiseA.objCPromise,
+        promiseB.objCPromise,
+        promiseC.objCPromise,
+    ]
+    let promise = Promise<(Maybe<A>, Maybe<B>, Maybe<C>)>(
+        Promise<(Maybe<A>, Maybe<B>, Maybe<C>)>.ObjCPromise<AnyObject>.__onQueue(
+            queue,
+            any: promises
+        ).__onQueue(queue, then: { objCValues in
+            guard let values = objCValues as [AnyObject]? else { preconditionFailure() }
+            let valueA = asMaybe(values[0]) as Maybe<A>
+            let valueB = asMaybe(values[1]) as Maybe<B>
+            let valueC = asMaybe(values[2]) as Maybe<C>
+            return (valueA, valueB, valueC)
+        })
+    )
+    // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
+    promises.forEach {
+        $0.__addPendingObject(promise)
+    }
+    return promise
 }
 
 /// Wrapper enum for `any` results.
 /// - value: Contains the value that corresponding promise was fulfilled with.
 /// - error: Contains the error that corresponding promise was rejected with.
 public enum Maybe<Value> {
-  case value(Value)
-  case error(Error)
+    case value(Value)
+    case error(Error)
 
-  public init(_ value: Value) { self = .value(value) }
+    public init(_ value: Value) { self = .value(value) }
 
-  public init(_ error: Error) { self = .error(error) }
+    public init(_ error: Error) { self = .error(error) }
 
-  public var value: Value? {
-    if case .value(let value) = self { return value } else { return nil }
-  }
+    public var value: Value? {
+        if case let .value(value) = self { return value } else { return nil }
+    }
 
-  public var error: Error? {
-    if case .error(let error) = self { return error } else { return nil }
-  }
+    public var error: Error? {
+        if case let .error(error) = self { return error } else { return nil }
+    }
 }
 
 // MARK: - Conversion
@@ -183,94 +183,93 @@ public enum Maybe<Value> {
 ///   return arrayOfAnyObjects.map { asMaybe($0) as Maybe<SomeValue> }
 /// }
 public extension Maybe {
-
-  /// Converts generic `Value` to `AnyObject`.
-  func asAnyObject() -> AnyObject? {
-    switch self {
-    case .value(let value):
-      return Promise<Value>.asAnyObject(value)
-    case .error(let error):
-      return error as NSError
+    /// Converts generic `Value` to `AnyObject`.
+    func asAnyObject() -> AnyObject? {
+        switch self {
+        case let .value(value):
+            return Promise<Value>.asAnyObject(value)
+        case let .error(error):
+            return error as NSError
+        }
     }
-  }
 }
 
 /// Helper function to wrap the results of `ObjCPromise.any` with the safe `Maybe` enum.
 public func asMaybe<Value>(_ value: AnyObject) -> Maybe<Value> {
-  if type(of: value) is NSError.Type {
-      return .error(value as! NSError)
-  } else {
-    guard let value = Promise<Value>.asValue(value) else { preconditionFailure() }
-    return .value(value)
-  }
+    if type(of: value) is NSError.Type {
+        return .error(value as! NSError)
+    } else {
+        guard let value = Promise<Value>.asValue(value) else { preconditionFailure() }
+        return .value(value)
+    }
 }
 
 // MARK: - Equatable
 
 /// Equality operators for `Maybe`.
 #if !swift(>=4.1)
-extension Maybe where Value: Equatable {}
+    extension Maybe where Value: Equatable {}
 #else
-extension Maybe: Equatable where Value: Equatable {}
-#endif  // !swift(>=4.1)
+    extension Maybe: Equatable where Value: Equatable {}
+#endif // !swift(>=4.1)
 
 public func == <Value: Equatable>(lhs: Maybe<Value>, rhs: Maybe<Value>) -> Bool {
-  switch (lhs, rhs) {
-  case (.value(let lhs), .value(let rhs)):
-    return lhs == rhs
-  case (.error(let lhs), .error(let rhs)):
-    return (lhs as NSError).isEqual(rhs as NSError)
-  case (.value, .error), (.error, .value):
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (.value(lhs), .value(rhs)):
+        return lhs == rhs
+    case let (.error(lhs), .error(rhs)):
+        return (lhs as NSError).isEqual(rhs as NSError)
+    case (.value, .error), (.error, .value):
+        return false
+    }
 }
 
 public func != <Value: Equatable>(lhs: Maybe<Value>, rhs: Maybe<Value>) -> Bool {
-  return !(lhs == rhs)
+    return !(lhs == rhs)
 }
 
 #if !swift(>=4.1)
 
-public func == <Value: Equatable>(lhs: Maybe<Value?>, rhs: Maybe<Value?>) -> Bool {
-  switch (lhs, rhs) {
-  case (.value(let lhs), .value(let rhs)):
-    switch (lhs, rhs) {
-    case (nil, nil):
-      return true
-    case (nil, _?), (_?, nil):
-      return false
-    case let (lhs?, rhs?):
-      return lhs == rhs
+    public func == <Value: Equatable>(lhs: Maybe<Value?>, rhs: Maybe<Value?>) -> Bool {
+        switch (lhs, rhs) {
+        case let (.value(lhs), .value(rhs)):
+            switch (lhs, rhs) {
+            case (nil, nil):
+                return true
+            case (nil, _?), (_?, nil):
+                return false
+            case let (lhs?, rhs?):
+                return lhs == rhs
+            }
+        case let (.error(lhs), .error(rhs)):
+            return (lhs as NSError).isEqual(rhs as NSError)
+        case (.value, .error), (.error, .value):
+            return false
+        }
     }
-  case (.error(let lhs), .error(let rhs)):
-    return (lhs as NSError).isEqual(rhs as NSError)
-  case (.value, .error), (.error, .value):
-    return false
-  }
-}
 
-public func != <Value: Equatable>(lhs: Maybe<Value?>, rhs: Maybe<Value?>) -> Bool {
-  return !(lhs == rhs)
-}
+    public func != <Value: Equatable>(lhs: Maybe<Value?>, rhs: Maybe<Value?>) -> Bool {
+        return !(lhs == rhs)
+    }
 
-public func == <Value: Equatable>(lhs: [Maybe<Value>], rhs: [Maybe<Value>]) -> Bool {
-  if lhs.count != rhs.count { return false }
-  for (lhs, rhs) in zip(lhs, rhs) where lhs != rhs { return false }
-  return true
-}
+    public func == <Value: Equatable>(lhs: [Maybe<Value>], rhs: [Maybe<Value>]) -> Bool {
+        if lhs.count != rhs.count { return false }
+        for (lhs, rhs) in zip(lhs, rhs) where lhs != rhs { return false }
+        return true
+    }
 
-public func != <Value: Equatable>(lhs: [Maybe<Value>], rhs: [Maybe<Value>]) -> Bool {
-  return !(lhs == rhs)
-}
+    public func != <Value: Equatable>(lhs: [Maybe<Value>], rhs: [Maybe<Value>]) -> Bool {
+        return !(lhs == rhs)
+    }
 
-public func == <Value: Equatable>(lhs: [Maybe<Value?>], rhs: [Maybe<Value?>]) -> Bool {
-  if lhs.count != rhs.count { return false }
-  for (lhs, rhs) in zip(lhs, rhs) where lhs != rhs { return false }
-  return true
-}
+    public func == <Value: Equatable>(lhs: [Maybe<Value?>], rhs: [Maybe<Value?>]) -> Bool {
+        if lhs.count != rhs.count { return false }
+        for (lhs, rhs) in zip(lhs, rhs) where lhs != rhs { return false }
+        return true
+    }
 
-public func != <Value: Equatable>(lhs: [Maybe<Value?>], rhs: [Maybe<Value?>]) -> Bool {
-  return !(lhs == rhs)
-}
+    public func != <Value: Equatable>(lhs: [Maybe<Value?>], rhs: [Maybe<Value?>]) -> Bool {
+        return !(lhs == rhs)
+    }
 
-#endif  // !swift(>=4.1)
+#endif // !swift(>=4.1)

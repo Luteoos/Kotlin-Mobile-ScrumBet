@@ -8,6 +8,4 @@
 
 import Foundation
 
-class MockObservableObject : ObservableObject {
-    
-}
+class MockObservableObject: ObservableObject {}

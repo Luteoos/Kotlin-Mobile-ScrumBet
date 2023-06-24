@@ -21,12 +21,12 @@ import Dispatch
 ///                   a completion handler with no arguments.
 /// - returns: A new pending promise to be resolved with `nil` when completion handler finishes.
 public func wrap(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping () -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping () -> Void) throws -> Void
 ) -> Promise<Any?> {
-  return Promise<Any?>(on: queue) { fulfill, _ in
-    try work { fulfill(nil) }
-  }
+    return Promise<Any?>(on: queue) { fulfill, _ in
+        try work { fulfill(nil) }
+    }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -35,12 +35,12 @@ public func wrap(
 /// - returns: A new pending promise to be resolved with the value provided by completion handler
 ///            when it finishes.
 public func wrap<Value>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Value) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Value) -> Void) throws -> Void
 ) -> Promise<Value> {
-  return Promise<Value>(on: queue) { fulfill, _ in
-    try work { fulfill($0) }
-  }
+    return Promise<Value>(on: queue) { fulfill, _ in
+        try work { fulfill($0) }
+    }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -49,12 +49,12 @@ public func wrap<Value>(
 /// - returns: A new pending promise to be resolved with the value or error provided by completion
 ///            handler when it finishes.
 public func wrap<Value>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Value?) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Value?) -> Void) throws -> Void
 ) -> Promise<Value?> {
-  return Promise<Value?>(on: queue) { fulfill, _ in
-    try work { fulfill($0) }
-  }
+    return Promise<Value?>(on: queue) { fulfill, _ in
+        try work { fulfill($0) }
+    }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -64,18 +64,18 @@ public func wrap<Value>(
 /// - returns: A new pending promise to be resolved with the value or error provided by completion
 ///            handler when it finishes.
 public func wrap<Value>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Value, Error?) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Value, Error?) -> Void) throws -> Void
 ) -> Promise<Value> {
-  return Promise<Value>(on: queue) { fulfill, reject in
-    try work { value, error in
-      if let error = error {
-        reject(error)
-      } else {
-        fulfill(value)
-      }
+    return Promise<Value>(on: queue) { fulfill, reject in
+        try work { value, error in
+            if let error = error {
+                reject(error)
+            } else {
+                fulfill(value)
+            }
+        }
     }
-  }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -85,18 +85,18 @@ public func wrap<Value>(
 /// - returns: A new pending promise to be resolved with the error or value provided by completion
 ///            handler when it finishes.
 public func wrap<Value>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Error?, Value) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Error?, Value) -> Void) throws -> Void
 ) -> Promise<Value> {
-  return Promise<Value>(on: queue) { fulfill, reject in
-    try work { error, value in
-      if let error = error {
-        reject(error)
-      } else {
-        fulfill(value)
-      }
+    return Promise<Value>(on: queue) { fulfill, reject in
+        try work { error, value in
+            if let error = error {
+                reject(error)
+            } else {
+                fulfill(value)
+            }
+        }
     }
-  }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -106,18 +106,18 @@ public func wrap<Value>(
 /// - returns: A new pending promise to be resolved with the value or error provided by completion
 ///            handler when it finishes.
 public func wrap<Value>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Value?, Error?) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Value?, Error?) -> Void) throws -> Void
 ) -> Promise<Value?> {
-  return Promise<Value?>(on: queue) { fulfill, reject in
-    try work { value, error in
-      if let error = error {
-        reject(error)
-      } else {
-        fulfill(value)
-      }
+    return Promise<Value?>(on: queue) { fulfill, reject in
+        try work { value, error in
+            if let error = error {
+                reject(error)
+            } else {
+                fulfill(value)
+            }
+        }
     }
-  }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -127,18 +127,18 @@ public func wrap<Value>(
 /// - returns: A new pending promise to be resolved with the error or value provided by completion
 ///            handler when it finishes.
 public func wrap<Value>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Error?, Value?) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Error?, Value?) -> Void) throws -> Void
 ) -> Promise<Value?> {
-  return Promise<Value?>(on: queue) { fulfill, reject in
-    try work { error, value in
-      if let error = error {
-        reject(error)
-      } else {
-        fulfill(value)
-      }
+    return Promise<Value?>(on: queue) { fulfill, reject in
+        try work { error, value in
+            if let error = error {
+                reject(error)
+            } else {
+                fulfill(value)
+            }
+        }
     }
-  }
 }
 
 /// Creates a new promise to be resolved when completion handler gets invoked.
@@ -148,16 +148,16 @@ public func wrap<Value>(
 /// - returns: A new pending promise to be resolved with a tuple of optional values or an error
 ///            provided by completion handler when it finishes.
 public func wrap<Value1, Value2>(
-  on queue: DispatchQueue = .promises,
-  _ work: @escaping (@escaping (Value1?, Value2?, Error?) -> Void) throws -> Void
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping (@escaping (Value1?, Value2?, Error?) -> Void) throws -> Void
 ) -> Promise<(Value1?, Value2?)> {
-  return Promise<(Value1?, Value2?)>(on: queue) { fulfill, reject in
-    try work { value1, value2, error in
-      if let error = error {
-        reject(error)
-      } else {
-        fulfill((value1, value2))
-      }
+    return Promise<(Value1?, Value2?)>(on: queue) { fulfill, reject in
+        try work { value1, value2, error in
+            if let error = error {
+                reject(error)
+            } else {
+                fulfill((value1, value2))
+            }
+        }
     }
-  }
 }

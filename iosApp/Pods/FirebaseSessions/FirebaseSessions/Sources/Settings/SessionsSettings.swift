@@ -17,68 +17,69 @@ import Foundation
 
 /// Class that manages the configs related to the settings library
 class SessionsSettings: SettingsProtocol {
-  private let appInfo: ApplicationInfoProtocol
-  private let installations: InstallationsProtocol
-  private let sdkDefaults: SDKDefaultSettings
-  private let localOverrides: LocalOverrideSettings
-  private let remoteSettings: RemoteSettings
+    private let appInfo: ApplicationInfoProtocol
+    private let installations: InstallationsProtocol
+    private let sdkDefaults: SDKDefaultSettings
+    private let localOverrides: LocalOverrideSettings
+    private let remoteSettings: RemoteSettings
 
-  convenience init(appInfo: ApplicationInfoProtocol, installations: InstallationsProtocol) {
-    self.init(appInfo: appInfo,
-              installations: installations,
-              sdkDefaults: SDKDefaultSettings(),
-              localOverrides: LocalOverrideSettings(),
-              remoteSettings: RemoteSettings(appInfo: appInfo,
-                                             downloader: SettingsDownloader(appInfo: appInfo,
-                                                                            installations: installations)))
-  }
-
-  init(appInfo: ApplicationInfoProtocol,
-       installations: InstallationsProtocol,
-       sdkDefaults: SDKDefaultSettings,
-       localOverrides: LocalOverrideSettings,
-       remoteSettings: RemoteSettings) {
-    self.appInfo = appInfo
-    self.installations = installations
-    self.sdkDefaults = sdkDefaults
-    self.localOverrides = localOverrides
-    self.remoteSettings = remoteSettings
-  }
-
-  var sessionsEnabled: Bool {
-    // Order of precendence LocalOverrides > Remote Settings > SDK Defaults
-    if let sessionEnabled = localOverrides.sessionsEnabled {
-      return sessionEnabled
-    } else if let sessionEnabled = remoteSettings.sessionsEnabled {
-      return sessionEnabled
+    convenience init(appInfo: ApplicationInfoProtocol, installations: InstallationsProtocol) {
+        self.init(appInfo: appInfo,
+                  installations: installations,
+                  sdkDefaults: SDKDefaultSettings(),
+                  localOverrides: LocalOverrideSettings(),
+                  remoteSettings: RemoteSettings(appInfo: appInfo,
+                                                 downloader: SettingsDownloader(appInfo: appInfo,
+                                                                                installations: installations)))
     }
-    return sdkDefaults.sessionsEnabled!
-  }
 
-  var sessionTimeout: TimeInterval {
-    // Order of precendence LocalOverrides > Remote Settings > SDK Defaults
-    if let sessionTimeout = localOverrides.sessionTimeout {
-      return sessionTimeout
-    } else if let sessionTimeout = remoteSettings.sessionTimeout {
-      return sessionTimeout
+    init(appInfo: ApplicationInfoProtocol,
+         installations: InstallationsProtocol,
+         sdkDefaults: SDKDefaultSettings,
+         localOverrides: LocalOverrideSettings,
+         remoteSettings: RemoteSettings)
+    {
+        self.appInfo = appInfo
+        self.installations = installations
+        self.sdkDefaults = sdkDefaults
+        self.localOverrides = localOverrides
+        self.remoteSettings = remoteSettings
     }
-    return sdkDefaults.sessionTimeout!
-  }
 
-  var samplingRate: Double {
-    // Order of precendence LocalOverrides > Remote Settings > SDK Defaults
-    if let samplingRate = localOverrides.samplingRate {
-      return samplingRate
-    } else if let samplingRate = remoteSettings.samplingRate {
-      return samplingRate
+    var sessionsEnabled: Bool {
+        // Order of precendence LocalOverrides > Remote Settings > SDK Defaults
+        if let sessionEnabled = localOverrides.sessionsEnabled {
+            return sessionEnabled
+        } else if let sessionEnabled = remoteSettings.sessionsEnabled {
+            return sessionEnabled
+        }
+        return sdkDefaults.sessionsEnabled!
     }
-    return sdkDefaults.samplingRate!
-  }
 
-  func updateSettings() {
-    // Update the settings for all the settings providers
-    sdkDefaults.updateSettings()
-    remoteSettings.updateSettings()
-    localOverrides.updateSettings()
-  }
+    var sessionTimeout: TimeInterval {
+        // Order of precendence LocalOverrides > Remote Settings > SDK Defaults
+        if let sessionTimeout = localOverrides.sessionTimeout {
+            return sessionTimeout
+        } else if let sessionTimeout = remoteSettings.sessionTimeout {
+            return sessionTimeout
+        }
+        return sdkDefaults.sessionTimeout!
+    }
+
+    var samplingRate: Double {
+        // Order of precendence LocalOverrides > Remote Settings > SDK Defaults
+        if let samplingRate = localOverrides.samplingRate {
+            return samplingRate
+        } else if let samplingRate = remoteSettings.samplingRate {
+            return samplingRate
+        }
+        return sdkDefaults.samplingRate!
+    }
+
+    func updateSettings() {
+        // Update the settings for all the settings providers
+        sdkDefaults.updateSettings()
+        remoteSettings.updateSettings()
+        localOverrides.updateSettings()
+    }
 }

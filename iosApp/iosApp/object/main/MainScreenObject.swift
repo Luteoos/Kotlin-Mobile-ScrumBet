@@ -6,20 +6,20 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import Foundation
 import core
+import Foundation
 
-class MainScreenObject : ObservableObject{
+class MainScreenObject: ObservableObject {
     private let controller: UserControllerInterface
     private var authController: AuthControllerInterface? = nil
     @Published var userData: UserData? = nil
-    
+
     init(controller: UserControllerInterface?) {
         self.controller = controller ?? UserController(preferences: nil, deviceData: nil)
         self.controller.onStart()
-        self.controller.watchState().watch {[weak self] inState in
-            switch KStateSwift<UserData, AppException>(inState){
-            case .success(let data):
+        self.controller.watchState().watch { [weak self] inState in
+            switch KStateSwift<UserData, AppException>(inState) {
+            case let .success(data):
                 print(data.value?.description() ?? "no userData")
                 self?.userData = data.value
             default:
@@ -27,20 +27,20 @@ class MainScreenObject : ObservableObject{
             }
         }
     }
-    
-    func setAuthController(controller: AuthControllerInterface){
-        self.authController = controller
+
+    func setAuthController(controller: AuthControllerInterface) {
+        authController = controller
     }
-    
-    func setRoomId(id: String){
+
+    func setRoomId(id: String) {
         authController!.setRoomConnectionId(id: id)
     }
-    
-    func setUsername(username: String){
+
+    func setUsername(username: String) {
         controller.updateUsername(username: username.replacingOccurrences(of: " ", with: ""))
     }
-    
-    func createNewRoom(){
+
+    func createNewRoom() {
         authController!.setRoomConnectionId(id: NSUUID().uuidString)
     }
 }

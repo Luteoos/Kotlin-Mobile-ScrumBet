@@ -9,24 +9,24 @@
 import SwiftUI
 
 struct MainScreenUsernameInputSheet: View {
-    let updateUsername: (String) -> ()
+    let updateUsername: (String) -> Void
     var username: String
     @Binding var isVisible: Bool
-    
+
     @State var newUsername = ""
-    
+
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Text("username")
                 TextField("username", text: $newUsername)
                     .textFieldStyle(.roundedBorder)
             }
             .padding(.horizontal, 16)
-            
+
             Spacer()
-            
-            Button{
+
+            Button {
                 updateUsername(newUsername)
                 isVisible.toggle()
             } label: {
@@ -53,6 +53,7 @@ struct MainScreenUsernameInputSheet_Previews: PreviewProvider {
             updateUsername: { name in
                 print(name)
                 username = name
-            }, username: username, isVisible: $isVisible)
+            }, username: username, isVisible: $isVisible
+        )
     }
 }

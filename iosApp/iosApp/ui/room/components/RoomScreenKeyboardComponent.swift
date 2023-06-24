@@ -10,17 +10,17 @@ import SwiftUI
 
 struct RoomScreenKeyboardComponent: View {
     @ObservedObject var object: RoomScreenObject
-    
+
     var body: some View {
-        ScrollView{
-            if case .Success(let data) = object.state{
+        ScrollView {
+            if case let .Success(data) = object.state {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     ForEach(data.configuration.scale, id: \.self) { text in
                         Button {
                             object.setVote(vote: text)
                         } label: {
-                            ZStack{
-                                if(object.currentVote == nil || text == object.currentVote){
+                            ZStack {
+                                if object.currentVote == nil || text == object.currentVote {
                                     Color.primaryColor
                                 } else {
                                     Color.primaryColor.opacity(0.4)

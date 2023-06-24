@@ -16,18 +16,18 @@ import Foundation
 
 /// Contains the list of errors that are localized for Firebase Sessions Library
 enum FirebaseSessionsError: Error {
-  /// Event sampling related error
-  case SessionSamplingError
-  /// Firebase Installation ID related error
-  case SessionInstallationsError(Error)
-  /// Error from the GoogleDataTransport SDK
-  case DataTransportError(Error)
-  /// Sessions SDK is disabled via settings error
-  case DisabledViaSettingsError
-  /// Sessions SDK is disabled because all Subscribers have their
-  /// data collection disabled
-  case DataCollectionError
-  /// Sessions SDK didn't have any Subscribers depend
-  /// on it via addDependency in SessionDependencies
-  case NoDependenciesError
+    /// Event sampling related error
+    case SessionSamplingError
+    /// Firebase Installation ID related error
+    case SessionInstallationsError(Error)
+    /// Error from the GoogleDataTransport SDK
+    case DataTransportError(Error)
+    /// Sessions SDK is disabled via settings error
+    case DisabledViaSettingsError
+    /// Sessions SDK is disabled because all Subscribers have their
+    /// data collection disabled
+    case DataCollectionError
+    /// Sessions SDK didn't have any Subscribers depend
+    /// on it via addDependency in SessionDependencies
+    case NoDependenciesError
 }

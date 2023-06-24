@@ -18,41 +18,41 @@ import FBLPromises
 /// Indirectly conforms to `Swift.Error` through conformance to `Swift.CustomNSError` below.
 /// Not placing it under extension `Promise` for convenience to avoid collisions with `Swift.Error`.
 public enum PromiseError {
-  case timedOut
-  case validationFailure
+    case timedOut
+    case validationFailure
 }
 
 /// Downcasting from `Swift.Error`.
-extension PromiseError {
-  public init?(_ error: Error) {
-    let error = error as NSError
-    if error.domain != __FBLPromiseErrorDomain { return nil }
-    switch error.code {
-    case __FBLPromiseErrorCode.timedOut.rawValue:
-      self = .timedOut
-    case __FBLPromiseErrorCode.validationFailure.rawValue:
-      self = .validationFailure
-    default:
-      return nil
+public extension PromiseError {
+    init?(_ error: Error) {
+        let error = error as NSError
+        if error.domain != __FBLPromiseErrorDomain { return nil }
+        switch error.code {
+        case __FBLPromiseErrorCode.timedOut.rawValue:
+            self = .timedOut
+        case __FBLPromiseErrorCode.validationFailure.rawValue:
+            self = .validationFailure
+        default:
+            return nil
+        }
     }
-  }
 }
 
 extension PromiseError: CustomNSError {
-  public static var errorDomain: String {
-    return __FBLPromiseErrorDomain
-  }
-
-  public var errorCode: Int {
-    switch self {
-    case .timedOut:
-      return __FBLPromiseErrorCode.timedOut.rawValue
-    case .validationFailure:
-      return __FBLPromiseErrorCode.validationFailure.rawValue
+    public static var errorDomain: String {
+        return __FBLPromiseErrorDomain
     }
-  }
 
-  public var errorUserInfo: [String: Any] {
-    return [String: Any]()
-  }
+    public var errorCode: Int {
+        switch self {
+        case .timedOut:
+            return __FBLPromiseErrorCode.timedOut.rawValue
+        case .validationFailure:
+            return __FBLPromiseErrorCode.validationFailure.rawValue
+        }
+    }
+
+    public var errorUserInfo: [String: Any] {
+        return [String: Any]()
+    }
 }

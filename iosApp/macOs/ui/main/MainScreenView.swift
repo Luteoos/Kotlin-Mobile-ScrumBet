@@ -6,31 +6,31 @@
 //  Copyright © 2023 luteoos.dev. All rights reserved.
 //
 
-import SwiftUI
 import core
+import SwiftUI
 
 struct MainScreenView: View {
     @StateObject var object = MainScreenObject(controller: nil)
     @State var isEditNameVisible = false
     @State var isJoinSheetVisible = false
     @Environment(\.authController) var authController
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Color.background
-            
-            VStack{
+
+            VStack {
                 Spacer()
                 Text("hello, \(object.userData?.username ?? "")")
                     .font(.largeTitle)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
-                VStack(){
+                VStack {
                     Button {
                         isEditNameVisible.toggle()
                     } label: {
-                        HStack{
-                            if(isEditNameVisible){
+                        HStack {
+                            if isEditNameVisible {
                                 Image(systemName: "pencil.slash")
                                 Text("close")
                             } else {
@@ -42,8 +42,8 @@ struct MainScreenView: View {
                     .buttonStyle(.borderless)
                     .tint(Color.secondaryColor)
                     Spacer()
-                    if(isEditNameVisible) {
-                        VStack{
+                    if isEditNameVisible {
+                        VStack {
                             MainScreenUsernameInputSheet(updateUsername: { username in
                                 object.setUsername(username: username)
                             }, username: object.userData?.username ?? "", isVisible: $isEditNameVisible)
@@ -53,9 +53,9 @@ struct MainScreenView: View {
                 }
                 .frame(height: 70)
                 Spacer()
-                
-                VStack{
-                    Button{
+
+                VStack {
+                    Button {
                         isJoinSheetVisible.toggle()
                     } label: {
                         Text("join")
@@ -63,14 +63,14 @@ struct MainScreenView: View {
                     }
                     .tint(Color.primaryColor)
                     .buttonStyle(.borderedProminent)
-                    ZStack{
+                    ZStack {
                         Divider()
                         Text("or")
                             .font(.caption)
                             .padding(.horizontal, 8)
                             .background(Color.backgroundColor)
                     }
-                    Button{
+                    Button {
                         object.createNewRoom()
                     } label: {
                         Text("create")
@@ -84,7 +84,7 @@ struct MainScreenView: View {
                 .padding(.horizontal, 16)
                 Spacer()
             }
-            .onAppear(){
+            .onAppear {
                 object.setAuthController(controller: authController)
             }
             .sheet(isPresented: $isJoinSheetVisible) {

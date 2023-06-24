@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var authObject: AuthObject
     @State var navigate = false
-    
+
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -23,15 +23,15 @@ struct ContentView: View {
             Button("navigate") {
                 navigate.toggle()
             }
-            
+
             NavigationLink("click") {
-                VStack{
+                VStack {
                     Text("o2 other")
                 }
             }
         }
         .navigationDestination(isPresented: $navigate, destination: {
-            VStack{
+            VStack {
                 Text("other")
             }
         })
@@ -44,6 +44,6 @@ struct ContentView_Previews: PreviewProvider {
         NavigationWrapper {
             ContentView()
         }
-            .environmentObject(AuthObject(controller: MockAuthControllerInterface()))
+        .environmentObject(AuthObject(controller: MockAuthControllerInterface()))
     }
 }
