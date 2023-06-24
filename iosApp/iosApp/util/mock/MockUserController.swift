@@ -6,33 +6,28 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import Foundation
 import core
+import Foundation
 
-class MockUserController : UserControllerInterface{
+class MockUserController: UserControllerInterface {
     var mockState: KState? = nil
-    
+
     init(state: KState? = nil) {
-        self.mockState = state
+        mockState = state
     }
-    
+
     func watchState() -> CFlow<KState> {
         let mockValue = mockState ?? KStateSuccess(value: UserData(username: "MockUser", userId: "mockId"))
         return CFlowCompanion().getMock(mockValue: mockValue as KState) as! CFlow<KState>
     }
-    
+
     func updateUsername(username: String) {
         print("mock updateUsername \(username)")
     }
-    
-    func onDeInit() {
-    }
-    
-    func onStart() {
-    }
-    
-    func onStop() {
-    }
-    
-    
+
+    func onDeInit() {}
+
+    func onStart() {}
+
+    func onStop() {}
 }

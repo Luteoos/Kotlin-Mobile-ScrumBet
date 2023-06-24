@@ -6,20 +6,20 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import SwiftUI
 import core
+import SwiftUI
 
 struct MainScreenView: View {
     @StateObject var object = MainScreenObject(controller: nil)
     @State var isEditNameSheetVisible = false
     @State var isJoinSheetVisible = false
     @Environment(\.authController) var authController
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Color.background
-            
-            VStack{
+
+            VStack {
                 Spacer()
                 Text("hello, \(object.userData?.username ?? "")")
                     .font(.largeTitle)
@@ -28,17 +28,17 @@ struct MainScreenView: View {
                 Button {
                     isEditNameSheetVisible.toggle()
                 } label: {
-                    HStack{
+                    HStack {
                         Image(systemName: "pencil")
                         Text("edit")
                     }
                 }
-                    .buttonStyle(.borderless)
-                    .tint(Color.secondaryColor)
+                .buttonStyle(.borderless)
+                .tint(Color.secondaryColor)
                 Spacer()
-                
-                VStack{
-                    Button{
+
+                VStack {
+                    Button {
                         isJoinSheetVisible.toggle()
                     } label: {
                         Text("join")
@@ -48,7 +48,7 @@ struct MainScreenView: View {
                     .buttonStyle(.borderedProminent)
                     Text("or")
                         .font(.caption)
-                    Button{
+                    Button {
                         object.createNewRoom()
                     } label: {
                         Text("create")
@@ -58,10 +58,10 @@ struct MainScreenView: View {
                     .tint(Color.primaryColor)
                     .buttonStyle(.borderedProminent)
                 }
-                    .padding(.horizontal, 16)
+                .padding(.horizontal, 16)
                 Spacer()
             }
-            .onAppear(){
+            .onAppear {
                 object.setAuthController(controller: authController)
             }
             .sheet(isPresented: $isEditNameSheetVisible, content: {
@@ -73,7 +73,6 @@ struct MainScreenView: View {
                         username: object.userData?.username ?? "",
                         isVisible: $isEditNameSheetVisible
                     )
-                    
                 }
             })
             .sheet(isPresented: $isJoinSheetVisible, content: {

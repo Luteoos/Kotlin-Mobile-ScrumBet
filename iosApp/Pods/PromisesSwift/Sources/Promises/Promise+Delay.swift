@@ -15,21 +15,20 @@
 import Foundation
 
 public extension Promise {
-
-  /// Creates a new pending promise that fulfills with the same value as `self` after the `delay`,
-  /// or rejects with the same error immediately.
-  /// - parameters:
-  ///   - queue: A queue to dispatch on.
-  ///   - interval: Time to wait in seconds.
-  /// - returns: A new pending promise that fulfills at least `interval` seconds later than `self`,
-  ///            or rejects with the same error immediately.
-  func delay(
-    on queue: DispatchQueue = .promises,
-    _ interval: TimeInterval
-  ) -> Promise<Value> {
-    let promise = Promise(objCPromise.__onQueue(queue, delay: interval))
-    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-    objCPromise.__addPendingObject(promise)
-    return promise
-  }
+    /// Creates a new pending promise that fulfills with the same value as `self` after the `delay`,
+    /// or rejects with the same error immediately.
+    /// - parameters:
+    ///   - queue: A queue to dispatch on.
+    ///   - interval: Time to wait in seconds.
+    /// - returns: A new pending promise that fulfills at least `interval` seconds later than `self`,
+    ///            or rejects with the same error immediately.
+    func delay(
+        on queue: DispatchQueue = .promises,
+        _ interval: TimeInterval
+    ) -> Promise<Value> {
+        let promise = Promise(objCPromise.__onQueue(queue, delay: interval))
+        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+        objCPromise.__addPendingObject(promise)
+        return promise
+    }
 }

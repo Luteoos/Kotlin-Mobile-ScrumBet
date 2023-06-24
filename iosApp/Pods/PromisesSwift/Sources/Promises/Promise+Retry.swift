@@ -37,37 +37,37 @@ import FBLPromises
 ///            `work` block, or rejects with the same error after all retry attempts have been
 ///            exhausted or if the given condition is not met.
 public func retry<Value>(
-  on queue: DispatchQueue = .promises,
-  attempts count: Int = __FBLPromiseRetryDefaultAttemptsCount,
-  delay interval: TimeInterval = __FBLPromiseRetryDefaultDelayInterval,
-  condition predicate: ((_ count: Int, _ error: Error) -> Bool)? = nil,
-  _ work: @escaping () throws -> Promise<Value>
+    on queue: DispatchQueue = .promises,
+    attempts count: Int = __FBLPromiseRetryDefaultAttemptsCount,
+    delay interval: TimeInterval = __FBLPromiseRetryDefaultDelayInterval,
+    condition predicate: ((_ count: Int, _ error: Error) -> Bool)? = nil,
+    _ work: @escaping () throws -> Promise<Value>
 ) -> Promise<Value> {
-#if (swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3)))
-  let predicateBlock = predicate
-#else
-  var predicateBlock: ((_ count: Int, _ error: Error) -> ObjCBool)?
-  if predicate != nil {
-    predicateBlock = { count, error -> ObjCBool in
-      guard let predicate = predicate else { return true }
-      return ObjCBool(predicate(count, error))
+    #if swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3))
+        let predicateBlock = predicate
+    #else
+        var predicateBlock: ((_ count: Int, _ error: Error) -> ObjCBool)?
+        if predicate != nil {
+            predicateBlock = { count, error -> ObjCBool in
+                guard let predicate = predicate else { return true }
+                return ObjCBool(predicate(count, error))
+            }
+        }
+    #endif // (swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3)))
+    let objCPromise = Promise<Value>.ObjCPromise<AnyObject>.__onQueue(
+        queue,
+        attempts: count,
+        delay: interval,
+        condition: predicateBlock
+    ) {
+        do {
+            return try work().objCPromise
+        } catch {
+            return error as NSError
+        }
     }
-  }
-#endif  // (swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3)))
-  let objCPromise = Promise<Value>.ObjCPromise<AnyObject>.__onQueue(
-    queue,
-    attempts: count,
-    delay: interval,
-    condition: predicateBlock
-  ) {
-    do {
-      return try work().objCPromise
-    } catch let error {
-      return error as NSError
-    }
-  }
-  let promise = Promise<Value>(objCPromise)
-  // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-  objCPromise.__addPendingObject(promise)
-  return promise
+    let promise = Promise<Value>(objCPromise)
+    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+    objCPromise.__addPendingObject(promise)
+    return promise
 }

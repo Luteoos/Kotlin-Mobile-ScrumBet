@@ -23,10 +23,10 @@ import Dispatch
 ///   - promises: Promises to wait for.
 /// - returns: First promise, among the given ones, which was fulfilled.
 public func race<Value>(
-  on queue: DispatchQueue = .promises,
-  _ promises: Promise<Value>...
+    on queue: DispatchQueue = .promises,
+    _ promises: Promise<Value>...
 ) -> Promise<Value> {
-  return race(on: queue, promises)
+    return race(on: queue, promises)
 }
 
 /// Wait until any of the given promises are fulfilled.
@@ -38,16 +38,16 @@ public func race<Value>(
 ///   - promises: Promises to wait for.
 /// - returns: First promise, among the given ones, which was fulfilled.
 public func race<Value>(
-  on queue: DispatchQueue = .promises,
-  _ promises: [Promise<Value>]
+    on queue: DispatchQueue = .promises,
+    _ promises: [Promise<Value>]
 ) -> Promise<Value> {
-  let promises = promises.map { $0.objCPromise }
-  let promise = Promise<Value>(
-    Promise<Value>.ObjCPromise<AnyObject>.__onQueue(queue, race: promises)
-  )
-  // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
-  promises.forEach {
-    $0.__addPendingObject(promise)
-  }
-  return promise
+    let promises = promises.map { $0.objCPromise }
+    let promise = Promise<Value>(
+        Promise<Value>.ObjCPromise<AnyObject>.__onQueue(queue, race: promises)
+    )
+    // Keep Swift wrapper alive for chained promises until `ObjCPromise` counterpart is resolved.
+    promises.forEach {
+        $0.__addPendingObject(promise)
+    }
+    return promise
 }

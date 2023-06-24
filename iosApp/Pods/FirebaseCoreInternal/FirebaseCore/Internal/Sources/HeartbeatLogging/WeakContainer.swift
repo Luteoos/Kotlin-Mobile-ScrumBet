@@ -16,5 +16,5 @@ import Foundation
 
 /// A structure used to weakly box reference types.
 struct WeakContainer<Object: AnyObject> {
-  weak var object: Object?
+    weak var object: Object?
 }

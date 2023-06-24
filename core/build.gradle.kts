@@ -48,11 +48,13 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    macosArm64()
 
     cocoapods {
         summary = "Core module with State control, exports as api() project(:data)"
         homepage = "luteoos.dev"
         ios.deploymentTarget = "14.1"
+        osx.deploymentTarget = "13.0"
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "core"
@@ -121,6 +123,12 @@ kotlin {
         val iosX64Test by getting
         val iosArm64Test by getting
         val iosSimulatorArm64Test by getting
+        val macosArm64Main by getting {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(Dependencies.ktorDarwin)
+            }
+        }
         val iosTest by creating {
             dependsOn(commonTest)
             iosX64Test.dependsOn(this)
