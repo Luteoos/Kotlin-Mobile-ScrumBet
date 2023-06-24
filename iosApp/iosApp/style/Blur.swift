@@ -8,14 +8,44 @@
 
 import SwiftUI
 
-struct Blur: UIViewRepresentable {
-    var style: UIBlurEffect.Style = .systemMaterial
+#if os(iOS)
+    struct Blur: UIViewRepresentable {
+        var style: UIBlurEffect.Style = .systemMaterial
 
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        return UIVisualEffectView(effect: UIBlurEffect(style: style))
-    }
+        func makeUIView(context _: Context) -> UIVisualEffectView {
+            return UIVisualEffectView(effect: UIBlurEffect(style: style))
+        }
 
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-        uiView.effect = UIBlurEffect(style: style)
+        func updateUIView(_ uiView: UIVisualEffectView, context _: Context) {
+            uiView.effect = UIBlurEffect(style: style)
+        }
     }
-}
+#else
+    import AppKit
+
+    struct Blur: NSViewRepresentable {
+        fileprivate var blending: NSVisualEffectView.BlendingMode
+        fileprivate var style: NSVisualEffectView.Material
+
+        init(
+            blending: NSVisualEffectView.BlendingMode = .behindWindow,
+            style: NSVisualEffectView.Material = .fullScreenUI
+        ) {
+            self.blending = blending
+            self.style = style
+        }
+
+        func makeNSView(context _: Context) -> NSVisualEffectView {
+            let view = NSVisualEffectView()
+            view.blendingMode = blending
+            view.material = style
+            view.state = .followsWindowActiveState
+            return view
+        }
+
+        func updateNSView(_ nsView: NSVisualEffectView, context _: Context) {
+            nsView.blendingMode = blending
+            nsView.material = style
+        }
+    }
+#endif

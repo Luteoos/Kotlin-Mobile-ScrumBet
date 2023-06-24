@@ -15,28 +15,28 @@
 import Foundation
 
 public extension Promise {
-  typealias Async = (@escaping (Value) -> Void, @escaping (Error) -> Void) throws -> Void
+    typealias Async = (@escaping (Value) -> Void, @escaping (Error) -> Void) throws -> Void
 
-  /// Creates a pending promise and executes `work` block asynchronously on the given `queue`.
-  /// - parameters:
-  ///   - queue: A queue to invoke the `work` block on.
-  ///   - work: A block to perform any operations needed to resolve the promise.
-  convenience init(on queue: DispatchQueue = .promises, _ work: @escaping Async) {
-    let objCPromise = ObjCPromise<AnyObject>.__onQueue(queue) { fulfill, reject in
-      do {
-        try work({ value in
-          if type(of: value) is NSError.Type {
-            reject(value as! NSError)
-          } else {
-            fulfill(Promise<Value>.asAnyObject(value))
-          }
-        }, reject)
-      } catch let error {
-        reject(error as NSError)
-      }
+    /// Creates a pending promise and executes `work` block asynchronously on the given `queue`.
+    /// - parameters:
+    ///   - queue: A queue to invoke the `work` block on.
+    ///   - work: A block to perform any operations needed to resolve the promise.
+    convenience init(on queue: DispatchQueue = .promises, _ work: @escaping Async) {
+        let objCPromise = ObjCPromise<AnyObject>.__onQueue(queue) { fulfill, reject in
+            do {
+                try work({ value in
+                    if type(of: value) is NSError.Type {
+                        reject(value as! NSError)
+                    } else {
+                        fulfill(Promise<Value>.asAnyObject(value))
+                    }
+                }, reject)
+            } catch {
+                reject(error as NSError)
+            }
+        }
+        self.init(objCPromise)
+        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+        objCPromise.__addPendingObject(self)
     }
-    self.init(objCPromise)
-    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-    objCPromise.__addPendingObject(self)
-  }
 }

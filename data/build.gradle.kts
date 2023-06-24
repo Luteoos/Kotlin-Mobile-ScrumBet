@@ -15,6 +15,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    macosArm64()
 
 //    kswift {
 //        install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature){
@@ -26,6 +27,7 @@ kotlin {
         summary = "Data module"
         homepage = ""
         ios.deploymentTarget = "14.1"
+        osx.deploymentTarget = "13.0"
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "data"
@@ -56,6 +58,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+        }
+        val macosArm64Main by getting{
+            dependsOn(iosMain)
         }
         val iosX64Test by getting
         val iosArm64Test by getting

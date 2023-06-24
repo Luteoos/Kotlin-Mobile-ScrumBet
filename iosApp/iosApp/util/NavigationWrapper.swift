@@ -11,14 +11,15 @@ import SwiftUI
 
 struct NavigationWrapper<Content>: View where Content: View {
     @ViewBuilder var content: () -> Content
-    
+
     var body: some View {
 //        if #available(iOS 16, *) {
-//            NavigationStack(root: content)
+        NavigationStack(root: content)
+            .tint(Color.secondaryColor)
 //        } else {
-            NavigationView(content: content)
-                .navigationViewStyle(.stack)
-                .tint(Color.secondaryColor)
+//            NavigationView(content: content)
+//                .navigationViewStyle(.stack)
+//                .tint(Color.secondaryColor)
 //        }
     }
 }

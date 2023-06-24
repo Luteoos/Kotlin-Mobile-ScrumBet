@@ -6,33 +6,33 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import SwiftUI
-import CoreImage.CIFilterBuiltins
 import core
+import CoreImage.CIFilterBuiltins
+import SwiftUI
 
 struct RoomScreenShareSheet: View {
     var url: MultiUrl
     var body: some View {
-        VStack(spacing: 16){
+        VStack(spacing: 16) {
             Text("share")
                 .font(.headline)
                 .padding(.top, 16)
         }
-        
+
         Spacer()
-        
+
         Image(uiImage: generateQRCode(from: url.appSchema))
             .interpolation(.none)
             .resizable()
             .scaledToFit()
             .frame(width: 300, height: 300)
-        
+
         Spacer()
-        
+
         Button {
             UIPasteboard.general.string = url.appSchema.split(separator: "/").last?.description
         } label: {
-            HStack{
+            HStack {
                 Spacer()
                 Text("room_name")
                 Spacer()
@@ -43,11 +43,11 @@ struct RoomScreenShareSheet: View {
         .padding(.horizontal, 16)
         .tint(Color.secondaryColor)
         .buttonStyle(.borderedProminent)
-        
+
         Button {
             UIPasteboard.general.string = url.appSchema
         } label: {
-            HStack{
+            HStack {
                 Spacer()
                 Text("app_url")
                 Spacer()
@@ -62,7 +62,7 @@ struct RoomScreenShareSheet: View {
         Button {
             UIPasteboard.general.string = url.httpSchema
         } label: {
-            HStack{
+            HStack {
                 Spacer()
                 Text("website_url")
                 Spacer()
@@ -74,11 +74,11 @@ struct RoomScreenShareSheet: View {
         .buttonStyle(.borderedProminent)
         .tint(Color.secondaryColor)
     }
-    
+
     func generateQRCode(from string: String) -> UIImage {
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
-        
+
         filter.message = Data(string.utf8)
 
         if let outputImage = filter.outputImage {
@@ -93,7 +93,7 @@ struct RoomScreenShareSheet: View {
 
 struct RoomScreenShareSheet_Previews: PreviewProvider {
     static var previews: some View {
-        HalfSheet{
+        HalfSheet {
             RoomScreenShareSheet(url: MultiUrl(base: "placeholder/placeholderPath"))
         }
     }

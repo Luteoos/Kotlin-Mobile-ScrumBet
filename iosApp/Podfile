@@ -7,3 +7,14 @@ target 'ScrumBet' do
   pod 'FirebaseCrashlytics'
   pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.7' # rework resource bundling
 end
+
+target 'ScrumBetMacOs' do
+  use_frameworks!
+#  platform :ios, '14.1'
+  platform :macos, '13.3'
+  pod 'core', :path => '../core'
+  pod 'coreSwift', :path => '../core'
+#  pod 'FirebaseAnalytics'
+#  pod 'FirebaseCrashlytics'
+#  pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.7' # rework resource bundling
+end

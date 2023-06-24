@@ -17,30 +17,30 @@ import Foundation
 
 /// Class that manages the local overrides configs related to the library.
 class SDKDefaultSettings: SettingsProvider {
-  var sessionsEnabled: Bool? {
-    // Default is sessions enabled
-    return true
-  }
+    var sessionsEnabled: Bool? {
+        // Default is sessions enabled
+        return true
+    }
 
-  var sessionTimeout: TimeInterval? {
-    // Default is 30 minutes
-    return 30 * 60
-  }
+    var sessionTimeout: TimeInterval? {
+        // Default is 30 minutes
+        return 30 * 60
+    }
 
-  var samplingRate: Double? {
-    // Default is all events are dispatched
-    return 1.0
-  }
+    var samplingRate: Double? {
+        // Default is all events are dispatched
+        return 1.0
+    }
 }
 
 typealias SDKDefaultSettingsProvider = SDKDefaultSettings
 extension SDKDefaultSettingsProvider {
-  func updateSettings() {
-    // Nothing to be done since there is nothing to be updated.
-  }
+    func updateSettings() {
+        // Nothing to be done since there is nothing to be updated.
+    }
 
-  func isSettingsStale() -> Bool {
-    // Settings are never stale since all of these are local settings from Plist
-    return false
-  }
+    func isSettingsStale() -> Bool {
+        // Settings are never stale since all of these are local settings from Plist
+        return false
+    }
 }

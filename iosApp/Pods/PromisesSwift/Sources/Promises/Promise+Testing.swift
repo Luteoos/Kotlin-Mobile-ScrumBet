@@ -15,13 +15,13 @@
 import FBLPromises
 
 extension DispatchGroup {
-  /// Dispatch group for promises that is typically used to wait for all scheduled blocks.
-  static var promises: DispatchGroup { return Promise<Any>.ObjCPromise<AnyObject>.__dispatchGroup }
+    /// Dispatch group for promises that is typically used to wait for all scheduled blocks.
+    static var promises: DispatchGroup { return Promise<Any>.ObjCPromise<AnyObject>.__dispatchGroup }
 }
 
 /// Waits for all scheduled promise blocks.
 /// - parameter timeout: Maximum time to wait.
 /// - returns: `true` if all promise blocks have completed before `timeout` and `false` otherwise.
 func waitForPromises(timeout: TimeInterval) -> Bool {
-  return __FBLWaitForPromisesWithTimeout(timeout)
+    return __FBLWaitForPromisesWithTimeout(timeout)
 }

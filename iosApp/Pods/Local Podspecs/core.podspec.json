@@ -11,7 +11,8 @@
   "vendored_frameworks": "build/cocoapods/framework/core.framework",
   "libraries": "c++",
   "platforms": {
-    "ios": "14.1"
+    "ios": "14.1",
+    "osx": "13.0"
   },
   "pod_target_xcconfig": {
     "KOTLIN_PROJECT_PATH": ":core",

@@ -18,7 +18,7 @@ import Foundation
 @_implementationOnly import GoogleDataTransport
 
 protocol EventGDTLoggerProtocol {
-  func logEvent(event: SessionStartEvent, completion: @escaping (Result<Void, Error>) -> Void)
+    func logEvent(event: SessionStartEvent, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 ///
@@ -27,28 +27,29 @@ protocol EventGDTLoggerProtocol {
 ///   2) Handling debugging situations (eg. running in Simulator or printing the event to console)
 ///
 class EventGDTLogger: EventGDTLoggerProtocol {
-  let googleDataTransport: GoogleDataTransportProtocol
-  let devEventConsoleLogger: EventGDTLoggerProtocol
+    let googleDataTransport: GoogleDataTransportProtocol
+    let devEventConsoleLogger: EventGDTLoggerProtocol
 
-  init(googleDataTransport: GoogleDataTransportProtocol,
-       devEventConsoleLogger: EventGDTLoggerProtocol = DevEventConsoleLogger()) {
-    self.googleDataTransport = googleDataTransport
-    self.devEventConsoleLogger = devEventConsoleLogger
-  }
+    init(googleDataTransport: GoogleDataTransportProtocol,
+         devEventConsoleLogger: EventGDTLoggerProtocol = DevEventConsoleLogger())
+    {
+        self.googleDataTransport = googleDataTransport
+        self.devEventConsoleLogger = devEventConsoleLogger
+    }
 
-  /// Logs the event to FireLog, taking into account debugging cases such as running
-  /// in simulator.
-  func logEvent(event: SessionStartEvent, completion: @escaping (Result<Void, Error>) -> Void) {
-    let gdtEvent = googleDataTransport.eventForTransport()
-    gdtEvent.dataObject = event
-    gdtEvent.qosTier = GDTCOREventQoS.qosDefault
-    #if targetEnvironment(simulator)
-      Logger.logDebug("Logging events using fast QOS due to running on a simulator")
-      gdtEvent.qosTier = GDTCOREventQoS.qoSFast
-    #endif // targetEnvironment(simulator)
+    /// Logs the event to FireLog, taking into account debugging cases such as running
+    /// in simulator.
+    func logEvent(event: SessionStartEvent, completion: @escaping (Result<Void, Error>) -> Void) {
+        let gdtEvent = googleDataTransport.eventForTransport()
+        gdtEvent.dataObject = event
+        gdtEvent.qosTier = GDTCOREventQoS.qosDefault
+        #if targetEnvironment(simulator)
+            Logger.logDebug("Logging events using fast QOS due to running on a simulator")
+            gdtEvent.qosTier = GDTCOREventQoS.qoSFast
+        #endif // targetEnvironment(simulator)
 
-    devEventConsoleLogger.logEvent(event: event) { _ in }
+        devEventConsoleLogger.logEvent(event: event) { _ in }
 
-    googleDataTransport.logGDTEvent(event: gdtEvent, completion: completion)
-  }
+        googleDataTransport.logGDTEvent(event: gdtEvent, completion: completion)
+    }
 }

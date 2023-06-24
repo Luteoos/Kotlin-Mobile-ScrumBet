@@ -6,32 +6,30 @@
 //  Copyright © 2022 orgName. All rights reserved.
 //
 
-import SwiftUI
 import core
+import SwiftUI
 
 struct AppView: View {
     @EnvironmentObject var authObject: AuthObject
     @State var isErrorDisplayed = false
-    @State var uiState: AuthUIState? = nil
-    
+    @State var isConnected = false
+
     var body: some View {
-        
-        NavigationWrapper(){
-            ZStack{
+        NavigationWrapper {
+            ZStack {
                 Color.background
-                
-                if(authObject.state == .Loading){
+
+                if authObject.state == .Loading {
                     ProgressView()
-                }
-                else if(authObject.state == .InvalidAppVersion){
+                } else if authObject.state == .InvalidAppVersion {
                     ProgressView() // force update app
-                }
-                else{
+                } else {
                     MainScreenView()
                 }
-                
-                NavigationLink( destination: RoomScreenView(), tag: AuthUIState.Connected, selection: $uiState){ EmptyView() }
             }
+            .navigationDestination(isPresented: $isConnected, destination: {
+                RoomScreenView()
+            })
         }
         .alert("error", isPresented: $isErrorDisplayed, actions: {
             Button("retry") {
@@ -40,14 +38,14 @@ struct AppView: View {
         })
         .onReceive(authObject.$state) { inState in
             isErrorDisplayed = inState == .GeneralError
-            uiState = inState
+            isConnected = inState == .Connected
         }
     }
 }
 
 struct AppView_Previews: PreviewProvider {
-   static var previews: some View {
-       AppView()
-           .environmentObject(AuthObject(controller: MockAuthControllerInterface(state: KStateEmpty())))
-   }
+    static var previews: some View {
+        AppView()
+            .environmentObject(AuthObject(controller: MockAuthControllerInterface(state: KStateEmpty())))
+    }
 }

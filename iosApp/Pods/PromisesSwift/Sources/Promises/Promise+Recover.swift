@@ -15,54 +15,53 @@
 import Foundation
 
 public extension Promise {
+    /// Provides a new promise to recover in case `self` gets rejected.
+    /// - parameters:
+    ///   - queue: A queue to execute `recovery` block on.
+    ///   - recovery: A block to handle the error that `self` was rejected with.
+    /// - returns: A new pending promise to use instead of the rejected one that gets resolved with
+    ///            the same resolution as the promise returned from `recovery` block.
+    @discardableResult
+    func recover(
+        on queue: DispatchQueue = .promises,
+        _ recovery: @escaping (Error) throws -> Promise
+    ) -> Promise {
+        let promise = Promise(objCPromise.__onQueue(queue, recover: {
+            do {
+                // Convert `NSError` to `PromiseError`, if applicable.
+                let error = PromiseError($0) ?? $0
+                return try recovery(error).objCPromise
+            } catch {
+                return error as NSError
+            }
+        }))
+        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+        objCPromise.__addPendingObject(promise)
+        return promise
+    }
 
-  /// Provides a new promise to recover in case `self` gets rejected.
-  /// - parameters:
-  ///   - queue: A queue to execute `recovery` block on.
-  ///   - recovery: A block to handle the error that `self` was rejected with.
-  /// - returns: A new pending promise to use instead of the rejected one that gets resolved with
-  ///            the same resolution as the promise returned from `recovery` block.
-  @discardableResult
-  func recover(
-    on queue: DispatchQueue = .promises,
-    _ recovery: @escaping (Error) throws -> Promise
-  ) -> Promise {
-    let promise = Promise(objCPromise.__onQueue(queue, recover: {
-      do {
-        // Convert `NSError` to `PromiseError`, if applicable.
-        let error = PromiseError($0) ?? $0
-        return try recovery(error).objCPromise
-      } catch let error {
-        return error as NSError
-      }
-    }))
-    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-    objCPromise.__addPendingObject(promise)
-    return promise
-  }
-
-  /// Provides a new promise to recover in case `self` gets rejected.
-  /// - parameters:
-  ///   - queue: A queue to execute `recovery` block on.
-  ///   - recovery: A block to handle the error that `self` was rejected with.
-  /// - returns: A new pending promise to use instead of the rejected one that gets resolved with
-  ///            the value returned from `recovery` block.
-  @discardableResult
-  func recover(
-    on queue: DispatchQueue = .promises,
-    _ recovery: @escaping (Error) throws -> Value
-  ) -> Promise {
-    let promise = Promise(objCPromise.__onQueue(queue, recover: {
-      do {
-        // Convert `NSError` to `PromiseError`, if applicable.
-        let error = PromiseError($0) ?? $0
-        return Promise<Value>.asAnyObject(try recovery(error)) as Any
-      } catch let error {
-        return error as NSError
-      }
-    }))
-    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-    objCPromise.__addPendingObject(promise)
-    return promise
-  }
+    /// Provides a new promise to recover in case `self` gets rejected.
+    /// - parameters:
+    ///   - queue: A queue to execute `recovery` block on.
+    ///   - recovery: A block to handle the error that `self` was rejected with.
+    /// - returns: A new pending promise to use instead of the rejected one that gets resolved with
+    ///            the value returned from `recovery` block.
+    @discardableResult
+    func recover(
+        on queue: DispatchQueue = .promises,
+        _ recovery: @escaping (Error) throws -> Value
+    ) -> Promise {
+        let promise = Promise(objCPromise.__onQueue(queue, recover: {
+            do {
+                // Convert `NSError` to `PromiseError`, if applicable.
+                let error = PromiseError($0) ?? $0
+                return try Promise<Value>.asAnyObject(recovery(error)) as Any
+            } catch {
+                return error as NSError
+            }
+        }))
+        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+        objCPromise.__addPendingObject(promise)
+        return promise
+    }
 }

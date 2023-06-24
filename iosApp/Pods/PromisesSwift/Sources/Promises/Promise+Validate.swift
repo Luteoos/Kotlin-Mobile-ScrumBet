@@ -15,33 +15,32 @@
 import Foundation
 
 public extension Promise {
-
-  /// Validates a fulfilled value or rejects the value if it can not be validated.
-  /// - parameters:
-  ///   - queue: A queue to dispatch on.
-  ///   - predicate: An expression to validate.
-  /// - returns: A new pending promise that gets either resolved with same resolution as `self` or
-  ///            rejected with `PromiseError.validationFailure` error.
-  @discardableResult
-  func validate(
-    on queue: DispatchQueue = .promises,
-    _ predicate: @escaping (Value) -> Bool
-  ) -> Promise {
-    let promise = Promise(objCPromise.__onQueue(
-      queue,
-      validate: { objCValue in
-        guard let value = Promise<Value>.asValue(objCValue) else {
-          preconditionFailure("Cannot cast \(type(of: objCValue)) to \(Value.self)")
-        }
-#if (swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3)))
-        return predicate(value)
-#else
-        return ObjCBool(predicate(value))
-#endif  // (swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3)))
-      }
-    ))
-    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-    objCPromise.__addPendingObject(promise)
-    return promise
-  }
+    /// Validates a fulfilled value or rejects the value if it can not be validated.
+    /// - parameters:
+    ///   - queue: A queue to dispatch on.
+    ///   - predicate: An expression to validate.
+    /// - returns: A new pending promise that gets either resolved with same resolution as `self` or
+    ///            rejected with `PromiseError.validationFailure` error.
+    @discardableResult
+    func validate(
+        on queue: DispatchQueue = .promises,
+        _ predicate: @escaping (Value) -> Bool
+    ) -> Promise {
+        let promise = Promise(objCPromise.__onQueue(
+            queue,
+            validate: { objCValue in
+                guard let value = Promise<Value>.asValue(objCValue) else {
+                    preconditionFailure("Cannot cast \(type(of: objCValue)) to \(Value.self)")
+                }
+                #if swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3))
+                    return predicate(value)
+                #else
+                    return ObjCBool(predicate(value))
+                #endif // (swift(>=4.1) || (!swift(>=4.0) && swift(>=3.3)))
+            }
+        ))
+        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+        objCPromise.__addPendingObject(promise)
+        return promise
+    }
 }
