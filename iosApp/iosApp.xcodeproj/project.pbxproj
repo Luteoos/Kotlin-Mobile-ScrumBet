@@ -362,13 +362,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		EEDCC6742A371BC1007C3274 /* auth */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = auth;
-			sourceTree = "<group>";
-		};
 		EEECDE9C2A43AEDC00742357 /* util */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,7 +383,6 @@
 			children = (
 				EEBF92982A38C392003C21BA /* room */,
 				EEBF92972A38C36B003C21BA /* main */,
-				EEDCC6742A371BC1007C3274 /* auth */,
 				EEECF17129E6179B00989C31 /* AppView.swift */,
 			);
 			path = ui;
