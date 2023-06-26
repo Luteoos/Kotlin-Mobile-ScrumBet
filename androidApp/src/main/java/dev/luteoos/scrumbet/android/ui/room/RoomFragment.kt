@@ -82,6 +82,7 @@ import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
+import dev.luteoos.scrumbet.android.util.composeUtil.KeepAlive
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
 import dev.luteoos.scrumbet.android.util.composeUtil.VisibilityToggle
@@ -201,6 +202,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         state: RoomUiState.Success,
         showSheetContent: (@Composable () -> Unit) -> Unit
     ) {
+        KeepAlive()
         var currentPick = state.userVote // by remember { mutableStateOf<String?>(null) }
         val scrollState = rememberScrollState()
         Column(
@@ -265,7 +267,8 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         else
             list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else " " }.toString()
         Column(
-            modifier = Modifier.fillMaxWidth(.75f)
+            modifier = Modifier
+                .fillMaxWidth(.75f)
                 .padding(horizontal = Size.xSmall()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
