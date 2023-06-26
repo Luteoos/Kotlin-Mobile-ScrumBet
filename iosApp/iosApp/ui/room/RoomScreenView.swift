@@ -66,10 +66,12 @@ struct RoomScreenView: View {
                 .onAppear {
                     object.setAuthController(controller: authController)
                     object.connect()
+                    UIApplication.shared.isIdleTimerDisabled = true
                 }
                 .onDisappear {
                     print("RoomScreen onDisappear")
                     object.disconnect() // questionable
+                    UIApplication.shared.isIdleTimerDisabled = false
                 }
                 .onReceive(object.$state) { state in
                     switch state {
