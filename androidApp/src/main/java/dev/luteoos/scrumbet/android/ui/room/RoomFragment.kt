@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -232,12 +233,12 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     .scrollable(scrollState, orientation = Orientation.Vertical)
                     .fillMaxWidth(.75f),
                 columns = GridCells.Adaptive(
-                    Size.xxLarge()
+                    Size.buttonSize()
                 ),
                 content = {
                     val buttonModifier = Modifier
-                        .fillMaxWidth()
-                        .requiredHeight(Size.xxLarge())
+                        .requiredWidth(Size.buttonSize())
+                        .requiredHeight(Size.buttonSize())
                         .padding(Size.xSmall())
                     state.config.scale.forEach { value ->
                         item {
