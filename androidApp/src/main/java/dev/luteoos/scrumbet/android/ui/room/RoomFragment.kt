@@ -231,7 +231,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             LazyVerticalGrid(
                 modifier = Modifier
                     .scrollable(scrollState, orientation = Orientation.Vertical)
-                    .fillMaxWidth(.75f),
+                    .width(Size.voteKeyboardSize()),
                 columns = GridCells.Adaptive(
                     Size.buttonSize()
                 ),
@@ -366,14 +366,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(
-                        modifier = Modifier.height(40.dp),
-                        onClick = { model.resetVote() },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
-                    ) {
-                        Text(text = getString(R.string.label_reset))
-                    }
-                    Spacer(modifier = Modifier.width(Size.regular()))
+                    Spacer(modifier = Modifier.weight(1f))
                     VisibilityToggle(
                         modifier = Modifier.height(40.dp),
                         initialState = state.config.alwaysVisibleVote, onClick = {

@@ -6,11 +6,11 @@
     <string name="label_name">Name</string>
     <string name="label_hello">Hello, %s</string>
     <string name="label_save">Save</string>
-    <string name="label_edit">Edit</string>
+    <string name="label_edit">Change username</string>
     <string name="label_connect">Connect</string>
-    <string name="label_join">Join</string>
+    <string name="label_join">Join room</string>
     <string name="label_disconnect">Disconnect</string>
-    <string name="label_create">Create</string>
+    <string name="label_create">Create new room</string>
     <string name="divider_label_or">or</string>
     <string name="label_join_by">Join by</string>
     <string name="label_room_name">Room name</string>
@@ -20,8 +20,8 @@
     <string name="label_error">Error</string>
     <string name="label_connecting">Connecting…</string>
     <string name="label_share">Share</string>
-    <string name="label_owner">Owner: %s</string>
-    <string name="label_list">List</string>
+    <string name="label_owner">%s\'s room</string>
+    <string name="label_list">Users</string>
     <string name="label_member_list">Member list</string>
     <string name="label_reset">Reset</string>
     <string name="label_show">Show</string>
