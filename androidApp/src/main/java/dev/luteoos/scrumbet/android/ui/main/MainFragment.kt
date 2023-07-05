@@ -22,6 +22,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -217,20 +218,21 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     private fun MainScreenUserEditSheet(username: String, onSave: (username: String) -> Unit) {
         var name by remember { mutableStateOf(username) }
         var isSaveEnabled by remember { mutableStateOf(true) }
+
         Column(
             Modifier.fillMaxWidth(),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
-            CustomTextField(
+            OutlinedTextField(
+                value = name,
                 modifier = Modifier.fillMaxWidth(),
-                initialValue = name,
                 singleLine = true,
                 onValueChange = {
                     name = it
                     isSaveEnabled = name.isNotBlank()
                 },
-                leadingIcon = {
+                label = {
                     Text(text = getString(R.string.label_name))
                 }
             )
@@ -284,9 +286,16 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                             barcode.rawValue?.let { value ->
                                 roomId = value
                             }
-                        }, {
-                        }
+                        }, { }
                         )
+                        it.onBarcodeScannedListener = { list -> // todo automated joining by barcode
+                            list.firstOrNull()?.let { barcode ->
+                                barcode.rawValue?.let { value ->
+                                    roomId = value
+                                    onJoin(roomId)
+                                }
+                            }
+                        }
                         it.onPermission(cameraPermissionState.status.isGranted)
                     }
                 })

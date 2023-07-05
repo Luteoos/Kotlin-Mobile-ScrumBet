@@ -49,7 +49,12 @@ object Size {
     fun minHeight() = 50.dp
 
     /**
-     * 64.dp
+     * 72.dp
      */
     fun buttonSize() = 72.dp
+
+    /**
+     * 64.dp
+     */
+    fun voteKeyboardSize() = 216.dp
 }
