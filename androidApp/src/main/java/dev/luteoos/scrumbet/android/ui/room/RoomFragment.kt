@@ -18,14 +18,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -40,11 +38,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -54,6 +54,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
@@ -61,7 +62,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
@@ -70,7 +70,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -91,7 +90,6 @@ import dev.luteoos.scrumbet.android.util.encodeToBitmap
 import dev.luteoos.scrumbet.data.entity.MultiUrl
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.get
 
 class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomViewModel::class) {
     override val layoutId: Int = R.layout.compose_fragment
@@ -164,6 +162,56 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                     }
                                 }
                             )
+                        },
+                        bottomBar = {
+                            if (state !is RoomUiState.Success) {
+                                // empty
+                            } else {
+                                val successState = (state as RoomUiState.Success)
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(Size.small()),
+                                    horizontalArrangement = Arrangement.spacedBy(Size.small(), alignment = End)
+                                ) {
+                                    if (successState.config.isOwner) {
+                                        Button(
+                                            modifier = Modifier.weight(1f),
+                                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                                            onClick = {
+                                                customSheetContent = { RoomScreenStyleListSheet() }
+                                                toggleSheetState()
+                                            }
+                                        ) {
+                                            Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+                                        }
+                                        Button(
+                                            modifier = Modifier.weight(2f),
+                                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                                            enabled = successState.userList.any { it.vote != null },
+                                            onClick = {
+                                                model.resetVote()
+                                            }
+                                        ) {
+//                                            Text(text = stringResource(R.string.label_reset))
+                                            Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
+                                        }
+                                    } else {
+                                        Spacer(Modifier.weight(3f))
+                                    }
+                                    Button(
+                                        modifier = Modifier.weight(1f),
+                                        onClick = {
+                                            customSheetContent = { RoomScreenMemberListSheet() }
+                                            toggleSheetState()
+                                        },
+                                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                                    ) {
+//                                        Text(text = getString(R.string.label_list))
+                                        Icon(imageVector = Icons.Default.List, contentDescription = null)
+                                    }
+                                }
+                            }
                         }
                     ) { padding ->
                         Box(
@@ -213,33 +261,21 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(text = "${state.userList.count { it.vote != null }}/${state.userList.size}", fontSize = TextSize.regular())
-                Spacer(modifier = Modifier.width(Size.regular()))
-                Button(
-                    onClick = { showSheetContent { RoomScreenMemberListSheet() } },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
-                ) {
-                    Text(text = getString(R.string.label_list))
-                }
             }
-            if (state.config.isOwner)
-                TextButton(
-                    onClick = { showSheetContent { RoomScreenStyleListSheet() } }, colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
-                ) {
-                    Text(text = getString(R.string.label_choose_style))
-                }
-            AvgVoteUi(isOwner = state.config.isOwner, list = state.userList)
+            VoteScoreUi(isOwner = state.config.isOwner, list = state.userList)
             LazyVerticalGrid(
                 modifier = Modifier
                     .scrollable(scrollState, orientation = Orientation.Vertical)
-                    .width(Size.voteKeyboardSize()),
+                    .fillMaxWidth(.75f),
+                horizontalArrangement = Arrangement.spacedBy(Size.xSmall()),
+                verticalArrangement = Arrangement.spacedBy(Size.xSmall()),
                 columns = GridCells.Adaptive(
                     Size.buttonSize()
                 ),
                 content = {
                     val buttonModifier = Modifier
-                        .requiredWidth(Size.buttonSize())
-                        .requiredHeight(Size.buttonSize())
-                        .padding(Size.xSmall())
+                        .aspectRatio(1f)
+                        .fillMaxWidth()
                     state.config.scale.forEach { value ->
                         item {
                             val onClick = {
@@ -262,7 +298,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     @Composable
-    private fun AvgVoteUi(isOwner: Boolean, list: List<RoomUser>) {
+    private fun VoteScoreUi(isOwner: Boolean, list: List<RoomUser>) {
         val score: String = if (list.any { it.vote == null })
             " "
         else
@@ -278,22 +314,11 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                 text = score,
                 modifier = Modifier
                     .padding(Size.regular()),
-                fontSize = TextSize.xLarge(),
+                fontSize = TextSize.huge(),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colors.primaryVariant
             )
-            if (isOwner)
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                    enabled = list.any { it.vote != null },
-                    onClick = {
-                        model.resetVote()
-                    }
-                ) {
-                    Text(text = stringResource(R.string.label_reset))
-                }
         }
     }
 
@@ -531,7 +556,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     @Composable
     fun AvgVoteUtil_Preview() {
         MdcTheme() {
-            AvgVoteUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")))
+            VoteScoreUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")))
         }
     }
 }
