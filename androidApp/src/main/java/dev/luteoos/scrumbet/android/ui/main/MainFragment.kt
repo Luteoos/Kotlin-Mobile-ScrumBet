@@ -173,14 +173,14 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 ) {
                     Row(verticalAlignment = CenterVertically) {
                         Icon(
-                            modifier = Modifier.size(Size.xRegular()),
+                            modifier = Modifier.size(Size.small()),
                             painter = painterResource(id = com.google.android.material.R.drawable.material_ic_edit_black_24dp),
                             contentDescription = null,
                             tint = MaterialTheme.colors.onBackground
                         )
                         Text(
                             text = getString(R.string.label_edit),
-                            fontSize = TextSize.xSmall(),
+                            fontSize = TextSize.xxxSmall(),
                             fontWeight = FontWeight.Light,
                             color = MaterialTheme.colors.onBackground
                         )

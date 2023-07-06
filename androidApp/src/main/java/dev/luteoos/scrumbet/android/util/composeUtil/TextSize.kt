@@ -18,7 +18,12 @@ object TextSize {
     /**
      * 12sp
      */
-    fun xxSmall() = getTextUnit(12f)
+    fun xxxSmall() = getTextUnit(12f)
+
+    /**
+     * 10sp
+     */
+    fun xxSmall() = getTextUnit(10f)
 
     /**
      * 28sp
@@ -34,6 +39,11 @@ object TextSize {
      * 40sp
      */
     fun xLarge() = getTextUnit(40f)
+
+    /**
+     * 72sp
+     */
+    fun huge() = getTextUnit(72f)
 
     private fun getTextUnit(value: Float) = TextUnit(value, TextUnitType.Sp)
 }
