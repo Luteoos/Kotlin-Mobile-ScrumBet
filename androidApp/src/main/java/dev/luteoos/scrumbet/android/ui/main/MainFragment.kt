@@ -1,7 +1,6 @@
 package dev.luteoos.scrumbet.android.ui.main
 
 import BottomSheetDefaultLayout
-import CustomTextField
 import LoadingView
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,6 +37,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
@@ -169,20 +169,19 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                         }
                         toggleSheetVisibility()
                     },
-                    contentPadding = PaddingValues(Size.xSmall())
+                    contentPadding = PaddingValues(Size.xSmall()),
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onBackground)
                 ) {
                     Row(verticalAlignment = CenterVertically) {
                         Icon(
-                            modifier = Modifier.size(Size.small()),
+                            modifier = Modifier.size(Size.xRegular()),
                             painter = painterResource(id = com.google.android.material.R.drawable.material_ic_edit_black_24dp),
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.onBackground
+                            contentDescription = null
                         )
                         Text(
                             text = getString(R.string.label_edit),
                             fontSize = TextSize.xxxSmall(),
-                            fontWeight = FontWeight.Light,
-                            color = MaterialTheme.colors.onBackground
+                            fontWeight = FontWeight.Light
                         )
                     }
                 }
@@ -268,12 +267,6 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
             })
 
             Text(
-                modifier = Modifier.padding(bottom = Size.large()),
-                text = getString(R.string.label_join_by),
-                fontSize = TextSize.regular()
-            )
-
-            Text(
                 modifier = Modifier.padding(bottom = Size.xSmall()),
                 text = getString(R.string.label_scan_qr_code), fontSize = TextSize.small()
             )
@@ -288,7 +281,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                             }
                         }, { }
                         )
-                        it.onBarcodeScannedListener = { list -> // todo automated joining by barcode
+                        it.onBarcodeScannedListener = { list ->
                             list.firstOrNull()?.let { barcode ->
                                 barcode.rawValue?.let { value ->
                                     roomId = value
@@ -313,14 +306,15 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 modifier = Modifier.padding(vertical = Size.regular()),
                 text = getString(R.string.divider_label_or)
             )
-            CustomTextField(
-                modifier = Modifier.fillMaxWidth(),
-                initialValue = roomId,
+            OutlinedTextField(
+                value = roomId,
+                modifier = Modifier.fillMaxWidth()
+                    .onFocusChanged { roomId = "" }, // todo sketchy
                 singleLine = true,
                 onValueChange = {
                     roomId = it
                 },
-                leadingIcon = {
+                label = {
                     Text(text = getString(R.string.label_room_name))
                 }
             )

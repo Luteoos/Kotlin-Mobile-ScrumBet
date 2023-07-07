@@ -7,7 +7,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
@@ -19,10 +21,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -56,6 +60,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -63,6 +68,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
@@ -167,50 +173,10 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                             if (state !is RoomUiState.Success) {
                                 // empty
                             } else {
-                                val successState = (state as RoomUiState.Success)
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(Size.small()),
-                                    horizontalArrangement = Arrangement.spacedBy(Size.small(), alignment = End)
-                                ) {
-                                    if (successState.config.isOwner) {
-                                        Button(
-                                            modifier = Modifier.weight(1f),
-                                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                                            onClick = {
-                                                customSheetContent = { RoomScreenStyleListSheet() }
-                                                toggleSheetState()
-                                            }
-                                        ) {
-                                            Icon(imageVector = Icons.Default.Settings, contentDescription = null)
-                                        }
-                                        Button(
-                                            modifier = Modifier.weight(2f),
-                                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                                            enabled = successState.userList.any { it.vote != null },
-                                            onClick = {
-                                                model.resetVote()
-                                            }
-                                        ) {
-//                                            Text(text = stringResource(R.string.label_reset))
-                                            Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
-                                        }
-                                    } else {
-                                        Spacer(Modifier.weight(3f))
-                                    }
-                                    Button(
-                                        modifier = Modifier.weight(1f),
-                                        onClick = {
-                                            customSheetContent = { RoomScreenMemberListSheet() }
-                                            toggleSheetState()
-                                        },
-                                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
-                                    ) {
-//                                        Text(text = getString(R.string.label_list))
-                                        Icon(imageVector = Icons.Default.List, contentDescription = null)
-                                    }
-                                }
+                                BottomBarSuccess(state = state as RoomUiState.Success, showSheetContent = {
+                                    customSheetContent = it
+                                    toggleSheetState()
+                                })
                             }
                         }
                     ) { padding ->
@@ -259,9 +225,6 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "${state.userList.count { it.vote != null }}/${state.userList.size}", fontSize = TextSize.regular())
-            }
             VoteScoreUi(isOwner = state.config.isOwner, list = state.userList)
             LazyVerticalGrid(
                 modifier = Modifier
@@ -283,7 +246,12 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                 model.setVote(value)
                             }
                             if (currentPick == null || currentPick == value)
-                                Button(modifier = buttonModifier, onClick = onClick) {
+                                Button(
+                                    modifier = buttonModifier,
+                                    onClick = onClick,
+//                                    colors = ButtonDefaults.buttonColors(
+//                                        backgroundColor = if(value == "?") MaterialTheme.colors.secondary else MaterialTheme.colors.primary)
+                                ) {
                                     Text(text = value)
                                 }
                             else
@@ -300,25 +268,133 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     @Composable
     private fun VoteScoreUi(isOwner: Boolean, list: List<RoomUser>) {
         val score: String = if (list.any { it.vote == null })
-            " "
+            ""
         else
-            list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else " " }.toString()
+            list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else "?" }.toString()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth(.75f)
-                .padding(horizontal = Size.xSmall()),
+                .padding(horizontal = Size.xSmall())
+                .animateContentSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = score,
+            Row(
+                modifier = Modifier.padding(Size.regular()),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                val fontSize = TextSize.xSmall()
+                Column(modifier = Modifier.padding(horizontal = Size.small())) {
+                    Text(text = getString(R.string.label_users_in_room), fontSize = fontSize)
+                    Text(text = getString(R.string.label_users_voted), fontSize = fontSize)
+                }
+                Column() {
+                    Text(text = "${list.size}", fontWeight = FontWeight.Bold, fontSize = fontSize, fontFamily = FontFamily.Monospace)
+                    Text(text = "${list.count { it.vote != null }}", fontWeight = FontWeight.Bold, fontSize = fontSize, fontFamily = FontFamily.Monospace)
+                }
+            }
+            if (score.isNotEmpty())
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = score,
+                            modifier = Modifier
+                                .padding(Size.xSmall()),
+                            fontSize = TextSize.huge(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = MaterialTheme.colors.primaryVariant
+                        )
+                        Text(
+                            text = getString(R.string.label_average_vote),
+                            fontSize = TextSize.xxSmall()
+                        )
+                    }
+                    Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = list.mapNotNull { it.vote?.toIntOrNull() }.minOfOrNull { it }?.toString() ?: "-",
+                                modifier = Modifier
+                                    .padding(Size.xSmall()),
+                                fontSize = TextSize.regular(),
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Red
+//                                color = MaterialTheme.colors.primaryVariant
+                            )
+                            Text(
+                                text = getString(R.string.label_lowest_vote),
+                                fontSize = TextSize.xxSmall()
+                            )
+                        }
+                        Spacer(modifier = Modifier.requiredWidth(Size.regular()))
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = list.mapNotNull { it.vote?.toIntOrNull() }.maxOfOrNull { it }?.toString() ?: "-",
+                                modifier = Modifier
+                                    .padding(Size.xSmall()),
+                                fontSize = TextSize.regular(),
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Green
+//                                color = MaterialTheme.colors.primaryVariant
+                            )
+                            Text(
+                                text = getString(R.string.label_highest_vote),
+                                fontSize = TextSize.xxSmall()
+                            )
+                        }
+                    }
+                }
+        }
+    }
+
+    @Composable
+    private fun BottomBarSuccess(
+        state: RoomUiState.Success,
+        showSheetContent: (@Composable () -> Unit) -> Unit
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Size.small()),
+            horizontalArrangement = Arrangement.spacedBy(Size.small(), alignment = End)
+        ) {
+            IconButton(
                 modifier = Modifier
-                    .padding(Size.regular()),
-                fontSize = TextSize.huge(),
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.ExtraBold,
-                color = MaterialTheme.colors.primaryVariant
-            )
+                    .weight(1f)
+                    .alpha(if (state.config.isOwner) 1f else 0.3f),
+                enabled = state.config.isOwner,
+                onClick = {
+                    showSheetContent { RoomScreenStyleListSheet() }
+                }
+            ) {
+                Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+            }
+            IconButton(
+                modifier = Modifier
+                    .weight(2f)
+                    .alpha(if (state.config.isOwner) 1f else 0.3f),
+                enabled = state.config.isOwner && state.userList.any { it.vote != null },
+                onClick = {
+                    model.resetVote()
+                }
+            ) {
+                Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
+            }
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    showSheetContent { RoomScreenMemberListSheet() }
+                }
+            ) {
+                Icon(imageVector = Icons.Default.List, contentDescription = null)
+            }
         }
     }
 
@@ -337,7 +413,6 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             Text(
                 text = getString(R.string.label_choose_style),
                 fontSize = TextSize.xSmall(),
-//                color = MaterialTheme.colors.secondary
             )
             Spacer(modifier = Modifier.height(Size.small()))
             LazyColumn(
