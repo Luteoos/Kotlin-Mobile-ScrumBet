@@ -29,7 +29,7 @@
     <string name="label_retry">Retry</string>
     <string name="label_connection_failed">Failed to connect</string>
     <string name="label_connection_splash_failed">Connection to server lost</string>
-    <string name="label_choose_style">Change vote palette</string>
+    <string name="label_choose_style">Vote palette</string>
     <string name="label_new_version_available">New version is required\nUpdate app</string>
     <string name="label_room_url">Url</string>
     <string name="label_room_app_url">App link</string>
@@ -40,4 +40,5 @@
     <string name="label_lowest_vote">Lowest</string>
     <string name="label_highest_vote">Highest</string>
     <string name="label_enter_room_name">Enter room name</string>
+    <string name="label_vote_visible_setting">Visible casted votes</string>
 </resources>

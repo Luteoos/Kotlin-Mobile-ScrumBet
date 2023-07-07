@@ -2,7 +2,15 @@ package dev.luteoos.scrumbet.android.ui.main
 
 import BottomSheetDefaultLayout
 import LoadingView
+import android.content.Intent
+import android.content.Intent.CATEGORY_DEFAULT
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +35,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +64,6 @@ import dev.luteoos.scrumbet.android.ext.toRoomScreen
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
 import dev.luteoos.scrumbet.shared.Log
-import kotlinx.coroutines.NonCancellable.onJoin
 
 @OptIn(
     ExperimentalPermissionsApi::class
@@ -254,15 +262,19 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
 
     @Composable
     private fun MainScreenJoinQrCodeSheet(onJoin: (id: String) -> Unit) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             val cameraPermissionState = rememberPermissionState(
                 android.Manifest.permission.CAMERA
             )
 
-            LaunchedEffect(key1 = Unit, block = {
+            SideEffect {
+                println("SideEffectMainFragmentJoinQR")
                 if (!cameraPermissionState.status.isGranted)
                     cameraPermissionState.launchPermissionRequest()
-            })
+            }
 
             if (cameraPermissionState.status.isGranted) {
                 val lifecycleOwner = LocalLifecycleOwner.current
@@ -283,7 +295,16 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 Button(
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                     onClick = {
-                        cameraPermissionState.launchPermissionRequest()
+                        val intent: Intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        with(intent) {
+                            data = Uri.fromParts("package", context?.packageName, null)
+                            addCategory(CATEGORY_DEFAULT)
+                            addFlags(FLAG_ACTIVITY_SINGLE_TOP)
+                            addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                            addFlags(FLAG_ACTIVITY_CLEAR_TASK)
+                            addFlags(FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        startActivity(intent)
                     }
                 ) {
                     Text(text = getString(R.string.label_grant_permission_camera))
@@ -330,7 +351,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     @Composable
     private fun MainScreenJoinSheet(onJoin: (id: String) -> Unit, onUpdateContent: (@Composable () -> Unit) -> Unit) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(vertical = Size.regular(), horizontal = Size.regular()),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
