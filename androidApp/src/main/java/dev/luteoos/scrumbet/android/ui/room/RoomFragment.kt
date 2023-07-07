@@ -9,8 +9,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,13 +33,21 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ExposedDropdownMenuBox
+import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -91,7 +97,6 @@ import dev.luteoos.scrumbet.android.ext.toMainScreen
 import dev.luteoos.scrumbet.android.util.composeUtil.KeepAlive
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
-import dev.luteoos.scrumbet.android.util.composeUtil.VisibilityToggle
 import dev.luteoos.scrumbet.android.util.encodeToBitmap
 import dev.luteoos.scrumbet.data.entity.MultiUrl
 import dev.luteoos.scrumbet.data.state.room.RoomUser
@@ -371,7 +376,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                     .alpha(if (state.config.isOwner) 1f else 0.3f),
                 enabled = state.config.isOwner,
                 onClick = {
-                    showSheetContent { RoomScreenStyleListSheet() }
+                    showSheetContent { RoomScreenSettingsSheet() }
                 }
             ) {
                 Icon(imageVector = Icons.Default.Settings, contentDescription = null)
@@ -398,48 +403,115 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         }
     }
 
+    @OptIn(ExperimentalMaterialApi::class)
     @Composable
-    private fun RoomScreenStyleListSheet() {
+    private fun RoomScreenSettingsSheet() {
         val modelState by model.uiState.observeAsState()
         if (modelState !is RoomUiState.Success)
             return
         val config = (modelState as RoomUiState.Success).config
+        var dropdownStateExpanded by remember { mutableStateOf(false) }
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Size.xSmall()),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
-            Text(
-                text = getString(R.string.label_choose_style),
-                fontSize = TextSize.xSmall(),
-            )
-            Spacer(modifier = Modifier.height(Size.small()))
-            LazyColumn(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                content = {
-                    items(config.scaleTypeList.sortedBy { it }) { item ->
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(Size.small())
-                                .clickable { model.setScale(item) },
-                            backgroundColor = if (item == config.scaleType) MaterialTheme.colors.primary else MaterialTheme.colors.secondary
-                        ) {
-                            Column(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Text(
-                                    modifier = Modifier
-                                        .padding(vertical = Size.small()),
-                                    text = item.toLowerCase(Locale.current).capitalize(Locale.current)
-                                )
-                            }
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = getString(R.string.label_vote_visible_setting))
+                Switch(
+                    checked = config.alwaysVisibleVote,
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = MaterialTheme.colors.primary,
+                        uncheckedThumbColor = MaterialTheme.colors.secondary
+                    ),
+                    onCheckedChange = {
+                        if (it)
+                            model.showVoteValues()
+                        else
+                            model.hideVoteValues()
+                    }
+                )
+            }
+            Spacer(modifier = Modifier.height(Size.small()))
+            ExposedDropdownMenuBox(
+                modifier = Modifier.fillMaxWidth(),
+                expanded = dropdownStateExpanded,
+                onExpandedChange = {
+                    dropdownStateExpanded = !dropdownStateExpanded
+                }
+            ) {
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    readOnly = true,
+                    value = config.scaleType.toLowerCase(Locale.current).capitalize(Locale.current),
+                    onValueChange = { },
+                    label = {
+                        Text(text = getString(R.string.label_choose_style), fontSize = TextSize.xSmall(),)
+                    },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(
+                            expanded = dropdownStateExpanded
+                        )
+                    },
+                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedLabelColor = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+                        focusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled),
+                        focusedTrailingIconColor = MaterialTheme.colors.onSurface.copy(alpha = TextFieldDefaults.IconOpacity)
+                    )
+                )
+                ExposedDropdownMenu(
+                    expanded = dropdownStateExpanded,
+                    onDismissRequest = {
+                        dropdownStateExpanded = false
+                    }
+                ) {
+                    config.scaleTypeList.sortedBy { it }.forEach { item ->
+                        DropdownMenuItem(onClick = {
+                            model.setScale(item)
+                            dropdownStateExpanded = false
+                        }) {
+                            Text(
+                                modifier = Modifier
+                                    .padding(vertical = Size.small()),
+                                text = item.toLowerCase(Locale.current).capitalize(Locale.current)
+                            )
                         }
                     }
                 }
-            )
+            }
+//            Spacer(modifier = Modifier.height(Size.small()))
+//            LazyColumn(
+//                modifier = Modifier.fillMaxWidth(),
+//                content = {
+//                    items(config.scaleTypeList.sortedBy { it }) { item ->
+//                        Card(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(Size.small())
+//                                .clickable { model.setScale(item) },
+//                            backgroundColor = if (item == config.scaleType) MaterialTheme.colors.primary else MaterialTheme.colors.secondary
+//                        ) {
+//                            Column(
+//                                modifier = Modifier.fillMaxWidth(),
+//                                horizontalAlignment = Alignment.CenterHorizontally
+//                            ) {
+//                                Text(
+//                                    modifier = Modifier
+//                                        .padding(vertical = Size.small()),
+//                                    text = item.toLowerCase(Locale.current).capitalize(Locale.current)
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
+//            )
         }
     }
 
@@ -460,25 +532,6 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
 //                color = MaterialTheme.colors.secondary
             )
             Spacer(modifier = Modifier.height(Size.small()))
-            if (state.config.isOwner) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Spacer(modifier = Modifier.weight(1f))
-                    VisibilityToggle(
-                        modifier = Modifier.height(40.dp),
-                        initialState = state.config.alwaysVisibleVote, onClick = {
-                            if (it)
-                                model.showVoteValues()
-                            else
-                                model.hideVoteValues()
-                        }
-                    )
-                }
-                Spacer(modifier = Modifier.height(Size.small()))
-            }
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
                 content = {
