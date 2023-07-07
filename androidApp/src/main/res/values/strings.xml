@@ -39,4 +39,5 @@
     <string name="label_average_vote">Average</string>
     <string name="label_lowest_vote">Lowest</string>
     <string name="label_highest_vote">Highest</string>
+    <string name="label_enter_room_name">Enter room name</string>
 </resources>

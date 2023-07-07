@@ -274,9 +274,9 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
 
         Column(
             modifier = Modifier
+                .animateContentSize()
                 .fillMaxWidth(.75f)
-                .padding(horizontal = Size.xSmall())
-                .animateContentSize(),
+                .padding(horizontal = Size.xSmall()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
