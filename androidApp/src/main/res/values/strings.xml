@@ -7,7 +7,7 @@
     <string name="label_hello">Hello, %s</string>
     <string name="label_save">Save</string>
     <string name="label_edit">Change username</string>
-    <string name="label_connect">Connect</string>
+    <string name="label_connect">Join room</string>
     <string name="label_join">Join room</string>
     <string name="label_disconnect">Disconnect</string>
     <string name="label_create">Create new room</string>
@@ -34,4 +34,9 @@
     <string name="label_room_url">Url</string>
     <string name="label_room_app_url">App link</string>
     <string name="label_room_web_url">Website</string>
+    <string name="label_users_voted">Casted votes</string>
+    <string name="label_users_in_room">Members</string>
+    <string name="label_average_vote">Average</string>
+    <string name="label_lowest_vote">Lowest</string>
+    <string name="label_highest_vote">Highest</string>
 </resources>
