@@ -4,6 +4,7 @@ import dev.luteoos.scrumbet.data.entity.MultiUrl
 
 data class RoomConfiguration(
     val url: MultiUrl,
+    val roomJoinCode: String,
     val isOwner: Boolean,
     val scale: List<String>,
     val scaleType: String,
