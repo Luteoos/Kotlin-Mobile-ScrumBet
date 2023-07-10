@@ -1,7 +1,6 @@
 package dev.luteoos.scrumbet.android.ui.main
 
 import BottomSheetDefaultLayout
-import CustomTextField
 import LoadingView
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,15 +17,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +43,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -168,20 +171,19 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                         }
                         toggleSheetVisibility()
                     },
-                    contentPadding = PaddingValues(Size.xSmall())
+                    contentPadding = PaddingValues(Size.xSmall()),
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onBackground)
                 ) {
                     Row(verticalAlignment = CenterVertically) {
                         Icon(
                             modifier = Modifier.size(Size.xRegular()),
                             painter = painterResource(id = com.google.android.material.R.drawable.material_ic_edit_black_24dp),
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.onBackground
+                            contentDescription = null
                         )
                         Text(
                             text = getString(R.string.label_edit),
-                            fontSize = TextSize.xSmall(),
-                            fontWeight = FontWeight.Light,
-                            color = MaterialTheme.colors.onBackground
+                            fontSize = TextSize.xxxSmall(),
+                            fontWeight = FontWeight.Light
                         )
                     }
                 }
@@ -193,7 +195,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                             MainScreenJoinSheet(onJoin = { roomId ->
                                 toggleSheetVisibility()
                                 model.setRoomId(roomId)
-                            })
+                            }, onUpdateContent = {
+                                    updateSheetContent(it)
+                                    toggleSheetVisibility()
+                                })
                         }
                         toggleSheetVisibility()
                     }
@@ -217,20 +222,21 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     private fun MainScreenUserEditSheet(username: String, onSave: (username: String) -> Unit) {
         var name by remember { mutableStateOf(username) }
         var isSaveEnabled by remember { mutableStateOf(true) }
+
         Column(
             Modifier.fillMaxWidth(),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
-            CustomTextField(
+            OutlinedTextField(
+                value = name,
                 modifier = Modifier.fillMaxWidth(),
-                initialValue = name,
                 singleLine = true,
                 onValueChange = {
                     name = it
                     isSaveEnabled = name.isNotBlank()
                 },
-                leadingIcon = {
+                label = {
                     Text(text = getString(R.string.label_name))
                 }
             )
@@ -249,70 +255,83 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
     }
 
     @Composable
-    private fun MainScreenJoinSheet(onJoin: (id: String) -> Unit) {
+    private fun MainScreenJoinQrCodeSheet(onJoin: (id: String) -> Unit) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var roomId by remember { mutableStateOf("") }
-            var isConnectEnabled by remember { mutableStateOf(false) }
             val cameraPermissionState = rememberPermissionState(
                 android.Manifest.permission.CAMERA
             )
+
+            SideEffect {
+                println("SideEffectMainFragmentJoinQR")
+                if (!cameraPermissionState.status.isGranted)
+                    cameraPermissionState.launchPermissionRequest()
+            }
+
+            if (cameraPermissionState.status.isGranted) {
+                val lifecycleOwner = LocalLifecycleOwner.current
+                AndroidView(modifier = Modifier.fillMaxHeight(.6f), factory = { context ->
+                    io.github.luteoos.qrx.QrXScanner(context).also {
+                        it.initialize(lifecycleOwner, { }, { })
+                        it.onBarcodeScannedListener = { list ->
+                            list.firstOrNull()?.let { barcode ->
+                                barcode.rawValue?.let { value ->
+                                    onJoin(value)
+                                }
+                            }
+                        }
+                        it.onPermission(cameraPermissionState.status.isGranted)
+                    }
+                })
+            } else {
+                Text(
+                    modifier = Modifier.fillMaxWidth(.75f),
+                    text = getString(R.string.label_grant_permission_camera)
+                )
+//                Button(
+//                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+//                    onClick = {
+//                        val intent: Intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                        with(intent) {
+//                            data = Uri.fromParts("package", context?.packageName, null)
+//                            addCategory(CATEGORY_DEFAULT)
+//                            addFlags(FLAG_ACTIVITY_SINGLE_TOP)
+//                            addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+//                            addFlags(FLAG_ACTIVITY_CLEAR_TASK)
+//                            addFlags(FLAG_ACTIVITY_NEW_TASK)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                ) {
+//                    Text(text = getString(R.string.label_grant_permission_camera))
+//                }
+            }
+        }
+    }
+
+    @Composable
+    private fun MainScreenJoinRoomNameSheet(onJoin: (id: String) -> Unit) {
+        Column() {
+            var roomId by remember { mutableStateOf("") }
+            var isConnectEnabled by remember { mutableStateOf(false) }
 
             LaunchedEffect(key1 = roomId, block = {
                 isConnectEnabled = roomId.isNotBlank()
             })
 
-            Text(
-                modifier = Modifier.padding(bottom = Size.large()),
-                text = getString(R.string.label_join_by),
-                fontSize = TextSize.regular()
-            )
-
-            Text(
-                modifier = Modifier.padding(bottom = Size.xSmall()),
-                text = getString(R.string.label_scan_qr_code), fontSize = TextSize.small()
-            )
-            if (cameraPermissionState.status.isGranted) {
-                val lifecycleOwner = LocalLifecycleOwner.current
-                AndroidView(modifier = Modifier.fillMaxHeight(.45f), factory = { context ->
-                    io.github.luteoos.qrx.QrXScanner(context).also {
-                        it.initialize(
-                            lifecycleOwner, { barcode ->
-                            barcode.rawValue?.let { value ->
-                                roomId = value
-                            }
-                        }, {
-                        }
-                        )
-                        it.onPermission(cameraPermissionState.status.isGranted)
-                    }
-                })
-            } else {
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                    onClick = {
-                        cameraPermissionState.launchPermissionRequest()
-                    }
-                ) {
-                    Text(text = getString(R.string.label_grant_permission_camera))
-                }
-            }
-            Text(
-                modifier = Modifier.padding(vertical = Size.regular()),
-                text = getString(R.string.divider_label_or)
-            )
-            CustomTextField(
-                modifier = Modifier.fillMaxWidth(),
-                initialValue = roomId,
+            OutlinedTextField(
+                value = roomId,
+                modifier = Modifier
+                    .fillMaxWidth(),
                 singleLine = true,
+                keyboardOptions = KeyboardOptions(autoCorrect = false, keyboardType = KeyboardType.NumberPassword),
                 onValueChange = {
                     roomId = it
                 },
-                leadingIcon = {
-                    Text(text = getString(R.string.label_room_name))
+                label = {
+                    Text(text = getString(R.string.label_room_code))
                 }
             )
             Spacer(modifier = Modifier.fillMaxHeight(.25f))
@@ -324,6 +343,44 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 }
             ) {
                 Text(text = getString(R.string.label_connect))
+            }
+        }
+    }
+
+    @Composable
+    private fun MainScreenJoinSheet(onJoin: (id: String) -> Unit, onUpdateContent: (@Composable () -> Unit) -> Unit) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = Size.regular(), horizontal = Size.regular()),
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Button(onClick = {
+                onUpdateContent {
+                    MainScreenJoinQrCodeSheet(onJoin = onJoin)
+                }
+            }) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = getString(R.string.label_scan_qr_code),
+                    textAlign = TextAlign.Center
+                )
+            }
+            Text(
+                modifier = Modifier.padding(vertical = Size.small()),
+                text = getString(R.string.divider_label_or)
+            )
+            Button(onClick = {
+                onUpdateContent {
+                    MainScreenJoinRoomNameSheet(onJoin = onJoin)
+                }
+            }) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = getString(R.string.label_enter_room_name),
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

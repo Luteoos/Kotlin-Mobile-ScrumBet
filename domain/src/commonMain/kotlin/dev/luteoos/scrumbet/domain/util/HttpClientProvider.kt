@@ -26,7 +26,10 @@ fun getHttpClient() = getPlatformHttpClient {
         contentConverter = KotlinxWebsocketSerializationConverter(Json)
     }
     install(ContentNegotiation){
-        json()
+        json(Json {
+            ignoreUnknownKeys = true
+            encodeDefaults = true
+        })
     }
     engine {
         threadsCount = 1

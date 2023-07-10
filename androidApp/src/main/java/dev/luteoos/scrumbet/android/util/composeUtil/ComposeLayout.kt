@@ -1,3 +1,5 @@
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -75,6 +77,7 @@ fun BottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Bool
         sheetContent = {
             Column(
                 Modifier
+                    .animateContentSize(animationSpec = tween(100))
                     .padding(Size.regular())
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = Size.minHeight())

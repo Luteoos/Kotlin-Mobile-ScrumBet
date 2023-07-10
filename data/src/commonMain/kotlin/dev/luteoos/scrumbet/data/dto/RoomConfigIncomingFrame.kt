@@ -10,6 +10,7 @@ data class RoomConfigIncomingFrame(
     val scaleType: String,
     @SerialName("scaleTypes")
     val scaleTypeList: List<String>,
+    val roomCode: String,
     val anonymousVote: Boolean,
     val alwaysVisibleVote: Boolean
 )
