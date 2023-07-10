@@ -47,6 +47,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -163,7 +164,8 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                             customSheetContent = {
                                                 RoomScreenShareSheet(
                                                     roomName,
-                                                    (state as? RoomUiState.Success)?.config?.url
+                                                    (state as? RoomUiState.Success)?.config?.url,
+                                                    (state as? RoomUiState.Success)?.config?.roomJoinCode
                                                 )
                                             }
                                             toggleSheetState()
@@ -595,13 +597,15 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     @Composable
-    private fun RoomScreenShareSheet(roomName: String?, url: MultiUrl?) {
+    private fun RoomScreenShareSheet(roomName: String?, url: MultiUrl?, roomCode: String?) {
         if (roomName == null || url == null)
             return
         val qrCode = remember { getQrCode(url.appSchema) }
+        val scrollState = rememberScrollState()
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .scrollable(scrollState, orientation = Orientation.Vertical),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
@@ -609,22 +613,40 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             Spacer(modifier = Modifier.height(Size.regular()))
             Image(modifier = Modifier.fillMaxWidth(0.75f), bitmap = qrCode, contentDescription = null, contentScale = ContentScale.FillWidth)
             Spacer(modifier = Modifier.height(Size.regular()))
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Size.small()),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                onClick = { copyToClipboard(roomName) }
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+            if (roomCode != null)
+                TextButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Size.small()),
+//                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                    onClick = { copyToClipboard(roomCode) }
                 ) {
-                    Text(text = getString(R.string.label_room_name))
-                    Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = getString(R.string.label_room_code),
+                            textAlign = TextAlign.Center,
+                            color = MaterialTheme.colors.onSurface
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = roomCode,
+                                textAlign = TextAlign.Center,
+                                fontSize = TextSize.large(),
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Monospace
+                            )
+//                            Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                        }
+                    }
                 }
-            }
             Button(
                 modifier = Modifier
                     .fillMaxWidth()

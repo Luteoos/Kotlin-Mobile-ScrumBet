@@ -2,15 +2,7 @@ package dev.luteoos.scrumbet.android.ui.main
 
 import BottomSheetDefaultLayout
 import LoadingView
-import android.content.Intent
-import android.content.Intent.CATEGORY_DEFAULT
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -50,6 +43,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -292,23 +286,27 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                     }
                 })
             } else {
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                    onClick = {
-                        val intent: Intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        with(intent) {
-                            data = Uri.fromParts("package", context?.packageName, null)
-                            addCategory(CATEGORY_DEFAULT)
-                            addFlags(FLAG_ACTIVITY_SINGLE_TOP)
-                            addFlags(FLAG_ACTIVITY_CLEAR_TOP)
-                            addFlags(FLAG_ACTIVITY_CLEAR_TASK)
-                            addFlags(FLAG_ACTIVITY_NEW_TASK)
-                        }
-                        startActivity(intent)
-                    }
-                ) {
-                    Text(text = getString(R.string.label_grant_permission_camera))
-                }
+                Text(
+                    modifier = Modifier.fillMaxWidth(.75f),
+                    text = getString(R.string.label_grant_permission_camera)
+                )
+//                Button(
+//                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+//                    onClick = {
+//                        val intent: Intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                        with(intent) {
+//                            data = Uri.fromParts("package", context?.packageName, null)
+//                            addCategory(CATEGORY_DEFAULT)
+//                            addFlags(FLAG_ACTIVITY_SINGLE_TOP)
+//                            addFlags(FLAG_ACTIVITY_CLEAR_TOP)
+//                            addFlags(FLAG_ACTIVITY_CLEAR_TASK)
+//                            addFlags(FLAG_ACTIVITY_NEW_TASK)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                ) {
+//                    Text(text = getString(R.string.label_grant_permission_camera))
+//                }
             }
         }
     }
@@ -328,11 +326,12 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 modifier = Modifier
                     .fillMaxWidth(),
                 singleLine = true,
+                keyboardOptions = KeyboardOptions(autoCorrect = false, keyboardType = KeyboardType.NumberPassword),
                 onValueChange = {
                     roomId = it
                 },
                 label = {
-                    Text(text = getString(R.string.label_room_name))
+                    Text(text = getString(R.string.label_room_code))
                 }
             )
             Spacer(modifier = Modifier.fillMaxHeight(.25f))

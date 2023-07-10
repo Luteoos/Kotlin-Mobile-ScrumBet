@@ -27,6 +27,7 @@ class RoomDataMapper {
     private fun toRoomConfiguration(frame: RoomConfigIncomingFrame, userId: Id, url: MultiUrl): RoomConfiguration {
         return RoomConfiguration(
             url,
+            frame.roomCode,
             frame.roomOwnerId == userId,
             frame.scaleList,
             frame.scaleType,
