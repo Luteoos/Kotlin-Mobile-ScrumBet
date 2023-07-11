@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EEBF92C82A435509003C21BA"
-               BuildableName = "macOs.app"
+               BuildableName = "ScrumBet-Azure.app"
                BlueprintName = "macOs"
                ReferencedContainer = "container:iosApp.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EEBF92C82A435509003C21BA"
-            BuildableName = "macOs.app"
+            BuildableName = "ScrumBet-Azure.app"
             BlueprintName = "macOs"
             ReferencedContainer = "container:iosApp.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EEBF92C82A435509003C21BA"
-            BuildableName = "macOs.app"
+            BuildableName = "ScrumBet-Azure.app"
             BlueprintName = "macOs"
             ReferencedContainer = "container:iosApp.xcodeproj">
          </BuildableReference>

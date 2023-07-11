@@ -23,7 +23,7 @@ class MockRoomControllerInterfrace: RoomControllerInterface {
 
     func getMockRoomData() -> RoomData {
         return RoomData(configuration:
-            RoomConfiguration(url: MultiUrl(base: "mockUrl.mock/mockRoomId"),"2137", isOwner: true, scale: ["1", "2", "3", "4", "5", "?"], scaleType: "MOCK1", scaleTypeList: ["MOCK1", "MOCK2"], voteEnded: false, anonymousVote: true, alwaysVisibleVote: true),
+            RoomConfiguration(url: MultiUrl(base: "mockUrl.mock/mockRoomId"),roomJoinCode: "2137", isOwner: true, scale: ["1", "2", "3", "4", "5", "?"], scaleType: "MOCK1", scaleTypeList: ["MOCK1", "MOCK2"], voteEnded: false, anonymousVote: true, alwaysVisibleVote: true),
             voteList: [RoomUser(userId: "mockUserId1", username: "mockUser1", isOwner: true, vote: nil), RoomUser(userId: "mockUserId2", username: "mockUser2", isOwner: false, vote: "2")])
     }
 
