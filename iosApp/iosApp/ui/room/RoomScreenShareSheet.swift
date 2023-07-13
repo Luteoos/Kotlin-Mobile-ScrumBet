@@ -12,6 +12,8 @@ import SwiftUI
 
 struct RoomScreenShareSheet: View {
     var url: MultiUrl
+    var roomCode: String
+    
     var body: some View {
         VStack(spacing: 16) {
             Text("share")
@@ -28,22 +30,24 @@ struct RoomScreenShareSheet: View {
             .frame(width: 300, height: 300)
 
         Spacer()
-
+        
         Button {
-            UIPasteboard.general.string = url.appSchema.split(separator: "/").last?.description
+            UIPasteboard.general.string = roomCode
         } label: {
-            HStack {
-                Spacer()
-                Text("room_name")
-                Spacer()
-                Image(systemName: "doc.on.doc")
-                    .scaledToFit()
+            VStack {
+                Text("room_code")
+                    .tint(Color.secondaryColor)
+                Text(roomCode)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .tint(Color.primaryColor)
             }.frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 16)
-        .tint(Color.secondaryColor)
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.borderless)
 
+        Spacer()
+        
         Button {
             UIPasteboard.general.string = url.appSchema
         } label: {
@@ -94,7 +98,7 @@ struct RoomScreenShareSheet: View {
 struct RoomScreenShareSheet_Previews: PreviewProvider {
     static var previews: some View {
         HalfSheet {
-            RoomScreenShareSheet(url: MultiUrl(base: "placeholder/placeholderPath"))
+            RoomScreenShareSheet(url: MultiUrl(base: "placeholder/placeholderPath"), roomCode: "2137")
         }
     }
 }

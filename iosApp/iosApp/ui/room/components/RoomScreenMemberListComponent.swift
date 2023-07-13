@@ -17,21 +17,6 @@ struct RoomScreenMemberListComponent: View {
             VStack {
                 Text("member_list")
                     .font(.headline)
-                if data.configuration.isOwner {
-                    HStack {
-                        Spacer()
-                        Picker("", selection: $isShowingVotes) {
-                            Text("show").tag(true)
-                            Text("hide").tag(false)
-                        }
-                        .pickerStyle(.segmented)
-                        .frame(maxWidth: 150)
-                        .padding(.horizontal, 32)
-                        .onChange(of: isShowingVotes, perform: { showVote in
-                            object.showVoteVisibility(showVote)
-                        })
-                    }
-                }
                 ScrollView {
                     LazyVStack {
                         ForEach(data.voteList.sorted(by: { $0.isOwner && !$1.isOwner }), id: \.userId) { user in
@@ -67,6 +52,11 @@ struct RoomScreenMemberListComponent: View {
                     }
                 }
             }
+            .onReceive(object.$state, perform: { state in
+                if case let .Success(data) = state {
+                    isShowingVotes = data.configuration.alwaysVisibleVote
+                }
+            })
             .padding(.vertical, 16)
         }
     }

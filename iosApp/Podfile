@@ -1,4 +1,4 @@
-target 'ScrumBet' do
+target 'iOS' do
   use_frameworks!
   platform :ios, '14.1'
   pod 'core', :path => '../core'
@@ -8,7 +8,7 @@ target 'ScrumBet' do
   pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.7' # rework resource bundling
 end
 
-target 'ScrumBetMacOs' do
+target 'macOs' do
   use_frameworks!
 #  platform :ios, '14.1'
   platform :macos, '13.3'

@@ -1,0 +1,6 @@
+framework module Pods_macOs {
+  umbrella header "Pods-macOs-umbrella.h"
+
+  export *
+  module * { export * }
+}

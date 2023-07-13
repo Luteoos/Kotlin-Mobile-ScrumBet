@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_ScrumBetMacOsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_ScrumBetMacOsVersionString[];
+FOUNDATION_EXPORT double Pods_macOsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_macOsVersionString[];
 

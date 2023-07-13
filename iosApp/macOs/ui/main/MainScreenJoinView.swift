@@ -20,8 +20,7 @@ struct MainScreenJoinView: View {
                 .font(.headline)
             Spacer()
             HStack {
-                Text("room_name")
-                TextField("room_name", text: $roomId)
+                TextField("room_code", text: $roomId)
             }
             Spacer()
             HStack {

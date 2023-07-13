@@ -13,35 +13,47 @@ struct RoomScreenSuccessView: View {
     @ObservedObject var object: RoomScreenObject
 
     @State var currentStyle = ""
+    @State private var isSettingsVisible = false
 
     var body: some View {
         VStack {
             if case let .Success(data) = object.state {
                 HStack {
+                    if(isSettingsVisible){
+                        VStack{
+                            RoomSettingsSheet(object: object)
+                        }.frame(width: 200)
+                    }
                     VStack {
                         let votes = data.voteList.filter { user in
                             user.vote != nil
                         }
-                        let isAnyVoteNull = data.voteList.first { user in
-                            user.vote == nil
-                        } != nil
-                        HStack {
-                            Text("\(votes.count)/\(data.voteList.count)")
-                                .font(.caption2)
-                        }
-                        Text(getVoteCounter(votes))
-                            .font(.title)
-                            .if(isAnyVoteNull) { view in
-                                view.hidden()
-                            }
-                        if data.configuration.isOwner {
-                            Picker("choose_style", selection: $currentStyle) {
-                                ForEach(data.configuration.scaleTypeList, id: \.self) {
-                                    Text($0.localizedCapitalized).tag($0)
+                        HStack(alignment: .center){
+                            Button{
+                                withAnimation {
+                                    isSettingsVisible.toggle()
                                 }
+                            } label: {
+                                Text("room_settings_label")
                             }
-                            .frame(width: 220)
+                            .buttonStyle(.borderless)
                         }
+                        
+                        Divider()
+                        
+                        HStack(spacing: 8) {
+                            VStack(alignment: .leading){
+                                Text("room_members")
+                                Text("casted_votes")
+                            }
+                            VStack{
+                                Text("\(data.voteList.count)")
+                                    .fontWeight(.bold)
+                                Text("\(votes.count)")
+                                    .fontWeight(.bold)
+                            }
+                        }
+                        
                         if data.configuration.isOwner {
                             Button {
                                 object.reset()
@@ -52,8 +64,40 @@ struct RoomScreenSuccessView: View {
                             .buttonStyle(.bordered)
                             .tint(Color.secondaryColor)
                         }
-                        Divider()
-                        RoomScreenKeyboardComponent(object: object)
+                        
+                        if(votes.count == data.voteList.count){
+                            ScrollView{
+                                VStack{
+                                    Text(getVoteAverage(votes))
+                                        .font(.largeTitle)
+                                        .fontWeight(.bold)
+                                    Text("average")
+                                        .font(.caption)
+                                    HStack{
+                                        VStack{
+                                            Text(data.voteList.min(by: { first, second in
+                                                return Int(first.vote ?? "") ?? 0 < Int(second.vote ?? "") ?? 0
+                                            })?.vote ?? " ")
+                                                .font(.title)
+                                                .foregroundColor(Color.red)
+                                            Text("min")
+                                                .font(.caption)
+                                        }
+                                        VStack{
+                                            Text(data.voteList.max(by: { first, second in
+                                                return Int(first.vote ?? "") ?? 0 < Int(second.vote ?? "") ?? 0
+                                            })?.vote ?? " ")
+                                                .font(.title)
+                                                .foregroundColor(Color.green)
+                                            Text("max")
+                                                .font(.caption)
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            RoomScreenKeyboardComponent(object: object)
+                        }
                     }
                     .padding(.all, 32)
                     .onChange(of: currentStyle) { scaleStyle in
@@ -68,14 +112,14 @@ struct RoomScreenSuccessView: View {
                     VStack {
                         RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
                     }
-                    .frame(minWidth: 400)
+                    .frame(minWidth: 500, minHeight: 300)
                 }
                 .padding(.all, 16)
             }
         }
     }
 
-    func getVoteCounter(_ votes: [RoomUser]) -> String {
+    func getVoteAverage(_ votes: [RoomUser]) -> String {
         let list = votes
             .map { user in
                 Int(user.vote ?? "?") ?? nil

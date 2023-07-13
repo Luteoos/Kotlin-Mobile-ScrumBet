@@ -30,7 +30,8 @@ struct MainScreenView: View {
                 } label: {
                     HStack {
                         Image(systemName: "pencil")
-                        Text("edit")
+                        Text("edit_username")
+                            .font(.footnote)
                     }
                 }
                 .buttonStyle(.borderless)
@@ -74,6 +75,7 @@ struct MainScreenView: View {
                         isVisible: $isEditNameSheetVisible
                     )
                 }
+                .presentationDragIndicator(.visible)
             })
             .sheet(isPresented: $isJoinSheetVisible, content: {
                 HalfSheet {
@@ -81,6 +83,7 @@ struct MainScreenView: View {
                         object.setRoomId(id: roomId)
                     }, isVisible: $isJoinSheetVisible)
                 }
+                .presentationDragIndicator(.visible)
             })
         }
     }
