@@ -13,51 +13,68 @@ struct MainScreenJoinSheet: View {
     let joinRoom: (String) -> Void
     @Binding var isVisible: Bool
     @State var roomName = ""
+    @State var uiState = JoinSheetUiState.Default
 
     var body: some View {
         VStack(spacing: 8) {
-            Text("join")
-                .font(.headline)
-
-            VStack {
-                Text("scan_qr_code")
+            switch uiState {
+            case .Default:
+                Button {
+                    uiState = .QR
+                } label: {
+                    Text("scan_qr_code")
+                        .frame(width: 300)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color.primaryColor)
+                
+                Text("or")
                     .font(.subheadline)
-                CodeScannerView(codeTypes: [.qr], scanMode: .manual, simulatedData: "simulatorPlaceholder") { result in
+                
+                Button{
+                    uiState = .NumericCode
+                } label: {
+                    Text("enter_room_code")
+                        .frame(width: 300)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color.primaryColor)
+            case .QR:
+                CodeScannerView(codeTypes: [.qr], scanMode: .continuous, simulatedData: "simulatorPlaceholder") { result in
                     switch result {
                     case let .success(result):
-                        roomName = result.string
+                        joinRoom(result.string)
+                        isVisible.toggle()
                     case let .failure(error):
                         print(error)
                     }
                 }
-            }
-            .frame(maxHeight: 400)
-            Text("or")
-                .font(.subheadline)
-            HStack {
-                Text("room_name")
-                TextField("room_name", text: $roomName)
-                    .textFieldStyle(.roundedBorder)
-                    .textInputAutocapitalization(.never)
-            }
-            .padding(.horizontal, 16)
+            case .NumericCode:
+                HStack {
+                    TextField("room_code", text: $roomName)
+                        .textFieldStyle(.roundedBorder)
+                        .keyboardType(.numberPad)
+                        .textInputAutocapitalization(.never)
+                }
+                .padding(.horizontal, 16)
 
-            Spacer()
+                Spacer()
 
-            Button {
-                joinRoom(roomName)
-                isVisible.toggle()
-            } label: {
-                Text("join")
-                    .frame(maxWidth: .infinity)
+                Button {
+                    joinRoom(roomName)
+                    isVisible.toggle()
+                } label: {
+                    Text("join")
+                        .frame(maxWidth: .infinity)
+                }
+                .disabled(roomName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .padding(.horizontal, 16)
+                .buttonStyle(.borderedProminent)
+                .tint(Color.secondaryColor)
             }
-            .disabled(roomName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-            .padding(.horizontal, 16)
-            .buttonStyle(.borderedProminent)
-            .tint(Color.secondaryColor)
         }
+        .flexFrame()
         .padding(.vertical, 16)
-        .background(Color.surfaceColor)
     }
 }
 

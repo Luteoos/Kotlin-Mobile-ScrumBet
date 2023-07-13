@@ -1,4 +1,4 @@
-${PODS_ROOT}/Target Support Files/Pods-ScrumBet/Pods-ScrumBet-frameworks.sh
+${PODS_ROOT}/Target Support Files/Pods-iOS/Pods-iOS-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/CodeScanner/CodeScanner.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreExtension/FirebaseCoreExtension.framework

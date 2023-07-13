@@ -22,6 +22,17 @@ extension View {
             RoundedRectangle(cornerRadius: cornerRadius)
         }
     }
+    
+    @ViewBuilder
+    func flexFrame(_ alignment: Alignment = .center) -> some View{
+        frame(
+              minWidth: 0,
+              maxWidth: .infinity,
+              minHeight: 0,
+              maxHeight: .infinity,
+              alignment: alignment
+            )
+    }
 
     #if os(iOS)
         @ViewBuilder

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct RoomScreenShareSheet: View {
     var url: MultiUrl
+    var roomCode: String
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -24,6 +25,24 @@ struct RoomScreenShareSheet: View {
                 .interpolation(.none)
                 .frame(width: 200, height: 200)
                 .scaledToFit()
+            Spacer()
+            Button {
+                let pasteboard = NSPasteboard.general
+                pasteboard.declareTypes([.string], owner: nil)
+                pasteboard.setString(roomCode, forType: .string)
+            } label: {
+                VStack {
+                    Text("room_code")
+                    Text(roomCode)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .tint(Color.primaryColor)
+                }
+                .flexFrame()
+            }
+            .padding(.horizontal, 16)
+            .buttonStyle(.borderless)
+            .tint(Color.primaryColor)
             Spacer()
             Button {
                 let pasteboard = NSPasteboard.general
@@ -55,7 +74,7 @@ struct RoomScreenShareSheet: View {
             .buttonStyle(.borderedProminent)
             .tint(Color.secondaryColor)
         }
-        .frame(width: 250, height: 350)
+        .frame(width: 250, height: 500)
     }
 
     func generateQRCode(from string: String) -> NSImage {
@@ -76,6 +95,6 @@ struct RoomScreenShareSheet: View {
 
 struct RoomScreenShareSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RoomScreenShareSheet(url: MultiUrl(base: "placeholder/placeholderRoom"))
+        RoomScreenShareSheet(url: MultiUrl(base: "placeholder/placeholderRoom"), roomCode: "2137")
     }
 }

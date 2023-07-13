@@ -58,7 +58,7 @@ struct RoomScreenView: View {
         #endif
                 .sheet(isPresented: $isShareSheetVisible, content: {
                     if let url = getUrl() {
-                        RoomScreenShareSheet(url: url)
+                        RoomScreenShareSheet(url: url, roomCode: getRoomCode())
                     } else {
                         EmptyView()
                     }
@@ -66,12 +66,16 @@ struct RoomScreenView: View {
                 .onAppear {
                     object.setAuthController(controller: authController)
                     object.connect()
+                    #if os(iOS)
                     UIApplication.shared.isIdleTimerDisabled = true
+                    #endif
                 }
                 .onDisappear {
                     print("RoomScreen onDisappear")
                     object.disconnect() // questionable
+                    #if os(iOS)
                     UIApplication.shared.isIdleTimerDisabled = false
+                    #endif
                 }
                 .onReceive(object.$state) { state in
                     switch state {
@@ -98,6 +102,15 @@ struct RoomScreenView: View {
             return data.configuration.url
         default:
             return nil
+        }
+    }
+    
+    func getRoomCode() -> String{
+        switch object.state {
+        case let .Success(data):
+            return data.configuration.roomJoinCode
+        default:
+            return ""
         }
     }
 }
