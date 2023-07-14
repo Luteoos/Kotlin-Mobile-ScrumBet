@@ -37,35 +37,7 @@ struct RoomScreenSuccessView: View {
                     }
                 }
                 if(isVoteResultVisible){
-                    ScrollView{
-                        VStack{
-                            Text(getVoteAverage(votes))
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            Text("average")
-                                .font(.caption)
-                            HStack{
-                                VStack{
-                                    Text(data.voteList.min(by: { first, second in
-                                        return Int(first.vote ?? "") ?? 0 < Int(second.vote ?? "") ?? 0
-                                    })?.vote ?? " ")
-                                        .font(.title)
-                                        .foregroundColor(Color.red)
-                                    Text("min")
-                                        .font(.caption)
-                                }
-                                VStack{
-                                    Text(data.voteList.max(by: { first, second in
-                                        return Int(first.vote ?? "") ?? 0 < Int(second.vote ?? "") ?? 0
-                                    })?.vote ?? " ")
-                                        .font(.title)
-                                        .foregroundColor(Color.green)
-                                    Text("max")
-                                        .font(.caption)
-                                }
-                            }
-                        }
-                    }
+                    RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale)
                 } else {
                     RoomScreenKeyboardComponent(object: object)
                 }
@@ -116,21 +88,6 @@ struct RoomScreenSuccessView: View {
                 }
             }
             .tint(Color.primaryColor)
-        }
-    }
-
-    func getVoteAverage(_ votes: [RoomUser]) -> String {
-        let list = votes
-            .map { user in
-                Int(user.vote ?? "?") ?? nil
-            }
-            .filter { int in
-                int != nil
-            }
-        if list.count != 0 {
-            return "\(list.compactMap { $0 }.reduce(0, +) / list.count)"
-        } else {
-            return " "
         }
     }
 }

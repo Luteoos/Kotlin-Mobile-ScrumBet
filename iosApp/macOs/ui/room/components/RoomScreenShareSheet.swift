@@ -66,7 +66,7 @@ struct RoomScreenShareSheet: View {
             } label: {
                 HStack {
                     Spacer()
-                    Text("close")
+                    Text("dismiss")
                     Spacer()
                 }.frame(maxWidth: .infinity)
             }

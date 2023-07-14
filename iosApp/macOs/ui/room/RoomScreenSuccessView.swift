@@ -19,28 +19,11 @@ struct RoomScreenSuccessView: View {
         VStack {
             if case let .Success(data) = object.state {
                 HStack {
-                    if(isSettingsVisible){
-                        VStack{
-                            RoomSettingsSheet(object: object)
-                        }.frame(width: 200)
+                    let votes = data.voteList.filter { user in
+                        user.vote != nil
                     }
+                    
                     VStack {
-                        let votes = data.voteList.filter { user in
-                            user.vote != nil
-                        }
-                        HStack(alignment: .center){
-                            Button{
-                                withAnimation {
-                                    isSettingsVisible.toggle()
-                                }
-                            } label: {
-                                Text("room_settings_label")
-                            }
-                            .buttonStyle(.borderless)
-                        }
-                        
-                        Divider()
-                        
                         HStack(spacing: 8) {
                             VStack(alignment: .leading){
                                 Text("room_members")
@@ -64,40 +47,7 @@ struct RoomScreenSuccessView: View {
                             .buttonStyle(.bordered)
                             .tint(Color.secondaryColor)
                         }
-                        
-                        if(votes.count == data.voteList.count){
-                            ScrollView{
-                                VStack{
-                                    Text(getVoteAverage(votes))
-                                        .font(.largeTitle)
-                                        .fontWeight(.bold)
-                                    Text("average")
-                                        .font(.caption)
-                                    HStack{
-                                        VStack{
-                                            Text(data.voteList.min(by: { first, second in
-                                                return Int(first.vote ?? "") ?? 0 < Int(second.vote ?? "") ?? 0
-                                            })?.vote ?? " ")
-                                                .font(.title)
-                                                .foregroundColor(Color.red)
-                                            Text("min")
-                                                .font(.caption)
-                                        }
-                                        VStack{
-                                            Text(data.voteList.max(by: { first, second in
-                                                return Int(first.vote ?? "") ?? 0 < Int(second.vote ?? "") ?? 0
-                                            })?.vote ?? " ")
-                                                .font(.title)
-                                                .foregroundColor(Color.green)
-                                            Text("max")
-                                                .font(.caption)
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            RoomScreenKeyboardComponent(object: object)
-                        }
+                        RoomScreenKeyboardComponent(object: object)
                     }
                     .padding(.all, 32)
                     .onChange(of: currentStyle) { scaleStyle in
@@ -109,12 +59,39 @@ struct RoomScreenSuccessView: View {
                         }
                     })
                     Divider()
+                    VStack{
+                        RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale)
+                    }
+                    .frame(minWidth: 300)
+                    Divider()
                     VStack {
                         RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
                     }
-                    .frame(minWidth: 500, minHeight: 300)
+                    .frame(minWidth: 180, minHeight: 500)
                 }
+                .sheet(isPresented: $isSettingsVisible, content: {
+                    VStack{
+                        RoomSettingsSheet(object: object)
+                        Divider()
+                        Button("dismiss") {
+                            isSettingsVisible.toggle()
+                        }
+                    }
+                    .padding(8)
+                })
                 .padding(.all, 16)
+                .toolbar {
+                    if case let .Success(data) = object.state{
+                        ToolbarItem(placement: .secondaryAction) {
+                            Button {
+                                isSettingsVisible.toggle()
+                            } label: {
+                                Image(systemName: "gear")
+                            }
+                            .disabled(!data.configuration.isOwner)
+                        }
+                    }
+                }
             }
         }
     }

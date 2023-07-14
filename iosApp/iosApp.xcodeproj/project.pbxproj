@@ -23,6 +23,8 @@
 		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
 		EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAC29F71FCB00EF634A /* MockController.swift */; };
 		EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
+		EE73F0972A61653C00E2814F /* RoomScreenVoteResultComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73F0962A61653C00E2814F /* RoomScreenVoteResultComponent.swift */; };
+		EE73F0982A61653C00E2814F /* RoomScreenVoteResultComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73F0962A61653C00E2814F /* RoomScreenVoteResultComponent.swift */; };
 		EEB2E0A32A44EC130022EBE8 /* RoomScreenShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */; };
 		EEB2E0A62A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */; };
 		EEB2E0A72A44F1B00022EBE8 /* RoomScreenKeyboardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */; };
@@ -104,6 +106,7 @@
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EE50EBAC29F71FCB00EF634A /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
 		EE50EBAE29FD643A00EF634A /* KStateSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KStateSwift.swift; sourceTree = "<group>"; };
+		EE73F0962A61653C00E2814F /* RoomScreenVoteResultComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenVoteResultComponent.swift; sourceTree = "<group>"; };
 		EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenShareSheet.swift; sourceTree = "<group>"; };
 		EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenKeyboardComponent.swift; sourceTree = "<group>"; };
 		EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenMemberListComponent.swift; sourceTree = "<group>"; };
@@ -297,18 +300,28 @@
 		EE43639C2A447FFF00242F03 /* room */ = {
 			isa = PBXGroup;
 			children = (
+				EE73F09A2A6166D200E2814F /* components */,
 				EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */,
-				EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */,
 			);
 			path = room;
+			sourceTree = "<group>";
+		};
+		EE73F09A2A6166D200E2814F /* components */ = {
+			isa = PBXGroup;
+			children = (
+				EEB2E0A22A44EC130022EBE8 /* RoomScreenShareSheet.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 		EEB2E0A42A44F1950022EBE8 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */,
 				EEB2E0A52A44F1AD0022EBE8 /* RoomScreenKeyboardComponent.swift */,
 				EEB2E0A82A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift */,
 				EEB2E0BA2A6040740022EBE8 /* RoomSettingsSheet.swift */,
+				EE73F0962A61653C00E2814F /* RoomScreenVoteResultComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -329,7 +342,6 @@
 				EEB2E0A42A44F1950022EBE8 /* components */,
 				EEBF929E2A38C764003C21BA /* RoomScreenView.swift */,
 				EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */,
-				EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */,
 				EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */,
 			);
 			path = room;
@@ -672,6 +684,7 @@
 				EEBF92A22A38D563003C21BA /* MockUserController.swift in Sources */,
 				EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */,
 				EEB2E0A92A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */,
+				EE73F0972A61653C00E2814F /* RoomScreenVoteResultComponent.swift in Sources */,
 				EEECF17D29E6179B00989C31 /* ViewExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -681,6 +694,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBF92DF2A435FF2003C21BA /* MockController.swift in Sources */,
+				EE73F0982A61653C00E2814F /* RoomScreenVoteResultComponent.swift in Sources */,
 				EEBF92E22A435FF2003C21BA /* MockAuthControllerInterface.swift in Sources */,
 				EEBF92DD2A435F10003C21BA /* KStateSwift.swift in Sources */,
 				EEB2E0AA2A44F2D40022EBE8 /* RoomScreenMemberListComponent.swift in Sources */,

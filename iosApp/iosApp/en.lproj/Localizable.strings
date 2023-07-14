@@ -33,3 +33,4 @@
 "vote_visible_label" = "Visible casted votes";
 "vote_style_label" = "Vote palette";
 "room_settings_label" = "Room settings";
+"dismiss" = "Dismiss";
