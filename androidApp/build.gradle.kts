@@ -25,8 +25,8 @@ android {
         applicationId = "dev.luteoos.scrumbet"
         minSdk = 28
         targetSdk = 33
-        versionCode = 6
-        versionName = "0.2.0"
+        versionCode = 7
+        versionName = "0.2.1"
     }
     buildFeatures {
         compose = true
@@ -105,4 +105,6 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.7.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation(Dependencies.materialThemeAdapter)
+
+    implementation("com.github.tehras:charts:0.2.4-alpha")
 }
