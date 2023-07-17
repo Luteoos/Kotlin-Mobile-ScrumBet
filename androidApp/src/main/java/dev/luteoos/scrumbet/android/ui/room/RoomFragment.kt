@@ -1,12 +1,10 @@
 package dev.luteoos.scrumbet.android.ui.room
 
-import BottomSheetDefaultLayout
+import ModalBottomSheetDefaultLayout
 import LoadingView
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
@@ -32,25 +30,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Switch
-import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -58,6 +37,27 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ShapeDefaults
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -73,7 +73,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontFamily
@@ -93,15 +92,13 @@ import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
 import com.github.tehras.charts.bar.renderer.xaxis.SimpleXAxisDrawer
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 import com.github.tehras.charts.piechart.animation.simpleChartAnimation
-import com.google.accompanist.themeadapter.material.MdcTheme
+import com.google.accompanist.themeadapter.material3.Mdc3Theme
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseComposeFragment
-import dev.luteoos.scrumbet.android.core.BaseFragment
-import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
 import dev.luteoos.scrumbet.android.util.IntegerLabelFormatter
 import dev.luteoos.scrumbet.android.util.composeUtil.KeepAlive
@@ -112,6 +109,7 @@ import dev.luteoos.scrumbet.data.entity.MultiUrl
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
     override fun initObservers() {
         model.uiState.observe(this) {
@@ -126,7 +124,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
     }
 
     @Composable
-    override fun ComposeLayout(){
+    override fun ComposeLayout() {
         val state by model.uiState.observeAsState(RoomUiState.Loading)
         var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
 
@@ -140,15 +138,15 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             else -> null
         }
 
-        BottomSheetDefaultLayout(
+        ModalBottomSheetDefaultLayout(
             model,
             sheetContent = customSheetContent
         ) { toggleSheetState ->
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
-                    TopAppBar(
-                        backgroundColor = MaterialTheme.colors.background,
+                    CenterAlignedTopAppBar(
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.background),
                         title = {
                             Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
                         },
@@ -246,6 +244,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                     val buttonModifier = Modifier
                         .aspectRatio(1f)
                         .fillMaxWidth()
+                    val shape = ShapeDefaults.Large
                     state.config.scale.forEach { value ->
                         item {
                             val onClick = {
@@ -256,13 +255,16 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                                 Button(
                                     modifier = buttonModifier,
                                     onClick = onClick,
+                                    shape = shape
 //                                    colors = ButtonDefaults.buttonColors(
-//                                        backgroundColor = if(value == "?") MaterialTheme.colors.secondary else MaterialTheme.colors.primary)
+//                                        backgroundColor = if(value == "?") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary)
                                 ) {
                                     Text(text = value)
                                 }
                             else
-                                OutlinedButton(modifier = buttonModifier, onClick = onClick) {
+                                OutlinedButton(modifier = buttonModifier,
+                                    onClick = onClick,
+                                    shape = shape) {
                                     Text(text = value)
                                 }
                         }
@@ -317,7 +319,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                             fontSize = TextSize.huge(),
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.ExtraBold,
-                            color = MaterialTheme.colors.primaryVariant
+                            color = MaterialTheme.colorScheme.primaryContainer
                         )
                         Text(
                             text = getString(R.string.label_average_vote),
@@ -358,7 +360,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                         }
                     }
                     val chartData = scale.map { voteValue ->
-                        BarChartData.Bar(list.count { it.vote == voteValue }.toFloat(), MaterialTheme.colors.primary, voteValue)
+                        BarChartData.Bar(list.count { it.vote == voteValue }.toFloat(), MaterialTheme.colorScheme.primary, voteValue)
                     }
                     Column {
                         val formatter = remember {
@@ -371,16 +373,16 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                                 .padding(bottom = Size.large(), top = Size.regular()),
                             barChartData = BarChartData(chartData),
                             animation = simpleChartAnimation(),
-                            xAxisDrawer = SimpleXAxisDrawer(axisLineColor = MaterialTheme.colors.onSurface),
+                            xAxisDrawer = SimpleXAxisDrawer(axisLineColor = MaterialTheme.colorScheme.onSurface),
                             yAxisDrawer = SimpleYAxisDrawer(
-                                labelTextColor = MaterialTheme.colors.onBackground,
+                                labelTextColor = MaterialTheme.colorScheme.onBackground,
                                 labelRatio = 10,
                                 labelValueFormatter = {
                                     formatter.format(it)
                                 },
-                                axisLineColor = MaterialTheme.colors.onSurface
+                                axisLineColor = MaterialTheme.colorScheme.onSurface
                             ),
-                            labelDrawer = SimpleValueDrawer(SimpleValueDrawer.DrawLocation.XAxis, labelTextColor = MaterialTheme.colors.onBackground)
+                            labelDrawer = SimpleValueDrawer(SimpleValueDrawer.DrawLocation.XAxis, labelTextColor = MaterialTheme.colorScheme.onBackground)
                         )
                     }
                 }
@@ -431,7 +433,6 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
         }
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     @Composable
     private fun RoomScreenSettingsSheet() {
         val modelState by model.uiState.observeAsState()
@@ -456,8 +457,8 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                 Switch(
                     checked = config.alwaysVisibleVote,
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colors.primary,
-                        uncheckedThumbColor = MaterialTheme.colors.secondary
+                        checkedThumbColor = MaterialTheme.colorScheme.primary,
+                        uncheckedThumbColor = MaterialTheme.colorScheme.secondary
                     ),
                     onCheckedChange = {
                         if (it)
@@ -488,11 +489,12 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                             expanded = dropdownStateExpanded
                         )
                     },
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                        focusedLabelColor = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
-                        focusedBorderColor = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled),
-                        focusedTrailingIconColor = MaterialTheme.colors.onSurface.copy(alpha = TextFieldDefaults.IconOpacity)
-                    )
+//                    TODO update colors https://developer.android.com/jetpack/compose/designsystems/material2-material3#emphasis-and
+//                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+//                        focusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+//                        focusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+//                        focusedTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity)
+//                    )
                 )
                 ExposedDropdownMenu(
                     expanded = dropdownStateExpanded,
@@ -501,16 +503,18 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                     }
                 ) {
                     config.scaleTypeList.sortedBy { it }.forEach { item ->
-                        DropdownMenuItem(onClick = {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(vertical = Size.small()),
+                                    text = item.toLowerCase(Locale.current).capitalize(Locale.current)
+                                )
+                            },
+                            onClick = {
                             model.setScale(item)
                             dropdownStateExpanded = false
-                        }) {
-                            Text(
-                                modifier = Modifier
-                                    .padding(vertical = Size.small()),
-                                text = item.toLowerCase(Locale.current).capitalize(Locale.current)
-                            )
-                        }
+                        })
                     }
                 }
             }
@@ -524,7 +528,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 //                                .fillMaxWidth()
 //                                .padding(Size.small())
 //                                .clickable { model.setScale(item) },
-//                            backgroundColor = if (item == config.scaleType) MaterialTheme.colors.primary else MaterialTheme.colors.secondary
+//                            backgroundColor = if (item == config.scaleType) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
 //                        ) {
 //                            Column(
 //                                modifier = Modifier.fillMaxWidth(),
@@ -557,7 +561,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             Text(
                 text = getString(R.string.label_member_list),
                 fontSize = TextSize.xSmall(),
-//                color = MaterialTheme.colors.secondary
+//                color = MaterialTheme.colorScheme.secondary
             )
             Spacer(modifier = Modifier.height(Size.small()))
             LazyColumn(
@@ -589,15 +593,16 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                 )
             Spacer(modifier = Modifier.weight(1f))
             val sizeModifier = Modifier.size(Size.xLarge())
+            val shape = ShapeDefaults.Large
             if (user.vote != null)
-                Button(modifier = sizeModifier, contentPadding = PaddingValues(0.dp), onClick = {}) {
+                Button(modifier = sizeModifier,shape = shape, contentPadding = PaddingValues(0.dp), onClick = {}) {
                     if (isVoteVisible)
                         Text(text = user.vote!!, fontSize = TextSize.xSmall())
                     else
-                        Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colors.onPrimary)
+                        Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                 }
             else
-                OutlinedButton(modifier = sizeModifier, onClick = {}) {
+                OutlinedButton(modifier = sizeModifier, shape = shape, onClick = {}) {
                     Text(text = " ", fontSize = TextSize.xSmall())
                 }
         }
@@ -645,7 +650,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(Size.small()),
-//                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+//                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colorScheme.secondary),
                     onClick = { copyToClipboard(roomCode) }
                 ) {
                     Column(
@@ -655,7 +660,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                         Text(
                             text = getString(R.string.label_room_code),
                             textAlign = TextAlign.Center,
-                            color = MaterialTheme.colors.onSurface
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -678,7 +683,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(Size.small()),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 onClick = { copyToClipboard(url.appSchema) }
             ) {
                 Row(
@@ -695,7 +700,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(Size.small()),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 onClick = { copyToClipboard(url.httpSchema) }
             ) {
                 Row(
@@ -733,7 +738,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 @Preview(widthDp = 320, heightDp = 320)
 @Composable
 fun VoteResultUi_Preview() {
-    MdcTheme() {
+    Mdc3Theme() {
         RoomFragment().VoteResultUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")), scale = listOf("1", "2", "?"))
     }
 }

@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,14 +37,14 @@ fun VisibilityToggle(modifier: Modifier = Modifier.height(IntrinsicSize.Min), in
     Row(
         modifier = modifier
             .padding(0.dp)
-            .background(MaterialTheme.colors.surface, shape),
+            .background(MaterialTheme.colorScheme.surface, shape),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         TextButton(
             modifier =
             defaultModifier,
-            colors = if (isVisible) ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onPrimary, backgroundColor = MaterialTheme.colors.primary) else ButtonDefaults.textButtonColors(),
+            colors = if (isVisible) ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary, containerColor = MaterialTheme.colorScheme.primary) else ButtonDefaults.textButtonColors(),
             shape = shape,
             onClick = {
                 onClick(true)
@@ -56,7 +56,7 @@ fun VisibilityToggle(modifier: Modifier = Modifier.height(IntrinsicSize.Min), in
         TextButton(
             modifier =
             defaultModifier,
-            colors = if (!isVisible) ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onPrimary, backgroundColor = MaterialTheme.colors.primary) else ButtonDefaults.textButtonColors(),
+            colors = if (!isVisible) ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary, containerColor = MaterialTheme.colorScheme.primary) else ButtonDefaults.textButtonColors(),
             shape = shape,
             onClick = {
                 onClick(false)

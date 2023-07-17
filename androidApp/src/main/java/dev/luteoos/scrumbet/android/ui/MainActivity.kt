@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 //            MyApplicationTheme {
 //                Surface(
 //                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
+//                    color = MaterialTheme.colorScheme.background
 //                ) {
 //                    Greeting(Greeting().greeting())
 //                }
