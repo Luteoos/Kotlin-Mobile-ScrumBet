@@ -17,7 +17,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -45,12 +47,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.themeadapter.material.MdcTheme
 import dev.luteoos.scrumbet.android.R
+import dev.luteoos.scrumbet.android.core.BaseComposeFragment
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.MainFragmentBinding
 import dev.luteoos.scrumbet.android.ext.notify
@@ -62,13 +66,7 @@ import dev.luteoos.scrumbet.shared.Log
 @OptIn(
     ExperimentalPermissionsApi::class
 )
-class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewModel::class) {
-
-    override val layoutId: Int = R.layout.main_fragment
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> MainFragmentBinding =
-        { inflater, viewGroup, attachToParent ->
-            MainFragmentBinding.inflate(inflater, viewGroup, attachToParent)
-        }
+class MainFragment : BaseComposeFragment<MainViewModel>(MainViewModel::class) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,39 +98,35 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
 //        }
     }
 
-    override fun initBindingValues() {
-        binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.composeView.setContent {
-            MdcTheme {
-                var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
-                val state = model.uiState.observeAsState()
-                BottomSheetDefaultLayout(
-                    model,
-                    sheetContent = customSheetContent
-                ) { toggleSheetState ->
-                    Scaffold(
-                        Modifier
-                            .fillMaxSize()
-                            .padding(Size.regular())
-                    ) { scaffoldPadding ->
-                        when (val uiState = state.value ?: UserUiState.Loading) {
-                            is UserUiState.Success -> {
-                                MainScreenUi(
-                                    padding = scaffoldPadding,
-                                    username = uiState.data.username,
-                                    updateSheetContent = { customSheetContent = it },
-                                    toggleSheetVisibility = toggleSheetState
-                                )
-                            }
+    @Composable
+    override fun ComposeLayout(){
+        var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
+        val state = model.uiState.observeAsState()
+        BottomSheetDefaultLayout(
+            model,
+            sheetContent = customSheetContent
+        ) { toggleSheetState ->
+            Scaffold(
+                Modifier
+                    .fillMaxSize()
+                    .padding(Size.regular())
+            ) { scaffoldPadding ->
+                when (val uiState = state.value ?: UserUiState.Loading) {
+                    is UserUiState.Success -> {
+                        MainScreenUi(
+                            padding = scaffoldPadding,
+                            username = uiState.data.username,
+                            updateSheetContent = { customSheetContent = it },
+                            toggleSheetVisibility = toggleSheetState
+                        )
+                    }
 
-                            is UserUiState.Error -> {
-                                Text(text = "Error")
-                            }
+                    is UserUiState.Error -> {
+                        Text(text = "Error")
+                    }
 
-                            UserUiState.Loading -> {
-                                LoadingView()
-                            }
-                        }
+                    UserUiState.Loading -> {
+                        LoadingView()
                     }
                 }
             }
@@ -147,6 +141,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
         toggleSheetVisibility: () -> Unit
     ) {
         Box(Modifier.fillMaxSize(), contentAlignment = Center) {
+            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -158,7 +153,9 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>(MainViewMo
                 Text(
                     text = getString(R.string.label_hello, username),
                     fontSize = TextSize.xLarge(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 2
                 )
                 TextButton(
                     onClick = {

@@ -99,6 +99,7 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import dev.luteoos.scrumbet.android.R
+import dev.luteoos.scrumbet.android.core.BaseComposeFragment
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
@@ -111,12 +112,7 @@ import dev.luteoos.scrumbet.data.entity.MultiUrl
 import dev.luteoos.scrumbet.data.state.room.RoomUser
 import kotlinx.coroutines.launch
 
-class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomViewModel::class) {
-    override val layoutId: Int = R.layout.compose_fragment
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> ComposeFragmentBinding = { inflater, viewGroup, attachToParent ->
-        ComposeFragmentBinding.inflate(inflater, viewGroup, attachToParent)
-    }
-
+class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
     override fun initObservers() {
         model.uiState.observe(this) {
             if (it is RoomUiState.Disconnect)
@@ -129,90 +125,86 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         model.isAlive()
     }
 
-    override fun initBindingValues() {
-        binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed) // critical for proper lifecycleManagement
-        binding.composeView.setContent {
-            MdcTheme {
-                val state by model.uiState.observeAsState(RoomUiState.Loading)
-                var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
+    @Composable
+    override fun ComposeLayout(){
+        val state by model.uiState.observeAsState(RoomUiState.Loading)
+        var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
 
-                val title = when (state) {
-                    RoomUiState.Disconnect, RoomUiState.Loading -> getString(R.string.label_connecting)
-                    is RoomUiState.Error -> getString(R.string.label_error)
-                    is RoomUiState.Success -> getString(R.string.label_owner, (state as RoomUiState.Success).userList.firstOrNull { it.isOwner }?.username ?: "")
-                }
-                val roomName = when (state) {
-                    is RoomUiState.Success -> (state as RoomUiState.Success).connectionName
-                    else -> null
-                }
+        val title = when (state) {
+            RoomUiState.Disconnect, RoomUiState.Loading -> getString(R.string.label_connecting)
+            is RoomUiState.Error -> getString(R.string.label_error)
+            is RoomUiState.Success -> getString(R.string.label_owner, (state as RoomUiState.Success).userList.firstOrNull { it.isOwner }?.username ?: "")
+        }
+        val roomName = when (state) {
+            is RoomUiState.Success -> (state as RoomUiState.Success).connectionName
+            else -> null
+        }
 
-                BottomSheetDefaultLayout(
-                    model,
-                    sheetContent = customSheetContent
-                ) { toggleSheetState ->
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                        topBar = {
-                            TopAppBar(
-                                backgroundColor = MaterialTheme.colors.background,
-                                title = {
-                                    Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
-                                },
-                                navigationIcon = {
-                                    IconButton(onClick = {
-                                        model.disconnect()
-                                    }) {
-                                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                                    }
-                                },
-                                actions = {
-                                    IconButton(
-                                        enabled = state is RoomUiState.Success,
-                                        onClick = {
-                                            customSheetContent = {
-                                                RoomScreenShareSheet(
-                                                    roomName,
-                                                    (state as? RoomUiState.Success)?.config?.url,
-                                                    (state as? RoomUiState.Success)?.config?.roomJoinCode
-                                                )
-                                            }
-                                            toggleSheetState()
-                                        }
-                                    ) {
-                                        Icon(imageVector = Icons.Default.Share, contentDescription = null)
-                                    }
-                                }
-                            )
+        BottomSheetDefaultLayout(
+            model,
+            sheetContent = customSheetContent
+        ) { toggleSheetState ->
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    TopAppBar(
+                        backgroundColor = MaterialTheme.colors.background,
+                        title = {
+                            Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
                         },
-                        bottomBar = {
-                            if (state !is RoomUiState.Success) {
-                                // empty
-                            } else {
-                                BottomBarSuccess(state = state as RoomUiState.Success, showSheetContent = {
-                                    customSheetContent = it
-                                    toggleSheetState()
-                                })
+                        navigationIcon = {
+                            IconButton(onClick = {
+                                model.disconnect()
+                            }) {
+                                Icon(imageVector = Icons.Default.Close, contentDescription = null)
                             }
-                        }
-                    ) { padding ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(padding)
-                        ) {
-                            when (state) {
-                                RoomUiState.Disconnect -> {}
-                                is RoomUiState.Error -> RoomScreenUiError(state = state as RoomUiState.Error)
-                                RoomUiState.Loading -> RoomScreenUiLoading()
-                                is RoomUiState.Success -> RoomScreenUiConnected(
-                                    state = state as RoomUiState.Success,
-                                    showSheetContent = {
-                                        customSheetContent = it
-                                        toggleSheetState()
+                        },
+                        actions = {
+                            IconButton(
+                                enabled = state is RoomUiState.Success,
+                                onClick = {
+                                    customSheetContent = {
+                                        RoomScreenShareSheet(
+                                            roomName,
+                                            (state as? RoomUiState.Success)?.config?.url,
+                                            (state as? RoomUiState.Success)?.config?.roomJoinCode
+                                        )
                                     }
-                                )
+                                    toggleSheetState()
+                                }
+                            ) {
+                                Icon(imageVector = Icons.Default.Share, contentDescription = null)
                             }
                         }
+                    )
+                },
+                bottomBar = {
+                    if (state !is RoomUiState.Success) {
+                        // empty
+                    } else {
+                        BottomBarSuccess(state = state as RoomUiState.Success, showSheetContent = {
+                            customSheetContent = it
+                            toggleSheetState()
+                        })
+                    }
+                }
+            ) { padding ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                ) {
+                    when (state) {
+                        RoomUiState.Disconnect -> {}
+                        is RoomUiState.Error -> RoomScreenUiError(state = state as RoomUiState.Error)
+                        RoomUiState.Loading -> RoomScreenUiLoading()
+                        is RoomUiState.Success -> RoomScreenUiConnected(
+                            state = state as RoomUiState.Success,
+                            showSheetContent = {
+                                customSheetContent = it
+                                toggleSheetState()
+                            }
+                        )
                     }
                 }
             }
