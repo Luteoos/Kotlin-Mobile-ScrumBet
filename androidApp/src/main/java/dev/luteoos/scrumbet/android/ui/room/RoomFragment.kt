@@ -1,12 +1,12 @@
 package dev.luteoos.scrumbet.android.ui.room
 
-import ModalBottomSheetDefaultLayout
 import LoadingView
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +37,7 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -47,26 +48,25 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -126,7 +126,8 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
     @Composable
     override fun ComposeLayout() {
         val state by model.uiState.observeAsState(RoomUiState.Loading)
-        var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
+        val shareSheetState = rememberModalBottomSheetState()
+        val scope = rememberCoroutineScope()
 
         val title = when (state) {
             RoomUiState.Disconnect, RoomUiState.Loading -> getString(R.string.label_connecting)
@@ -137,75 +138,66 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             is RoomUiState.Success -> (state as RoomUiState.Success).connectionName
             else -> null
         }
-
-        ModalBottomSheetDefaultLayout(
-            model,
-            sheetContent = customSheetContent
-        ) { toggleSheetState ->
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                topBar = {
-                    CenterAlignedTopAppBar(
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.background),
-                        title = {
-                            Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
-                        },
-                        navigationIcon = {
-                            IconButton(onClick = {
-                                model.disconnect()
-                            }) {
-                                Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                            }
-                        },
-                        actions = {
-                            IconButton(
-                                enabled = state is RoomUiState.Success,
-                                onClick = {
-                                    customSheetContent = {
-                                        RoomScreenShareSheet(
-                                            roomName,
-                                            (state as? RoomUiState.Success)?.config?.url,
-                                            (state as? RoomUiState.Success)?.config?.roomJoinCode
-                                        )
-                                    }
-                                    toggleSheetState()
-                                }
-                            ) {
-                                Icon(imageVector = Icons.Default.Share, contentDescription = null)
-                            }
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                    title = {
+                        Text(text = title, maxLines = 1, overflow = TextOverflow.Ellipsis, softWrap = true)
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            model.disconnect()
+                        }) {
+                            Icon(imageVector = Icons.Default.Close, contentDescription = null)
                         }
-                    )
-                },
-                bottomBar = {
-                    if (state !is RoomUiState.Success) {
-                        // empty
-                    } else {
-                        BottomBarSuccess(state = state as RoomUiState.Success, showSheetContent = {
-                            customSheetContent = it
-                            toggleSheetState()
-                        })
-                    }
-                }
-            ) { padding ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                ) {
-                    when (state) {
-                        RoomUiState.Disconnect -> {}
-                        is RoomUiState.Error -> RoomScreenUiError(state = state as RoomUiState.Error)
-                        RoomUiState.Loading -> RoomScreenUiLoading()
-                        is RoomUiState.Success -> RoomScreenUiConnected(
-                            state = state as RoomUiState.Success,
-                            showSheetContent = {
-                                customSheetContent = it
-                                toggleSheetState()
+                    },
+                    actions = {
+                        IconButton(
+                            enabled = state is RoomUiState.Success,
+                            onClick = {
+                                scope.launch {
+                                    shareSheetState.show()
+                                }
                             }
-                        )
+                        ) {
+                            Icon(imageVector = Icons.Default.Share, contentDescription = null)
+                        }
                     }
+                )
+            },
+            bottomBar = {
+                if (state !is RoomUiState.Success) {
+                    // empty
+                } else {
+                    BottomBarSuccess(state = state as RoomUiState.Success)
                 }
             }
+        ) { padding ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                when (state) {
+                    RoomUiState.Disconnect -> {}
+                    is RoomUiState.Error -> RoomScreenUiError(state = state as RoomUiState.Error)
+                    RoomUiState.Loading -> RoomScreenUiLoading()
+                    is RoomUiState.Success -> RoomScreenUiConnected(state = state as RoomUiState.Success)
+                }
+            }
+            if (shareSheetState.isVisible)
+                ModalBottomSheet(
+                    onDismissRequest = { scope.launch { shareSheetState.hide() } },
+                    sheetState = shareSheetState
+                ) {
+                    RoomScreenShareSheet(
+                        roomName,
+                        (state as? RoomUiState.Success)?.config?.url,
+                        (state as? RoomUiState.Success)?.config?.roomJoinCode
+                    )
+                }
         }
     }
 
@@ -219,8 +211,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 
     @Composable
     private fun RoomScreenUiConnected(
-        state: RoomUiState.Success,
-        showSheetContent: (@Composable () -> Unit) -> Unit
+        state: RoomUiState.Success
     ) {
         KeepAlive()
         var currentPick = state.userVote // by remember { mutableStateOf<String?>(null) }
@@ -262,9 +253,11 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                                     Text(text = value)
                                 }
                             else
-                                OutlinedButton(modifier = buttonModifier,
+                                OutlinedButton(
+                                    modifier = buttonModifier,
                                     onClick = onClick,
-                                    shape = shape) {
+                                    shape = shape
+                                ) {
                                     Text(text = value)
                                 }
                         }
@@ -391,22 +384,27 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 
     @Composable
     private fun BottomBarSuccess(
-        state: RoomUiState.Success,
-        showSheetContent: (@Composable () -> Unit) -> Unit
+        state: RoomUiState.Success
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Size.small()),
-            horizontalArrangement = Arrangement.spacedBy(Size.small(), alignment = End)
-        ) {
+        val scope = rememberCoroutineScope()
+        val settingsSheetState = rememberModalBottomSheetState()
+        val membersSheetState = rememberModalBottomSheetState()
+        BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(Size.small()),
+//                horizontalArrangement = Arrangement.spacedBy(Size.small(), alignment = End)
+//            ) {
             IconButton(
                 modifier = Modifier
                     .weight(1f)
                     .alpha(if (state.config.isOwner) 1f else 0.3f),
                 enabled = state.config.isOwner,
                 onClick = {
-                    showSheetContent { RoomScreenSettingsSheet() }
+                    scope.launch {
+                        settingsSheetState.show()
+                    }
                 }
             ) {
                 Icon(imageVector = Icons.Default.Settings, contentDescription = null)
@@ -425,12 +423,29 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             IconButton(
                 modifier = Modifier.weight(1f),
                 onClick = {
-                    showSheetContent { RoomScreenMemberListSheet() }
+                    scope.launch {
+                        membersSheetState.show()
+                    }
                 }
             ) {
                 Icon(imageVector = Icons.Default.List, contentDescription = null)
             }
+//            }
         }
+        if (settingsSheetState.isVisible)
+            ModalBottomSheet(
+                onDismissRequest = { scope.launch { settingsSheetState.hide() } },
+                sheetState = settingsSheetState
+            ) {
+                RoomScreenSettingsSheet()
+            }
+        if (membersSheetState.isVisible)
+            ModalBottomSheet(
+                onDismissRequest = { scope.launch { membersSheetState.hide() } },
+                sheetState = membersSheetState
+            ) {
+                RoomScreenMemberListSheet()
+            }
     }
 
     @Composable
@@ -444,7 +459,8 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Size.xSmall()),
+                .padding(bottom = Size.regular())
+                .padding(horizontal = Size.regular()),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
@@ -456,10 +472,6 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                 Text(text = getString(R.string.label_vote_visible_setting))
                 Switch(
                     checked = config.alwaysVisibleVote,
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.primary,
-                        uncheckedThumbColor = MaterialTheme.colorScheme.secondary
-                    ),
                     onCheckedChange = {
                         if (it)
                             model.showVoteValues()
@@ -470,14 +482,14 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             }
             Spacer(modifier = Modifier.height(Size.small()))
             ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().focusable(false),
                 expanded = dropdownStateExpanded,
                 onExpandedChange = {
                     dropdownStateExpanded = !dropdownStateExpanded
                 }
             ) {
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().menuAnchor(),
                     readOnly = true,
                     value = config.scaleType.toLowerCase(Locale.current).capitalize(Locale.current),
                     onValueChange = { },
@@ -489,12 +501,12 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                             expanded = dropdownStateExpanded
                         )
                     },
-//                    TODO update colors https://developer.android.com/jetpack/compose/designsystems/material2-material3#emphasis-and
-//                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-//                        focusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
-//                        focusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
-//                        focusedTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = TextFieldDefaults.IconOpacity)
-//                    )
+                    // https://developer.android.com/jetpack/compose/designsystems/material2-material3#emphasis-and
+                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        focusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                        focusedTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 )
                 ExposedDropdownMenu(
                     expanded = dropdownStateExpanded,
@@ -512,38 +524,13 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                                 )
                             },
                             onClick = {
-                            model.setScale(item)
-                            dropdownStateExpanded = false
-                        })
+                                model.setScale(item)
+                                dropdownStateExpanded = false
+                            }
+                        )
                     }
                 }
             }
-//            Spacer(modifier = Modifier.height(Size.small()))
-//            LazyColumn(
-//                modifier = Modifier.fillMaxWidth(),
-//                content = {
-//                    items(config.scaleTypeList.sortedBy { it }) { item ->
-//                        Card(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(Size.small())
-//                                .clickable { model.setScale(item) },
-//                            backgroundColor = if (item == config.scaleType) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
-//                        ) {
-//                            Column(
-//                                modifier = Modifier.fillMaxWidth(),
-//                                horizontalAlignment = Alignment.CenterHorizontally
-//                            ) {
-//                                Text(
-//                                    modifier = Modifier
-//                                        .padding(vertical = Size.small()),
-//                                    text = item.toLowerCase(Locale.current).capitalize(Locale.current)
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
-//            )
         }
     }
 
@@ -554,7 +541,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             return
         val state = modelState as RoomUiState.Success
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(Size.regular()),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {
@@ -595,7 +582,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
             val sizeModifier = Modifier.size(Size.xLarge())
             val shape = ShapeDefaults.Large
             if (user.vote != null)
-                Button(modifier = sizeModifier,shape = shape, contentPadding = PaddingValues(0.dp), onClick = {}) {
+                Button(modifier = sizeModifier, shape = shape, contentPadding = PaddingValues(0.dp), onClick = {}) {
                     if (isVoteVisible)
                         Text(text = user.vote!!, fontSize = TextSize.xSmall())
                     else
@@ -637,7 +624,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .scrollable(scrollState, orientation = Orientation.Vertical),
+                .verticalScroll(scrollState),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
         ) {

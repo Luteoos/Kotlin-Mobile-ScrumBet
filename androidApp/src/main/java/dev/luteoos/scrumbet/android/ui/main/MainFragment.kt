@@ -1,16 +1,20 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package dev.luteoos.scrumbet.android.ui.main
 
-import ModalBottomSheetDefaultLayout
 import LoadingView
+import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Bottom
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +22,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,8 +54,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -104,56 +105,48 @@ class MainFragment : BaseComposeFragment<MainViewModel>(MainViewModel::class) {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-private fun MainScreenUi(model: MainViewModel){
-    var customSheetContent by remember { mutableStateOf<@Composable (() -> Unit)>({ }) }
+private fun MainScreenUi(model: MainViewModel) {
     val state = model.uiState.observeAsState()
-    ModalBottomSheetDefaultLayout(
-        model,
-        sheetContent = customSheetContent
-    ) { toggleSheetState ->
-        Scaffold(
-            Modifier
-                .fillMaxSize()
-//                .padding(Size.regular())
-        ) { _ ->
-            when (val uiState = state.value ?: UserUiState.Loading) {
-                is UserUiState.Success -> {
-                    MainScreenSuccess(
-                        model = model,
-                        username = uiState.data.username,
-                        padding = PaddingValues(Size.regular()),
-                        updateSheetContent = { customSheetContent = it },
-                        toggleSheetVisibility = toggleSheetState
-                    )
-                }
+    Scaffold(
+        Modifier
+            .fillMaxSize()
+    ) { _ ->
+        when (val uiState = state.value ?: UserUiState.Loading) {
+            is UserUiState.Success -> {
+                MainScreenSuccess(
+                    model = model,
+                    username = uiState.data.username,
+                    padding = PaddingValues(Size.regular())
+                )
+            }
 
-                is UserUiState.Error -> {
-                    Text(text = "Error")
-                }
+            is UserUiState.Error -> {
+                Text(text = "Error")
+            }
 
-                UserUiState.Loading -> {
-                    LoadingView()
-                }
+            UserUiState.Loading -> {
+                LoadingView()
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun MainScreenSuccess(
     model: MainViewModel,
     username: String,
-    padding: PaddingValues,
-    updateSheetContent: (@Composable () -> Unit) -> Unit,
-    toggleSheetVisibility: () -> Unit
+    padding: PaddingValues
 ) {
     Box(Modifier.fillMaxSize(), contentAlignment = Center) {
         val scrollState = rememberScrollState()
 
         val scope = rememberCoroutineScope()
         val usernameSheetState = rememberModalBottomSheetState()
+        val joinSheetState = rememberModalBottomSheetState()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -162,18 +155,7 @@ private fun MainScreenSuccess(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if(usernameSheetState.isVisible)
-            ModalBottomSheet(windowInsets = WindowInsets(bottom = Size.xLarge()),
-                onDismissRequest = { scope.launch { usernameSheetState.hide() } },
-                sheetState = usernameSheetState) {
-                MainScreenUserEditSheet(username = username, onSave = { newUsername ->
-                    model.updateUsername(newUsername)
-                    model.hideKeyboard.notify()
-                    scope.launch {
-                        usernameSheetState.hide()
-                    }
-                })
-            }
+
             Text(
                 text = stringResource(R.string.label_hello, username),
                 fontSize = TextSize.xLarge(),
@@ -187,15 +169,6 @@ private fun MainScreenSuccess(
                     scope.launch {
                         usernameSheetState.show()
                     }
-//                    editSheetVisible = true
-//                    updateSheetContent {
-//                        MainScreenUserEditSheet(username = username, onSave = { newUsername ->
-//                            model.updateUsername(newUsername)
-//                            model.hideKeyboard.notify()
-//                            toggleSheetVisibility()
-//                        })
-//                    }
-//                    toggleSheetVisibility()
                 },
                 contentPadding = PaddingValues(Size.xSmall()),
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
@@ -217,16 +190,9 @@ private fun MainScreenSuccess(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    updateSheetContent {
-                        MainScreenJoinSheet(onJoin = { roomId ->
-                            toggleSheetVisibility()
-                            model.setRoomId(roomId)
-                        }, onUpdateContent = {
-                            updateSheetContent(it)
-                            toggleSheetVisibility()
-                        })
+                    scope.launch {
+                        joinSheetState.show()
                     }
-                    toggleSheetVisibility()
                 }
             ) {
                 Text(
@@ -241,6 +207,29 @@ private fun MainScreenSuccess(
                 Text(text = stringResource(R.string.label_create), fontSize = TextSize.small(), fontWeight = FontWeight.Bold)
             }
         }
+        if (usernameSheetState.isVisible)
+            ModalBottomSheet(
+                onDismissRequest = { scope.launch { usernameSheetState.hide() } },
+                sheetState = usernameSheetState
+            ) {
+                MainScreenUserEditSheet(username = username, onSave = { newUsername ->
+                    model.updateUsername(newUsername)
+                    model.hideKeyboard.notify()
+                    scope.launch {
+                        usernameSheetState.hide()
+                    }
+                })
+            }
+        if (joinSheetState.isVisible)
+            ModalBottomSheet(
+                onDismissRequest = { scope.launch { joinSheetState.hide() } },
+                sheetState = joinSheetState
+            ) {
+                MainScreenJoinSheet { roomId ->
+                    scope.launch { joinSheetState.hide() }
+                    model.setRoomId(roomId)
+                }
+            }
     }
 }
 
@@ -250,13 +239,14 @@ private fun MainScreenUserEditSheet(username: String, onSave: (username: String)
     var isSaveEnabled by remember { mutableStateOf(true) }
 
     Column(
-        Modifier.fillMaxWidth(),
+        Modifier.fillMaxWidth().padding(Size.regular()),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Bottom
     ) {
         OutlinedTextField(
             value = name,
             modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(autoCorrect = false, keyboardType = KeyboardType.Text),
             singleLine = true,
             onValueChange = {
                 name = it
@@ -281,39 +271,44 @@ private fun MainScreenUserEditSheet(username: String, onSave: (username: String)
 }
 
 @Composable
-private fun MainScreenJoinSheet(onJoin: (id: String) -> Unit, onUpdateContent: (@Composable () -> Unit) -> Unit) {
+private fun MainScreenJoinSheet(onJoin: (id: String) -> Unit) {
+    var state: JoinSheetState by remember { mutableStateOf(JoinSheetState.NONE) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = Size.regular(), horizontal = Size.regular()),
+            .padding(vertical = Size.regular(), horizontal = Size.regular())
+            .animateContentSize(tween()),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
     ) {
-        Button(onClick = {
-            onUpdateContent {
-                MainScreenJoinQrCodeSheet(onJoin = onJoin)
+        when (state) {
+            JoinSheetState.NONE -> {
+                Button(onClick = {
+                    state = JoinSheetState.QR
+                }) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.label_scan_qr_code),
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Text(
+                    modifier = Modifier.padding(vertical = Size.small()),
+                    text = stringResource(R.string.divider_label_or)
+                )
+                Button(onClick = {
+                    state = JoinSheetState.ROOM_NAME
+                }) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.label_enter_room_name),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
-        }) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.label_scan_qr_code),
-                textAlign = TextAlign.Center
-            )
-        }
-        Text(
-            modifier = Modifier.padding(vertical = Size.small()),
-            text = stringResource(R.string.divider_label_or)
-        )
-        Button(onClick = {
-            onUpdateContent {
-                MainScreenJoinRoomNameSheet(onJoin = onJoin)
-            }
-        }) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.label_enter_room_name),
-                textAlign = TextAlign.Center
-            )
+            JoinSheetState.QR -> MainScreenJoinQrCodeSheet(onJoin = onJoin)
+            JoinSheetState.ROOM_NAME -> MainScreenJoinRoomNameSheet(onJoin = onJoin)
         }
     }
 }
@@ -337,7 +332,7 @@ private fun MainScreenJoinQrCodeSheet(onJoin: (id: String) -> Unit) {
 
         if (cameraPermissionState.status.isGranted) {
             val lifecycleOwner = LocalLifecycleOwner.current
-            AndroidView(modifier = Modifier.fillMaxHeight(.6f), factory = { context ->
+            AndroidView(modifier = Modifier.padding(bottom = Size.xLarge()), factory = { context ->
                 io.github.luteoos.qrx.QrXScanner(context).also {
                     it.initialize(lifecycleOwner, { }, { })
                     it.onBarcodeScannedListener = { list ->
@@ -394,4 +389,3 @@ private fun MainScreenJoinRoomNameSheet(onJoin: (id: String) -> Unit) {
         }
     }
 }
-

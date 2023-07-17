@@ -39,6 +39,7 @@ import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Deprecated("Deprecated in favor of M3 ModalBottomSheet", level = DeprecationLevel.ERROR)
 @Composable
 fun ModalBottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (() -> Unit) -> Unit) {
     var isVisible by remember { mutableStateOf(false) }

@@ -3,15 +3,7 @@ package dev.luteoos.scrumbet.android.core
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.google.accompanist.themeadapter.material3.Mdc3Theme
 import dev.luteoos.scrumbet.android.R
@@ -29,7 +21,7 @@ abstract class BaseComposeFragment<T : BaseViewModel>(clazz: KClass<T>) : BaseFr
     override fun initBindingValues() {
         binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed) // critical for proper lifecycleManagement
         binding.composeView.setContent {
-            Mdc3Theme() {
+            Mdc3Theme {
                 ComposeLayout()
             }
         }
