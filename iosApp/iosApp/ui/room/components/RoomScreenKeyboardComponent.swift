@@ -28,7 +28,7 @@ struct RoomScreenKeyboardComponent: View {
                                 Text(text)
                                     .tint(Color.black)
                             }
-                            .frame(width: 64, height: 64)
+                            .aspectRatio(1, contentMode: .fill)
                             .cornerRadius(16)
                         }
                         #if os(macOS)

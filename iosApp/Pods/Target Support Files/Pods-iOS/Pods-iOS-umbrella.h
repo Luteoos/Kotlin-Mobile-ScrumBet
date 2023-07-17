@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_ScrumBetVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_ScrumBetVersionString[];
+FOUNDATION_EXPORT double Pods_iOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_iOSVersionString[];
 

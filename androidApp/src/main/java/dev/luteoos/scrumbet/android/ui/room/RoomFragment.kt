@@ -31,6 +31,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ContentAlpha
@@ -86,6 +87,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.github.tehras.charts.bar.BarChart
+import com.github.tehras.charts.bar.BarChartData
+import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
+import com.github.tehras.charts.bar.renderer.xaxis.SimpleXAxisDrawer
+import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
+import com.github.tehras.charts.piechart.animation.simpleChartAnimation
 import com.google.accompanist.themeadapter.material.MdcTheme
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
@@ -95,6 +102,7 @@ import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseFragment
 import dev.luteoos.scrumbet.android.databinding.ComposeFragmentBinding
 import dev.luteoos.scrumbet.android.ext.toMainScreen
+import dev.luteoos.scrumbet.android.util.IntegerLabelFormatter
 import dev.luteoos.scrumbet.android.util.composeUtil.KeepAlive
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
@@ -232,7 +240,7 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            VoteScoreUi(isOwner = state.config.isOwner, list = state.userList)
+            VoteResultUi(isOwner = state.config.isOwner, list = state.userList, scale = state.config.scale)
             LazyVerticalGrid(
                 modifier = Modifier
                     .scrollable(scrollState, orientation = Orientation.Vertical)
@@ -273,16 +281,17 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
     }
 
     @Composable
-    private fun VoteScoreUi(isOwner: Boolean, list: List<RoomUser>) {
+    fun VoteResultUi(isOwner: Boolean, list: List<RoomUser>, scale: List<String>) {
         val score: String = if (list.any { it.vote == null })
             ""
         else
             list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else "?" }.toString()
+        val scrollState = rememberScrollState()
 
         Column(
             modifier = Modifier
                 .animateContentSize()
-                .fillMaxWidth(.75f)
+                .fillMaxWidth(.85f)
                 .padding(horizontal = Size.xSmall()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -304,7 +313,8 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             if (score.isNotEmpty())
                 Column(
                     modifier = Modifier
-                        .fillMaxHeight(),
+                        .fillMaxHeight()
+                        .verticalScroll(scrollState),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -332,7 +342,6 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                 textAlign = TextAlign.Center,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.Red
-//                                color = MaterialTheme.colors.primaryVariant
                             )
                             Text(
                                 text = getString(R.string.label_lowest_vote),
@@ -349,13 +358,38 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
                                 textAlign = TextAlign.Center,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.Green
-//                                color = MaterialTheme.colors.primaryVariant
                             )
                             Text(
                                 text = getString(R.string.label_highest_vote),
                                 fontSize = TextSize.xxSmall()
                             )
                         }
+                    }
+                    val chartData = scale.map { voteValue ->
+                        BarChartData.Bar(list.count { it.vote == voteValue }.toFloat(), MaterialTheme.colors.primary, voteValue)
+                    }
+                    Column {
+                        val formatter = remember {
+                            IntegerLabelFormatter()
+                        }
+                        BarChart(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(1.5f)
+                                .padding(bottom = Size.large(), top = Size.regular()),
+                            barChartData = BarChartData(chartData),
+                            animation = simpleChartAnimation(),
+                            xAxisDrawer = SimpleXAxisDrawer(axisLineColor = MaterialTheme.colors.onSurface),
+                            yAxisDrawer = SimpleYAxisDrawer(
+                                labelTextColor = MaterialTheme.colors.onBackground,
+                                labelRatio = 10,
+                                labelValueFormatter = {
+                                    formatter.format(it)
+                                },
+                                axisLineColor = MaterialTheme.colors.onSurface
+                            ),
+                            labelDrawer = SimpleValueDrawer(SimpleValueDrawer.DrawLocation.XAxis, labelTextColor = MaterialTheme.colors.onBackground)
+                        )
                     }
                 }
         }
@@ -604,7 +638,8 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
         val scrollState = rememberScrollState()
 
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .scrollable(scrollState, orientation = Orientation.Vertical),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Bottom
@@ -701,12 +736,12 @@ class RoomFragment : BaseFragment<RoomViewModel, ComposeFragmentBinding>(RoomVie
             .encodeToBitmap()
             .asImageBitmap()
     }
+}
 
-    @Preview(widthDp = 320, heightDp = 320)
-    @Composable
-    fun AvgVoteUtil_Preview() {
-        MdcTheme() {
-            VoteScoreUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")))
-        }
+@Preview(widthDp = 320, heightDp = 320)
+@Composable
+fun VoteResultUi_Preview() {
+    MdcTheme() {
+        RoomFragment().VoteResultUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")), scale = listOf("1", "2", "?"))
     }
 }

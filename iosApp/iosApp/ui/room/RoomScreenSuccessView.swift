@@ -13,8 +13,10 @@ struct RoomScreenSuccessView: View {
     @ObservedObject var object: RoomScreenObject
 
     @State private var isVoteVisible = false
+    @State private var isVoteResultVisible = false
+    @State private var isOwner = false
     @State private var isListSheetVisible = false
-    @State private var isStyleSheetVisible = false
+    @State private var isSettingsSheetVisible = false
 
     var body: some View {
         if case let .Success(data) = object.state {
@@ -22,99 +24,70 @@ struct RoomScreenSuccessView: View {
                 let votes = data.voteList.filter { user in
                     user.vote != nil
                 }
-                let isAnyVoteNull = data.voteList.first { user in
-                    user.vote == nil
-                } != nil
-                HStack {
-                    Text("\(votes.count)/\(data.voteList.count)")
-                    Button("list") {
-                        isListSheetVisible.toggle()
+                HStack(spacing: 8) {
+                    VStack(alignment: .leading){
+                        Text("room_members")
+                        Text("casted_votes")
                     }
-                    .buttonStyle(.bordered)
-                    .tint(Color.secondaryColor)
+                    VStack{
+                        Text("\(data.voteList.count)")
+                            .fontWeight(.bold)
+                        Text("\(votes.count)")
+                            .fontWeight(.bold)
+                    }
                 }
-                if data.configuration.isOwner {
-                    Button("choose_style") {
-                        isStyleSheetVisible.toggle()
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(Color.secondaryColor)
+                if(isVoteResultVisible){
+                    RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale)
+                } else {
+                    RoomScreenKeyboardComponent(object: object)
                 }
-                Text(getVoteCounter(votes))
-                    .font(.title)
-                    .if(isAnyVoteNull) { view in
-                        view.hidden()
-                    }
-                if data.configuration.isOwner {
-                    Button {
-                        object.reset()
-                    } label: {
-                        Text("reset")
-                            .frame(width: 220)
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(Color.secondaryColor)
-                }
-                RoomScreenKeyboardComponent(object: object)
             }
             .sheet(isPresented: $isListSheetVisible) {
                 HalfSheet {
                     RoomScreenMemberListComponent(object: object, isShowingVotes: isVoteVisible)
                 }
             }
-            .sheet(isPresented: $isStyleSheetVisible) {
+            .sheet(isPresented: $isSettingsSheetVisible) {
                 HalfSheet {
-                    StylePickerSheetView(object: object)
+                    RoomSettingsSheet(object: object)
                 }
             }
             .onReceive(object.$state) { state in
                 if case let .Success(data) = state {
                     isVoteVisible = data.configuration.alwaysVisibleVote
-                }
-            }
-        }
-    }
-
-    func getVoteCounter(_ votes: [RoomUser]) -> String {
-        let list = votes
-            .map { user in
-                Int(user.vote ?? "?") ?? nil
-            }
-            .filter { int in
-                int != nil
-            }
-        if list.count != 0 {
-            return "\(list.compactMap { $0 }.reduce(0, +) / list.count)"
-        } else {
-            return " "
-        }
-    }
-}
-
-struct StylePickerSheetView: View {
-    @ObservedObject var object: RoomScreenObject
-
-    var body: some View {
-        if case let .Success(data) = object.state {
-            ScrollView {
-                LazyVStack {
-                    ForEach(data.configuration.scaleTypeList, id: \.self) { styleText in
-                        Button {
-                            object.setRoomScale(scale: styleText)
-                        } label: {
-                            Text(styleText.localizedCapitalized)
-                                .frame(maxWidth: .infinity)
-                        }
-                        .padding(.horizontal, 32)
-                        .buttonStyle(.bordered)
-                        .if(styleText == data.configuration.scaleType, transform: { view in
-                            view.tint(Color.primaryColor)
-                        })
-                        .tint(Color.secondaryColor)
+                    isOwner = data.configuration.isOwner
+                    isVoteResultVisible = withAnimation(.spring()){
+                        data.voteList.filter { user in
+                            user.vote != nil
+                        }.count == data.voteList.count
                     }
                 }
             }
-            .padding(.top, 32)
+            .toolbar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                
+                    Button {
+                        isSettingsSheetVisible.toggle()
+                    } label: {
+                        Image(systemName: "gear")
+                    }
+                    .disabled(!isOwner)
+                    Spacer()
+                    Button {
+                        object.reset()
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .disabled(!isOwner)
+                    Spacer()
+                    Button {
+                        isListSheetVisible.toggle()
+                    } label: {
+                        Image(systemName: "list.bullet")
+                    }
+                }
+            }
+            .tint(Color.primaryColor)
         }
     }
 }

@@ -6,21 +6,31 @@
   Copyright © 2023 orgName. All rights reserved.
 */
 "hello, %@" = "Hello, %@";
-"edit" = "Edit";
-"join" = "Join";
-"create" = "Create";
+"room_members" = "Members";
+"casted_votes" = "Casted votes";
+"edit_username" = "Change username";
+"join" = "Join room";
+"create" = "Create new room";
 "or" = "or";
 "username" = "Username";
 "save" = "Save";
+"room_code" = "Room code";
+"enter_room_code" = "Enter room code";
 "room_name" = "Room name";
-"join" = "Join";
 "scan_qr_code" = "Scan QR code";
 "list" = "List";
 "choose_style" = "Change style";
 "reset" = "Reset";
-"member_list" = "Member list";
+"member_list" = "Members";
 "show" = "Show";
 "hide" = "Hide";
 "app_url" = "App";
 "website_url" = "Website";
 "share" = "Share";
+"average" = "Average";
+"min" = "Lowest";
+"max" = "Highest";
+"vote_visible_label" = "Visible casted votes";
+"vote_style_label" = "Vote palette";
+"room_settings_label" = "Room settings";
+"dismiss" = "Dismiss";

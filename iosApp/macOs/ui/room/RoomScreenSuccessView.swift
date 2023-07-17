@@ -13,35 +13,30 @@ struct RoomScreenSuccessView: View {
     @ObservedObject var object: RoomScreenObject
 
     @State var currentStyle = ""
+    @State private var isSettingsVisible = false
 
     var body: some View {
         VStack {
             if case let .Success(data) = object.state {
                 HStack {
+                    let votes = data.voteList.filter { user in
+                        user.vote != nil
+                    }
+                    
                     VStack {
-                        let votes = data.voteList.filter { user in
-                            user.vote != nil
-                        }
-                        let isAnyVoteNull = data.voteList.first { user in
-                            user.vote == nil
-                        } != nil
-                        HStack {
-                            Text("\(votes.count)/\(data.voteList.count)")
-                                .font(.caption2)
-                        }
-                        Text(getVoteCounter(votes))
-                            .font(.title)
-                            .if(isAnyVoteNull) { view in
-                                view.hidden()
+                        HStack(spacing: 8) {
+                            VStack(alignment: .leading){
+                                Text("room_members")
+                                Text("casted_votes")
                             }
-                        if data.configuration.isOwner {
-                            Picker("choose_style", selection: $currentStyle) {
-                                ForEach(data.configuration.scaleTypeList, id: \.self) {
-                                    Text($0.localizedCapitalized).tag($0)
-                                }
+                            VStack{
+                                Text("\(data.voteList.count)")
+                                    .fontWeight(.bold)
+                                Text("\(votes.count)")
+                                    .fontWeight(.bold)
                             }
-                            .frame(width: 220)
                         }
+                        
                         if data.configuration.isOwner {
                             Button {
                                 object.reset()
@@ -52,7 +47,6 @@ struct RoomScreenSuccessView: View {
                             .buttonStyle(.bordered)
                             .tint(Color.secondaryColor)
                         }
-                        Divider()
                         RoomScreenKeyboardComponent(object: object)
                     }
                     .padding(.all, 32)
@@ -65,17 +59,44 @@ struct RoomScreenSuccessView: View {
                         }
                     })
                     Divider()
+                    VStack{
+                        RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale)
+                    }
+                    .frame(minWidth: 300)
+                    Divider()
                     VStack {
                         RoomScreenMemberListComponent(object: object, isShowingVotes: data.configuration.alwaysVisibleVote)
                     }
-                    .frame(minWidth: 400)
+                    .frame(minWidth: 180, minHeight: 500)
                 }
+                .sheet(isPresented: $isSettingsVisible, content: {
+                    VStack{
+                        RoomSettingsSheet(object: object)
+                        Divider()
+                        Button("dismiss") {
+                            isSettingsVisible.toggle()
+                        }
+                    }
+                    .padding(8)
+                })
                 .padding(.all, 16)
+                .toolbar {
+                    if case let .Success(data) = object.state{
+                        ToolbarItem(placement: .secondaryAction) {
+                            Button {
+                                isSettingsVisible.toggle()
+                            } label: {
+                                Image(systemName: "gear")
+                            }
+                            .disabled(!data.configuration.isOwner)
+                        }
+                    }
+                }
             }
         }
     }
 
-    func getVoteCounter(_ votes: [RoomUser]) -> String {
+    func getVoteAverage(_ votes: [RoomUser]) -> String {
         let list = votes
             .map { user in
                 Int(user.vote ?? "?") ?? nil

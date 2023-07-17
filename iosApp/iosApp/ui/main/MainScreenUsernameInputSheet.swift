@@ -18,9 +18,10 @@ struct MainScreenUsernameInputSheet: View {
     var body: some View {
         VStack {
             HStack {
-                Text("username")
                 TextField("username", text: $newUsername)
-                    .textFieldStyle(.roundedBorder)
+                .textFieldStyle(.roundedBorder)
+                .autocorrectionDisabled(true)
+                
             }
             .padding(.horizontal, 16)
 
@@ -39,9 +40,13 @@ struct MainScreenUsernameInputSheet: View {
             .tint(Color.secondaryColor)
         }
         .padding(.top, 32)
-        .onAppear(perform: {
-            newUsername = username
-        })
+        .onChange(of: newUsername) { newValue in
+            newUsername = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        .flexFrame()
+//        .onAppear(perform: {
+//            newUsername = username
+//        })
     }
 }
 
