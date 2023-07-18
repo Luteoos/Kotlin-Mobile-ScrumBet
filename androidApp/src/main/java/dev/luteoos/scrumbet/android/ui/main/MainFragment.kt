@@ -96,7 +96,7 @@ class MainFragment : BaseComposeFragment<MainViewModel>(MainViewModel::class) {
 //            repeatOnLifecycle(Lifecycle.State.STARTED) {
 //                authModel.isAuthorized.collect {
 //                    if (it)
-//                        TODO("Navigate to roomScreen")
+//                        "Navigate to roomScreen"
 //                }
 //            }
 //        }

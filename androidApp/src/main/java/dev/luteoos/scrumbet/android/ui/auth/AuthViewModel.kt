@@ -10,9 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-/**
- * TODO maybe use authController inside viewModels instead one viewModel
- */
 @Deprecated("Deprecated, use AuthController directly", ReplaceWith("AuthControllerInterface"))
 class AuthViewModel(private val authController: AuthControllerInterface) : BaseViewModel() {
 
