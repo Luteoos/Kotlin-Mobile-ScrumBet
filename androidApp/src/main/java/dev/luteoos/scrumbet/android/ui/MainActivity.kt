@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BackPressFragment
 import dev.luteoos.scrumbet.android.databinding.MainActivityBinding
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // fixes crazy insets in M3 ModalBottomSheet
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         val intentData: Uri? = intent?.data
         if (intentData != null)
@@ -97,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 //            MyApplicationTheme {
 //                Surface(
 //                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colors.background
+//                    color = MaterialTheme.colorScheme.background
 //                ) {
 //                    Greeting(Greeting().greeting())
 //                }

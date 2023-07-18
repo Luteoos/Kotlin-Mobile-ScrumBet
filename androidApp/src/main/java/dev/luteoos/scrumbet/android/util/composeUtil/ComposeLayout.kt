@@ -11,14 +11,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Text
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.SheetValue
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,21 +38,37 @@ import dev.luteoos.scrumbet.android.core.BaseViewModel
 import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toggle
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (() -> Unit) -> Unit) {
+fun DefaultModalSheet(scope: CoroutineScope, sheetState: SheetState, content: @Composable () -> Unit) {
+    ModalBottomSheet(
+        onDismissRequest = { scope.launch { sheetState.hide() } },
+        sheetState = sheetState
+    ) {
+        content()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Deprecated("Deprecated in favor of M3 ModalBottomSheet", level = DeprecationLevel.ERROR)
+@Composable
+fun ModalBottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Boolean = { true }, sheetContent: @Composable () -> Unit, content: @Composable (() -> Unit) -> Unit) {
     var isVisible by remember { mutableStateOf(false) }
     val modalSheetState = rememberModalBottomSheetState(
-        initialValue = if (isVisible) ModalBottomSheetValue.Expanded else ModalBottomSheetValue.Hidden,
+//        initialValue = if (isVisible) SheetValue.Expanded else SheetValue.Hidden,
         confirmValueChange = {
-            if (it == ModalBottomSheetValue.Hidden)
+            if (it == SheetValue.Hidden)
                 model.hideKeyboard.notify()
-            isVisible = it != ModalBottomSheetValue.Hidden
+            isVisible = it != SheetValue.Hidden
             confirmSheetState()
         },
-        skipHalfExpanded = true
+        skipPartiallyExpanded = false
+    )
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = modalSheetState
     )
     val scope = rememberCoroutineScope()
     var isFirstShow by remember { mutableStateOf(true) }
@@ -72,8 +91,8 @@ fun BottomSheetDefaultLayout(model: BaseViewModel, confirmSheetState: () -> Bool
             }
     })
 
-    ModalBottomSheetLayout(
-        sheetState = modalSheetState,
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
         sheetContent = {
             Column(
                 Modifier
@@ -113,7 +132,7 @@ fun CustomTextField(
     leadingIcon: (@Composable() () -> Unit)? = null,
     trailingIcon: (@Composable() () -> Unit)? = null,
     initialValue: String? = null,
-    textFieldColor: Color = MaterialTheme.colors.onSurface,
+    textFieldColor: Color = MaterialTheme.colorScheme.onSurface,
     onValueChange: (String) -> Unit
 ) {
     var state by rememberSaveable { mutableStateOf(initialValue ?: "") }
@@ -125,7 +144,7 @@ fun CustomTextField(
     Row(
         modifier = modifier
             .background(
-                color = MaterialTheme.colors.surface,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(percent = 10)
             )
             .padding(Size.regular()),

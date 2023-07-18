@@ -87,7 +87,7 @@ class RoomRepositoryImpl(private val client: HttpClient,
                     }
             }catch (e: Exception){
                 e.printStackTrace()
-                session = null //todo sketchy
+                session = null //bit sketchy
                 connectionError.emit(e)
                 flow { }
             }

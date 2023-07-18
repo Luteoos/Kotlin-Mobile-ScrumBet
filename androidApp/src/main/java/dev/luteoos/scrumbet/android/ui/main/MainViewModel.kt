@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dev.luteoos.scrumbet.android.core.BaseViewModel
 import dev.luteoos.scrumbet.android.ext.post
+import dev.luteoos.scrumbet.android.ui.main.uistate.UserUiState
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import dev.luteoos.scrumbet.controller.interfaces.UserControllerInterface
 import dev.luteoos.scrumbet.core.KState

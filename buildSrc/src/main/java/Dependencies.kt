@@ -28,7 +28,7 @@ object Dependencies {
 
     // androidUi
     const val kotlinAndroidCoroutinesRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-    const val materialThemeAdapter = "com.google.accompanist:accompanist-themeadapter-material:0.29.0-alpha"
+    const val materialThemeAdapter = "com.google.accompanist:accompanist-themeadapter-material3:0.29.0-alpha"
 
     //iOS
     const val ktorDarwin = "io.ktor:ktor-client-darwin:${Versions.ktor}"
