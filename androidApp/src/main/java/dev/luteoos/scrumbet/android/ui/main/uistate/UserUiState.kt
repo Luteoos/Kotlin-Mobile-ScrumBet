@@ -1,4 +1,4 @@
-package dev.luteoos.scrumbet.android.ui.main
+package dev.luteoos.scrumbet.android.ui.main.uistate
 
 import dev.luteoos.scrumbet.data.state.UserData
 

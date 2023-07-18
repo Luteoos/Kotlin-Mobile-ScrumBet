@@ -16,6 +16,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
@@ -36,7 +38,19 @@ import dev.luteoos.scrumbet.android.core.BaseViewModel
 import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toggle
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DefaultModalSheet(scope: CoroutineScope, sheetState: SheetState, content: @Composable () -> Unit) {
+    ModalBottomSheet(
+        onDismissRequest = { scope.launch { sheetState.hide() } },
+        sheetState = sheetState
+    ) {
+        content()
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Deprecated("Deprecated in favor of M3 ModalBottomSheet", level = DeprecationLevel.ERROR)

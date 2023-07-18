@@ -2,6 +2,7 @@
 
 package dev.luteoos.scrumbet.android.ui.main
 
+import DefaultModalSheet
 import LoadingView
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -27,9 +28,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -62,6 +63,8 @@ import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BaseComposeFragment
 import dev.luteoos.scrumbet.android.ext.notify
 import dev.luteoos.scrumbet.android.ext.toRoomScreen
+import dev.luteoos.scrumbet.android.ui.main.uistate.JoinSheetState
+import dev.luteoos.scrumbet.android.ui.main.uistate.UserUiState
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
 import dev.luteoos.scrumbet.shared.Log
@@ -189,6 +192,7 @@ private fun MainScreenSuccess(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 modifier = Modifier.fillMaxWidth(),
+                shape = ShapeDefaults.Medium,
                 onClick = {
                     scope.launch {
                         joinSheetState.show()
@@ -201,17 +205,18 @@ private fun MainScreenSuccess(
                 )
             }
             Text(text = stringResource(R.string.divider_label_or), fontSize = TextSize.small())
-            Button(modifier = Modifier.fillMaxWidth(), onClick = {
-                model.createNewRoom()
-            }) {
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                shape = ShapeDefaults.Medium,
+                onClick = {
+                    model.createNewRoom()
+                }
+            ) {
                 Text(text = stringResource(R.string.label_create), fontSize = TextSize.small(), fontWeight = FontWeight.Bold)
             }
         }
         if (usernameSheetState.isVisible)
-            ModalBottomSheet(
-                onDismissRequest = { scope.launch { usernameSheetState.hide() } },
-                sheetState = usernameSheetState
-            ) {
+            DefaultModalSheet(scope, usernameSheetState) {
                 MainScreenUserEditSheet(username = username, onSave = { newUsername ->
                     model.updateUsername(newUsername)
                     model.hideKeyboard.notify()
@@ -221,10 +226,7 @@ private fun MainScreenSuccess(
                 })
             }
         if (joinSheetState.isVisible)
-            ModalBottomSheet(
-                onDismissRequest = { scope.launch { joinSheetState.hide() } },
-                sheetState = joinSheetState
-            ) {
+            DefaultModalSheet(scope, joinSheetState) {
                 MainScreenJoinSheet { roomId ->
                     scope.launch { joinSheetState.hide() }
                     model.setRoomId(roomId)

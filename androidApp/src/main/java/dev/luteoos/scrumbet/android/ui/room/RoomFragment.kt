@@ -1,5 +1,6 @@
 package dev.luteoos.scrumbet.android.ui.room
 
+import DefaultModalSheet
 import LoadingView
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -48,7 +49,6 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -126,7 +126,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
     @Composable
     override fun ComposeLayout() {
         val state by model.uiState.observeAsState(RoomUiState.Loading)
-        val shareSheetState = rememberModalBottomSheetState()
+        val shareSheetState = rememberModalBottomSheetState(true)
         val scope = rememberCoroutineScope()
 
         val title = when (state) {
@@ -188,10 +188,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
                 }
             }
             if (shareSheetState.isVisible)
-                ModalBottomSheet(
-                    onDismissRequest = { scope.launch { shareSheetState.hide() } },
-                    sheetState = shareSheetState
-                ) {
+                DefaultModalSheet(scope, shareSheetState) {
                     RoomScreenShareSheet(
                         roomName,
                         (state as? RoomUiState.Success)?.config?.url,
@@ -433,17 +430,11 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 //            }
         }
         if (settingsSheetState.isVisible)
-            ModalBottomSheet(
-                onDismissRequest = { scope.launch { settingsSheetState.hide() } },
-                sheetState = settingsSheetState
-            ) {
+            DefaultModalSheet(scope, settingsSheetState) {
                 RoomScreenSettingsSheet()
             }
         if (membersSheetState.isVisible)
-            ModalBottomSheet(
-                onDismissRequest = { scope.launch { membersSheetState.hide() } },
-                sheetState = membersSheetState
-            ) {
+            DefaultModalSheet(scope, membersSheetState) {
                 RoomScreenMemberListSheet()
             }
     }
