@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ScrumHub</string>
     <string name="frontTag">0</string>
     <string name="backTag">1</string>
     <string name="share">Share</string>
