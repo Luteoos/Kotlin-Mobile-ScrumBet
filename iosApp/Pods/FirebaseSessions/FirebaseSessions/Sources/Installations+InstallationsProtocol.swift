@@ -18,17 +18,17 @@ import Foundation
 @_implementationOnly import FirebaseInstallations
 
 protocol InstallationsProtocol {
-    func installationID(completion: @escaping (Result<String, Error>) -> Void)
+  func installationID(completion: @escaping (Result<String, Error>) -> Void)
 }
 
 extension Installations: InstallationsProtocol {
-    func installationID(completion: @escaping (Result<String, Error>) -> Void) {
-        installationID { (installationID: String?, error: Error?) in
-            if let installationID = installationID {
-                completion(.success(installationID))
-            } else if let error = error {
-                completion(.failure(error))
-            }
-        }
+  func installationID(completion: @escaping (Result<String, Error>) -> Void) {
+    installationID { (installationID: String?, error: Error?) in
+      if let installationID = installationID {
+        completion(.success(installationID))
+      } else if let error = error {
+        completion(.failure(error))
+      }
     }
+  }
 }

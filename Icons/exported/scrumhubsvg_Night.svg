@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="176.09999pt"
+   height="42.700001pt"
+   viewBox="0 0 62.124164 15.063611"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <rect
+       x="16.398029"
+       y="58.13847"
+       width="232.55388"
+       height="138.63789"
+       id="rect2234-7" />
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-124.27264,-141.07522)">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,121.36592,126.91975)"
+       id="text2232-5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234-7);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="16.398438"
+         y="95.947661"
+         id="tspan1789">Scrum</tspan></text>
+  </g>
+</svg>

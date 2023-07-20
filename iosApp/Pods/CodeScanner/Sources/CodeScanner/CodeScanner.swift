@@ -19,8 +19,8 @@ public enum ScanError: Error {
 
     /// Initialization failed.
     case initError(_ error: Error)
-
-    /// The camera permission is denied
+  
+    /// The camera permission is denied 
     case permissionDenied
 }
 
@@ -34,10 +34,10 @@ public struct ScanResult {
 
     /// The type of code that was matched.
     public let type: AVMetadataObject.ObjectType
-
+    
     /// The image of the code that was matched
     public let image: UIImage?
-
+  
     /// The corner coordinates of the scanned code.
     public let corners: [CGPoint]
 }
@@ -63,6 +63,7 @@ public enum ScanMode {
 /// For testing inside the simulator, set the `simulatedData` property to some test data you want to send back.
 @available(macCatalyst 14.0, *)
 public struct CodeScannerView: UIViewControllerRepresentable {
+    
     public let codeTypes: [AVMetadataObject.ObjectType]
     public let scanMode: ScanMode
     public let manualSelect: Bool
@@ -101,11 +102,11 @@ public struct CodeScannerView: UIViewControllerRepresentable {
         self.completion = completion
     }
 
-    public func makeUIViewController(context _: Context) -> ScannerViewController {
+    public func makeUIViewController(context: Context) -> ScannerViewController {
         return ScannerViewController(showViewfinder: showViewfinder, parentView: self)
     }
 
-    public func updateUIViewController(_ uiViewController: ScannerViewController, context _: Context) {
+    public func updateUIViewController(_ uiViewController: ScannerViewController, context: Context) {
         uiViewController.parentView = self
         uiViewController.updateViewController(
             isTorchOn: isTorchOn,
@@ -114,12 +115,13 @@ public struct CodeScannerView: UIViewControllerRepresentable {
             isManualSelect: manualSelect
         )
     }
+    
 }
 
 @available(macCatalyst 14.0, *)
 struct CodeScannerView_Previews: PreviewProvider {
     static var previews: some View {
-        CodeScannerView(codeTypes: [.qr]) { _ in
+        CodeScannerView(codeTypes: [.qr]) { result in
             // do nothing
         }
     }

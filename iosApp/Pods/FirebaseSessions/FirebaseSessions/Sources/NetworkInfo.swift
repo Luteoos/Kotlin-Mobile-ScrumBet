@@ -16,27 +16,27 @@
 import Foundation
 
 #if SWIFT_PACKAGE
-    import FirebaseSessionsObjC
+  import FirebaseSessionsObjC
 #endif // SWIFT_PACKAGE
 
 #if SWIFT_PACKAGE
-    @_implementationOnly import GoogleUtilities_Environment
+  @_implementationOnly import GoogleUtilities_Environment
 #else
-    @_implementationOnly import GoogleUtilities
+  @_implementationOnly import GoogleUtilities
 #endif // SWIFT_PACKAGE
 
 protocol NetworkInfoProtocol {
-    var networkType: GULNetworkType { get }
+  var networkType: GULNetworkType { get }
 
-    var mobileSubtype: String { get }
+  var mobileSubtype: String { get }
 }
 
 class NetworkInfo: NetworkInfoProtocol {
-    var networkType: GULNetworkType {
-        return GULNetworkInfo.getNetworkType()
-    }
+  var networkType: GULNetworkType {
+    return GULNetworkInfo.getNetworkType()
+  }
 
-    var mobileSubtype: String {
-        return GULNetworkInfo.getNetworkRadioType()
-    }
+  var mobileSubtype: String {
+    return GULNetworkInfo.getNetworkRadioType()
+  }
 }

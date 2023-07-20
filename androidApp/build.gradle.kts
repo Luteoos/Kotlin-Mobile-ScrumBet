@@ -25,8 +25,8 @@ android {
         applicationId = "dev.luteoos.scrumbet"
         minSdk = 28
         targetSdk = 33
-        versionCode = 8
-        versionName = "0.2.2"
+        versionCode = 9
+        versionName = "0.3.0"
     }
     buildFeatures {
         compose = true

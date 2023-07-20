@@ -24,9 +24,9 @@ import Foundation
 // dependent SDKs
 @objc(FIRSessionsDependencies)
 public class SessionsDependencies: NSObject {
-    static var dependencies: Set<SessionsSubscriberName> = .init()
+  static var dependencies: Set<SessionsSubscriberName> = .init()
 
-    @objc public static func addDependency(name: SessionsSubscriberName) {
-        SessionsDependencies.dependencies.insert(name)
-    }
+  @objc public static func addDependency(name: SessionsSubscriberName) {
+    SessionsDependencies.dependencies.insert(name)
+  }
 }

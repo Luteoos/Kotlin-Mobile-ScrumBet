@@ -15,23 +15,23 @@
 import Foundation
 
 public extension Promise {
-    typealias Catch = (Error) -> Void
+  typealias Catch = (Error) -> Void
 
-    /// Creates a pending promise which eventually gets resolved with same resolution as `self`.
-    /// If `self` is rejected, then `reject` block is executed asynchronously on the given queue.
-    /// - parameters:
-    ///   - queue: A queue to invoke the `reject` block on.
-    ///   - reject: A block to handle the error that `self` was rejected with.
-    /// - returns: A new pending promise.
-    @discardableResult
-    func `catch`(on queue: DispatchQueue = .promises, _ reject: @escaping Catch) -> Promise {
-        let promise = Promise(objCPromise.__onQueue(queue, catch: {
-            // Convert `NSError` to `PromiseError`, if applicable.
-            let error = PromiseError($0) ?? $0
-            return reject(error as NSError)
-        }))
-        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-        objCPromise.__addPendingObject(promise)
-        return promise
-    }
+  /// Creates a pending promise which eventually gets resolved with same resolution as `self`.
+  /// If `self` is rejected, then `reject` block is executed asynchronously on the given queue.
+  /// - parameters:
+  ///   - queue: A queue to invoke the `reject` block on.
+  ///   - reject: A block to handle the error that `self` was rejected with.
+  /// - returns: A new pending promise.
+  @discardableResult
+  func `catch`(on queue: DispatchQueue = .promises, _ reject: @escaping Catch) -> Promise {
+    let promise = Promise(objCPromise.__onQueue(queue, catch: {
+      // Convert `NSError` to `PromiseError`, if applicable.
+      let error = PromiseError($0) ?? $0
+      return reject(error as NSError)
+    }))
+    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+    objCPromise.__addPendingObject(promise)
+    return promise
+  }
 }

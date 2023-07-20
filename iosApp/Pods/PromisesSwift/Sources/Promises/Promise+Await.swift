@@ -20,9 +20,9 @@ import FBLPromises
 /// - throws: Error the promise was rejected with.
 /// - returns: Value the promise was fulfilled with.
 public func awaitPromise<Value>(_ promise: Promise<Value>) throws -> Value {
-    var outError: NSError?
-    let outValue = __FBLPromiseAwait(promise.objCPromise, &outError) as AnyObject
-    if let error = outError { throw error }
-    guard let value = Promise<Value>.asValue(outValue) else { preconditionFailure() }
-    return value
+  var outError: NSError?
+  let outValue = __FBLPromiseAwait(promise.objCPromise, &outError) as AnyObject
+  if let error = outError { throw error }
+  guard let value = Promise<Value>.asValue(outValue) else { preconditionFailure() }
+  return value
 }

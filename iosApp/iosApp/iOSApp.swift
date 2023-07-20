@@ -10,7 +10,7 @@ struct iOSApp: App {
     #if os(iOS)
         @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     #endif
-
+    
     //    way to do DI via @EnvironmentObject
     let authObject: AuthObject
     private let authController: AuthControllerInterface
@@ -30,7 +30,6 @@ struct iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            // #if os(iOS)
             AppView()
                 .environmentObject(authObject)
                 .environment(\.authController, authController)
@@ -42,13 +41,20 @@ struct iOSApp: App {
                     }
                     authController.setRoomConnectionId(id: roomId)
                 }
-//            #else
-//            NavigationWrapper {
-//                ContentView()
-//            }
-//                .environmentObject(authObject)
-//                .environment(\.authController, authController)
-//            #endif
+                .onAppear {
+                    #if os(macOS)
+                    // empty - default dark icon
+                    #else
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        if UITraitCollection.current.userInterfaceStyle == .light {
+                           
+                            UIApplication.shared.setAlternateIconName("AppIcon")
+                        } else {
+                            UIApplication.shared.setAlternateIconName(nil)
+                        }
+                    }
+                    #endif
+                }
         }
     }
 }
