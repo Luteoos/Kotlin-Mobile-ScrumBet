@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "scrumhub_banner_day.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "scrumhub_banner_night.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "compression-type" : "lossless",
+    "template-rendering-intent" : "original"
+  }
+}
