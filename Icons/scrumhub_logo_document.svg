@@ -7,7 +7,7 @@
    viewBox="0 0 61.42249 14.347224"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
    sodipodi:docname="scrumhub_logo_document.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -28,14 +28,14 @@
      fit-margin-left="1"
      fit-margin-right="1"
      fit-margin-bottom="1"
-     inkscape:zoom="2"
-     inkscape:cx="205.75"
-     inkscape:cy="104"
-     inkscape:window-width="2560"
-     inkscape:window-height="1377"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:zoom="2.1749995"
+     inkscape:cx="62.528749"
+     inkscape:cy="372.64376"
+     inkscape:window-width="1512"
+     inkscape:window-height="945"
+     inkscape:window-x="0"
+     inkscape:window-y="37"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      inkscape:showpageshadow="false"
      inkscape:deskcolor="#292929"
@@ -75,6 +75,26 @@
        height="16.933336"
        id="page2247"
        inkscape:label="App Night" />
+    <inkscape:page
+       x="-27.49346"
+       y="54.495964"
+       width="88.194443"
+       height="88.194458"
+       id="page359"
+       inkscape:label="Day Banner"
+       inkscape:export-filename="scrumhub_banner_day.svg"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <inkscape:page
+       x="69.961037"
+       y="61.123852"
+       width="88.194443"
+       height="88.19445"
+       id="page412"
+       inkscape:label="Night Banner"
+       inkscape:export-filename="scrumhub_banner_night.svg"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
   </sodipodi:namedview>
   <defs
      id="defs2">
@@ -208,6 +228,54 @@
        apply_with_radius="true"
        only_selected="false"
        hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect12905-03"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1"
+       unit="pt"
+       method="auto"
+       mode="F"
+       radius="6"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false"
+       nodesatellites_param="F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1" />
+    <rect
+       x="16.398029"
+       y="58.13847"
+       width="232.55388"
+       height="138.63789"
+       id="rect2234-9" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect12905-0-7"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1"
+       unit="pt"
+       method="auto"
+       mode="F"
+       radius="6"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false"
+       nodesatellites_param="F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1 @ F,0,0,1,0,2.1166667,0,1" />
+    <rect
+       x="16.398029"
+       y="58.13847"
+       width="232.55388"
+       height="138.63789"
+       id="rect2234-7-0" />
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -248,41 +316,44 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
            x="16.398438"
            y="95.947661"
-           id="tspan3078">Scrum</tspan></text>
+           id="tspan1388">Scrum</tspan></text>
     </g>
     <g
-       id="g1296"
-       transform="translate(-18.267864,-4.044031)">
-      <path
-         style="fill:#bab3ff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.264583"
-         id="rect12312-4"
-         width="24.694445"
-         height="12.347222"
-         x="178.61932"
-         y="146.47745"
-         sodipodi:type="rect"
-         d="m 180.73599,146.47745 h 20.46111 a 2.1166667,2.1166667 45 0 1 2.11667,2.11666 v 8.11389 a 2.1166667,2.1166667 135 0 1 -2.11667,2.11667 h -20.46111 a 2.1166667,2.1166667 45 0 1 -2.11667,-2.11667 v -8.11389 a 2.1166667,2.1166667 135 0 1 2.11667,-2.11666 z"
-         inkscape:path-effect="#path-effect12905-0" />
+       id="g577">
+      <g
+         id="g1296"
+         transform="translate(-18.267864,-4.044031)">
+        <path
+           style="fill:#bab3ff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.264583"
+           id="rect12312-4"
+           width="24.694445"
+           height="12.347222"
+           x="178.61932"
+           y="146.47745"
+           sodipodi:type="rect"
+           d="m 180.73599,146.47745 h 20.46111 a 2.1166667,2.1166667 45 0 1 2.11667,2.11666 v 8.11389 a 2.1166667,2.1166667 135 0 1 -2.11667,2.11667 h -20.46111 a 2.1166667,2.1166667 45 0 1 -2.11667,-2.11667 v -8.11389 a 2.1166667,2.1166667 135 0 1 2.11667,-2.11666 z"
+           inkscape:path-effect="#path-effect12905-0" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="179.84351"
+           y="156.45047"
+           id="text9722-4"><tspan
+             sodipodi:role="line"
+             id="tspan9720-4"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             x="179.84351"
+             y="156.45047">Hub</tspan></text>
+      </g>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         x="179.84351"
-         y="156.45047"
-         id="text9722-4"><tspan
-           sodipodi:role="line"
-           id="tspan9720-4"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           x="179.84351"
-           y="156.45047">Hub</tspan></text>
+         transform="matrix(0.26458333,0,0,0.26458333,121.36592,126.91975)"
+         id="text2232-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234-7);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
+           x="16.398438"
+           y="95.947661"
+           id="tspan1390">Scrum</tspan></text>
     </g>
-    <text
-       xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,121.36592,126.91975)"
-       id="text2232-5"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234-7);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
-         x="16.398438"
-         y="95.947661"
-         id="tspan3080">Scrum</tspan></text>
     <rect
        style="fill:#212122;fill-opacity:1;fill-rule:evenodd;stroke:#212121;stroke-width:0.569778;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect2473"
@@ -301,7 +372,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2108-9);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
            x="41.900391"
            y="131.62344"
-           id="tspan3082">S</tspan></text>
+           id="tspan1392">S</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458334,0,0,0.26458334,135.32776,149.76885)"
@@ -309,7 +380,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2114-9);display:inline;fill:#bab3ff;fill-opacity:1;stroke:#bab3ff;stroke-linejoin:round;stroke-opacity:1"><tspan
            x="74.841797"
            y="140.05704"
-           id="tspan3084">H</tspan></text>
+           id="tspan1394">H</tspan></text>
     </g>
     <path
        style="fill:#fefefe;fill-opacity:1;fill-rule:evenodd;stroke:#fefefe;stroke-width:0.569778;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -332,7 +403,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2108-2);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.33333;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="41.900391"
              y="131.62344"
-             id="tspan3086">S</tspan></text>
+             id="tspan1396">S</tspan></text>
       </g>
       <text
          xml:space="preserve"
@@ -341,7 +412,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2114-6);display:inline;fill:#8883d2;fill-opacity:1;stroke:#8883d2;stroke-linejoin:round;stroke-opacity:1"><tspan
            x="74.841797"
            y="140.05704"
-           id="tspan3088">H</tspan></text>
+           id="tspan1398">H</tspan></text>
     </g>
     <g
        id="g2354-6"
@@ -353,7 +424,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2108-9-0);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
            x="41.900391"
            y="131.62344"
-           id="tspan3090">S</tspan></text>
+           id="tspan1400">S</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458334,0,0,0.26458334,135.32776,149.76885)"
@@ -361,7 +432,81 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2114-9-1);display:inline;fill:#bab3ff;fill-opacity:1;stroke:#bab3ff;stroke-linejoin:round;stroke-opacity:1"><tspan
            x="74.841797"
            y="140.05704"
-           id="tspan3092">H</tspan></text>
+           id="tspan1402">H</tspan></text>
+    </g>
+    <g
+       id="g14030-8"
+       transform="translate(-14.107422,91.419589)">
+      <g
+         id="g14022-6"
+         transform="translate(0.26484789)">
+        <path
+           style="fill:#8883d2;fill-opacity:1;fill-rule:evenodd;stroke-width:0.264583"
+           id="rect12312-5"
+           width="24.694445"
+           height="12.347222"
+           x="93.579613"
+           y="142.32639"
+           inkscape:path-effect="#path-effect12905-03"
+           sodipodi:type="rect"
+           d="m 95.696279,142.32639 h 20.461111 a 2.1166667,2.1166667 45 0 1 2.11667,2.11666 l 0,8.11389 a 2.1166667,2.1166667 135 0 1 -2.11667,2.11667 H 95.696279 a 2.1166667,2.1166667 45 0 1 -2.116666,-2.11667 v -8.11389 a 2.1166667,2.1166667 135 0 1 2.116666,-2.11666 z" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#fefefe;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="94.803795"
+           y="152.29941"
+           id="text9722-7"><tspan
+             sodipodi:role="line"
+             id="tspan9720-6"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#fefefe;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             x="94.803795"
+             y="152.29941">Hub</tspan></text>
+      </g>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,54.858924,126.81272)"
+         id="text2232-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234-9);display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
+           x="16.398438"
+           y="95.947661"
+           id="tspan1404">Scrum</tspan></text>
+    </g>
+    <g
+       id="g577-3"
+       transform="translate(16.840083,97.940436)">
+      <g
+         id="g1296-9"
+         transform="translate(-18.267864,-4.044031)">
+        <path
+           style="fill:#bab3ff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.264583"
+           id="rect12312-4-9"
+           width="24.694445"
+           height="12.347222"
+           x="178.61932"
+           y="146.47745"
+           sodipodi:type="rect"
+           d="m 180.73599,146.47745 h 20.46111 a 2.1166667,2.1166667 45 0 1 2.11667,2.11666 v 8.11389 a 2.1166667,2.1166667 135 0 1 -2.11667,2.11667 h -20.46111 a 2.1166667,2.1166667 45 0 1 -2.11667,-2.11667 v -8.11389 a 2.1166667,2.1166667 135 0 1 2.11667,-2.11666 z"
+           inkscape:path-effect="#path-effect12905-0-7" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="179.84351"
+           y="156.45047"
+           id="text9722-4-9"><tspan
+             sodipodi:role="line"
+             id="tspan9720-4-1"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             x="179.84351"
+             y="156.45047">Hub</tspan></text>
+      </g>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,121.36592,126.91975)"
+         id="text2232-5-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234-7-0);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
+           x="16.398438"
+           y="95.947661"
+           id="tspan1406">Scrum</tspan></text>
     </g>
   </g>
   <g
