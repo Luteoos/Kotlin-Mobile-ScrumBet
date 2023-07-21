@@ -1,5 +1,3 @@
-import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -77,7 +75,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ndk")
 
-    implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(Dependencies.kotlinCoroutinesAndroid)
@@ -87,25 +84,25 @@ dependencies {
     implementation(Dependencies.koinAndroid)
     implementation(Dependencies.timber)
     implementation("com.github.Luteoos:qrx:1.0.1")
-    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+    implementation(Dependencies.accompanistPermissions)
 
     //QRCode gen
     implementation("com.google.zxing:core:3.3.0")
 
-    implementation("androidx.compose.ui:ui:1.4.3")
-    implementation("androidx.compose.material3:material3:1.1.1")
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
-//    implementation("androidx.compose.material3:material3:1.1.0")
-    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation("androidx.compose.foundation:foundation:1.4.3")
-    implementation("androidx.activity:activity-compose:1.7.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
-    implementation("androidx.activity:activity-ktx:1.7.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation(Dependencies.materialThemeAdapter)
+    implementation(Dependencies.activityCompose)
+    implementation(Dependencies.activityKtx)
+    implementation(Dependencies.material)
+    implementation(Dependencies.M3)
+    implementation(Dependencies.M3WindowSize)
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeRuntime)
+    implementation(Dependencies.composeFoundtaion)
+    implementation(Dependencies.composeTooling)
+    implementation(Dependencies.composePreview)
+    implementation(Dependencies.navigationUi)
+    implementation(Dependencies.navigationFragment)
+//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation(Dependencies.accompanistMDC)
 
     implementation("com.github.tehras:charts:0.2.4-alpha")
 }
