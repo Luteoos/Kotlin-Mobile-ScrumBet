@@ -42,18 +42,19 @@ struct iOSApp: App {
                     authController.setRoomConnectionId(id: roomId)
                 }
                 .onAppear {
-                    #if os(macOS)
-                    // empty - default dark icon
-                    #else
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        if UITraitCollection.current.userInterfaceStyle == .light {
-                           
-                            UIApplication.shared.setAlternateIconName("AppIcon")
-                        } else {
-                            UIApplication.shared.setAlternateIconName(nil)
-                        }
-                    }
-                    #endif
+//                    todo move to settings
+//                    #if os(macOS)
+//                    // empty - default dark icon
+//                    #else
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        if UITraitCollection.current.userInterfaceStyle == .light {
+//
+//                            UIApplication.shared.setAlternateIconName("AppIcon")
+//                        } else {
+//                            UIApplication.shared.setAlternateIconName(nil)
+//                        }
+//                    }
+//                    #endif
                 }
         }
     }
