@@ -6,7 +6,9 @@
         <color android:color="@color/ic_launcher_background"/>
     </item>
     <item
-        android:gravity="center">
-        <bitmap android:src="@mipmap/scrumhub_banner"/>
+        android:gravity="center"
+        android:width="200dp"
+        android:height="46dp">
+            <bitmap android:src="@mipmap/scrumhub_banner"/>
     </item>
 </layer-list>
