@@ -37,8 +37,8 @@ sonar {
         property("sonar.organization", "luteoos-dev")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.sourceEncoding", "UTF-8")
-        property("sonar.sources", "./")
-        property("sonar.exclusions", "**/build/**, **/core/build/**, **/build.gradle.kts, **/src/test/**, **/google-services.json, **/GoogleService-Info.plist, **/xcuserdata")
+        property("sonar.sources", "**/src")
+        property("sonar.exclusions", "**/build/**, **/build/**,  **/src/test/**, **/google-services.json, **/GoogleService-Info.plist, **/xcuserdata")
 
     }
 }
