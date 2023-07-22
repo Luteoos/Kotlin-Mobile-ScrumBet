@@ -28,6 +28,15 @@ plugins {
     id("com.android.library").version("7.3.1").apply(false)
     kotlin("android").version(Versions.kotlin).apply(false)
     kotlin("multiplatform").version(Versions.kotlin).apply(false)
+    id("org.sonarqube") version "4.2.1.3168"
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "luteoos-dev_mobile-scrumhub")
+        property("sonar.organization", "luteoos-dev")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 tasks.register("clean", Delete::class) {
