@@ -28,7 +28,7 @@ plugins {
     id("com.android.library").version("7.3.1").apply(false)
     kotlin("android").version(Versions.kotlin).apply(false)
     kotlin("multiplatform").version(Versions.kotlin).apply(false)
-    id("org.sonarqube") version "4.2.1.3168"
+    id("org.sonarqube") version "4.3.0.3225"
 }
 
 sonar {
@@ -36,6 +36,10 @@ sonar {
         property("sonar.projectKey", "luteoos-dev_mobile-scrumhub")
         property("sonar.organization", "luteoos-dev")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.sources", "./")
+        property("sonar.exclusions", "**/build/**, **/core/build/**, **/build.gradle.kts, **/src/test/**, **/google-services.json, **/GoogleService-Info.plist, **/xcuserdata")
+
     }
 }
 
