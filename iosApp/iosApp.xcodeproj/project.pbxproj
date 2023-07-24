@@ -66,6 +66,7 @@
 		EEBF92E32A435FF2003C21BA /* MockRoomControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92BD2A3E39C0003C21BA /* MockRoomControllerInterface.swift */; };
 		EEC20C062A6962150043ABB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEC20C052A6962150043ABB7 /* GoogleService-Info.plist */; };
 		EEC20C072A6962150043ABB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEC20C052A6962150043ABB7 /* GoogleService-Info.plist */; };
+		EECCD9CC2A6EB1A3009DFD32 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EECCD9CB2A6EB1A3009DFD32 /* SplashScreen.storyboard */; };
 		EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EECED49929E6140D0031D376 /* Assets.xcassets */; };
 		EEDCC6762A371BE8007C3274 /* AuthObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6752A371BE8007C3274 /* AuthObject.swift */; };
 		EEDCC6782A371E2B007C3274 /* AuthUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCC6772A371E2B007C3274 /* AuthUiState.swift */; };
@@ -128,6 +129,7 @@
 		EEBF92D22A43550A003C21BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEBF92D42A43550A003C21BA /* ScrumBetMacOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrumBetMacOs.entitlements; sourceTree = "<group>"; };
 		EEC20C052A6962150043ABB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EECCD9CB2A6EB1A3009DFD32 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		EECED49929E6140D0031D376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEDCC6752A371BE8007C3274 /* AuthObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObject.swift; sourceTree = "<group>"; };
 		EEDCC6772A371E2B007C3274 /* AuthUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUiState.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				EEECF17329E6179B00989C31 /* style */,
 				EEECF17029E6179B00989C31 /* ui */,
 				EEECF17629E6179B00989C31 /* util */,
+				EECCD9CB2A6EB1A3009DFD32 /* SplashScreen.storyboard */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				EEDCC6802A3738A6007C3274 /* localhost.xcconfig in Resources */,
 				EECED49E29E6140D0031D376 /* Assets.xcassets in Resources */,
 				EEC20C062A6962150043ABB7 /* GoogleService-Info.plist in Resources */,
+				EECCD9CC2A6EB1A3009DFD32 /* SplashScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,6 +934,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ScrumHub;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -967,6 +972,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ScrumHub;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1004,6 +1010,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ScrumHub;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
