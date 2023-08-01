@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="252.00002pt"
+   height="252pt"
+   viewBox="0 0 88.900007 88.9"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <rect
+       x="16.398029"
+       y="58.13847"
+       width="232.55388"
+       height="138.63789"
+       id="rect2234-7-0" />
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-127.7248,-202.09746)">
+    <g
+       id="g577-3"
+       transform="translate(16.840083,97.940436)">
+      <g
+         id="g1296-9"
+         transform="translate(-18.267864,-4.044031)">
+        <path
+           style="fill:#bab3ff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.264583"
+           id="rect12312-4-9"
+           width="24.694445"
+           height="12.347222"
+           x="178.61932"
+           y="146.47745"
+           d="m 180.73599,146.47745 h 20.46111 a 2.1166667,2.1166667 45 0 1 2.11667,2.11666 v 8.11389 a 2.1166667,2.1166667 135 0 1 -2.11667,2.11667 h -20.46111 a 2.1166667,2.1166667 45 0 1 -2.11667,-2.11667 v -8.11389 a 2.1166667,2.1166667 135 0 1 2.11667,-2.11666 z" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           x="179.84351"
+           y="156.45047"
+           id="text9722-4-9"><tspan
+             id="tspan9720-4-1"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';fill:none;fill-opacity:1;stroke:#212121;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             x="179.84351"
+             y="156.45047">Hub</tspan></text>
+      </g>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,121.36592,126.91975)"
+         id="text2232-5-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2234-7-0);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><tspan
+           x="16.398438"
+           y="95.947661"
+           id="tspan1143">Scrum</tspan></text>
+    </g>
+  </g>
+</svg>

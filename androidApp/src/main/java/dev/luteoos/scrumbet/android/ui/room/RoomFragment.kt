@@ -149,7 +149,7 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 @Composable
 fun VoteResultUi_Preview() {
     Mdc3Theme() {
-        VoteResultUi(isOwner = true, list = listOf(RoomUser("", "preview", true, "2")), scale = listOf("1", "2", "?"))
+        VoteResultUi(list = listOf(RoomUser("", "preview", true, "2")), scale = listOf("1", "2", "?"))
     }
 }
 
@@ -251,7 +251,7 @@ private fun RoomScreenUiConnected(
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        VoteResultUi(isOwner = state.config.isOwner, list = state.userList, scale = state.config.scale)
+        VoteResultUi(list = state.userList, scale = state.config.scale)
         LazyVerticalGrid(
             modifier = Modifier
                 .scrollable(scrollState, orientation = Orientation.Vertical)
@@ -298,7 +298,7 @@ private fun RoomScreenUiConnected(
 }
 
 @Composable
-fun VoteResultUi(isOwner: Boolean, list: List<RoomUser>, scale: List<String>) {
+fun VoteResultUi(list: List<RoomUser>, scale: List<String>) {
     val score: String = if (list.any { it.vote == null })
         ""
     else

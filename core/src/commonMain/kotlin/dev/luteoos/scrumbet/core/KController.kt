@@ -30,6 +30,7 @@ abstract class KController<stateData, stateError> : KoinComponent {
     fun watchState() = state.wrap()
 
     open fun onStart() {
+        // empty
     }
 
     open fun onStop() {

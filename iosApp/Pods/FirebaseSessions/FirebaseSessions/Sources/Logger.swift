@@ -21,42 +21,42 @@ import Foundation
 /// Logger is responsible for printing console logs
 ///
 enum Logger {
-    private static let logServiceTag = "[FirebaseSessions]"
-    private static let logCode = "I-SES000000"
+  private static let logServiceTag = "[FirebaseSessions]"
+  private static let logCode = "I-SES000000"
 
-    static func logInfo(_ message: String) {
-        FirebaseLogger.log(
-            level: .info,
-            service: logServiceTag,
-            code: logCode,
-            message: message
-        )
-    }
+  static func logInfo(_ message: String) {
+    FirebaseLogger.log(
+      level: .info,
+      service: logServiceTag,
+      code: logCode,
+      message: message
+    )
+  }
 
-    static func logDebug(_ message: String) {
-        FirebaseLogger.log(
-            level: .debug,
-            service: logServiceTag,
-            code: logCode,
-            message: message
-        )
-    }
+  static func logDebug(_ message: String) {
+    FirebaseLogger.log(
+      level: .debug,
+      service: logServiceTag,
+      code: logCode,
+      message: message
+    )
+  }
 
-    static func logWarning(_ message: String) {
-        FirebaseLogger.log(
-            level: .warning,
-            service: logServiceTag,
-            code: logCode,
-            message: message
-        )
-    }
+  static func logWarning(_ message: String) {
+    FirebaseLogger.log(
+      level: .warning,
+      service: logServiceTag,
+      code: logCode,
+      message: message
+    )
+  }
 
-    static func logError(_ message: String) {
-        FirebaseLogger.log(
-            level: .error,
-            service: logServiceTag,
-            code: logCode,
-            message: message
-        )
-    }
+  static func logError(_ message: String) {
+    FirebaseLogger.log(
+      level: .error,
+      service: logServiceTag,
+      code: logCode,
+      message: message
+    )
+  }
 }

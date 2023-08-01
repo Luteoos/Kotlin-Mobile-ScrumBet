@@ -15,17 +15,18 @@
 import Foundation
 
 public extension Promise {
-    /// Waits on a promise for a given interval or rejects the promise if it exceeds the time limit.
-    /// - parameters:
-    ///   - queue: A queue to dispatch on.
-    ///   - interval: Time to wait in seconds.
-    /// - returns: A new pending promise that gets either resolved with same resolution as `self` or
-    ///            rejected with `PromiseError.timedOut` error.
-    @discardableResult
-    func timeout(on queue: DispatchQueue = .promises, _ interval: TimeInterval) -> Promise {
-        let promise = Promise(objCPromise.__onQueue(queue, timeout: interval))
-        // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
-        objCPromise.__addPendingObject(promise)
-        return promise
-    }
+
+  /// Waits on a promise for a given interval or rejects the promise if it exceeds the time limit.
+  /// - parameters:
+  ///   - queue: A queue to dispatch on.
+  ///   - interval: Time to wait in seconds.
+  /// - returns: A new pending promise that gets either resolved with same resolution as `self` or
+  ///            rejected with `PromiseError.timedOut` error.
+  @discardableResult
+  func timeout(on queue: DispatchQueue = .promises, _ interval: TimeInterval) -> Promise {
+    let promise = Promise(objCPromise.__onQueue(queue, timeout: interval))
+    // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
+    objCPromise.__addPendingObject(promise)
+    return promise
+  }
 }

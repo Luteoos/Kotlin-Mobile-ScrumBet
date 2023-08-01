@@ -21,6 +21,7 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashFragmentBinding>(Spla
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // empty
     }
 
     override fun initObservers() {

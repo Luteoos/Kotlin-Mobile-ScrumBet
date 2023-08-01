@@ -10,4 +10,4 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 API_BASE_URL = luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080
-APP_NAME = ScrumBet-Azure
+APP_NAME = ScrumHub-Azure

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="50.000004pt"
+   height="50pt"
+   viewBox="0 0 17.638891 17.638889"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="scrumhub_logo_document.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="false"
+     inkscape:document-units="pt"
+     showgrid="false"
+     lock-margins="true"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:zoom="2"
+     inkscape:cx="205.75"
+     inkscape:cy="104"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="false"
+     inkscape:deskcolor="#292929"
+     showguides="true" />
+  <defs
+     id="defs2">
+    <rect
+       x="41.900684"
+       y="93.815369"
+       width="37.157211"
+       height="59.293423"
+       id="rect2108-9-0" />
+    <rect
+       x="74.841476"
+       y="102.24821"
+       width="38.211315"
+       height="52.441738"
+       id="rect2114-9-1" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-112.9857,-157.98643)">
+    <g
+       id="g2354-6"
+       transform="translate(-33.677019,-16.315565)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458334,0,0,0.26458334,137.29963,152.00024)"
+         id="text2106-1-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2108-9-0);display:inline;fill:#fefefe;fill-opacity:1;stroke:#fefefe;stroke-width:1.33333;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
+           x="41.900391"
+           y="130.30767"
+           id="tspan374">S</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458334,0,0,0.26458334,135.32776,149.76885)"
+         id="text2112-0-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Gotham Black';-inkscape-font-specification:'Gotham Black, ';white-space:pre;shape-inside:url(#rect2114-9-1);display:inline;fill:#bab3ff;fill-opacity:1;stroke:#bab3ff;stroke-linejoin:round;stroke-opacity:1"><tspan
+           x="74.841797"
+           y="138.74126"
+           id="tspan376">H</tspan></text>
+    </g>
+  </g>
+</svg>
