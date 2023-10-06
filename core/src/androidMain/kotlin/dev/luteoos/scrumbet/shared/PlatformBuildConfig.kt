@@ -6,4 +6,8 @@ actual object PlatformBuildConfig {
     actual fun getBaseUrl(): String {
         return BuildConfig.BASE_URL
     }
+
+    actual fun getBaseWsUrl(): String{
+        return BuildConfig.BASE_WS_URL
+    }
 }

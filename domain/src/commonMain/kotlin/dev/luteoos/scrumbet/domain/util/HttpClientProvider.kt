@@ -16,6 +16,8 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 fun getHttpClient() = getPlatformHttpClient {
+    followRedirects = true
+
     install(Logging){
         logger = Logger.DEFAULT
         level = LogLevel.ALL

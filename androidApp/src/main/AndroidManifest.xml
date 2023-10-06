@@ -32,6 +32,7 @@
                 <data android:scheme="http"/>
                 <data android:scheme="https"/>
                 <data android:scheme="app"/>
+                <data android:host="api.scrumhub.luteoos.dev"/>
                 <data android:host="luteoos-scrumbet-poc.northeurope.cloudapp.azure.com"/>
             </intent-filter>
         </activity>

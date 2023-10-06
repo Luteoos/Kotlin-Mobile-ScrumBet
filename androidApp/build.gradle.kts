@@ -56,6 +56,10 @@ android {
             dimension = "env"
             applicationIdSuffix = ".azure"
         }
+        create("production"){
+            dimension = "env"
+            applicationIdSuffix = ""
+        }
     }
 
     kotlinOptions{
