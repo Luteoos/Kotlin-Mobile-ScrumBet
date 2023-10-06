@@ -27,6 +27,9 @@ kotlin {
         framework {
             baseName = "domain"
         }
+
+        xcodeConfigurationToNativeBuildType["Production"]=
+            org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
     }
     
     sourceSets {

@@ -32,6 +32,9 @@ kotlin {
         framework {
             baseName = "data"
         }
+
+        xcodeConfigurationToNativeBuildType["Production"]=
+            org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
     }
     
     sourceSets {

@@ -1,0 +1,13 @@
+//
+//  production.xcconfig
+//  iosApp
+//
+//  Created by Mateusz Lutecki on 06/10/2023.
+//  Copyright © 2023 luteoos.dev. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_BASE_URL = api.scrumhub.luteoos.dev
+APP_NAME = ScrumHub

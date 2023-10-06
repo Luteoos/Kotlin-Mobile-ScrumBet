@@ -21,7 +21,7 @@ struct iOSApp: App {
         KoinKt.doInitKoin()
         // must be after .doInitKoin due to underlying inject()
         // authObject = ObservableObject(controller: KController())
-        authController = AuthController(preferences: nil, serverRepository: nil, applicationVersion: nil)
+        authController = AuthController(preferences: nil, serverRepository: nil, buildConfig: nil, applicationVersion: nil)
         authObject = AuthObject(controller: authController)
         #if os(iOS)
             delegate.setAuthControler(authController)

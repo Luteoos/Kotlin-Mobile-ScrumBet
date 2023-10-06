@@ -181,6 +181,9 @@ fi
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
 fi
+if [[ "$CONFIGURATION" == "Production" ]]; then
+  install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
+fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
 fi

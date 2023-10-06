@@ -18,7 +18,7 @@ buildkonfig {
     packageName = "dev.luteoos.scrumbet"
 
     defaultConfigs{
-        buildConfigField(STRING, "appVersion", "0.2", const = true)
+        buildConfigField(STRING, "appVersion", "0.3", const = true)
         buildConfigField(STRING, "sslPrefix", "http://", const = true)
     }
 }
@@ -48,6 +48,9 @@ kotlin {
             export(project(":domain"))
             transitiveExport = false
         }
+
+        xcodeConfigurationToNativeBuildType["Production"]=
+            org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
     }
 
     kswift {

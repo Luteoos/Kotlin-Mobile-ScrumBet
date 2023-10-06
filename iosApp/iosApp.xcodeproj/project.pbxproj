@@ -20,6 +20,8 @@
 		EE4363A42A4483E800242F03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEBF92A82A39E6A8003C21BA /* Localizable.strings */; };
 		EE4363A52A44D60800242F03 /* MainScreenUsernameInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF92AD2A39F018003C21BA /* MainScreenUsernameInputSheet.swift */; };
 		EE4363A72A44DBEC00242F03 /* MainScreenJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */; };
+		EE45699F2AD03765005FA98C /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EE45699E2AD03765005FA98C /* production.xcconfig */; };
+		EE4569A02AD03765005FA98C /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EE45699E2AD03765005FA98C /* production.xcconfig */; };
 		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
 		EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAC29F71FCB00EF634A /* MockController.swift */; };
 		EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
@@ -86,12 +88,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1CFA594AF907545C405D2A49 /* Pods-macOs.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macOs.production.xcconfig"; path = "Target Support Files/Pods-macOs/Pods-macOs.production.xcconfig"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		4DDF864BDE8BD9EFE355E9CF /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61D883449E79BA000BF32640 /* Pods-macOs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macOs.debug.xcconfig"; path = "Target Support Files/Pods-macOs/Pods-macOs.debug.xcconfig"; sourceTree = "<group>"; };
 		633D20665F5D89C910829492 /* Pods_macOs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macOs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70943D6973D9CA4335371981 /* Pods-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.release.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		7555FF7B242A565900829871 /* ScrumHub-Azure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ScrumHub-Azure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7151BEE9263DA6A96B76A991 /* Pods-iOS.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.production.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.production.xcconfig"; sourceTree = "<group>"; };
+		7555FF7B242A565900829871 /* ScrumHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrumHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8562A76FAE0D6742B5F5852A /* Pods-iOS.azure.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.azure.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.azure.xcconfig"; sourceTree = "<group>"; };
 		9EE22F6E3E9A7860BBA079FC /* Pods-macOs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macOs.release.xcconfig"; path = "Target Support Files/Pods-macOs/Pods-macOs.release.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 		EE4363932A447EDA00242F03 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
 		EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenJoinView.swift; sourceTree = "<group>"; };
+		EE45699E2AD03765005FA98C /* production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = production.xcconfig; sourceTree = "<group>"; };
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EE50EBAC29F71FCB00EF634A /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
 		EE50EBAE29FD643A00EF634A /* KStateSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KStateSwift.swift; sourceTree = "<group>"; };
@@ -125,7 +130,7 @@
 		EEBF92BF2A3F5804003C21BA /* RoomScreenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenErrorView.swift; sourceTree = "<group>"; };
 		EEBF92C12A3F593D003C21BA /* RoomScreenShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenShareSheet.swift; sourceTree = "<group>"; };
 		EEBF92C32A3F612B003C21BA /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
-		EEBF92C92A435509003C21BA /* ScrumHub-Azure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ScrumHub-Azure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEBF92C92A435509003C21BA /* ScrumHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrumHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEBF92D22A43550A003C21BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EEBF92D42A43550A003C21BA /* ScrumBetMacOs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScrumBetMacOs.entitlements; sourceTree = "<group>"; };
 		EEC20C052A6962150043ABB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				EE45699E2AD03765005FA98C /* production.xcconfig */,
 				EEDCC67F2A3738A6007C3274 /* localhost.xcconfig */,
 				EEDCC67B2A37373A007C3274 /* azure.xcconfig */,
 				7555FF7D242A565900829871 /* iosApp */,
@@ -181,8 +187,8 @@
 		7555FF7C242A565900829871 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF7B242A565900829871 /* ScrumHub-Azure.app */,
-				EEBF92C92A435509003C21BA /* ScrumHub-Azure.app */,
+				7555FF7B242A565900829871 /* ScrumHub.app */,
+				EEBF92C92A435509003C21BA /* ScrumHub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,6 +222,8 @@
 				61D883449E79BA000BF32640 /* Pods-macOs.debug.xcconfig */,
 				9EE22F6E3E9A7860BBA079FC /* Pods-macOs.release.xcconfig */,
 				BE6FD5403D81DCF7C428A5AC /* Pods-macOs.azure.xcconfig */,
+				7151BEE9263DA6A96B76A991 /* Pods-iOS.production.xcconfig */,
+				1CFA594AF907545C405D2A49 /* Pods-macOs.production.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -448,7 +456,7 @@
 			);
 			name = iOS;
 			productName = iosApp;
-			productReference = 7555FF7B242A565900829871 /* ScrumHub-Azure.app */;
+			productReference = 7555FF7B242A565900829871 /* ScrumHub.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EEBF92C82A435509003C21BA /* macOs */ = {
@@ -467,7 +475,7 @@
 			);
 			name = macOs;
 			productName = ScrumBetMacOs;
-			productReference = EEBF92C92A435509003C21BA /* ScrumHub-Azure.app */;
+			productReference = EEBF92C92A435509003C21BA /* ScrumHub.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -514,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEDCC67C2A37373A007C3274 /* azure.xcconfig in Resources */,
+				EE45699F2AD03765005FA98C /* production.xcconfig in Resources */,
 				EEBF92A62A39E6A8003C21BA /* Localizable.strings in Resources */,
 				EEECF17829E6179B00989C31 /* Preview Assets.xcassets in Resources */,
 				EEDCC6802A3738A6007C3274 /* localhost.xcconfig in Resources */,
@@ -529,6 +538,7 @@
 			files = (
 				EE4363A42A4483E800242F03 /* Localizable.strings in Resources */,
 				EEECDE972A439D6200742357 /* azure.xcconfig in Resources */,
+				EE4569A02AD03765005FA98C /* production.xcconfig in Resources */,
 				EEBF92D92A43554E003C21BA /* Assets.xcassets in Resources */,
 				EEECDE982A439D6500742357 /* localhost.xcconfig in Resources */,
 				EEBF92D32A43550A003C21BA /* Preview Assets.xcassets in Resources */,
@@ -730,7 +740,7 @@
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEDCC67B2A37373A007C3274 /* azure.xcconfig */;
+			baseConfigurationReference = EE45699E2AD03765005FA98C /* production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark AppIcon";
@@ -798,7 +808,7 @@
 		};
 		7555FFA4242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEDCC67B2A37373A007C3274 /* azure.xcconfig */;
+			baseConfigurationReference = EE45699E2AD03765005FA98C /* production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark AppIcon";
@@ -864,7 +874,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -876,7 +886,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -889,8 +899,9 @@
 			baseConfigurationReference = 70943D6973D9CA4335371981 /* Pods-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -902,13 +913,142 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		EE4569A12AD03860005FA98C /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE45699E2AD03765005FA98C /* production.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark AppIcon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Production;
+		};
+		EE4569A22AD03860005FA98C /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7151BEE9263DA6A96B76A991 /* Pods-iOS.production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = F7C683AB96;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.4.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Production;
+		};
+		EE4569A32AD03860005FA98C /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CFA594AF907545C405D2A49 /* Pods-macOs.production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Secondary;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = macOs/ScrumBetMacOs.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "\"macOs/Preview Content\"";
+				DEVELOPMENT_TEAM = F7C683AB96;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOs/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrumHub;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 orgName. All rights reserved.";
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 0.4.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
+				PRODUCT_NAME = "$(APP_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Production;
 		};
 		EEBF92D52A43550A003C21BA /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -940,7 +1080,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SDKROOT = macosx;
@@ -978,7 +1118,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SDKROOT = macosx;
@@ -1016,7 +1156,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SDKROOT = macosx;
@@ -1093,7 +1233,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -1105,7 +1245,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1121,6 +1261,7 @@
 			buildConfigurations = (
 				7555FFA3242A565B00829871 /* Debug */,
 				7555FFA4242A565B00829871 /* Release */,
+				EE4569A12AD03860005FA98C /* Production */,
 				EEDCC67D2A37378B007C3274 /* Azure */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1131,6 +1272,7 @@
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,
 				7555FFA7242A565B00829871 /* Release */,
+				EE4569A22AD03860005FA98C /* Production */,
 				EEDCC67E2A37378B007C3274 /* Azure */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1141,6 +1283,7 @@
 			buildConfigurations = (
 				EEBF92D52A43550A003C21BA /* Debug */,
 				EEBF92D62A43550A003C21BA /* Release */,
+				EE4569A32AD03860005FA98C /* Production */,
 				EEBF92D72A43550A003C21BA /* Azure */,
 			);
 			defaultConfigurationIsVisible = 0;
