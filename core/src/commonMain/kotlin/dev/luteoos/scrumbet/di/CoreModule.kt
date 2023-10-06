@@ -25,6 +25,8 @@ val coreModule = module {
     single { Greeting() }
     single(named("APP_VERSION")) { BuildKonfig.appVersion }
     single(named("BASE_URL")) { PlatformBuildConfig.getBaseUrl() }
-    single(named("BASE_WS_URL")) { PlatformBuildConfig.getBaseWsUrl() }
     single(named("SSL_PREFIX")) { BuildKonfig.sslPrefix }
+    single { PlatformBuildConfig }
+
+    factory(named("BASE_WS_URL")) { PlatformBuildConfig.getBaseWsUrl() }
 }

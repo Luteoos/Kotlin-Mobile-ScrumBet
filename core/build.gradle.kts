@@ -139,17 +139,14 @@ android {
         create("localhost"){
             dimension = "env"
             buildConfigField("String", "BASE_URL", "\"192.168.18.3:8080\"")
-            buildConfigField("String", "BASE_WS_URL", "\"192.168.18.3:8080\"")
         }
         create("azure"){
             dimension = "env"
             buildConfigField("String", "BASE_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
-            buildConfigField("String", "BASE_WS_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
         }
         create("production"){
             dimension = "env"
             buildConfigField("String", "BASE_URL", "\"api.scrumhub.luteoos.dev\"")
-            buildConfigField("String", "BASE_WS_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"") // move to server version payload
         }
     }
 }

@@ -1,6 +1,15 @@
 package dev.luteoos.scrumbet.shared
 
-expect object PlatformBuildConfig {
+expect object PlatformBuildConfig: WebSocketBuildConfig {
     fun getBaseUrl(): String
-    fun getBaseWsUrl(): String
+}
+
+abstract class WebSocketBuildConfig(){
+    private var baseWsUrl = "<empty>"
+
+    fun setBaseWebSocketUrl(url: String){
+        baseWsUrl = url.trim()
+    }
+
+    fun getBaseWsUrl() = baseWsUrl
 }
