@@ -136,20 +136,24 @@ android {
         targetSdk = 32
     }
 
-    flavorDimensionList.add("env")
+    flavorDimensionList.add("environment")
 
     productFlavors {
         create("localhost"){
-            dimension = "env"
+            dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"192.168.18.3:8080\"")
         }
         create("azure"){
-            dimension = "env"
+            dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
         }
         create("production"){
-            dimension = "env"
+            isDefault = true
+            dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"api.scrumhub.luteoos.dev\"")
+        }
+        forEach {
+            it.buildConfigField("String", "APP_STORE_URL", "\"playstore-link.com/scrumhub\"")
         }
     }
 }

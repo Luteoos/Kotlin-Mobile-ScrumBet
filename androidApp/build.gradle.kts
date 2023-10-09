@@ -45,19 +45,20 @@ android {
         }
     }
 
-    flavorDimensionList.add("env")
+    flavorDimensionList.add("environment")
 
     productFlavors {
         create("localhost"){
-            dimension = "env"
+            dimension = "environment"
             applicationIdSuffix = ".localhost"
         }
         create("azure"){
-            dimension = "env"
+            dimension = "environment"
             applicationIdSuffix = ".azure"
         }
         create("production"){
-            dimension = "env"
+            isDefault = true
+            dimension = "environment"
             applicationIdSuffix = ""
         }
     }

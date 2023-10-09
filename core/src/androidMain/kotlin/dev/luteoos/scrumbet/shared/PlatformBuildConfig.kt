@@ -6,4 +6,8 @@ actual object PlatformBuildConfig : WebSocketBuildConfig() {
     actual fun getBaseUrl(): String {
         return BuildConfig.BASE_URL
     }
+
+    actual fun getAppStoreUrl(): String {
+        return BuildConfig.APP_STORE_URL
+    }
 }

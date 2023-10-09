@@ -30,7 +30,7 @@
       shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Production"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -68,7 +68,7 @@
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Production">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"

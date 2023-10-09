@@ -11,3 +11,4 @@
 
 API_BASE_URL = api.scrumhub.luteoos.dev
 APP_NAME = ScrumHub
+APP_STORE_URL = apps.apple.com/us/app/scrumhub/id6468950819

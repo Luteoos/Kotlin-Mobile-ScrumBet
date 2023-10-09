@@ -11,3 +11,4 @@
 
 API_BASE_URL = 127.0.0.1:8080
 APP_NAME = ScrumBet-LocalHost
+APP_STORE_URL = apps.apple.com/us/app/scrumhub/id6468950819

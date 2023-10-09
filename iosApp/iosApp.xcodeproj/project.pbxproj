@@ -22,6 +22,8 @@
 		EE4363A72A44DBEC00242F03 /* MainScreenJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */; };
 		EE45699F2AD03765005FA98C /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EE45699E2AD03765005FA98C /* production.xcconfig */; };
 		EE4569A02AD03765005FA98C /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EE45699E2AD03765005FA98C /* production.xcconfig */; };
+		EE4569A62AD4075E005FA98C /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4569A52AD4075E005FA98C /* UpdateView.swift */; };
+		EE4569A72AD4075E005FA98C /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4569A52AD4075E005FA98C /* UpdateView.swift */; };
 		EE50EB9729ED74AC00EF634A /* MockObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */; };
 		EE50EBAD29F71FCB00EF634A /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAC29F71FCB00EF634A /* MockController.swift */; };
 		EE50EBAF29FD643A00EF634A /* KStateSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE50EBAE29FD643A00EF634A /* KStateSwift.swift */; };
@@ -105,6 +107,7 @@
 		EE4363A22A44812300242F03 /* RoomScreenSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScreenSuccessView.swift; sourceTree = "<group>"; };
 		EE4363A62A44DBEC00242F03 /* MainScreenJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenJoinView.swift; sourceTree = "<group>"; };
 		EE45699E2AD03765005FA98C /* production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = production.xcconfig; sourceTree = "<group>"; };
+		EE4569A52AD4075E005FA98C /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		EE50EB9629ED74AC00EF634A /* MockObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObservableObject.swift; sourceTree = "<group>"; };
 		EE50EBAC29F71FCB00EF634A /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
 		EE50EBAE29FD643A00EF634A /* KStateSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KStateSwift.swift; sourceTree = "<group>"; };
@@ -301,6 +304,14 @@
 			path = room;
 			sourceTree = "<group>";
 		};
+		EE4569A42AD4073C005FA98C /* update */ = {
+			isa = PBXGroup;
+			children = (
+				EE4569A52AD4075E005FA98C /* UpdateView.swift */,
+			);
+			path = update;
+			sourceTree = "<group>";
+		};
 		EE73F09A2A6166D200E2814F /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +419,7 @@
 		EEECF17029E6179B00989C31 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				EE4569A42AD4073C005FA98C /* update */,
 				EEBF92982A38C392003C21BA /* room */,
 				EEBF92972A38C36B003C21BA /* main */,
 				EEECF17129E6179B00989C31 /* AppView.swift */,
@@ -662,6 +674,7 @@
 				EEBF92C42A3F612B003C21BA /* RoomScreenSuccessView.swift in Sources */,
 				EEBF92BA2A3E3511003C21BA /* RoomScreenObject.swift in Sources */,
 				EEECF17929E6179B00989C31 /* AppView.swift in Sources */,
+				EE4569A62AD4075E005FA98C /* UpdateView.swift in Sources */,
 				EEBF92BC2A3E3627003C21BA /* RoomUiState.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EEECF17B29E6179B00989C31 /* Blur.swift in Sources */,
@@ -710,6 +723,7 @@
 				EE43639F2A44809400242F03 /* RoomScreenView.swift in Sources */,
 				EE4363902A447E8200242F03 /* AppView.swift in Sources */,
 				EEBF92DC2A435EDB003C21BA /* AuthUiState.swift in Sources */,
+				EE4569A72AD4075E005FA98C /* UpdateView.swift in Sources */,
 				EE4363A32A44812300242F03 /* RoomScreenSuccessView.swift in Sources */,
 				EEBF92DE2A435FDD003C21BA /* AuthKey.swift in Sources */,
 				EEBF92DA2A43554E003C21BA /* iOSApp.swift in Sources */,
