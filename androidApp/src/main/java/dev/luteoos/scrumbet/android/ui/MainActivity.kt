@@ -7,19 +7,44 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BackPressFragment
 import dev.luteoos.scrumbet.android.databinding.MainActivityBinding
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
+    private val appUpdateManager: AppUpdateManager by inject()
+    val appUpdateRequestCode = 2137
+
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability()
+                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                ) {
+                    // If an in-app update is already running, resume the update.
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        this,
+                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build(),
+                        appUpdateRequestCode)
+                }
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // In Manifest we implement Theme.CallingCard.Splash, here we set proper app-wide theme for activity
-        setTheme(R.style.Theme_AppTheme)
+//        // In Manifest we implement Theme.CallingCard.Splash, here we set proper app-wide theme for activity
+//        setTheme(R.style.Theme_AppTheme)
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -43,6 +43,9 @@ object Dependencies {
     const val composePreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val composeFoundtaion = "androidx.compose.foundation:foundation:${Versions.compose}"
 
+    const val appUpdate = "com.google.android.play:app-update:${Versions.appUpdate}"
+    const val appUpdateKtx = "com.google.android.play:app-update-ktx:${Versions.appUpdate}"
+
 
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
@@ -68,4 +71,5 @@ object Versions {
     const val material = "1.1.1"
     const val navigation = "2.6.0"
     const val activity = "1.7.2"
+    const val appUpdate = "2.0.1"
 }

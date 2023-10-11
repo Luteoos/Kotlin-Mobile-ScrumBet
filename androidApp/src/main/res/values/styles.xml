@@ -37,5 +37,7 @@
 
     <style name="BaseAppStyle" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:fontFamily">sans-serif</item>
+        <!-- Splash screen -->
+        <item name="android:windowSplashscreenContent">@drawable/splash_bg</item>
     </style>
 </resources>

@@ -108,6 +108,8 @@ dependencies {
     implementation(Dependencies.navigationFragment)
 //    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation(Dependencies.accompanistMDC)
+    implementation(Dependencies.appUpdate)
+    implementation(Dependencies.appUpdateKtx)
 
     implementation("com.github.tehras:charts:0.2.4-alpha")
 }

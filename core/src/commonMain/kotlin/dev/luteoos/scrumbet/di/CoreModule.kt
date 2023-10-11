@@ -24,6 +24,7 @@ val coreModule = module {
 
     single { Greeting() }
     single(named("APP_VERSION")) { BuildKonfig.appVersion }
+    single(named("APP_STORE_URL")) { PlatformBuildConfig.getAppStoreUrl() }
     single(named("BASE_URL")) { PlatformBuildConfig.getBaseUrl() }
     single(named("SSL_PREFIX")) { BuildKonfig.sslPrefix }
     single { PlatformBuildConfig }

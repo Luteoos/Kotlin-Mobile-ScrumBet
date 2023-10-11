@@ -153,7 +153,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"api.scrumhub.luteoos.dev\"")
         }
         forEach {
-            it.buildConfigField("String", "APP_STORE_URL", "\"playstore-link.com/scrumhub\"")
+            it.buildConfigField("String", "APP_STORE_URL", "\"http://play.google.com/store/apps/details?id=dev.luteoos.scrumbet\"")
         }
     }
 }

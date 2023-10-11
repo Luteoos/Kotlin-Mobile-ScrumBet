@@ -36,7 +36,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>scrumhub.luteoos.dev</string>
+			<string>api.scrumhub.luteoos.dev</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>app</string>

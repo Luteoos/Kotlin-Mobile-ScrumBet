@@ -706,20 +706,22 @@ private fun RoomScreenShareSheet(roomName: String?, url: MultiUrl?, roomCode: St
             }
         }
 
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Size.small()),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
-            onClick = { copyToClipboard(context, url.httpSchema) }
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+        if(false){
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Size.small()),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                onClick = { copyToClipboard(context, url.httpSchema) }
             ) {
-                Text(text = stringResource(R.string.label_room_web_url))
-                Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = stringResource(R.string.label_room_web_url))
+                    Icon(modifier = Modifier.size(Size.large()), painter = painterResource(id = R.drawable.ic_copy_content), contentDescription = null)
+                }
             }
         }
     }
