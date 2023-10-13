@@ -44,6 +44,10 @@ struct MainScreenUsernameInputSheet: View {
             newUsername = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         .flexFrame()
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            Spacer()
+        }
 //        .onAppear(perform: {
 //            newUsername = username
 //        })

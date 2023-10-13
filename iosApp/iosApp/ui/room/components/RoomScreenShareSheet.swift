@@ -62,7 +62,8 @@ struct RoomScreenShareSheet: View {
         .padding(.horizontal, 16)
         .buttonStyle(.borderedProminent)
         .tint(Color.secondaryColor)
-
+        
+        Spacer()
 //         Button {
 //             UIPasteboard.general.string = url.httpSchema
 //         } label: {

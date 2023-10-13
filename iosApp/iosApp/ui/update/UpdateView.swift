@@ -11,12 +11,18 @@ import core
 
 struct UpdateView: View {
     var body: some View {
-        Button("open_app_store") {
-            guard let url = URL(string: PlatformBuildConfig.shared.getAppStoreUrl()) else { return }
-            #if os(iOS)
-            UIApplication.shared.canOpenURL(url)
-            UIApplication.shared.open(url, completionHandler: nil)
-            #endif
+        VStack{
+            Text("update_required_label")
+                .font(.title2)
+            
+            Button("open_app_store") {
+                guard let url = URL(string: PlatformBuildConfig.shared.getAppStoreUrl()) else { return }
+#if os(iOS)
+                UIApplication.shared.canOpenURL(url)
+                UIApplication.shared.open(url, completionHandler: nil)
+#endif
+            }
+            .buttonStyle(.borderedProminent)
         }
     }
 }

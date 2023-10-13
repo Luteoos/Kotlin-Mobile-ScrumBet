@@ -34,3 +34,5 @@
 "vote_style_label" = "Vote palette";
 "room_settings_label" = "Room settings";
 "dismiss" = "Dismiss";
+"open_app_store" = "Open ScrumHub in AppStore";
+"update_required_label" = "New app version is required";
