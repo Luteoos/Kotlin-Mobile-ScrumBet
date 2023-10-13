@@ -1,3 +1,7 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -26,6 +30,18 @@ android {
         versionCode = 10
         versionName = "0.4.0"
     }
+    signingConfigs {
+        create("release") {
+            val localProperties = Properties()
+            localProperties.load(FileInputStream(rootProject.file("local.properties")))
+
+            //fill local.properties before running
+            storeFile = file(localProperties["RELEASE_STORE_FILE"].toString())
+            storePassword = localProperties["RELEASE_STORE_PASSWORD"].toString()
+            keyAlias = localProperties["RELEASE_KEY_ALIAS"].toString()
+            keyPassword = localProperties["RELEASE_KEY_PASSWORD"].toString()
+        }
+    }
     buildFeatures {
         compose = true
         viewBinding = true
@@ -41,6 +57,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
 //            the<CrashlyticsExtension>().nativeSymbolUploadEnabled = true bugged
         }
     }
