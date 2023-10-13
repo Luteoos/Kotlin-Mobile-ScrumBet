@@ -19,11 +19,15 @@ val coreModule = module {
     single { DeviceData() }
     single { getHttpClient() }
 
-    single<RoomRepository> { RoomRepositoryImpl(get(), get(named("BASE_URL"))) }
+    single<RoomRepository> { RoomRepositoryImpl(get(), get(named("BASE_WS_URL"))) }
     single<ServerRepository> { ServerRepositoryImpl(get(named("BASE_URL")), get(named("SSL_PREFIX")), get()) }
 
     single { Greeting() }
     single(named("APP_VERSION")) { BuildKonfig.appVersion }
+    single(named("APP_STORE_URL")) { PlatformBuildConfig.getAppStoreUrl() }
     single(named("BASE_URL")) { PlatformBuildConfig.getBaseUrl() }
     single(named("SSL_PREFIX")) { BuildKonfig.sslPrefix }
+    single { PlatformBuildConfig }
+
+    factory(named("BASE_WS_URL")) { PlatformBuildConfig.getBaseWsUrl() }
 }

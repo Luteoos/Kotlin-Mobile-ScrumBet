@@ -41,7 +41,7 @@ install_framework()
 
   if [ -L "${source}" ]; then
     echo "Symlinked..."
-    source="$(readlink "${source}")"
+    source="$(readlink -f "${source}")"
   fi
 
   if [ -d "${source}/${BCSYMBOLMAP_DIR}" ]; then
@@ -179,6 +179,9 @@ if [[ "$CONFIGURATION" == "Azure" ]]; then
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
 fi
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
+fi
+if [[ "$CONFIGURATION" == "Production" ]]; then
   install_framework "${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then

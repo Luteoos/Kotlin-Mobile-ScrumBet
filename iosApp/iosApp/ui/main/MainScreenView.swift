@@ -59,6 +59,7 @@ struct MainScreenView: View {
                     .tint(Color.primaryColor)
                     .buttonStyle(.borderedProminent)
                 }
+                .frame(maxWidth: 500)
                 .padding(.horizontal, 16)
                 Spacer()
             }

@@ -18,7 +18,7 @@ buildkonfig {
     packageName = "dev.luteoos.scrumbet"
 
     defaultConfigs{
-        buildConfigField(STRING, "appVersion", "0.2", const = true)
+        buildConfigField(STRING, "appVersion", "0.3", const = true)
         buildConfigField(STRING, "sslPrefix", "http://", const = true)
     }
 }
@@ -48,6 +48,9 @@ kotlin {
             export(project(":domain"))
             transitiveExport = false
         }
+
+        xcodeConfigurationToNativeBuildType["Production"]=
+            org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
     }
 
     kswift {
@@ -133,16 +136,24 @@ android {
         targetSdk = 32
     }
 
-    flavorDimensionList.add("env")
+    flavorDimensionList.add("environment")
 
     productFlavors {
         create("localhost"){
-            dimension = "env"
+            dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"192.168.18.3:8080\"")
         }
         create("azure"){
-            dimension = "env"
+            dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"luteoos-scrumbet-poc.northeurope.cloudapp.azure.com:8080\"")
+        }
+        create("production"){
+            isDefault = true
+            dimension = "environment"
+            buildConfigField("String", "BASE_URL", "\"api.scrumhub.luteoos.dev\"")
+        }
+        forEach {
+            it.buildConfigField("String", "APP_STORE_URL", "\"http://play.google.com/store/apps/details?id=dev.luteoos.scrumbet\"")
         }
     }
 }

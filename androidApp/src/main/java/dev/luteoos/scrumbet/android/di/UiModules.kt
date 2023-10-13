@@ -1,5 +1,6 @@
 package dev.luteoos.scrumbet.android.di
 
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dev.luteoos.scrumbet.android.ui.main.MainViewModel
 import dev.luteoos.scrumbet.android.ui.room.RoomViewModel
 import dev.luteoos.scrumbet.android.ui.splash.SplashViewModel
@@ -23,13 +24,14 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { RoomViewModel(get(), get()) }
-    viewModel { UpdateViewModel() }
+    viewModel { UpdateViewModel(get(), get(named("APP_STORE_URL"))) }
 
-    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get(), get(named("APP_VERSION"))) }
+    single<AuthControllerInterface>(createdAtStart = true) { AuthController(get(), get(), get(), get(named("APP_VERSION"))) }
     factory<UserControllerInterface> { UserController(get(), get()) }
     factory<RoomControllerInterface> { RoomController(get()) }
 }
 
 val uiModule = module {
     single { androidContext().packageManager }
+    single { AppUpdateManagerFactory.create(get()) }
 }

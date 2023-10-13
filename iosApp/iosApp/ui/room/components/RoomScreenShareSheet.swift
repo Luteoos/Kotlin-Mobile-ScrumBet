@@ -62,21 +62,22 @@ struct RoomScreenShareSheet: View {
         .padding(.horizontal, 16)
         .buttonStyle(.borderedProminent)
         .tint(Color.secondaryColor)
-
-        Button {
-            UIPasteboard.general.string = url.httpSchema
-        } label: {
-            HStack {
-                Spacer()
-                Text("website_url")
-                Spacer()
-                Image(systemName: "doc.on.doc")
-                    .scaledToFit()
-            }.frame(maxWidth: .infinity)
-        }
-        .padding(.horizontal, 16)
-        .buttonStyle(.borderedProminent)
-        .tint(Color.secondaryColor)
+        
+        Spacer()
+//         Button {
+//             UIPasteboard.general.string = url.httpSchema
+//         } label: {
+//             HStack {
+//                 Spacer()
+//                 Text("website_url")
+//                 Spacer()
+//                 Image(systemName: "doc.on.doc")
+//                     .scaledToFit()
+//             }.frame(maxWidth: .infinity)
+//         }
+//         .padding(.horizontal, 16)
+//         .buttonStyle(.borderedProminent)
+//         .tint(Color.secondaryColor)
     }
 
     func generateQRCode(from string: String) -> UIImage {

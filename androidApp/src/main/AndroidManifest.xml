@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Splash"
+        android:theme="@style/Theme.AppTheme"
         android:name=".MainApplication"
         android:icon="@mipmap/ic_app"
         android:roundIcon="@mipmap/ic_app"
@@ -32,6 +32,7 @@
                 <data android:scheme="http"/>
                 <data android:scheme="https"/>
                 <data android:scheme="app"/>
+                <data android:host="api.scrumhub.luteoos.dev"/>
                 <data android:host="luteoos-scrumbet-poc.northeurope.cloudapp.azure.com"/>
             </intent-filter>
         </activity>

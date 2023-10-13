@@ -22,7 +22,7 @@ struct AppView: View {
                 if authObject.state == .Loading {
                     ProgressView()
                 } else if authObject.state == .InvalidAppVersion {
-                    ProgressView() // force update app
+                    UpdateView() // force update app
                 } else {
                     MainScreenView()
                 }

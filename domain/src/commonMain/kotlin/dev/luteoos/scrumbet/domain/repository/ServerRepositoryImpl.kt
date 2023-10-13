@@ -33,8 +33,9 @@ class ServerRepositoryImpl(private val baseUrl: String,
                         appendPathSegments("version")
                     }
                 }.let { response ->
-                    if(response.status.value == 200)
+                    if(response.status.value == 200){
                         versionFlow.emit( response.body<ServerVersion>())
+                    }
                     else
                         throw ResponseException(response, "HTTP GET /version ${response.status.value}")
                 }

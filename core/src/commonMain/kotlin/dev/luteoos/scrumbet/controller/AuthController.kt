@@ -9,6 +9,7 @@ import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.domain.repository.interfaces.ServerRepository
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import dev.luteoos.scrumbet.shared.Log
+import dev.luteoos.scrumbet.shared.PlatformBuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -20,10 +21,12 @@ import org.koin.core.qualifier.named
 class AuthController(
     preferences: SharedPreferences? = null,
     serverRepository: ServerRepository? = null,
+    buildConfig: PlatformBuildConfig? = null,
     applicationVersion: String? = null
 ) : KController<AuthState, AppException>(), AuthControllerInterface {
     private val preferences: SharedPreferences
     private val repository: ServerRepository
+    private val buildConfig: PlatformBuildConfig
     private val appVersion: String
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 
@@ -42,12 +45,15 @@ class AuthController(
     override val state: MutableStateFlow<KState<AuthState, AppException>> = MutableStateFlow(KState.Loading)
 
     init {
+        this.buildConfig = buildConfig ?: get()
         this.preferences = preferences ?: get()
         this.repository = serverRepository ?: get()
         this.appVersion = applicationVersion ?: get(named("APP_VERSION"))
+
         kcontrollerScope.launch(Dispatchers.Default) {
             combine(this@AuthController.preferences.getUserDataFlow(), roomIdFlow, repository.getServerVersionFlow()) { user, id, version ->
                 if (true) { // false to skip when not running server
+                    this@AuthController.buildConfig.setBaseWebSocketUrl(version?.websocketUrl ?: "")
                     if (version == null) {
                         publish(KState.Error(AppException.GeneralException()))
                         return@combine
