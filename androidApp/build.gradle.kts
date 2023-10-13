@@ -56,8 +56,12 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 //            the<CrashlyticsExtension>().nativeSymbolUploadEnabled = true bugged
         }
     }
