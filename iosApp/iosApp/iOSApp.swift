@@ -3,6 +3,7 @@ import SwiftUI
 #if os(iOS)
     import FirebaseAnalytics
     import FirebaseCore
+    import AppTrackingTransparency
 #endif
 
 @main
@@ -41,7 +42,31 @@ struct iOSApp: App {
                     }
                     authController.setRoomConnectionId(id: roomId)
                 }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    //only works when delayed
+                    KHandler().postDelayed(function: {
+                        guard #available(iOS 14, *) else {
+                            return
+                        }
+                        let prefs: SharedPreferences = SharedPreferencesImpl()
+                        ATTrackingManager.requestTrackingAuthorization { status in
+                            switch status{
+                            case .authorized:
+                                if let app = FirebaseApp.app(){
+                                    return
+                                }
+                                FirebaseApp.configure()
+                                Analytics.setAnalyticsCollectionEnabled(true)
+                                Analytics.setUserID(prefs.getUserAnalyticsId())
+                            default:
+                                print("no_tracking")
+                                Analytics.setAnalyticsCollectionEnabled(false)
+                            }
+                        }
+                    }, time: 200)
+                }
                 .onAppear {
+                }
 //                    todo move to settings
 //                    #if os(macOS)
 //                    // empty - default dark icon
@@ -55,7 +80,6 @@ struct iOSApp: App {
 //                        }
 //                    }
 //                    #endif
-                }
         }
     }
 }
@@ -72,13 +96,12 @@ struct iOSApp: App {
                          didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
         {
             startup(application)
-//      print("ApplicationDelegate didFinishLaunchingWithOptions")
             launchOptions?.forEach { (key: UIApplication.LaunchOptionsKey, value: Any) in
                 print(key.rawValue, value)
             }
             return true
         }
-
+        
         // not used
         func application(_ app: UIApplication,
                          open url: URL,
@@ -93,14 +116,9 @@ struct iOSApp: App {
             authController!.setRoomConnectionId(id: pathRoomId)
             return true
         }
-
+        
         private func startup(_ app: UIApplication) {
             print("dev.luteoos.scrumbet is starting up. Application \(app.description)")
-            let prefs: SharedPreferences = SharedPreferencesImpl()
-            FirebaseApp.configure()
-            #if DEBUG
-                Analytics.setUserID(prefs.getUserAnalyticsId())
-            #endif
         }
     }
 #endif
