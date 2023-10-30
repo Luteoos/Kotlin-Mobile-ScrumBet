@@ -60,7 +60,7 @@ struct RoomScreenVoteResultComponent: View {
                 .chartXScale(domain: scale)
                 .foregroundColor(Color.primaryColor)
             }
-            .padding(4)
+            .padding(16)
         }
     }
     

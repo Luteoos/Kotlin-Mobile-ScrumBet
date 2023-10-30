@@ -71,7 +71,6 @@ struct RoomScreenSuccessView: View {
                     } label: {
                         Image(systemName: "gear")
                     }
-                    .disabled(!isOwner)
                     Spacer()
                     Button {
                         object.reset()
