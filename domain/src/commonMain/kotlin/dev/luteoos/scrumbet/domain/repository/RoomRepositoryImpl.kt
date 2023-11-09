@@ -36,7 +36,10 @@ class RoomRepositoryImpl(private val client: HttpClient,
 
     private var session: WebSocketSession? = null
     private val connectionError: MutableSharedFlow<Exception> = MutableSharedFlow()
-    private val serializer = Json { encodeDefaults = true }
+    private val serializer = Json {
+        encodeDefaults = true
+        ignoreUnknownKeys = true
+    }
     override fun getConnectionErrorFlow(): SharedFlow<Exception> = connectionError
 
     override suspend fun initSession(roomName: String, username: Username, userId: Id): Result<Unit> {
