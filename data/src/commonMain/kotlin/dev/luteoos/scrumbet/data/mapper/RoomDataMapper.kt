@@ -32,9 +32,10 @@ class RoomDataMapper {
             frame.scaleList,
             frame.scaleType,
             frame.scaleTypeList,
-            false,
+            frame.voteEnded,
             frame.anonymousVote,
-            frame.alwaysVisibleVote
+            frame.alwaysVisibleVote,
+            frame.autoRevealVotes
         )
     }
 
