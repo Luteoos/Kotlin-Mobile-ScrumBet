@@ -64,6 +64,10 @@ class RoomViewModel(
         roomController.displayValues(false)
     }
 
+    fun setAutoReveal(value: Boolean) {
+        roomController.setAutoRevealVotes(value)
+    }
+
     fun setScale(scale: String) {
         roomController.setRoomScale(scale)
     }

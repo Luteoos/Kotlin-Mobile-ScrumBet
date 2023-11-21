@@ -137,7 +137,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                     scaleType = configuration.scaleType,
                     anonymousVote = configuration.anonymousVote,
                     alwaysVisibleVote = configuration.alwaysVisibleVote,
-                    voteEnded = true, //configuration.voteEnded,
+                    voteEnded = true, // configuration.voteEnded,
                     autoRevealVotes = configuration.autoRevealVotes
                 )
             )
@@ -156,7 +156,7 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                     scaleType = scale,
                     anonymousVote = configuration.anonymousVote,
                     alwaysVisibleVote = configuration.alwaysVisibleVote,
-                    voteEnded = false,  //configuration.voteEnded,
+                    voteEnded = false, // configuration.voteEnded,
                     autoRevealVotes = configuration.autoRevealVotes
                 )
             )

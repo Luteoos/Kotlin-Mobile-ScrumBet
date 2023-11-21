@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
-import androidx.activity.result.IntentSenderRequest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +26,6 @@ import dev.luteoos.scrumbet.android.ui.MainActivity
 import dev.luteoos.scrumbet.android.util.composeUtil.Size
 import dev.luteoos.scrumbet.android.util.composeUtil.TextSize
 
-
 class UpdateFragment : BaseComposeFragment<UpdateViewModel>(UpdateViewModel::class) {
     private val contactEmail = "mateusz.lutecki@fujitsu.com"
 
@@ -41,8 +39,8 @@ class UpdateFragment : BaseComposeFragment<UpdateViewModel>(UpdateViewModel::cla
 
     override fun onResume() {
         super.onResume()
-        activity?.let {activity ->
-            if(activity is MainActivity)
+        activity?.let { activity ->
+            if (activity is MainActivity)
                 model.requestAppUpdate(activity)
         }
     }
@@ -71,9 +69,11 @@ private fun UpdateFragmentUI(contactEmail: String, appStoreUrl: String) {
             try {
                 context.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
-                context.startActivity(intent.apply {
-                    setPackage(null)
-                })
+                context.startActivity(
+                    intent.apply {
+                        setPackage(null)
+                    }
+                )
             }
         }) {
             Text(stringResource(R.string.label_open_in_google_play))
@@ -86,7 +86,7 @@ private fun UpdateFragmentUI(contactEmail: String, appStoreUrl: String) {
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
-private fun UpdateFragment_Preview(){
+private fun UpdateFragment_Preview() {
     Mdc3Theme() {
         UpdateFragmentUI(contactEmail = "", appStoreUrl = "http://play.google.com/store/apps/details?id=dev.luteoos.scrumbet")
     }

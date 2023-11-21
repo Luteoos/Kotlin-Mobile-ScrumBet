@@ -11,7 +11,6 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
-import dev.luteoos.scrumbet.android.R
 import dev.luteoos.scrumbet.android.core.BackPressFragment
 import dev.luteoos.scrumbet.android.databinding.MainActivityBinding
 import dev.luteoos.scrumbet.controller.interfaces.AuthControllerInterface
@@ -37,7 +36,8 @@ class MainActivity : AppCompatActivity() {
                         appUpdateInfo,
                         this,
                         AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build(),
-                        appUpdateRequestCode)
+                        appUpdateRequestCode
+                    )
                 }
             }
     }
