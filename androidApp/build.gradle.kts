@@ -70,10 +70,12 @@ android {
 
     productFlavors {
         create("localhost"){
+            versionNameSuffix = "-localhost"
             dimension = "environment"
             applicationIdSuffix = ".localhost"
         }
         create("azure"){
+            versionNameSuffix = "-azure"
             dimension = "environment"
             applicationIdSuffix = ".azure"
         }

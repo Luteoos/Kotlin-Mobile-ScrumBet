@@ -37,6 +37,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
@@ -204,7 +205,12 @@ private fun RoomScreenUi(model: RoomViewModel) {
                 BottomBarSuccess(
                     model = model,
                     state = state as RoomUiState.Success,
-                    resetVote = { model.resetVote() }
+                    resetVote = {
+                        if ((state as? RoomUiState.Success)?.config?.voteEnded == false)
+                            model.endVote()
+                        else
+                            model.resetVote()
+                    }
                 )
             }
         }
@@ -453,12 +459,19 @@ private fun BottomBarSuccess(
             modifier = Modifier
                 .weight(2f)
                 .alpha(if (state.config.isOwner) 1f else 0.3f),
-            enabled = state.config.isOwner && state.userList.any { it.vote != null },
+            enabled = state.config.isOwner,
             onClick = {
                 resetVote()
             }
         ) {
-            Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
+            Icon(
+                imageVector =
+                when (state.config.voteEnded) {
+                    true -> Icons.Default.Refresh
+                    false -> Icons.Default.Done
+                },
+                contentDescription = null
+            )
         }
         IconButton(
             modifier = Modifier.weight(1f),
@@ -592,27 +605,6 @@ private fun RoomScreenMemberListSheet(model: RoomViewModel) {
     val state = modelState as RoomUiState.Success
 
     MemberList(userList = state.userList, visibleVote = state.config.alwaysVisibleVote)
-//    Column(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(Size.regular()),
-//        horizontalAlignment = CenterHorizontally,
-//        verticalArrangement = Bottom
-//    ) {
-//        Text(
-//            text = stringResource(R.string.label_member_list),
-//            fontSize = TextSize.xSmall()
-//        )
-//        Spacer(modifier = Modifier.height(Size.small()))
-//        LazyColumn(
-//            modifier = Modifier.fillMaxWidth(),
-//            content = {
-//                items(state.userList.sortedBy { !it.isOwner }) { user ->
-//                    MemberListRow(user = user, state.config.alwaysVisibleVote)
-//                }
-//            }
-//        )
-//    }
 }
 
 @Composable

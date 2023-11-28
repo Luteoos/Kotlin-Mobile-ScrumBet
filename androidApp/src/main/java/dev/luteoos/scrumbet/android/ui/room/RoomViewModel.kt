@@ -56,6 +56,10 @@ class RoomViewModel(
         roomController.resetRoom()
     }
 
+    fun endVote() {
+        roomController.endVote()
+    }
+
     fun showVoteValues() {
         roomController.displayValues(true)
     }
