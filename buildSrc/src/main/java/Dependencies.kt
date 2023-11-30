@@ -58,7 +58,7 @@ object Dependencies {
 }
 
 object Versions {
-    const val kotlin = "1.8.0"
+    const val kotlin = "1.9.20"
     const val mokoKSwift =  "0.5.0"
     const val timber = "4.7.1"
 
@@ -67,7 +67,7 @@ object Versions {
     const val koin = "3.2.2"
     const val ktor = "2.3.1"
 
-    const val compose = "1.4.3"
+    const val compose = "1.5.4"
     const val material = "1.1.1"
     const val navigation = "2.6.0"
     const val activity = "1.7.2"

@@ -31,10 +31,35 @@ kotlin {
             }
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosArm64()
+
+    iosX64(){
+        binaries.executable {
+//            if (System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+//            linkerOpts += "-ld64"
+//            }
+        }
+    }
+    iosArm64(){
+        binaries.executable {
+//            if (System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+//            linkerOpts += "-ld64"
+//            }
+        }
+    }
+    iosSimulatorArm64(){
+        binaries.executable {
+//            if (System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+//                linkerOpts += "-ld64"
+//            }
+        }
+    }
+    macosArm64(){
+        binaries.executable {
+//            if (System.getenv("XCODE_VERSION_MAJOR") == "1500") {
+//            linkerOpts += "-ld64"
+//            }
+        }
+    }
 
     cocoapods {
         summary = "Core module with State control, exports as api() project(:data)"
@@ -129,7 +154,7 @@ kotlin {
 
 android {
     namespace = "dev.luteoos.scrumbet"
-    compileSdk = 32
+    compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 28

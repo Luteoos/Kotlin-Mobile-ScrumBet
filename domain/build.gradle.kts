@@ -90,7 +90,7 @@ kotlin {
 
 android {
     namespace = "dev.luteoos.scrumbet.domain"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 26
     }

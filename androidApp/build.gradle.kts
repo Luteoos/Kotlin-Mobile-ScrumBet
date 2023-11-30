@@ -16,7 +16,7 @@ apply(from = "../ktlint.gradle")
 
 android {
     namespace = "dev.luteoos.scrumbet.android"
-    compileSdk = 33
+    compileSdk = 34
 
     lint {
         abortOnError = false
@@ -47,7 +47,7 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packagingOptions {
         resources {
@@ -89,7 +89,7 @@ android {
     kotlinOptions{
         freeCompilerArgs += listOf(
             "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=1.9.20"
         )
     }
 }
