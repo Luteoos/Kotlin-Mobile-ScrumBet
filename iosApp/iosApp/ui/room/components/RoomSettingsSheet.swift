@@ -13,10 +13,18 @@ struct RoomSettingsSheet: View {
 
     @State private var currentStyle = ""
     @State private var showingVotes = false
+    @State private var autoRevealVotes = true
     
     var body: some View {
         if case let .Success(data) = object.state {
             ScrollView {
+                HStack{
+                    Toggle(isOn: $autoRevealVotes) {
+                        Text("vote_autoreveal_label")
+                    }
+                    .toggleStyle(.switch)
+                    .tint(Color.primaryColor)
+                }
                 HStack{
                     Toggle(isOn: $showingVotes) {
                         Text("vote_visible_label")
@@ -39,6 +47,9 @@ struct RoomSettingsSheet: View {
                 }
             }
             .padding(16)
+            .onChange(of: autoRevealVotes) { autoReveal in
+                object.setAutoRevealVote(autoReveal: autoReveal)
+            }
             .onChange(of: currentStyle) { scaleStyle in
                 object.setRoomScale(scale: scaleStyle)
             }
@@ -49,6 +60,7 @@ struct RoomSettingsSheet: View {
                 if case let .Success(data) = state {
                     currentStyle = data.configuration.scaleType
                     showingVotes = data.configuration.alwaysVisibleVote
+                    autoRevealVotes = data.configuration.autoRevealVotes
                 }
             })
         }
