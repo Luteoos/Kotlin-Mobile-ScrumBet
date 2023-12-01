@@ -13,6 +13,7 @@ import core
 struct RoomScreenVoteResultComponent: View {
     var votes: [RoomUser]
     var scale: [String]
+    var autoRevealVotes: Bool
     
     var body: some View {
         ScrollView{
@@ -43,13 +44,13 @@ struct RoomScreenVoteResultComponent: View {
                     }
                 }
             }
-            .if(votes.count != votes.filter { user in
-                user.vote != nil
-            }.count) { view in
-                withAnimation {
-                    view.hidden()
-                }
-            }
+//            .if(votes.count != votes.filter { user in
+//                user.vote != nil
+//            }.count) { view in
+//                withAnimation {
+//                    view.hidden()
+//                }
+//            }
             
             VStack{
                 Chart {
@@ -61,6 +62,38 @@ struct RoomScreenVoteResultComponent: View {
                 .foregroundColor(Color.primaryColor)
             }
             .padding(16)
+            
+            if(autoRevealVotes){
+                ScrollView {
+                    LazyVStack {
+                        ForEach(votes.sorted(by: { $0.isOwner && !$1.isOwner }), id: \.userId) { user in
+                            HStack {
+                                Text(user.username)
+                                if user.isOwner {
+                                    Image(systemName: "crown.fill")
+                                        .foregroundColor(Color.yellow)
+                                        .frame(width: 32, height: 32)
+                                }
+                                Spacer()
+                                ZStack {
+                                    if user.vote != nil {
+                                        Color.primaryColor
+                                    } else {
+                                        Color.primaryColor
+                                            .opacity(0.4)
+                                    }
+                                    Text(user.vote ?? " ")
+                                    
+                                }
+                                .frame(width: 32, height: 32)
+                                .cornerRadius(4)
+                            }
+                            .padding(.horizontal, 32)
+                            Divider()
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -83,6 +116,6 @@ struct RoomScreenVoteResultComponent: View {
 struct RoomScreenVoteResult_Previews: PreviewProvider {
     static var previews: some View {
         @State var votes = [RoomUser(userId: "1", username: "u1", isOwner: true, vote: "2"), RoomUser(userId: "2", username: "u2", isOwner: false, vote: "5")]
-        RoomScreenVoteResultComponent(votes: votes, scale: ["2", "5", "6", "."])
+        RoomScreenVoteResultComponent(votes: votes, scale: ["2", "5", "6", "."], autoRevealVotes: true)
     }
 }

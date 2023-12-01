@@ -38,7 +38,8 @@ struct RoomScreenSuccessView: View {
                     }
                 }
                 if(isVoteResultVisible){
-                    RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale)
+                    RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale, autoRevealVotes:
+                        data.configuration.autoRevealVotes)
                 } else {
                     RoomScreenKeyboardComponent(object: object)
                 }
