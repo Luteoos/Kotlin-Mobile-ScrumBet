@@ -11,10 +11,11 @@ import SwiftUI
 
 struct RoomScreenSuccessView: View {
     @ObservedObject var object: RoomScreenObject
-
+    
     @State private var isVoteVisible = false
     @State private var isVoteResultVisible = false
     @State private var isOwner = false
+    @State private var voteEnded = false
     @State private var isListSheetVisible = false
     @State private var isSettingsSheetVisible = false
 
@@ -37,11 +38,45 @@ struct RoomScreenSuccessView: View {
                     }
                 }
                 if(isVoteResultVisible){
-                    RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale)
+                    RoomScreenVoteResultComponent(votes: data.voteList, scale: data.configuration.scale, autoRevealVotes:
+                        data.configuration.autoRevealVotes)
                 } else {
                     RoomScreenKeyboardComponent(object: object)
                 }
             }
+            .toolbar {
+                ToolbarItem(id: UUID().uuidString, placement: .bottomBar, showsByDefault: true) {
+                        HStack{
+                            Button {
+                                isSettingsSheetVisible.toggle()
+                            } label: {
+                                Image(systemName: "gear")
+                            }
+                            Spacer()
+                            HStack{
+                                if(voteEnded){
+                                    Button {
+                                        object.reset()
+                                    } label: {
+                                        Image(systemName: "arrow.clockwise")
+                                    }
+                                }else{
+                                    Button {
+                                        object.endVote()
+                                    } label: {
+                                        Image(systemName: "forward.end")
+                                    }
+                                }
+                            }
+                            Spacer()
+                            Button {
+                                isListSheetVisible.toggle()
+                            } label: {
+                                Image(systemName: "list.bullet")
+                            }
+                        }
+                    }
+                }
             .sheet(isPresented: $isListSheetVisible) {
                 HalfSheet {
                     RoomScreenMemberListComponent(object: object, isShowingVotes: isVoteVisible)
@@ -56,34 +91,9 @@ struct RoomScreenSuccessView: View {
                 if case let .Success(data) = state {
                     isVoteVisible = data.configuration.alwaysVisibleVote
                     isOwner = data.configuration.isOwner
+                    voteEnded = data.configuration.voteEnded
                     isVoteResultVisible = withAnimation(.spring()){
-                        data.voteList.filter { user in
-                            user.vote != nil
-                        }.count == data.voteList.count
-                    }
-                }
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                
-                    Button {
-                        isSettingsSheetVisible.toggle()
-                    } label: {
-                        Image(systemName: "gear")
-                    }
-                    .disabled(!isOwner)
-                    Spacer()
-                    Button {
-                        object.reset()
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                    .disabled(!isOwner)
-                    Spacer()
-                    Button {
-                        isListSheetVisible.toggle()
-                    } label: {
-                        Image(systemName: "list.bullet")
+                        data.configuration.voteEnded
                     }
                 }
             }

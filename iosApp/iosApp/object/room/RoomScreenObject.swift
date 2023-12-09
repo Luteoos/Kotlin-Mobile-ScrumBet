@@ -75,4 +75,12 @@ class RoomScreenObject: ObservableObject {
     func reset() {
         controller.resetRoom()
     }
+    
+    func endVote(){
+        controller.endVote()
+    }
+    
+    func setAutoRevealVote(autoReveal: Bool){
+        controller.setAutoRevealVotes(autoReveal: autoReveal)
+    }
 }

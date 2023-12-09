@@ -37,6 +37,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
@@ -142,14 +143,14 @@ class RoomFragment : BaseComposeFragment<RoomViewModel>(RoomViewModel::class) {
 }
 
 @Preview(
-    widthDp = 320, heightDp = 320, showSystemUi = false, showBackground = true,
+    widthDp = 320, heightDp = 700, showSystemUi = false, showBackground = true,
     backgroundColor = 0xFFFFFFFF,
     uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
 fun VoteResultUi_Preview() {
     Mdc3Theme() {
-        VoteResultUi(list = listOf(RoomUser("", "preview", true, "2")), scale = listOf("1", "2", "?"))
+        VoteResultUi(list = listOf(RoomUser("2", "normal", false, "1"), RoomUser("1", "preview", true, "2")), scale = listOf("1", "2", "?"), true, revealVotes = true)
     }
 }
 
@@ -204,7 +205,12 @@ private fun RoomScreenUi(model: RoomViewModel) {
                 BottomBarSuccess(
                     model = model,
                     state = state as RoomUiState.Success,
-                    resetVote = { model.resetVote() }
+                    resetVote = {
+                        if ((state as? RoomUiState.Success)?.config?.voteEnded == false)
+                            model.endVote()
+                        else
+                            model.resetVote()
+                    }
                 )
             }
         }
@@ -251,7 +257,12 @@ private fun RoomScreenUiConnected(
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        VoteResultUi(list = state.userList, scale = state.config.scale)
+        VoteResultUi(
+            list = state.userList,
+            scale = state.config.scale,
+            voteEnded = state.config.voteEnded,
+            revealVotes = state.config.autoRevealVotes
+        )
         LazyVerticalGrid(
             modifier = Modifier
                 .scrollable(scrollState, orientation = Orientation.Vertical)
@@ -298,11 +309,8 @@ private fun RoomScreenUiConnected(
 }
 
 @Composable
-fun VoteResultUi(list: List<RoomUser>, scale: List<String>) {
-    val score: String = if (list.any { it.vote == null })
-        ""
-    else
-        list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else "?" }.toString()
+fun VoteResultUi(list: List<RoomUser>, scale: List<String>, voteEnded: Boolean, revealVotes: Boolean) {
+    val score: String = list.mapNotNull { it.vote?.toIntOrNull() }.let { if (it.isNotEmpty()) it.sum() / it.size else "?" }.toString()
     val scrollState = rememberScrollState()
 
     Column(
@@ -313,6 +321,7 @@ fun VoteResultUi(list: List<RoomUser>, scale: List<String>) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // todo move this row outside of VoteResultUi
         Row(
             modifier = Modifier.padding(Size.regular()),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -327,7 +336,7 @@ fun VoteResultUi(list: List<RoomUser>, scale: List<String>) {
                 Text(text = "${list.count { it.vote != null }}", fontWeight = FontWeight.Bold, fontSize = fontSize, fontFamily = FontFamily.Monospace)
             }
         }
-        if (score.isNotEmpty())
+        if (voteEnded)
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -408,6 +417,17 @@ fun VoteResultUi(list: List<RoomUser>, scale: List<String>) {
                         labelDrawer = SimpleValueDrawer(SimpleValueDrawer.DrawLocation.XAxis, labelTextColor = MaterialTheme.colorScheme.onBackground)
                     )
                 }
+                if (revealVotes)
+                    Column {
+                        list.sortedBy { !it.isOwner }.forEach {
+                            MemberListRow(user = it, isVoteVisible = true)
+                        }
+                    }
+                /**
+                 * todo this nesting is disallowed
+                 if(revealVotes)
+                 MemberList(userList = list, visibleVote = true)
+                 **/
             }
     }
 }
@@ -439,12 +459,19 @@ private fun BottomBarSuccess(
             modifier = Modifier
                 .weight(2f)
                 .alpha(if (state.config.isOwner) 1f else 0.3f),
-            enabled = state.config.isOwner && state.userList.any { it.vote != null },
+            enabled = state.config.isOwner,
             onClick = {
                 resetVote()
             }
         ) {
-            Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
+            Icon(
+                imageVector =
+                when (state.config.voteEnded) {
+                    true -> Icons.Default.Refresh
+                    false -> Icons.Default.Done
+                },
+                contentDescription = null
+            )
         }
         IconButton(
             modifier = Modifier.weight(1f),
@@ -496,6 +523,19 @@ private fun RoomScreenSettingsSheet(model: RoomViewModel) {
                         model.showVoteValues()
                     else
                         model.hideVoteValues()
+                }
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = stringResource(R.string.label_vote_autoreveal_setting))
+            Switch(
+                checked = config.autoRevealVotes,
+                onCheckedChange = {
+                    model.setAutoReveal(it)
                 }
             )
         }
@@ -563,6 +603,12 @@ private fun RoomScreenMemberListSheet(model: RoomViewModel) {
     if (modelState !is RoomUiState.Success)
         return
     val state = modelState as RoomUiState.Success
+
+    MemberList(userList = state.userList, visibleVote = state.config.alwaysVisibleVote)
+}
+
+@Composable
+private fun MemberList(userList: List<RoomUser>, visibleVote: Boolean) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -578,8 +624,8 @@ private fun RoomScreenMemberListSheet(model: RoomViewModel) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             content = {
-                items(state.userList.sortedBy { !it.isOwner }) { user ->
-                    MemberListRow(user = user, state.config.alwaysVisibleVote)
+                items(userList.sortedBy { !it.isOwner }) { user ->
+                    MemberListRow(user = user, visibleVote)
                 }
             }
         )
@@ -706,7 +752,7 @@ private fun RoomScreenShareSheet(roomName: String?, url: MultiUrl?, roomCode: St
             }
         }
 
-        if(false){
+        if (false) {
             Button(
                 modifier = Modifier
                     .fillMaxWidth()

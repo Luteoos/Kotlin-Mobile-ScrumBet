@@ -16,7 +16,7 @@ apply(from = "../ktlint.gradle")
 
 android {
     namespace = "dev.luteoos.scrumbet.android"
-    compileSdk = 33
+    compileSdk = 34
 
     lint {
         abortOnError = false
@@ -28,7 +28,7 @@ android {
         minSdk = 28
         targetSdk = 33
         versionCode = 11
-        versionName = "1.0.0"
+        versionName = "1.1.0"
     }
     signingConfigs {
         create("release") {
@@ -47,7 +47,7 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packagingOptions {
         resources {
@@ -70,10 +70,12 @@ android {
 
     productFlavors {
         create("localhost"){
+            versionNameSuffix = "-localhost"
             dimension = "environment"
             applicationIdSuffix = ".localhost"
         }
         create("azure"){
+            versionNameSuffix = "-azure"
             dimension = "environment"
             applicationIdSuffix = ".azure"
         }
@@ -87,7 +89,7 @@ android {
     kotlinOptions{
         freeCompilerArgs += listOf(
             "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=1.9.20"
         )
     }
 }

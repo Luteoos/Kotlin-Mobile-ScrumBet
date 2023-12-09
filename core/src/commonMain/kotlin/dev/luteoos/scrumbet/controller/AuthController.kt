@@ -58,7 +58,7 @@ class AuthController(
                         publish(KState.Error(AppException.GeneralException()))
                         return@combine
                     }
-                    if (version.version != appVersion) {
+                    if (version.version > appVersion) {
                         publish(KState.Success(AuthState.InvalidVersion))
                         return@combine
                     }

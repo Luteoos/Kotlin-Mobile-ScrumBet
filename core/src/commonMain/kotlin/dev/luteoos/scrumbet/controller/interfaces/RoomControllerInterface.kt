@@ -13,4 +13,6 @@ interface RoomControllerInterface : KControllerInterface<RoomData, AppException>
     fun disconnect()
 
     fun isSessionActive(): Boolean
+    fun setAutoRevealVotes(autoReveal: Boolean)
+    fun endVote()
 }

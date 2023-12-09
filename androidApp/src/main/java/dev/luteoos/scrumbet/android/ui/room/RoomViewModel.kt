@@ -56,12 +56,20 @@ class RoomViewModel(
         roomController.resetRoom()
     }
 
+    fun endVote() {
+        roomController.endVote()
+    }
+
     fun showVoteValues() {
         roomController.displayValues(true)
     }
 
     fun hideVoteValues() {
         roomController.displayValues(false)
+    }
+
+    fun setAutoReveal(value: Boolean) {
+        roomController.setAutoRevealVotes(value)
     }
 
     fun setScale(scale: String) {

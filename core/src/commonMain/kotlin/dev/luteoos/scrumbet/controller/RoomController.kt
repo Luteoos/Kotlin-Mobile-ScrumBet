@@ -102,7 +102,43 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                     senderId = userData.userId,
                     scaleType = configuration.scaleType,
                     anonymousVote = configuration.anonymousVote,
-                    alwaysVisibleVote = showValues
+                    alwaysVisibleVote = showValues,
+                    voteEnded = configuration.voteEnded,
+                    autoRevealVotes = configuration.autoRevealVotes
+                )
+            )
+        }
+    }
+
+    override fun setAutoRevealVotes(autoReveal: Boolean) {
+        val userData = sharedPreferences.getUserData() ?: return
+        val configuration = (state.value as? KState.Success<RoomData>)?.value?.configuration ?: return
+        kcontrollerScope.launchDefault {
+            repository.sendFrame(
+                RoomConfigOutgoingFrame(
+                    senderId = userData.userId,
+                    scaleType = configuration.scaleType,
+                    anonymousVote = configuration.anonymousVote,
+                    alwaysVisibleVote = configuration.alwaysVisibleVote,
+                    voteEnded = configuration.voteEnded,
+                    autoRevealVotes = autoReveal
+                )
+            )
+        }
+    }
+
+    override fun endVote() {
+        val userData = sharedPreferences.getUserData() ?: return
+        val configuration = (state.value as? KState.Success<RoomData>)?.value?.configuration ?: return
+        kcontrollerScope.launchDefault {
+            repository.sendFrame(
+                RoomConfigOutgoingFrame(
+                    senderId = userData.userId,
+                    scaleType = configuration.scaleType,
+                    anonymousVote = configuration.anonymousVote,
+                    alwaysVisibleVote = configuration.alwaysVisibleVote,
+                    voteEnded = true, // configuration.voteEnded,
+                    autoRevealVotes = configuration.autoRevealVotes
                 )
             )
         }
@@ -119,7 +155,9 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                     senderId = userData.userId,
                     scaleType = scale,
                     anonymousVote = configuration.anonymousVote,
-                    alwaysVisibleVote = configuration.alwaysVisibleVote
+                    alwaysVisibleVote = configuration.alwaysVisibleVote,
+                    voteEnded = false, // configuration.voteEnded,
+                    autoRevealVotes = configuration.autoRevealVotes
                 )
             )
         }
@@ -147,7 +185,8 @@ class RoomController(roomRepository: RoomRepository? = null, preferences: Shared
                 listOf("FIBONACCI", "HOURS"),
                 voteEnded = false,
                 anonymousVote = true,
-                alwaysVisibleVote = false
+                alwaysVisibleVote = false,
+                autoRevealVotes = true,
             ),
             listOf(
                 RoomUser(

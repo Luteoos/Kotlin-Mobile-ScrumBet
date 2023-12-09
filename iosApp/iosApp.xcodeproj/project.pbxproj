@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -888,7 +888,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -900,7 +900,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -915,7 +915,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -927,7 +927,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1000,12 +1000,12 @@
 		};
 		EE4569A22AD03860005FA98C /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70943D6973D9CA4335371981 /* Pods-iOS.release.xcconfig */;
+			baseConfigurationReference = 7151BEE9263DA6A96B76A991 /* Pods-iOS.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -1017,7 +1017,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1028,7 +1028,7 @@
 		};
 		EE4569A32AD03860005FA98C /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EE22F6E3E9A7860BBA079FC /* Pods-macOs.release.xcconfig */;
+			baseConfigurationReference = 1CFA594AF907545C405D2A49 /* Pods-macOs.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Secondary;
@@ -1143,7 +1143,7 @@
 		};
 		EEBF92D72A43550A003C21BA /* Azure */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC4C4A93C106B25348968473 /* Pods-iOS.debug.xcconfig */;
+			baseConfigurationReference = BE6FD5403D81DCF7C428A5AC /* Pods-macOs.azure.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Secondary;
@@ -1243,11 +1243,11 @@
 		};
 		EEDCC67E2A37378B007C3274 /* Azure */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC4C4A93C106B25348968473 /* Pods-iOS.debug.xcconfig */;
+			baseConfigurationReference = 8562A76FAE0D6742B5F5852A /* Pods-iOS.azure.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = F7C683AB96;
 				ENABLE_PREVIEWS = YES;
@@ -1259,7 +1259,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.luteoos.scrumbet;
 				PRODUCT_NAME = "$(APP_NAME)";
 				SWIFT_VERSION = 5.0;

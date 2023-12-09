@@ -6,7 +6,7 @@ plugins {
 apply(from = "../ktlint.gradle")
 
 android {
-    compileSdk = 32
+    compileSdk = 34
     buildToolsVersion = "30.0.3"
 
     defaultConfig {

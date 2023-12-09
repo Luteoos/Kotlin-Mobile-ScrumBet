@@ -43,4 +43,5 @@
     <string name="label_enter_room_name">Enter room code</string>
     <string name="label_vote_visible_setting">Visible casted votes</string>
     <string name="label_open_in_google_play">Open ScrumHub on Google Play</string>
+    <string name="label_vote_autoreveal_setting">Auto-reveal votes</string>
 </resources>

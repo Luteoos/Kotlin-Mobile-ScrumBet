@@ -12,5 +12,7 @@ data class RoomConfigIncomingFrame(
     val scaleTypeList: List<String>,
     val roomCode: String,
     val anonymousVote: Boolean,
-    val alwaysVisibleVote: Boolean
+    val alwaysVisibleVote: Boolean,
+    val voteEnded: Boolean = false,
+    val autoRevealVotes: Boolean = true
 )

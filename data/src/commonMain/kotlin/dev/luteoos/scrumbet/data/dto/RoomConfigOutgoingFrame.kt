@@ -8,5 +8,7 @@ data class RoomConfigOutgoingFrame(
     val senderId: String,
     val scaleType: String,
     val anonymousVote: Boolean,
-    val alwaysVisibleVote: Boolean
+    val alwaysVisibleVote: Boolean,
+    val voteEnded: Boolean,
+    val autoRevealVotes: Boolean
 )

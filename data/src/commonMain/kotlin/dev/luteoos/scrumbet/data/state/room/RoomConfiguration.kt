@@ -11,5 +11,6 @@ data class RoomConfiguration(
     val scaleTypeList: List<String>,
     val voteEnded: Boolean,
     val anonymousVote: Boolean,
-    val alwaysVisibleVote: Boolean
+    val alwaysVisibleVote: Boolean,
+    val autoRevealVotes: Boolean
 )

@@ -1,7 +1,5 @@
 package dev.luteoos.scrumbet.android.ui.update
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
@@ -14,14 +12,15 @@ class UpdateViewModel(private val appUpdateManager: AppUpdateManager, val appSto
         appUpdateManager
             .appUpdateInfo
             .addOnSuccessListener { appUpdateInfo ->
-                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                    appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
                 ) {
                     appUpdateManager.startUpdateFlowForResult(
                         appUpdateInfo,
                         activity,
                         AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build(),
-                        activity.appUpdateRequestCode)
+                        activity.appUpdateRequestCode
+                    )
                 }
             }
     }

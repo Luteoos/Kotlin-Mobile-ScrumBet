@@ -19,12 +19,17 @@ class RoomDataMapper {
 
     fun toRoomData(frame: RoomStateFrame, userId: Id, baseUrl: String, roomId: String): RoomData {
         return RoomData(
-            configuration = toRoomConfiguration(frame.config, userId, MultiUrl("${baseUrl.split(":").first()}/$roomId")),
+            configuration = toRoomConfiguration(
+                frame.config,
+                userId,
+                MultiUrl("${baseUrl.split(":").first()}/$roomId"),
+                allVoted = frame.list.all { it.vote != null }
+            ),
             voteList = frame.list.map { toRoomUser(it, frame.config.roomOwnerId) }
         )
     }
 
-    private fun toRoomConfiguration(frame: RoomConfigIncomingFrame, userId: Id, url: MultiUrl): RoomConfiguration {
+    private fun toRoomConfiguration(frame: RoomConfigIncomingFrame, userId: Id, url: MultiUrl, allVoted: Boolean): RoomConfiguration {
         return RoomConfiguration(
             url,
             frame.roomCode,
@@ -32,9 +37,10 @@ class RoomDataMapper {
             frame.scaleList,
             frame.scaleType,
             frame.scaleTypeList,
-            false,
+            frame.voteEnded || allVoted,
             frame.anonymousVote,
-            frame.alwaysVisibleVote
+            frame.alwaysVisibleVote,
+            frame.autoRevealVotes
         )
     }
 
