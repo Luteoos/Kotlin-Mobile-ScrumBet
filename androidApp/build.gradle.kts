@@ -27,7 +27,7 @@ android {
         applicationId = "dev.luteoos.scrumbet"
         minSdk = 28
         targetSdk = 33
-        versionCode = 11
+        versionCode = 12
         versionName = "1.1.0"
     }
     signingConfigs {
