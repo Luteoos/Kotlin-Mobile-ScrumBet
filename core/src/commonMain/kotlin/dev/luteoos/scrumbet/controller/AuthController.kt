@@ -9,7 +9,7 @@ import dev.luteoos.scrumbet.data.state.UserData
 import dev.luteoos.scrumbet.domain.repository.interfaces.ServerRepository
 import dev.luteoos.scrumbet.preferences.SharedPreferences
 import dev.luteoos.scrumbet.shared.Log
-import dev.luteoos.scrumbet.shared.PlatformBuildConfig
+import dev.luteoos.scrumbet.shared.PlatformBuildConfigInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -21,12 +21,12 @@ import org.koin.core.qualifier.named
 class AuthController(
     preferences: SharedPreferences? = null,
     serverRepository: ServerRepository? = null,
-    buildConfig: PlatformBuildConfig? = null,
+    buildConfig: PlatformBuildConfigInterface? = null,
     applicationVersion: String? = null
 ) : KController<AuthState, AppException>(), AuthControllerInterface {
     private val preferences: SharedPreferences
     private val repository: ServerRepository
-    private val buildConfig: PlatformBuildConfig
+    private val buildConfig: PlatformBuildConfigInterface
     private val appVersion: String
     private val roomIdFlow: MutableStateFlow<String?> = MutableStateFlow(null)
 

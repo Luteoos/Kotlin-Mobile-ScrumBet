@@ -11,6 +11,7 @@ import dev.luteoos.scrumbet.preferences.SharedPreferences
 import dev.luteoos.scrumbet.preferences.SharedPreferencesImpl
 import dev.luteoos.scrumbet.shared.DeviceData
 import dev.luteoos.scrumbet.shared.PlatformBuildConfig
+import dev.luteoos.scrumbet.shared.PlatformBuildConfigInterface
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -27,7 +28,7 @@ val coreModule = module {
     single(named("APP_STORE_URL")) { PlatformBuildConfig.getAppStoreUrl() }
     single(named("BASE_URL")) { PlatformBuildConfig.getBaseUrl() }
     single(named("SSL_PREFIX")) { BuildKonfig.sslPrefix }
-    single { PlatformBuildConfig }
+    single<PlatformBuildConfigInterface> { PlatformBuildConfig }
 
     factory(named("BASE_WS_URL")) { PlatformBuildConfig.getBaseWsUrl() }
 }

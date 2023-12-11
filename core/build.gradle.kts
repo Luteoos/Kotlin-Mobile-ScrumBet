@@ -120,6 +120,13 @@ kotlin {
                 implementation(Dependencies.timber)
             }
         }
+        val androidUnitTest by getting {
+            dependencies{
+                implementation(kotlin("test"))
+                implementation("org.mockito:mockito-core:4.5.1")
+                implementation(Dependencies.kotlinCoroutinesTest)
+            }
+        }
 //        val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
