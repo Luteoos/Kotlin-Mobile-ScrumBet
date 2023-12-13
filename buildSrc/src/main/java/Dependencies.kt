@@ -55,6 +55,9 @@ object Dependencies {
     const val ktorCio = "io.ktor:ktor-client-cio:${Versions.ktor}"
 
     //iOS pods
+
+    // Android Unit Tests
+    const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.2"
 }
 
 object Versions {
