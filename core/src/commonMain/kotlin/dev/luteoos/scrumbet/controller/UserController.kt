@@ -42,11 +42,6 @@ class UserController(preferences: SharedPreferences? = null, deviceData: DeviceD
         getUserData()
     }
 
-    fun test(): String {
-//        return preferences.toString()
-        return id ?: "none"
-    }
-
     private fun getUserData() {
         preferences.getUserData().let { user ->
             if (user == null) {
