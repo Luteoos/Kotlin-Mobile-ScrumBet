@@ -1,5 +1,9 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
+import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version Versions.kotlin
@@ -17,7 +21,12 @@ buildkonfig {
     // gradlew generatebuildkonfig
     packageName = "dev.luteoos.scrumbet"
 
+
+    val localProperties = Properties()
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
+
     defaultConfigs{
+        buildConfigField(STRING, "osAppId", localProperties["ONESIGNAL_APP_ID"].toString(), const = true)
         buildConfigField(STRING, "appVersion", "0.4", const = true)
         buildConfigField(STRING, "sslPrefix", "http://", const = true)
     }
