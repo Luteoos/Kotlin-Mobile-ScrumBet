@@ -2,7 +2,7 @@ package dev.luteoos.scrumbet.shared
 
 import dev.luteoos.scrumbet.BuildConfig
 
-actual object PlatformBuildConfig : WebSocketBuildConfig(), PlatformBuildConfigInterface {
+actual object PlatformBuildConfig : AbstractBuildConfig(), PlatformBuildConfigInterface {
     actual override fun getBaseUrl(): String {
         return BuildConfig.BASE_URL
     }

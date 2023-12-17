@@ -134,5 +134,9 @@ dependencies {
     implementation(Dependencies.appUpdate)
     implementation(Dependencies.appUpdateKtx)
 
+    // OneSignal
+    implementation("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
+
     implementation("com.github.tehras:charts:0.2.4-alpha")
+
 }

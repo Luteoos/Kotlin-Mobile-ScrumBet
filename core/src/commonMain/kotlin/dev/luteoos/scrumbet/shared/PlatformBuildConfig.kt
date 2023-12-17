@@ -1,5 +1,7 @@
 package dev.luteoos.scrumbet.shared
 
+import dev.luteoos.scrumbet.BuildKonfig
+
 interface PlatformBuildConfigInterface {
     fun getBaseUrl(): String
 
@@ -8,13 +10,13 @@ interface PlatformBuildConfigInterface {
     fun setBaseWebSocketUrl(url: String)
 }
 
-expect object PlatformBuildConfig : WebSocketBuildConfig, PlatformBuildConfigInterface {
+expect object PlatformBuildConfig : AbstractBuildConfig, PlatformBuildConfigInterface {
     override fun getBaseUrl(): String
 
     override fun getAppStoreUrl(): String
 }
 
-abstract class WebSocketBuildConfig() {
+abstract class AbstractBuildConfig {
     private var baseWsUrl = "<empty>"
 
     fun setBaseWebSocketUrl(url: String) {
@@ -22,4 +24,6 @@ abstract class WebSocketBuildConfig() {
     }
 
     fun getBaseWsUrl() = baseWsUrl
+
+    fun getOneSignalAppId() = BuildKonfig.osAppId // todo might not be best solution
 }

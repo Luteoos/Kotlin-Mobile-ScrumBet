@@ -6,11 +6,17 @@ import android.util.Log
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
+import com.onesignal.OneSignal
+import com.onesignal.debug.LogLevel
 import dev.luteoos.scrumbet.android.di.uiModule
 import dev.luteoos.scrumbet.android.di.viewModelModule
 import dev.luteoos.scrumbet.core.initKoin
 import dev.luteoos.scrumbet.di.coreModule
 import dev.luteoos.scrumbet.preferences.SharedPreferences
+import dev.luteoos.scrumbet.shared.PlatformBuildConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.BuildConfig
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
@@ -38,23 +44,22 @@ class MainApplication : Application() {
         Timber.plant(FirebaseTree(userAnalyticsId))
         if (BuildConfig.DEBUG)
             initDebugStuff()
+        initOneSignal(PlatformBuildConfig.getOneSignalAppId(), externalAnalyticsId = userAnalyticsId)
 //        if (DynamicColors.isDynamicColorAvailable())
 //            DynamicColors.applyToActivitiesIfAvailable(this) // MaterialYou
-//        initKoin {
-//            if (BuildConfig.DEBUG)
-//                androidLogger(Level.ERROR)
-//            androidContext(this@MainApplication)
-//            modules(
-//                listOf(
-//                    viewModelsModule,
-//                    appModule,
-//                    useCaseModule,
-//                    uiModule,
-//                    dataModule,
-//                    repositoryModule
-//                )
-//            )
-//        }
+    }
+
+    private fun initOneSignal(appId: String, externalAnalyticsId: String) {
+        // Verbose Logging set to help debug issues, remove before releasing your app.
+        if (dev.luteoos.scrumbet.android.BuildConfig.DEBUG)
+            OneSignal.Debug.logLevel = LogLevel.VERBOSE
+        else
+            OneSignal.Debug.logLevel = LogLevel.NONE
+        OneSignal.initWithContext(this, appId)
+        OneSignal.login(externalAnalyticsId)
+        CoroutineScope(Dispatchers.IO).launch {
+            OneSignal.Notifications.requestPermission(true)
+        }
     }
 
     private fun initDebugStuff() {

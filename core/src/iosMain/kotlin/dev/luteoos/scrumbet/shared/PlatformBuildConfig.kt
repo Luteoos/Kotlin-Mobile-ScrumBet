@@ -2,7 +2,7 @@ package dev.luteoos.scrumbet.shared
 
 import platform.Foundation.NSBundle
 
-actual object PlatformBuildConfig : WebSocketBuildConfig(), PlatformBuildConfigInterface {
+actual object PlatformBuildConfig : AbstractBuildConfig(), PlatformBuildConfigInterface {
     actual override fun getBaseUrl(): String {
         return (NSBundle.mainBundle.infoDictionary?.get("API_BASE_URL") ?: "NO-API-BASE-URL").toString()
     }
