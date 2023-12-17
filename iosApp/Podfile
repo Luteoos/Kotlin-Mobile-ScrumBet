@@ -6,6 +6,8 @@ target 'iOS' do
   pod 'FirebaseAnalytics'
   pod 'FirebaseCrashlytics'
   pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.7' # rework resource bundling
+  pod 'OneSignal/OneSignal', '>= 5.0.0', '< 6.0'
+  pod 'OneSignal/OneSignalInAppMessages', '>= 5.0.0', '< 6.0'
 end
 
 target 'macOs' do
@@ -17,4 +19,11 @@ target 'macOs' do
 #  pod 'FirebaseAnalytics'
 #  pod 'FirebaseCrashlytics'
 #  pod 'CodeScanner', :git => 'https://github.com/Luteoos/CodeScanner.git', :tag => '2.3.7' # rework resource bundling
+end
+
+target 'OneSignalNotificationServiceExtension' do
+  use_frameworks! #:linkage => :static
+  platform :ios, '14.1'
+  pod 'OneSignal/OneSignal', '>= 5.0.0', '< 6.0'
+  pod 'OneSignal/OneSignalInAppMessages', '>= 5.0.0', '< 6.0'
 end

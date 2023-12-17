@@ -12,3 +12,11 @@ ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework
 ${PODS_ROOT}/../../core/build/cocoapods/framework/core.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignal/OneSignalFramework.framework/OneSignalFramework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalCore/OneSignalCore.framework/OneSignalCore
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalExtension/OneSignalExtension.framework/OneSignalExtension
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalInAppMessages/OneSignalInAppMessages.framework/OneSignalInAppMessages
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalNotifications/OneSignalNotifications.framework/OneSignalNotifications
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalOSCore/OneSignalOSCore.framework/OneSignalOSCore
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalOutcomes/OneSignalOutcomes.framework/OneSignalOutcomes
+${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignal/OneSignalUser/OneSignalUser.framework/OneSignalUser

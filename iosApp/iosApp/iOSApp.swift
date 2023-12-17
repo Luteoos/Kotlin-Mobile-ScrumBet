@@ -4,6 +4,7 @@ import SwiftUI
     import FirebaseAnalytics
     import FirebaseCore
     import AppTrackingTransparency
+    import OneSignalFramework
 #endif
 
 @main
@@ -99,7 +100,20 @@ struct iOSApp: App {
             launchOptions?.forEach { (key: UIApplication.LaunchOptionsKey, value: Any) in
                 print(key.rawValue, value)
             }
+            initOneSignal(launchOptions: launchOptions)
             return true
+        }
+        
+        private func initOneSignal(launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+            #if DEBUG
+                OneSignal.Debug.setLogLevel(.LL_VERBOSE)
+            #endif
+            // OneSignal initialization
+            OneSignal.initialize(PlatformBuildConfig.shared.getOneSignalAppId(), withLaunchOptions: launchOptions)
+            OneSignal.Notifications.requestPermission({ accepted in
+              print("User accepted notifications: \(accepted)")
+            }, fallbackToSettings: true)
+            OneSignal.login(SharedPreferencesImpl().getUserAnalyticsId())
         }
         
         // not used
