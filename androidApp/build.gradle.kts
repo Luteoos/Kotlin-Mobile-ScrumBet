@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId = "dev.luteoos.scrumbet"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 12
         versionName = "1.1.0"
     }
